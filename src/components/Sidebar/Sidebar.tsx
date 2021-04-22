@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
 import styled from 'styled-components';
+import firebase from './../../firebase';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Wrapper = styled.nav`
 	grid-column: 3/4;
@@ -16,9 +19,23 @@ const Wrapper = styled.nav`
 `;
 
 const Sidebar: React.FC = () => {
+	const x = useContext(AuthContext);
+	const handleAuth = () => {
+		if (x.authenticated) {
+			firebase.auth().signOut();
+		} else {
+			const provider = new firebase.auth.GoogleAuthProvider();
+			firebase.auth().signInWithPopup(provider);
+		}
+		console.log(x);
+		return;
+	};
 	return (
 		<Wrapper>
-			<AccountCircleIcon style={{ fontSize: '49px' }} />
+			<AccountCircleIcon
+				style={{ fontSize: '49px' }}
+				onClick={handleAuth}
+			/>
 			<SettingsIcon style={{ fontSize: '49px' }} />
 		</Wrapper>
 	);

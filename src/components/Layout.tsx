@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
+import { AuthContext } from '../contexts/AuthProvider';
 
 // Component imports
 import CategorySelector from './Category Selector/CategorySelector';
@@ -22,15 +23,18 @@ const Layout = () => {
 	const [currentCategory, setCurrentCategory] = useState('transport');
 
 	return (
-		<Wrapper>
-			<Logo />
-			<Sidebar />
-			<CategorySelector
-				currentCategory={currentCategory}
-				setCurrentCategory={setCurrentCategory}
-			/>
-			<DetailsPanel currentCategory={currentCategory} />
-		</Wrapper>
+		<>
+			<Wrapper>
+				<Logo />
+				<Sidebar />
+				<CategorySelector
+					currentCategory={currentCategory}
+					setCurrentCategory={setCurrentCategory}
+				/>
+				<DetailsPanel currentCategory={currentCategory} />
+			</Wrapper>
+			{JSON.stringify(useContext(AuthContext))}
+		</>
 	);
 };
 
