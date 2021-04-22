@@ -24,27 +24,22 @@ const Wrapper = styled.div`
 	display: flex;
 	align-items: center;
 	transition: all 0.5s;
+	cursor: pointer;
 `;
 
 const ListElement = ({
 	isHovered,
 	emoji,
 	content,
+	setCurrentCategory,
 }: {
 	isHovered: boolean;
 	emoji: React.ReactElement;
 	content: string;
+	setCurrentCategory: Function;
 }) => {
-	if (!isHovered) {
-		return (
-			<Wrapper>
-				<ColorSquare>{emoji}</ColorSquare>
-				<StyledLi style={{ color: 'transparent' }}>{content}</StyledLi>
-			</Wrapper>
-		);
-	}
 	return (
-		<Wrapper>
+		<Wrapper onClick={() => setCurrentCategory()}>
 			<ColorSquare>{emoji}</ColorSquare>
 			<StyledLi>{content}</StyledLi>
 		</Wrapper>

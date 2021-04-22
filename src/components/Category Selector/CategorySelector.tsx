@@ -18,7 +18,13 @@ const StyledList = styled.ul`
 	flex-direction: column;
 `;
 
-const CategorySelector: React.FC = () => {
+const CategorySelector = ({
+	currentCategory,
+	setCurrentCategory,
+}: {
+	currentCategory: string;
+	setCurrentCategory: Function;
+}) => {
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -35,6 +41,7 @@ const CategorySelector: React.FC = () => {
 						/>
 					}
 					content="Transport"
+					setCurrentCategory={() => setCurrentCategory('transport')}
 				/>
 				<ListElement
 					isHovered={isHovered}
@@ -44,11 +51,15 @@ const CategorySelector: React.FC = () => {
 						/>
 					}
 					content="Accommodation"
+					setCurrentCategory={() =>
+						setCurrentCategory('accommodation')
+					}
 				/>
 				{/* <StyledLi>Accommodation</StyledLi>
 				<StyledLi>Entertainment</StyledLi>
 				<StyledLi>Public Transport</StyledLi>
 				<StyledLi>Food</StyledLi> */}
+				{currentCategory}
 			</StyledList>
 		</Wrapper>
 	);

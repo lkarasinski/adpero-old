@@ -7,12 +7,9 @@ const Wrapper = styled.nav`
 	grid-column: 3/4;
 	grid-row: 1/3;
 
-	/* border: 1px solid black; */
-
 	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-	align-items: flex-end;
+	flex-direction: row;
+	justify-content: flex-end;
 	gap: 1rem;
 
 	margin: 25px;

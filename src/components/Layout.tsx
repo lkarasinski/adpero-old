@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // Component imports
@@ -18,13 +18,18 @@ const Wrapper = styled.div`
 `;
 
 // Main component
-const Layout: React.FC = () => {
+const Layout = () => {
+	const [currentCategory, setCurrentCategory] = useState('transport');
+
 	return (
 		<Wrapper>
 			<Logo />
 			<Sidebar />
-			<CategorySelector />
-			<DetailsPanel />
+			<CategorySelector
+				currentCategory={currentCategory}
+				setCurrentCategory={setCurrentCategory}
+			/>
+			<DetailsPanel currentCategory={currentCategory} />
 		</Wrapper>
 	);
 };
