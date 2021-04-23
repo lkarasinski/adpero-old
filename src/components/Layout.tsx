@@ -33,7 +33,6 @@ const Layout = () => {
 				/>
 				<DetailsPanel currentCategory={currentCategory} />
 			</Wrapper>
-			{JSON.stringify(useContext(AuthContext))}
 		</>
 	);
 };

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import styled from 'styled-components';
 import firebase from './../../firebase';
@@ -20,20 +20,26 @@ const Wrapper = styled.nav`
 
 const Sidebar: React.FC = () => {
 	const x = useContext(AuthContext);
+	const [color, setColor] = useState(x ? 'blue' : 'black');
 	const handleAuth = () => {
 		if (x.authenticated) {
 			firebase.auth().signOut();
+			setColor('black');
 		} else {
 			const provider = new firebase.auth.GoogleAuthProvider();
-			firebase.auth().signInWithPopup(provider);
+			firebase
+				.auth()
+				.signInWithPopup(provider)
+				.then(() => {
+					setColor('blue');
+				});
 		}
-		console.log(x);
 		return;
 	};
 	return (
 		<Wrapper>
 			<AccountCircleIcon
-				style={{ fontSize: '49px' }}
+				style={{ fontSize: '49px', color: color }}
 				onClick={handleAuth}
 			/>
 			<SettingsIcon style={{ fontSize: '49px' }} />
