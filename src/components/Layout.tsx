@@ -1,6 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { AuthContext } from '../contexts/AuthProvider';
 
 // Component imports
 import CategorySelector from './Category Selector/CategorySelector';

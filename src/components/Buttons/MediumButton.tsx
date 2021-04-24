@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-	/* all: unset; */
 	background-color: #6730cf;
 	color: white;
 	margin: 4rem;
