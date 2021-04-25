@@ -27,6 +27,8 @@ const CategorySelector = ({
 }) => {
 	const [isHovered, setIsHovered] = useState(false);
 
+	//TODO: Get category last worked on from firebase
+
 	return (
 		<Wrapper>
 			<StyledList
@@ -55,11 +57,6 @@ const CategorySelector = ({
 						setCurrentCategory('accommodation')
 					}
 				/>
-				{/* <StyledLi>Accommodation</StyledLi>
-				<StyledLi>Entertainment</StyledLi>
-				<StyledLi>Public Transport</StyledLi>
-				<StyledLi>Food</StyledLi> */}
-				{currentCategory}
 			</StyledList>
 		</Wrapper>
 	);

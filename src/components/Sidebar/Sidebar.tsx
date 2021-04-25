@@ -20,7 +20,7 @@ const Wrapper = styled.nav`
 
 const Sidebar: React.FC = () => {
 	const x = useContext(AuthContext);
-	const [color, setColor] = useState(x ? 'blue' : 'black');
+	const [color, setColor] = useState(x ? '#6730cf' : 'black');
 	const handleAuth = () => {
 		if (x.authenticated) {
 			firebase.auth().signOut();

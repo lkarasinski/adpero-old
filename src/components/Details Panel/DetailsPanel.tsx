@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import _ from 'lodash';
+import { Field, Formik } from 'formik';
 
 import MediumButton from '../Buttons/MediumButton';
 
@@ -32,10 +33,10 @@ const StyledInput = styled.input`
 	width: 300px;
 
 	font-size: 1em;
+	font-weight: bold;
 
 	&::placeholder {
 		color: #626262;
-		font-weight: bold;
 	}
 `;
 
@@ -61,28 +62,62 @@ const InputGrid = styled.div`
 `;
 
 const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
-	let arr = [''];
-	if (currentCategory === 'transport') {
-		arr = categories.transport;
-	} else if (currentCategory === 'accommodation') {
-		arr = categories.accommodation;
-	}
+	let initial: any = {};
+	let arr = useRef(['']);
+	const [detailsArray, setDetailsArray] = useState(['']);
+	useEffect(() => {
+		//TODO: Make this not that ugly
+		if (currentCategory === 'transport') {
+			arr.current = categories.transport;
+			setDetailsArray(categories.transport);
+		} else if (currentCategory === 'accommodation') {
+			arr.current = categories.accommodation;
+			setDetailsArray(categories.accommodation);
+		} else {
+			setDetailsArray(categories.transport);
+			arr.current = categories.transport;
+		}
+
+		// TODO: Get initial state from firebase
+		if (detailsArray.length > 1) {
+			for (const element of detailsArray) {
+				initial[_.camelCase(`${currentCategory}-${element}`)] = '';
+			}
+		}
+	}, [currentCategory, arr]);
 
 	return (
 		<Wrapper>
 			<CategoryHeading>{_.startCase(currentCategory)}</CategoryHeading>
-			<StyledForm>
-				<InputGrid>
-					{arr.map((x, id) => (
-						<StyledInput
-							type="text"
-							key={id}
-							placeholder={_.startCase(x)}
-						></StyledInput>
-					))}
-				</InputGrid>
-				<MediumButton>Confirm</MediumButton>
-			</StyledForm>
+			<Formik
+				initialValues={initial}
+				onSubmit={(values) => {
+					console.log(values);
+				}}
+			>
+				{({ values, handleSubmit }) => (
+					<StyledForm onSubmit={handleSubmit}>
+						<InputGrid>
+							{detailsArray.map((x, id) => (
+								<StyledInput
+									as={Field}
+									type="text"
+									name={_.camelCase(
+										`${currentCategory}-${x}`
+									)}
+									key={
+										_.camelCase(`${currentCategory}-${x}`) +
+										id
+									}
+									placeholder={_.startCase(x)}
+								/>
+							))}
+						</InputGrid>
+						<MediumButton type="submit">Confirm</MediumButton>
+						<pre>{JSON.stringify(values, null, 2)}</pre>
+					</StyledForm>
+				)}
+			</Formik>
 		</Wrapper>
 	);
 };

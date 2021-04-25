@@ -24,7 +24,9 @@ const StyledButton = styled.button`
 
 const MediumButton = ({ ...props }) => {
 	return (
-		<StyledButton onClick={props.onClick}>{props.children}</StyledButton>
+		<StyledButton onClick={props.onClick} {...props}>
+			{props.children}
+		</StyledButton>
 	);
 };
 
