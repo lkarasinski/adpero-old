@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const Wrapper = styled.header`
 	display: grid;
 	place-items: center;
-
 	font-size: 36px;
 	font-weight: bold;
 

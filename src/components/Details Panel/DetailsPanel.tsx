@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import styled from 'styled-components';
 import _ from 'lodash';
 import { Field, Formik } from 'formik';
+import firebase from '../../firebase';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 import MediumButton from '../Buttons/MediumButton';
 
@@ -65,6 +67,44 @@ const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
 	let initial: any = {};
 	let arr = useRef(['']);
 	const [detailsArray, setDetailsArray] = useState(['']);
+	const auth = useContext(AuthContext);
+	const usersRef = firebase.firestore().collection('users');
+
+	const sendDataToFirebase = async (data: Object) => {
+		if (auth.authenticated) {
+			const userEmail = auth?.user?.email;
+			if (userEmail) {
+				const userDocRef = usersRef.doc(userEmail);
+				const copy: any = (await userDocRef.get()).data();
+				const array = copy.categories.push(data);
+				userDocRef.update({ ...copy, array });
+			}
+		}
+	};
+
+	const checkForNewUser = async () => {
+		const user = auth?.user?.displayName;
+		const mail = auth?.user?.email;
+		if (mail) {
+			usersRef
+				.doc(mail)
+				.get()
+				.then((doc) => {
+					if (!doc.exists) {
+						usersRef
+							.doc(mail)
+							.set({
+								name: user,
+								categories: [],
+							})
+							.catch((err) => {
+								console.log(err);
+							});
+					}
+				});
+		}
+	};
+
 	useEffect(() => {
 		//TODO: Make this not that ugly
 		if (currentCategory === 'transport') {
@@ -78,13 +118,15 @@ const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
 			arr.current = categories.transport;
 		}
 
-		// TODO: Get initial state from firebase
-		if (detailsArray.length > 1) {
-			for (const element of detailsArray) {
-				initial[_.camelCase(`${currentCategory}-${element}`)] = '';
-			}
-		}
+		/* 
+		 TODO 
+		 Get initial state from firebase, initial values appear only if their content isn't a empty
+		*/
 	}, [currentCategory, arr]);
+
+	useEffect(() => {
+		checkForNewUser();
+	}, [auth]);
 
 	return (
 		<Wrapper>
@@ -93,6 +135,8 @@ const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
 				initialValues={initial}
 				onSubmit={(values) => {
 					console.log(values);
+
+					sendDataToFirebase(values);
 				}}
 			>
 				{({ values, handleSubmit }) => (

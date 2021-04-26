@@ -1,6 +1,8 @@
 import firebase from 'firebase/app';
+// import {doc, setDoc} from "firebase/firestore"
 // Required for fixing import issue with firebase/auth
 require('firebase/auth');
+require('firebase/firestore');
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyA3Jczs7ht_gFUrZIB0jbn74jQZPoybNWc',
