@@ -65,7 +65,6 @@ const InputGrid = styled.div`
 
 const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
 	let initial: any = {};
-	let arr = useRef(['']);
 	const [detailsArray, setDetailsArray] = useState(['']);
 	const auth = useContext(AuthContext);
 	const usersRef = firebase.firestore().collection('users');
@@ -106,23 +105,13 @@ const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
 	};
 
 	useEffect(() => {
-		//TODO: Make this not that ugly
-		if (currentCategory === 'transport') {
-			arr.current = categories.transport;
-			setDetailsArray(categories.transport);
-		} else if (currentCategory === 'accommodation') {
-			arr.current = categories.accommodation;
-			setDetailsArray(categories.accommodation);
-		} else {
-			setDetailsArray(categories.transport);
-			arr.current = categories.transport;
-		}
+		setDetailsArray(categories[currentCategory]);
 
 		/* 
 		 TODO 
 		 Get initial state from firebase, initial values appear only if their content isn't a empty
 		*/
-	}, [currentCategory, arr]);
+	}, [currentCategory]);
 
 	useEffect(() => {
 		checkForNewUser();

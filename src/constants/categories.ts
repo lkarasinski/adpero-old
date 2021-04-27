@@ -1,4 +1,8 @@
-const categories = {
+interface ICategories {
+	[key: string]: string[];
+}
+
+const categories: ICategories = {
 	transport: [
 		'from',
 		'to',
