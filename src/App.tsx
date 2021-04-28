@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 import { AuthProvider } from './contexts/AuthProvider';
 import './fonts.css';
 
-import Layout from './components/Layout';
+import Layout from './components/Layout/Layout';
 
 const GlobalStyles = createGlobalStyle`
 	*{

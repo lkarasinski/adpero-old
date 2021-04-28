@@ -57,6 +57,22 @@ const CategorySelector = ({
 						setCurrentCategory('accommodation')
 					}
 				/>
+				<ListElement
+					isHovered={isHovered}
+					emoji={<div>:)</div>}
+					content="Entertainment"
+					setCurrentCategory={() =>
+						setCurrentCategory('entertainment')
+					}
+				/>
+				<ListElement
+					isHovered={isHovered}
+					emoji={<div>:] </div>}
+					content="Public Transport"
+					setCurrentCategory={() =>
+						setCurrentCategory('publicTransport')
+					}
+				/>
 			</StyledList>
 		</Wrapper>
 	);

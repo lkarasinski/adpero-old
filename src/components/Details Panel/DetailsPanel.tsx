@@ -82,18 +82,18 @@ const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
 	};
 
 	const checkForNewUser = async () => {
-		const user = auth?.user?.displayName;
-		const mail = auth?.user?.email;
-		if (mail) {
+		const userName = auth?.user?.displayName;
+		const userEmail = auth?.user?.email;
+		if (userEmail) {
 			usersRef
-				.doc(mail)
+				.doc(userEmail)
 				.get()
 				.then((doc) => {
 					if (!doc.exists) {
 						usersRef
-							.doc(mail)
+							.doc(userEmail)
 							.set({
-								name: user,
+								name: userName,
 								categories: [],
 							})
 							.catch((err) => {
@@ -104,13 +104,13 @@ const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
 		}
 	};
 
+	/* 
+	 TODO 
+	 Get initial state from firebase, initial values appear only if their content isn't a empty
+	*/
+
 	useEffect(() => {
 		setDetailsArray(categories[currentCategory]);
-
-		/* 
-		 TODO 
-		 Get initial state from firebase, initial values appear only if their content isn't a empty
-		*/
 	}, [currentCategory]);
 
 	useEffect(() => {
