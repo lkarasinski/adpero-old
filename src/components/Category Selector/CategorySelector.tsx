@@ -14,8 +14,8 @@ const Wrapper = styled.div`
 const StyledList = styled.ul`
 	margin-left: 40px;
 	gap: 1rem;
-	display: flex;
-	flex-direction: column;
+	display: grid;
+	/* flex-direction: column; */
 `;
 
 const CategorySelector = ({

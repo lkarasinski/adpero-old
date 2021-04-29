@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import AuthContext from '../../../contexts/AuthProvider';
 import firebase from '../../../firebase';
 
+import JourneyPanel from './JourneyPanel';
+
 const Wrapper = styled.div``;
 
 const JourneyList = () => {
@@ -27,7 +29,7 @@ const JourneyList = () => {
 		<Wrapper>
 			<div>Twoje plany: </div>
 			{content.map((x) => (
-				<div key={x}>{x}</div>
+				<JourneyPanel key={x}>{x}</JourneyPanel>
 			))}
 		</Wrapper>
 	);
