@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import _ from 'lodash';
 import { Field, Formik } from 'formik';
 import firebase from '../../firebase';
-import { AuthContext } from '../../contexts/AuthProvider';
+import AuthContext from '../../contexts/AuthProvider';
 
 import MediumButton from '../Buttons/MediumButton';
 
@@ -115,6 +115,7 @@ const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
 
 	useEffect(() => {
 		checkForNewUser();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [auth]);
 
 	return (

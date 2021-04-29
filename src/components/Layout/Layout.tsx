@@ -6,7 +6,7 @@ import CategorySelector from '../Category Selector/CategorySelector';
 import DetailsPanel from '../Details Panel/DetailsPanel';
 import Logo from '../Logo/Logo';
 import Sidebar from '../Sidebar/Sidebar';
-import LandingPage from './LandingPage';
+import LandingPage from './Landing Page/LandingPage';
 
 // Styled components
 const Wrapper = styled.div`
@@ -21,7 +21,7 @@ const Wrapper = styled.div`
 // Main component
 const Layout = () => {
 	const [currentCategory, setCurrentCategory] = useState('transport');
-	const [formActive, setFormActive] = useState(false);
+	const [formActive, setFormActive] = useState(true);
 
 	const displayPageContent = () => {
 		if (formActive) {
@@ -43,6 +43,13 @@ const Layout = () => {
 		<>
 			<Wrapper>
 				<Logo />
+				<button
+					onClick={() => {
+						setFormActive(!formActive);
+					}}
+				>
+					Zmień panel
+				</button>
 				<Sidebar />
 				{displayPageContent()}
 			</Wrapper>

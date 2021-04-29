@@ -30,3 +30,5 @@ export const AuthProvider: React.FC = ({ children }: any) => {
 		</AuthContext.Provider>
 	);
 };
+
+export default AuthContext;
