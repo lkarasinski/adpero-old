@@ -12,15 +12,18 @@ const LandingPage = () => {
 	const userEmail = auth?.user?.email;
 
 	const journeysRef = firebase.firestore().collection('journeys');
+	let unsubscribe;
 
 	if (auth.authenticated && userEmail) {
-		const query = journeysRef
+		unsubscribe = journeysRef
 			.where('name', '==', 'test')
-			// .where('users', 'array-contains', userEmail)
-			.get();
-
-		console.log(query);
-		return <div></div>;
+			.onSnapshot((querySnapshot) => {
+				const items = querySnapshot.docs.map((doc) => {
+					console.log(doc.data().name);
+					return <div>{doc.data().name}</div>;
+				});
+				return items;
+			});
 	}
 
 	return <Wrapper>Not found</Wrapper>;
