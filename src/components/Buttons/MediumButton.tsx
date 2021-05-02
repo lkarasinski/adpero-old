@@ -1,6 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+export interface ButtonProps {
+	// primary?: boolean;
+	// backgroundColor?: string;
+	// size?: 'small' | 'medium' | 'large';
+	// label?: string;
+	type?: 'button' | 'submit' | 'reset' | undefined;
+	onClick?: () => void;
+	// children?: ReactNode;
+}
+
 const StyledButton = styled.button`
 	background-color: #6730cf;
 	color: white;
@@ -22,7 +32,7 @@ const StyledButton = styled.button`
 	}
 `;
 
-const MediumButton = ({ ...props }) => {
+const MediumButton: React.FC<ButtonProps> = ({ ...props }) => {
 	return (
 		<StyledButton onClick={props.onClick} {...props}>
 			{props.children}
