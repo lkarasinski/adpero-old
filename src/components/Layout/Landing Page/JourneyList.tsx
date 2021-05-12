@@ -8,6 +8,12 @@ import JourneyPanel from './JourneyPanel';
 
 const Wrapper = styled.div``;
 
+const StyledHeading = styled.h3`
+	font-size: 1.4em;
+	text-align: center;
+	font-weight: lighter;
+`;
+
 const JourneyList = () => {
 	const [content, setContent] = useState(['']);
 	const auth = useContext(AuthContext);
@@ -27,7 +33,7 @@ const JourneyList = () => {
 
 	return (
 		<Wrapper>
-			<div>Twoje plany: </div>
+			<StyledHeading>Twoje plany: </StyledHeading>
 			{content.map((x) => (
 				<JourneyPanel key={x}>{x}</JourneyPanel>
 			))}

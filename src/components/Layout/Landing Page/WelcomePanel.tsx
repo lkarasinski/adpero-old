@@ -4,7 +4,13 @@ import AuthContext from '../../../contexts/AuthProvider';
 
 import JourneyList from './JourneyList';
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+	/* grid-column: 2/3; */
+`;
+const StyledHeading = styled.h1`
+	font-size: 2em;
+	text-align: center;
+`;
 
 const WelcomePanel = () => {
 	const auth = useContext(AuthContext);
@@ -12,12 +18,16 @@ const WelcomePanel = () => {
 	if (auth.authenticated) {
 		return (
 			<Wrapper>
-				<p>Witaj {auth.user?.displayName}</p>
+				<StyledHeading>Witaj {auth.user?.displayName}</StyledHeading>
 				<JourneyList />
 			</Wrapper>
 		);
 	} else {
-		return <Wrapper>Witaj nieznajomy</Wrapper>;
+		return (
+			<Wrapper>
+				<StyledHeading>Witaj nieznajomy</StyledHeading>
+			</Wrapper>
+		);
 	}
 };
 
