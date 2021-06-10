@@ -77,7 +77,6 @@ const JourneyList = () => {
 						<NewJourneyButton type="submit">
 							Confirm
 						</NewJourneyButton>
-						{/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
 					</form>
 				)}
 			</Formik>

@@ -4,9 +4,7 @@ import AuthContext from '../../../contexts/AuthProvider';
 
 import JourneyList from './JourneyList';
 
-const Wrapper = styled.div`
-	/* grid-column: 2/3; */
-`;
+const Wrapper = styled.div``;
 const StyledHeading = styled.h1`
 	font-size: 2em;
 	text-align: center;
