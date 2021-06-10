@@ -124,8 +124,6 @@ const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
 			<Formik
 				initialValues={initial}
 				onSubmit={(values) => {
-					console.log(values);
-
 					sendDataToFirebase(values);
 				}}
 			>

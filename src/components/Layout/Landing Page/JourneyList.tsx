@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
-
+import { Field, FieldArray, FieldAttributes, Formik } from 'formik';
 import AuthContext from '../../../contexts/AuthProvider';
 import firebase from '../../../firebase';
 
 import JourneyPanel from './JourneyPanel';
+import { values } from 'lodash';
 
 const Wrapper = styled.div``;
 
@@ -14,10 +15,19 @@ const StyledHeading = styled.h3`
 	font-weight: lighter;
 `;
 
+const NewJourneyButton = styled.button`
+	border: 0.4rem solid #98cf30;
+	border-radius: 1rem;
+	padding: 1rem;
+	background-color: transparent;
+	cursor: pointer;
+`;
+
 const JourneyList = () => {
 	const [content, setContent] = useState(['']);
 	const auth = useContext(AuthContext);
 	const journeysRef = firebase.firestore().collection('journeys');
+
 	useEffect(() => {
 		if (auth.authenticated === true) {
 			journeysRef
@@ -34,9 +44,43 @@ const JourneyList = () => {
 	return (
 		<Wrapper>
 			<StyledHeading>Twoje plany: </StyledHeading>
-			{content.map((x) => (
-				<JourneyPanel key={x}>{x}</JourneyPanel>
+			{content.map((x, id) => (
+				<JourneyPanel key={id}>{x}</JourneyPanel>
 			))}
+			<Formik
+				initialValues={{
+					name: '',
+					users: [],
+				}}
+				onSubmit={async (values) => {
+					if (auth.authenticated === true) {
+						const userEmail = auth?.user?.email;
+						if (userEmail) {
+							await journeysRef.add({
+								name: values.name,
+								createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+								users: [userEmail],
+							});
+						}
+					}
+				}}
+			>
+				{({ values, handleSubmit }) => (
+					<form onSubmit={handleSubmit}>
+						<div>
+							<Field
+								type="text"
+								name={'name'}
+								placeholder={'gdzie leziesz'}
+							/>
+						</div>
+						<NewJourneyButton type="submit">
+							Confirm
+						</NewJourneyButton>
+						{/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+					</form>
+				)}
+			</Formik>
 		</Wrapper>
 	);
 };

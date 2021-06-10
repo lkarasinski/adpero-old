@@ -7,7 +7,7 @@ export interface ButtonProps {
 	// size?: 'small' | 'medium' | 'large';
 	// label?: string;
 	type?: 'button' | 'submit' | 'reset' | undefined;
-	onClick?: () => void;
+	onClick?: () => void | undefined;
 	// children?: ReactNode;
 }
 
