@@ -3,7 +3,7 @@ import './button.css';
 
 export interface ButtonProps {
 	primary?: boolean;
-	backgroundColor?: string;
+	backgroundColor: string;
 	size?: 'small' | 'medium' | 'large';
 	label: string;
 	onClick?: () => void;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 
 // Component imports
@@ -7,6 +7,9 @@ import DetailsPanel from '../Details Panel/DetailsPanel';
 import Logo from '../Logo/Logo';
 import Sidebar from '../Sidebar/Sidebar';
 import LandingPage from './Landing Page/LandingPage';
+
+// Context
+import { useJourney, useJourneyUpdate } from '../../contexts/SelectedJourney';
 
 // Styled components
 const Wrapper = styled.div`
@@ -21,7 +24,9 @@ const Wrapper = styled.div`
 // Main component
 const Layout = () => {
 	const [currentCategory, setCurrentCategory] = useState('transport');
-	const [formActive, setFormActive] = useState(true);
+	const [formActive, setFormActive] = useState('');
+	const Context = useJourney();
+	const Update = useJourneyUpdate();
 
 	const displayPageContent = () => {
 		if (formActive) {
@@ -35,7 +40,20 @@ const Layout = () => {
 				</>
 			);
 		} else {
-			return <LandingPage />;
+			return (
+				<>
+					<LandingPage />
+					{Context}
+					<button
+						onClick={() => {
+							Update('kutas');
+							console.log(Context);
+						}}
+					>
+						{Context}
+					</button>
+				</>
+			);
 		}
 	};
 
@@ -43,13 +61,13 @@ const Layout = () => {
 		<>
 			<Wrapper>
 				<Logo />
-				<button
+				{/* <button
 					onClick={() => {
 						setFormActive(!formActive);
 					}}
 				>
 					Zmień panel
-				</button>
+				</button> */}
 				<Sidebar />
 				{displayPageContent()}
 			</Wrapper>
