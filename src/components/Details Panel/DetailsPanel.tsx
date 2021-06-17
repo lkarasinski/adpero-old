@@ -84,6 +84,9 @@ const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
 	const checkForNewUser = async () => {
 		const userName = auth?.user?.displayName;
 		const userEmail = auth?.user?.email;
+
+		// TODO: Try to make this use es6 🙄
+
 		if (userEmail) {
 			usersRef
 				.doc(userEmail)

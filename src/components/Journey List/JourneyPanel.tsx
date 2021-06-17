@@ -2,11 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import firebase from './../../firebase';
-
-interface Data extends firebase.firestore.DocumentData {
-	name: string;
-	id: string;
-}
 interface Props {
 	data: {
 		[key: string]: any;
@@ -22,7 +17,6 @@ const Wrapper = styled.div`
 `;
 
 const JourneyPanel: React.FC<Props> = ({ data }) => {
-	console.log(data);
 	return (
 		<Wrapper>
 			<h2>{data.name}</h2>
