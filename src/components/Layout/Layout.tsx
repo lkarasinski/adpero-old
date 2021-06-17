@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { Router, Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 // Component imports
@@ -43,14 +44,13 @@ const Layout = () => {
 			return (
 				<>
 					<LandingPage />
-					{Context}
+					{Context.value}
 					<button
-						onClick={() => {
-							Update('kutas');
-							console.log(Context);
+						onClick={async () => {
+							Context.setValue('kutas?');
 						}}
 					>
-						{Context}
+						{Context.value}
 					</button>
 				</>
 			);

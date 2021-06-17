@@ -1,7 +1,10 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { AuthProvider } from './contexts/AuthProvider';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './fonts.css';
+
+import { Home } from './pages/Home';
 
 import Layout from './components/Layout/Layout';
 
@@ -14,13 +17,17 @@ const GlobalStyles = createGlobalStyle`
 	}
 `;
 
-const App = () => {
-	return (
-		<AuthProvider>
-			<GlobalStyles />
-			<Layout />
-		</AuthProvider>
-	);
-};
+const App = () => (
+	<AuthProvider>
+		<GlobalStyles />
+		{/* <Layout /> */}
+		<BrowserRouter>
+			<Switch>
+				<Route path="/" exact component={Home} />
+				<Route path="/" render={() => <div>404</div>} />
+			</Switch>
+		</BrowserRouter>
+	</AuthProvider>
+);
 
 export default App;

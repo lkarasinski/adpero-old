@@ -1,6 +1,17 @@
 import React, { useState, createContext, useContext } from 'react';
 
-const JourneyContext = createContext('chuj');
+let xd = 'chuj';
+
+const JourneyContext = createContext({
+	value: xd,
+	setValue: (x: any) => {
+		console.log(x);
+		console.log(xd);
+		xd = x;
+		console.log(x);
+		console.log(xd);
+	},
+});
 const JourneyUpdateContext = createContext<Function>(() => true);
 
 export const useJourney = () => {
@@ -14,7 +25,12 @@ export const useJourneyUpdate = () => {
 const JourneyProvider: React.FC = ({ children }) => {
 	const [SelectedJourney, setSelectedJourney] = useState('');
 	return (
-		<JourneyContext.Provider value={SelectedJourney}>
+		<JourneyContext.Provider
+			value={{
+				value: SelectedJourney,
+				setValue: () => console.log('boop'),
+			}}
+		>
 			<JourneyUpdateContext.Provider value={setSelectedJourney}>
 				{children}
 			</JourneyUpdateContext.Provider>
