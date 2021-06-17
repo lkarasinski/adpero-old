@@ -23,7 +23,9 @@ const NewJourneyButton = styled.button`
 `;
 
 const JourneyList = () => {
-	const [content, setContent] = useState(['']);
+	const [content, setContent] = useState<firebase.firestore.DocumentData[]>(
+		[]
+	);
 	const auth = useContext(AuthContext);
 	const journeysRef = firebase.firestore().collection('journeys');
 
@@ -33,7 +35,12 @@ const JourneyList = () => {
 				.where('users', 'array-contains', auth.user?.email)
 				.get()
 				.then((data) => {
-					const array = data.docs.map((doc) => doc.data().name);
+					const array = data.docs.map((doc) => {
+						const tempData = doc.data();
+						const docId = doc.id;
+
+						return { ...tempData, docId };
+					});
 					setContent(array);
 				});
 		} else {
@@ -45,8 +52,8 @@ const JourneyList = () => {
 	return (
 		<Wrapper>
 			<StyledHeading>Twoje plany: </StyledHeading>
-			{content.map((x, id) => (
-				<JourneyPanel key={id}>{x}</JourneyPanel>
+			{content.map((data, id) => (
+				<JourneyPanel data={data} key={id} />
 			))}
 			<Formik
 				initialValues={{

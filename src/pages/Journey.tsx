@@ -19,6 +19,8 @@ export const Journey: React.FC<Props> = ({ match }) => {
 				.then((doc) => {
 					if (doc.exists) {
 						setContent(doc?.data()?.name);
+					} else {
+						setContent('Journey not found 🥺');
 					}
 				});
 		}
