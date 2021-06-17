@@ -7,7 +7,7 @@ import CategorySelector from '../Category Selector/CategorySelector';
 import DetailsPanel from '../Details Panel/DetailsPanel';
 import Logo from '../Logo/Logo';
 import Sidebar from '../Sidebar/Sidebar';
-import LandingPage from './Landing Page/LandingPage';
+import LandingPage from '../Landing Page/LandingPage';
 
 // Context
 import { useJourney, useJourneyUpdate } from '../../contexts/SelectedJourney';
@@ -23,53 +23,18 @@ const Wrapper = styled.div`
 `;
 
 // Main component
-const Layout = () => {
+const Layout: React.FC = ({ children }) => {
 	const [currentCategory, setCurrentCategory] = useState('transport');
 	const [formActive, setFormActive] = useState('');
 	const Context = useJourney();
 	const Update = useJourneyUpdate();
 
-	const displayPageContent = () => {
-		if (formActive) {
-			return (
-				<>
-					<CategorySelector
-						currentCategory={currentCategory}
-						setCurrentCategory={setCurrentCategory}
-					/>
-					<DetailsPanel currentCategory={currentCategory} />
-				</>
-			);
-		} else {
-			return (
-				<>
-					<LandingPage />
-					{Context.value}
-					<button
-						onClick={async () => {
-							Context.setValue('kutas?');
-						}}
-					>
-						{Context.value}
-					</button>
-				</>
-			);
-		}
-	};
-
 	return (
 		<>
 			<Wrapper>
 				<Logo />
-				{/* <button
-					onClick={() => {
-						setFormActive(!formActive);
-					}}
-				>
-					Zmień panel
-				</button> */}
 				<Sidebar />
-				{displayPageContent()}
+				{children}
 			</Wrapper>
 		</>
 	);

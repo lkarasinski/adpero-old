@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import AuthContext from '../../../contexts/AuthProvider';
+import AuthContext from '../../contexts/AuthProvider';
 
 import JourneyList from './JourneyList';
 

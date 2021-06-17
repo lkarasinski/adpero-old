@@ -1,11 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Field, FieldArray, FieldAttributes, Formik } from 'formik';
-import AuthContext from '../../../contexts/AuthProvider';
-import firebase from '../../../firebase';
+import AuthContext from '../../contexts/AuthProvider';
+import firebase from '../../firebase';
 
 import JourneyPanel from './JourneyPanel';
-import { values } from 'lodash';
 
 const Wrapper = styled.div``;
 
@@ -37,6 +36,8 @@ const JourneyList = () => {
 					const array = data.docs.map((doc) => doc.data().name);
 					setContent(array);
 				});
+		} else {
+			setContent([]);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [auth]);

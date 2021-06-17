@@ -4,9 +4,13 @@ import { AuthProvider } from './contexts/AuthProvider';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './fonts.css';
 
+// Pages
 import { Home } from './pages/Home';
-
-import Layout from './components/Layout/Layout';
+import { About } from './pages/About';
+import { Journeys } from './pages/Journeys';
+import { Settings } from './pages/Settings';
+import { PageNotFound } from './pages/404';
+import { Journey } from 'pages/Journey';
 
 const GlobalStyles = createGlobalStyle`
 	*{
@@ -20,11 +24,14 @@ const GlobalStyles = createGlobalStyle`
 const App = () => (
 	<AuthProvider>
 		<GlobalStyles />
-		{/* <Layout /> */}
 		<BrowserRouter>
 			<Switch>
 				<Route path="/" exact component={Home} />
-				<Route path="/" render={() => <div>404</div>} />
+				<Route path="/about" exact component={About} />
+				<Route path="/settings" exact component={Settings} />
+				<Route path="/journeys" exact component={Journeys} />
+				<Route path="/journeys/:id" component={Journey} />
+				<Route path="/" component={PageNotFound} />
 			</Switch>
 		</BrowserRouter>
 	</AuthProvider>
