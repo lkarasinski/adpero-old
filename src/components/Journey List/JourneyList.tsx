@@ -4,7 +4,9 @@ import { Field, Formik } from 'formik';
 import AuthContext from '../../contexts/AuthProvider';
 import firebase from '../../firebase';
 
+import { ErrorMessage } from '../Text decoration/ErrorMessage';
 import JourneyPanel from './JourneyPanel';
+import { withRouter } from 'react-router-dom';
 
 const Wrapper = styled.div``;
 
@@ -22,7 +24,20 @@ const NewJourneyButton = styled.button`
 	cursor: pointer;
 `;
 
-const JourneyList = () => {
+const sortResultsByCreationDate = (
+	array: firebase.firestore.DocumentData[]
+) => {
+	const compareDate = (a: any, b: any) => {
+		return a.createdAt.seconds > b.createdAt.seconds
+			? -1
+			: a.createdAt.seconds < b.createdAt.seconds
+			? 1
+			: 0;
+	};
+	array.sort(compareDate);
+};
+
+const JourneyList = withRouter(({ history }) => {
 	const [content, setContent] = useState<firebase.firestore.DocumentData[]>(
 		[]
 	);
@@ -31,26 +46,37 @@ const JourneyList = () => {
 
 	useEffect(() => {
 		if (auth.authenticated === true) {
-			journeysRef
-				.where('users', 'array-contains', auth.user?.email)
-				.get()
-				.then((data) => {
-					const array = data.docs.map((doc) => {
-						const tempData = doc.data();
-						const docId = doc.id;
-						return { ...tempData, docId };
-					});
-					setContent(array);
+			const query = journeysRef.where(
+				'users',
+				'array-contains',
+				auth.user?.email
+			);
+
+			query.get().then((data) => {
+				const array = data.docs.map((doc) => {
+					const tempData = doc.data();
+					const docId = doc.id;
+					return { ...tempData, docId };
 				});
+				sortResultsByCreationDate(array);
+				setContent(array);
+			});
 		} else {
 			setContent([]);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [auth]);
+	if (!auth.authenticated) {
+		return (
+			<Wrapper>
+				<ErrorMessage>{`You need to be logged in to access this page.`}</ErrorMessage>
+			</Wrapper>
+		);
+	}
 
 	return (
 		<Wrapper>
-			<StyledHeading>Twoje plany: </StyledHeading>
+			<StyledHeading>Your Journeys: </StyledHeading>
 			{content.map((data, id) => (
 				<JourneyPanel data={data} key={id} />
 			))}
@@ -63,11 +89,15 @@ const JourneyList = () => {
 					if (auth.authenticated === true) {
 						const userEmail = auth?.user?.email;
 						if (userEmail) {
-							await journeysRef.add({
-								name: values.name,
-								createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-								users: [userEmail],
-							});
+							await journeysRef
+								.add({
+									name: values.name,
+									createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+									users: [userEmail],
+								})
+								.then((docRef) => {
+									history.push(`journeys/${docRef.id}`);
+								});
 						}
 					}
 				}}
@@ -78,17 +108,17 @@ const JourneyList = () => {
 							<Field
 								type="text"
 								name={'name'}
-								placeholder={'gdzie leziesz'}
+								placeholder={'Where are you going?'}
 							/>
 						</div>
 						<NewJourneyButton type="submit">
-							Confirm
+							Create new journey
 						</NewJourneyButton>
 					</form>
 				)}
 			</Formik>
 		</Wrapper>
 	);
-};
+});
 
 export default JourneyList;
