@@ -6,7 +6,7 @@ interface Props {}
 export const About: React.FC<Props> = () => {
 	return (
 		<>
-			<Layout>About</Layout>
+			<Layout></Layout>
 		</>
 	);
 };

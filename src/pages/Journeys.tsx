@@ -13,7 +13,6 @@ export const Journeys: React.FC<Props> = ({ location, match }) => {
 	return (
 		<>
 			<Layout>
-				Journeys
 				<JourneyList />
 			</Layout>
 		</>

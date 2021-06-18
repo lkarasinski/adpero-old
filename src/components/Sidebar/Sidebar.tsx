@@ -18,6 +18,15 @@ const Wrapper = styled.nav`
 	margin: 25px;
 `;
 
+const LogInButton = styled.button`
+	height: 3rem;
+	width: 5rem;
+	background-color: transparent;
+	border: 0.15rem solid black;
+	border-radius: 1rem;
+	cursor: pointer;
+`;
+
 const Sidebar: React.FC = () => {
 	const x = useContext(AuthContext);
 	const [color, setColor] = useState(x ? '#6730cf' : 'black');
@@ -38,10 +47,9 @@ const Sidebar: React.FC = () => {
 	};
 	return (
 		<Wrapper>
-			<AccountCircleIcon
-				style={{ fontSize: '49px', color: color }}
-				onClick={handleAuth}
-			/>
+			<LogInButton onClick={handleAuth}>
+				{x.authenticated ? 'Log out' : 'Log in'}
+			</LogInButton>
 			<SettingsIcon style={{ fontSize: '49px' }} />
 		</Wrapper>
 	);

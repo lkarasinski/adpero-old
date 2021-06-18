@@ -25,7 +25,7 @@ const JourneyPanel: React.FC<Props> = ({ data }) => {
 					<li>{user}</li>
 				))}
 			</ul>
-			<Link to={`/journeys/${data.docId}`}>Check</Link>
+			<Link to={`/journeys/${data.docId}`}>More details</Link>
 		</Wrapper>
 	);
 };

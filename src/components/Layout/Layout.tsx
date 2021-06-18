@@ -3,8 +3,6 @@ import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 // Component imports
-import CategorySelector from '../Category Selector/CategorySelector';
-import DetailsPanel from '../Details Panel/DetailsPanel';
 import Logo from '../Logo/Logo';
 import Sidebar from '../Sidebar/Sidebar';
 
@@ -18,6 +16,26 @@ const Wrapper = styled.div`
 	display: grid;
 `;
 
+const StyledNavLink = styled(NavLink)`
+	color: black;
+	text-decoration: none;
+	margin: 1rem;
+
+	&.active {
+		color: peru;
+		font-weight: bold;
+	}
+`;
+
+const StyledUl = styled.ul`
+	margin: 1rem;
+`;
+
+const Content = styled.div`
+	grid-row: 2/3;
+	grid-column: 2/3;
+`;
+
 // Main component
 const Layout: React.FC = ({ children }) => {
 	return (
@@ -25,14 +43,20 @@ const Layout: React.FC = ({ children }) => {
 			<Wrapper>
 				<Logo />
 				<nav>
-					<ul>
-						<NavLink to="/journeys">Journeys</NavLink>
-						<NavLink to="/about">About</NavLink>
-						<NavLink to="/settings">Settings</NavLink>
-					</ul>
+					<StyledUl>
+						<StyledNavLink to="/journeys" activeClassName="active">
+							Journeys
+						</StyledNavLink>
+						<StyledNavLink to="/about" activeClassName="active">
+							About
+						</StyledNavLink>
+						<StyledNavLink to="/settings" activeClassName="active">
+							Settings
+						</StyledNavLink>
+					</StyledUl>
 				</nav>
 				<Sidebar />
-				{children}
+				<Content>{children}</Content>
 			</Wrapper>
 		</>
 	);

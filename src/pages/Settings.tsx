@@ -6,7 +6,7 @@ interface Props {}
 export const Settings: React.FC<Props> = () => {
 	return (
 		<>
-			<Layout>Settings</Layout>
+			<Layout></Layout>
 		</>
 	);
 };
