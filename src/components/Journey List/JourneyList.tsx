@@ -7,6 +7,9 @@ import firebase from '../../firebase';
 import { ErrorMessage } from '../Text decoration/ErrorMessage';
 import JourneyPanel from './JourneyPanel';
 import { withRouter } from 'react-router-dom';
+import { NewJourneyForm } from './NewJourneyForm';
+
+import { sortResultsByCreationDate } from '../../utilities/functions';
 
 const Wrapper = styled.div``;
 
@@ -16,27 +19,6 @@ const StyledHeading = styled.h3`
 	font-weight: lighter;
 `;
 
-const NewJourneyButton = styled.button`
-	border: 0.4rem solid #98cf30;
-	border-radius: 1rem;
-	padding: 1rem;
-	background-color: transparent;
-	cursor: pointer;
-`;
-
-const sortResultsByCreationDate = (
-	array: firebase.firestore.DocumentData[]
-) => {
-	const compareDate = (a: any, b: any) => {
-		return a.createdAt.seconds > b.createdAt.seconds
-			? -1
-			: a.createdAt.seconds < b.createdAt.seconds
-			? 1
-			: 0;
-	};
-	array.sort(compareDate);
-};
-
 const JourneyList = withRouter(({ history }) => {
 	const [content, setContent] = useState<firebase.firestore.DocumentData[]>(
 		[]
@@ -44,7 +26,25 @@ const JourneyList = withRouter(({ history }) => {
 	const auth = useContext(AuthContext);
 	const journeysRef = firebase.firestore().collection('journeys');
 
-	useEffect(() => {
+	const handleNewJourney = async (name: string) => {
+		if (auth.authenticated === true) {
+			const userEmail = auth?.user?.email;
+			if (userEmail) {
+				await journeysRef
+					.add({
+						name: name,
+						createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+						users: [userEmail],
+						author: userEmail,
+					})
+					.then((docRef) => {
+						history.push(`journeys/${docRef.id}`);
+					});
+			}
+		}
+	};
+
+	const getData = () => {
 		if (auth.authenticated === true) {
 			const query = journeysRef.where(
 				'users',
@@ -64,8 +64,13 @@ const JourneyList = withRouter(({ history }) => {
 		} else {
 			setContent([]);
 		}
+	};
+
+	useEffect(() => {
+		getData();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [auth]);
+
 	if (!auth.authenticated) {
 		return (
 			<Wrapper>
@@ -86,35 +91,11 @@ const JourneyList = withRouter(({ history }) => {
 					users: [],
 				}}
 				onSubmit={async (values) => {
-					if (auth.authenticated === true) {
-						const userEmail = auth?.user?.email;
-						if (userEmail) {
-							await journeysRef
-								.add({
-									name: values.name,
-									createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-									users: [userEmail],
-								})
-								.then((docRef) => {
-									history.push(`journeys/${docRef.id}`);
-								});
-						}
-					}
+					handleNewJourney(values.name);
 				}}
 			>
-				{({ values, handleSubmit }) => (
-					<form onSubmit={handleSubmit}>
-						<div>
-							<Field
-								type="text"
-								name={'name'}
-								placeholder={'Where are you going?'}
-							/>
-						</div>
-						<NewJourneyButton type="submit">
-							Create new journey
-						</NewJourneyButton>
-					</form>
+				{({ handleSubmit }) => (
+					<NewJourneyForm handleSubmit={handleSubmit} />
 				)}
 			</Formik>
 		</Wrapper>

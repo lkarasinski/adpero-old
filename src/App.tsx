@@ -11,6 +11,7 @@ import { Journeys } from './pages/Journeys';
 import { Settings } from './pages/Settings';
 import { PageNotFound } from './pages/404';
 import { Journey } from 'pages/Journey';
+import { Join } from 'pages/Join';
 
 const GlobalStyles = createGlobalStyle`
 	*{
@@ -31,6 +32,7 @@ const App = () => (
 				<Route path="/settings" exact component={Settings} />
 				<Route path="/journeys" exact component={Journeys} />
 				<Route path="/journeys/:id" component={Journey} />
+				<Route path="/join/:id" component={Join} />
 				<Route path="/" component={PageNotFound} />
 			</Switch>
 		</BrowserRouter>
