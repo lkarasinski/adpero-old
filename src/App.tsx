@@ -22,7 +22,7 @@ const GlobalStyles = createGlobalStyle`
 	}
 `;
 
-const App = () => (
+const App: React.FC = () => (
 	<AuthProvider>
 		<GlobalStyles />
 		<BrowserRouter>

@@ -27,17 +27,20 @@ const Wrapper = styled.div`
 	cursor: pointer;
 `;
 
-const ListElement = ({
-	isHovered,
-	emoji,
-	content,
-	setCurrentCategory,
-}: {
+interface Props {
 	isHovered: boolean;
 	emoji: React.ReactElement;
 	content: string;
 	setCurrentCategory: Function;
+}
+
+const ListElement: React.FC<Props> = ({
+	isHovered,
+	emoji,
+	content,
+	setCurrentCategory,
 }) => {
+	console.log(isHovered);
 	return (
 		<Wrapper onClick={() => setCurrentCategory()}>
 			<ColorSquare>{emoji}</ColorSquare>

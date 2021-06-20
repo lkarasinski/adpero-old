@@ -18,15 +18,18 @@ const StyledList = styled.ul`
 	/* flex-direction: column; */
 `;
 
-const CategorySelector = ({
-	currentCategory,
-	setCurrentCategory,
-}: {
+interface Props {
 	currentCategory: string;
 	setCurrentCategory: Function;
+}
+
+const CategorySelector: React.FC<Props> = ({
+	currentCategory,
+	setCurrentCategory,
 }) => {
 	const [isHovered, setIsHovered] = useState(false);
 
+	console.log(currentCategory);
 	//TODO: Get category last worked on from firebase
 
 	return (

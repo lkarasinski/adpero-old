@@ -1,4 +1,3 @@
-import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
 export const SmallInput = styled.input`

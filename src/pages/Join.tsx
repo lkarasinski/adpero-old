@@ -1,5 +1,5 @@
 import Layout from 'components/Layout/Layout';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import firebase from '../firebase';
 import AuthContext from '../contexts/AuthProvider';
 import { ErrorMessage } from 'components/Text decoration/ErrorMessage';

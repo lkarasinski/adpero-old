@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import firebase from './../../firebase';
 import { SmallButton } from 'components/Buttons/SmallButton';
 import AuthContext from '../../contexts/AuthProvider';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const invitesRef = firebase.firestore().collection('invites');
 const journeysRef = firebase.firestore().collection('journeys');
@@ -11,7 +12,6 @@ const journeysRef = firebase.firestore().collection('journeys');
 const Wrapper = styled.div``;
 
 const createInviteLink = async (auth: any, id: string, update: Function) => {
-	let inviteID: any = null;
 	if (auth.authenticated && auth.user) {
 		const userEmail = auth.user.email;
 		return journeysRef
@@ -27,7 +27,7 @@ const createInviteLink = async (auth: any, id: string, update: Function) => {
 							.then((doc) => {
 								doc.forEach((doc) => doc.ref.delete());
 
-								inviteID = invitesRef
+								invitesRef
 									.add({
 										createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 										journeyID: id,
@@ -56,6 +56,7 @@ export const CreateInviteLinkPanel = withRouter(({ match }) => {
 					setLinkID(doc.id);
 				});
 			});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
@@ -66,12 +67,19 @@ export const CreateInviteLinkPanel = withRouter(({ match }) => {
 			>
 				Create link
 			</SmallButton>
-			<br />
-			<br />
-			<code>{`localhost:3000/join/${linkID}`}</code>
-			<br />
-			<br />
-			<Link to={`/join/${linkID}`}>Invite</Link>
+			<CopyToClipboard text={`localhost:3000/join/${linkID}`}>
+				<div
+					style={{
+						backgroundColor: 'aquamarine',
+						padding: '1em',
+						margin: '1em',
+						cursor: 'pointer',
+					}}
+				>
+					<div>{`localhost:3000/join/${linkID}`}</div>
+					<p>Click to copy!</p>
+				</div>
+			</CopyToClipboard>
 		</Wrapper>
 	);
 });

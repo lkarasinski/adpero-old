@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import _ from 'lodash';
 import { Field, Formik } from 'formik';

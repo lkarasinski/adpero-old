@@ -20,8 +20,8 @@ const JourneyPanel: React.FC<Props> = ({ data }) => {
 		<Wrapper>
 			<h2>{data.name}</h2>
 			<ul>
-				{data.users.map((user: string) => (
-					<li>{user}</li>
+				{data.users.map((user: string, id: number) => (
+					<li key={id}>{user}</li>
 				))}
 			</ul>
 			<Link to={`/journeys/${data.docId}`}>More details</Link>
