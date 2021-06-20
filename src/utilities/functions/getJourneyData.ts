@@ -25,7 +25,6 @@ const getJourneyData: Function = ({
 		author: false,
 		success: false,
 	};
-	console.log(auth, id);
 	if (auth?.authenticated) {
 		tempState.authenticated = true;
 		const user = auth.user!;

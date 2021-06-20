@@ -43,10 +43,8 @@ const Sidebar: React.FC = () => {
 				.catch((err) => {
 					const errorCode = err.code;
 					const errorMessage = err.message;
-					console.log(errorCode);
-					console.log(errorMessage);
-					alert(errorCode);
-					alert(errorMessage);
+					console.error(errorCode);
+					console.error(errorMessage);
 				});
 		}
 		return;

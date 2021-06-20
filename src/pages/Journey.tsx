@@ -5,8 +5,9 @@ import AuthContext from '../contexts/AuthProvider';
 import getJourneyData from '../utilities/functions/getJourneyData';
 import { SiteData } from '../utilities/interfaces/SiteState';
 import Layout from '../components/Layout/Layout';
+import { CreateInviteLinkPanel } from 'components/Invites/CreateInviteLinkPanel';
 
-interface Props extends RouteComponentProps {}
+interface Props extends RouteComponentProps<{ id: string }> {}
 
 const journeysRef = firebase.firestore().collection('journeys');
 
@@ -21,6 +22,22 @@ export const Journey: React.FC<Props> = ({ match }) => {
 			success: false,
 		},
 	});
+
+	const removeUserFromTheJourney = (email: string) => {
+		if (siteData.siteState.author) {
+			if (siteData.journey?.users.includes(email)) {
+				const users = siteData.journey?.users.filter(
+					(item: any) => item !== email
+				);
+				journeysRef
+					.doc(match.params.id)
+					.update({ users: [...users] })
+					.catch((err) => {
+						console.error(err);
+					});
+			}
+		}
+	};
 
 	useEffect(() => {
 		getJourneyData({
@@ -39,6 +56,25 @@ export const Journey: React.FC<Props> = ({ match }) => {
 			<div>
 				<pre>{JSON.stringify(siteData, null, 2)}</pre>
 			</div>
+			<ul>
+				{siteData.journey?.users.map((user: string) => (
+					<div key={user}>
+						<li>
+							{user}
+							{siteData.siteState.author ? (
+								<button
+									onClick={() =>
+										removeUserFromTheJourney(user)
+									}
+								>
+									remove user
+								</button>
+							) : null}
+						</li>
+					</div>
+				))}
+			</ul>
+			{siteData.siteState.author ? <CreateInviteLinkPanel /> : null}
 		</Layout>
 	);
 };

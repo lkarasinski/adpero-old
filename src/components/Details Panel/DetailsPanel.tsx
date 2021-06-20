@@ -100,7 +100,7 @@ const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
 								categories: [],
 							})
 							.catch((err) => {
-								console.log(err);
+								console.error(err);
 							});
 					}
 				});

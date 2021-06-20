@@ -47,7 +47,6 @@ export const Join = withRouter(({ match, history }) => {
 					const journeyDoc = journeysRef.doc(journeyID);
 					journeyDoc.get().then((data) => {
 						const docData = data.data();
-						console.log(journeyID);
 						if (!docData?.users.includes(auth.user?.email)) {
 							journeyDoc
 								.update({

@@ -9,7 +9,7 @@ import JourneyPanel from './JourneyPanel';
 import { withRouter } from 'react-router-dom';
 import { NewJourneyForm } from './NewJourneyForm';
 
-import { sortResultsByCreationDate } from '../../utilities/functions';
+import { sortResultsByCreationDate } from '../../utilities/functions/sortResultsByCreationDate';
 
 const Wrapper = styled.div``;
 
