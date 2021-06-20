@@ -28,12 +28,10 @@ const LogInButton = styled.button`
 `;
 
 const Sidebar: React.FC = () => {
-	const x = useContext(AuthContext);
-	// const [color, setColor] = useState(x ? '#6730cf' : 'black');
+	const auth = useContext(AuthContext);
 	const handleAuth = () => {
-		if (x.authenticated) {
+		if (auth.authenticated) {
 			firebase.auth().signOut();
-			// setColor('black');
 		} else {
 			const provider = new firebase.auth.GoogleAuthProvider();
 			firebase
@@ -41,6 +39,14 @@ const Sidebar: React.FC = () => {
 				.signInWithPopup(provider)
 				.then(() => {
 					// setColor('blue');
+				})
+				.catch((err) => {
+					const errorCode = err.code;
+					const errorMessage = err.message;
+					console.log(errorCode);
+					console.log(errorMessage);
+					alert(errorCode);
+					alert(errorMessage);
 				});
 		}
 		return;
@@ -48,7 +54,7 @@ const Sidebar: React.FC = () => {
 	return (
 		<Wrapper>
 			<LogInButton onClick={handleAuth}>
-				{x.authenticated ? 'Log out' : 'Log in'}
+				{auth.authenticated ? 'Log out' : 'Log in'}
 			</LogInButton>
 			<SettingsIcon style={{ fontSize: '49px' }} />
 		</Wrapper>
