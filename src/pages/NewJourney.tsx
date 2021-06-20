@@ -7,21 +7,9 @@ import AuthContext from 'contexts/AuthProvider';
 
 import getJourneyData from '../utilities/functions/getJourneyData';
 
+import { SiteData } from '../utilities/interfaces/SiteState';
+
 interface Props extends RouteComponentProps {}
-
-interface SiteState {
-	authenticated: boolean;
-	docExists: boolean;
-	hasPermission: boolean;
-	success: boolean;
-	author: boolean;
-	errorMessage?: string;
-}
-
-interface SiteData {
-	siteState: SiteState;
-	journey?: firebase.firestore.DocumentData | undefined;
-}
 
 const journeysRef = firebase.firestore().collection('journeys');
 
