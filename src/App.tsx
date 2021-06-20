@@ -10,7 +10,7 @@ import { About } from './pages/About';
 import { Journeys } from './pages/Journeys';
 import { Settings } from './pages/Settings';
 import { PageNotFound } from './pages/404';
-import { Journey } from 'pages/Journey';
+import { Journey } from 'pages/NewJourney';
 import { Join } from 'pages/Join';
 
 const GlobalStyles = createGlobalStyle`
