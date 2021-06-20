@@ -34,6 +34,7 @@ export const Join = withRouter(({ match, history }) => {
 
 	useEffect(() => {
 		isUserInJourney();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [auth]);
 
 	const joinJourney = () => {

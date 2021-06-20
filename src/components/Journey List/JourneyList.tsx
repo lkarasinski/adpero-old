@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Field, Formik } from 'formik';
+import { Formik } from 'formik';
 import AuthContext from '../../contexts/AuthProvider';
 import firebase from '../../firebase';
 

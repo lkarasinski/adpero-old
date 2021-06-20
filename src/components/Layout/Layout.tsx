@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 // Component imports

@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import styled from 'styled-components';
 import firebase from './../../firebase';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+// import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { AuthContext } from '../../contexts/AuthProvider';
 
@@ -29,18 +29,18 @@ const LogInButton = styled.button`
 
 const Sidebar: React.FC = () => {
 	const x = useContext(AuthContext);
-	const [color, setColor] = useState(x ? '#6730cf' : 'black');
+	// const [color, setColor] = useState(x ? '#6730cf' : 'black');
 	const handleAuth = () => {
 		if (x.authenticated) {
 			firebase.auth().signOut();
-			setColor('black');
+			// setColor('black');
 		} else {
 			const provider = new firebase.auth.GoogleAuthProvider();
 			firebase
 				.auth()
 				.signInWithPopup(provider)
 				.then(() => {
-					setColor('blue');
+					// setColor('blue');
 				});
 		}
 		return;

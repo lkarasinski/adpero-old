@@ -1,19 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import Layout from 'components/Layout/Layout';
-
 import firebase from '../firebase';
-import AuthContext from 'contexts/AuthProvider';
-
+import AuthContext from './../contexts/AuthProvider';
 import getJourneyData from '../utilities/functions/getJourneyData';
-
 import { SiteData } from '../utilities/interfaces/SiteState';
+import Layout from './../components/Layout/Layout';
 
 interface Props extends RouteComponentProps {}
 
 const journeysRef = firebase.firestore().collection('journeys');
 
 export const Journey: React.FC<Props> = ({ match }) => {
+	const auth = useContext(AuthContext);
 	const [siteData, setSiteData] = useState<SiteData>({
 		siteState: {
 			authenticated: false,
@@ -23,7 +21,6 @@ export const Journey: React.FC<Props> = ({ match }) => {
 			success: false,
 		},
 	});
-	const auth = useContext(AuthContext);
 
 	useEffect(() => {
 		getJourneyData({
@@ -33,7 +30,8 @@ export const Journey: React.FC<Props> = ({ match }) => {
 			siteData: siteData,
 			setSiteData: setSiteData,
 		});
-	}, [auth]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [auth, match.url]);
 
 	return (
 		<Layout>
