@@ -5,12 +5,12 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './fonts.css';
 
 // Pages
-import { Home } from './pages/Home';
-import { About } from './pages/About';
-import { Journeys } from './pages/Journeys';
-import { Settings } from './pages/Settings';
-import { PageNotFound } from './pages/404';
-import { Journey } from 'pages/NewJourney';
+import { Home } from 'pages/Home';
+import { About } from 'pages/About';
+import { Journeys } from 'pages/Journeys';
+import { Settings } from 'pages/Settings';
+import { PageNotFound } from 'pages/404';
+import { Journey } from 'pages/Journey';
 import { Join } from 'pages/Join';
 
 const GlobalStyles = createGlobalStyle`
