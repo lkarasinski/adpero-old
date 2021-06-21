@@ -36,6 +36,8 @@ const JourneyList = withRouter(({ history }) => {
 						createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 						users: [userEmail],
 						author: userEmail,
+						editors: [],
+						expenses: [],
 					})
 					.then((docRef) => {
 						history.push(`journeys/${docRef.id}`);

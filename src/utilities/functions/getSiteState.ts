@@ -25,6 +25,7 @@ const getSiteState: Function = ({
 		docExists: false,
 		hasPermission: false,
 		author: false,
+		editor: false,
 		success: false,
 	};
 	if (auth) {
@@ -44,6 +45,9 @@ const getSiteState: Function = ({
 				if (user) {
 					if (users.includes(user)) {
 						delete tempState.errorMessage;
+						if (data.editors.includes(user)) {
+							tempState.editor = true;
+						}
 						tempState.success = true;
 						tempState.hasPermission = true;
 						tempState.author = data.author === user;

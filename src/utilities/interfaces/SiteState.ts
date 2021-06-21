@@ -6,6 +6,7 @@ export interface SiteState {
 	hasPermission: boolean;
 	success: boolean;
 	author: boolean;
+	editor: boolean;
 	errorMessage?: string;
 }
 

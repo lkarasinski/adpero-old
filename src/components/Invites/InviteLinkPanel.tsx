@@ -67,19 +67,21 @@ export const InviteLinkPanel = withRouter(({ match }) => {
 			>
 				Create link
 			</SmallButton>
-			<CopyToClipboard text={`localhost:3000/join/${linkID}`}>
-				<div
-					style={{
-						backgroundColor: 'aquamarine',
-						padding: '1em',
-						margin: '1em',
-						cursor: 'pointer',
-					}}
-				>
-					<div>{`localhost:3000/join/${linkID}`}</div>
-					<p>Click to copy!</p>
-				</div>
-			</CopyToClipboard>
+			{linkID ? (
+				<CopyToClipboard text={`localhost:3000/join/${linkID}`}>
+					<div
+						style={{
+							backgroundColor: 'aquamarine',
+							padding: '1em',
+							margin: '1em',
+							cursor: 'pointer',
+						}}
+					>
+						<div>{`localhost:3000/join/${linkID}`}</div>
+						<p>Click to copy!</p>
+					</div>
+				</CopyToClipboard>
+			) : null}
 		</Wrapper>
 	);
 });

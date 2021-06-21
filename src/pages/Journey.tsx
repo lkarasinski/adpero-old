@@ -9,6 +9,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { InviteLinkPanel } from 'components/Invites/InviteLinkPanel';
 import { UserList } from 'components/UserList/UserList';
 import { JourneyErrors } from 'components/Errors/JourneyErrors';
+import { NewExpense } from 'components/Expenses/NewExpense';
+import { ExpensesList } from 'components/Expenses/ExpensesList';
 
 interface Props extends RouteComponentProps<{ id: string }> {}
 
@@ -23,6 +25,7 @@ export const Journey: React.FC<Props> = ({ match }) => {
 			hasPermission: false,
 			author: false,
 			success: false,
+			editor: false,
 		},
 	});
 
@@ -92,6 +95,11 @@ export const Journey: React.FC<Props> = ({ match }) => {
 		return <JourneyErrors siteState={siteData.siteState} userAuth={auth} />;
 	}
 
+	const [author, editor] = [
+		siteData.siteState.author,
+		siteData.siteState.editor,
+	];
+
 	return (
 		<>
 			<h1>{siteData?.journey?.name}</h1>
@@ -101,10 +109,10 @@ export const Journey: React.FC<Props> = ({ match }) => {
 				manage={manageEditorPermissions}
 			/>
 			<br />
-			{siteData.siteState.author ? <InviteLinkPanel /> : null}
-			<div>
-				<pre>{JSON.stringify(siteData, null, 2)}</pre>
-			</div>
+			<ExpensesList journeyData={siteData.journey} />
+
+			{author ? <InviteLinkPanel /> : null}
+			{editor || author ? <NewExpense id={match.params.id} /> : null}
 		</>
 	);
 };

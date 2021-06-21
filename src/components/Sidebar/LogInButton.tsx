@@ -16,7 +16,6 @@ export const LogInButton: React.FC = () => {
 	const [auth] = useAuthState(firebase.auth());
 
 	const handleAuth = () => {
-		console.log(auth);
 		if (auth) {
 			firebase.auth().signOut();
 		} else {
