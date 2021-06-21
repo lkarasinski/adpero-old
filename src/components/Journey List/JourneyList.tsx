@@ -1,7 +1,6 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Formik } from 'formik';
-import AuthContext from '../../contexts/AuthProvider';
 import firebase from '../../firebase';
 
 import { ErrorMessage } from '../Text decoration/ErrorMessage';
@@ -10,6 +9,7 @@ import { withRouter } from 'react-router-dom';
 import { NewJourneyForm } from './NewJourneyForm';
 
 import { sortResultsByCreationDate } from '../../utilities/functions/sortResultsByCreationDate';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Wrapper = styled.div``;
 
@@ -23,12 +23,12 @@ const JourneyList = withRouter(({ history }) => {
 	const [content, setContent] = useState<firebase.firestore.DocumentData[]>(
 		[]
 	);
-	const auth = useContext(AuthContext);
+	const [auth] = useAuthState(firebase.auth());
 	const journeysRef = firebase.firestore().collection('journeys');
 
 	const handleNewJourney = async (name: string) => {
-		if (auth.authenticated === true) {
-			const userEmail = auth?.user?.email;
+		if (auth) {
+			const userEmail = auth.email;
 			if (userEmail) {
 				await journeysRef
 					.add({
@@ -45,11 +45,11 @@ const JourneyList = withRouter(({ history }) => {
 	};
 
 	const getData = () => {
-		if (auth.authenticated === true) {
+		if (auth) {
 			const query = journeysRef.where(
 				'users',
 				'array-contains',
-				auth.user?.email
+				auth.email
 			);
 
 			query.get().then((data) => {
@@ -71,7 +71,7 @@ const JourneyList = withRouter(({ history }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [auth]);
 
-	if (!auth.authenticated) {
+	if (!auth) {
 		return (
 			<Wrapper>
 				<ErrorMessage>{`You need to be logged in to access this page.`}</ErrorMessage>

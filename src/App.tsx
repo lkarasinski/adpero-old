@@ -1,6 +1,5 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
-import { AuthProvider } from './contexts/AuthProvider';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './fonts.css';
 
@@ -26,7 +25,7 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const App: React.FC = () => (
-	<AuthProvider>
+	<>
 		<GlobalStyles />
 		<BrowserRouter>
 			<Layout>
@@ -41,7 +40,7 @@ const App: React.FC = () => (
 				</Switch>
 			</Layout>
 		</BrowserRouter>
-	</AuthProvider>
+	</>
 );
 
 export default App;

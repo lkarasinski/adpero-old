@@ -1,13 +1,13 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import _ from 'lodash';
 import { Field, Formik } from 'formik';
 import firebase from '../../firebase';
-import AuthContext from '../../contexts/AuthProvider';
 
 import MediumButton from '../Buttons/MediumButton';
 
 import categories from '../../constants/categories';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Wrapper = styled.main`
 	grid-row: 2/3;
@@ -64,14 +64,14 @@ const InputGrid = styled.div`
 `;
 
 const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
+	const [auth] = useAuthState(firebase.auth());
 	let initial: any = {};
 	const [detailsArray, setDetailsArray] = useState(['']);
-	const auth = useContext(AuthContext);
 	const usersRef = firebase.firestore().collection('users');
 
 	const sendDataToFirebase = async (data: Object) => {
-		if (auth.authenticated) {
-			const userEmail = auth?.user?.email;
+		if (auth) {
+			const userEmail = auth.email;
 			if (userEmail) {
 				const userDocRef = usersRef.doc(userEmail);
 				const copy: any = (await userDocRef.get()).data();
@@ -82,8 +82,8 @@ const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
 	};
 
 	const checkForNewUser = async () => {
-		const userName = auth?.user?.displayName;
-		const userEmail = auth?.user?.email;
+		const userName = auth?.displayName;
+		const userEmail = auth?.email;
 
 		// TODO: Try to make this use es6 🙄
 

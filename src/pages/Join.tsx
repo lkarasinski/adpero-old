@@ -1,18 +1,18 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import firebase from '../firebase';
-import AuthContext from '../contexts/AuthProvider';
 import { ErrorMessage } from 'components/Text decoration/ErrorMessage';
 import { withRouter } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const invitesRef = firebase.firestore().collection('invites');
 const journeysRef = firebase.firestore().collection('journeys');
 
 export const Join = withRouter(({ match, history }) => {
-	const auth = useContext(AuthContext);
+	const [auth] = useAuthState(firebase.auth());
 	const [isInJourney, setIsInJourney] = useState(false);
 
 	const isUserInJourney = () => {
-		if (auth.authenticated) {
+		if (auth) {
 			invitesRef
 				.doc(match.url.split('/')[2])
 				.get()
@@ -21,7 +21,7 @@ export const Join = withRouter(({ match, history }) => {
 					const journeyDoc = journeysRef.doc(journeyID);
 					journeyDoc.get().then((data) => {
 						const docData = data.data();
-						if (docData?.users.includes(auth.user?.email)) {
+						if (docData?.users.includes(auth.email)) {
 							setIsInJourney(true);
 						} else {
 							setIsInJourney(false);
@@ -37,7 +37,7 @@ export const Join = withRouter(({ match, history }) => {
 	}, [auth]);
 
 	const joinJourney = () => {
-		if (auth.authenticated) {
+		if (auth) {
 			invitesRef
 				.doc(match.url.split('/')[2])
 				.get()
@@ -46,13 +46,10 @@ export const Join = withRouter(({ match, history }) => {
 					const journeyDoc = journeysRef.doc(journeyID);
 					journeyDoc.get().then((data) => {
 						const docData = data.data();
-						if (!docData?.users.includes(auth.user?.email)) {
+						if (!docData?.users.includes(auth.email)) {
 							journeyDoc
 								.update({
-									users: [
-										...data.data()?.users,
-										auth.user?.email,
-									],
+									users: [...data.data()?.users, auth.email],
 								})
 								.then(() => {
 									history.push(`/journeys/${journeyID}`);
@@ -62,7 +59,7 @@ export const Join = withRouter(({ match, history }) => {
 				});
 		}
 	};
-	if (!auth.authenticated) {
+	if (!auth) {
 		return (
 			<>
 				<ErrorMessage>
@@ -79,7 +76,7 @@ export const Join = withRouter(({ match, history }) => {
 					You have already joined this journey
 					<button
 						onClick={() => {
-							if (auth.authenticated) {
+							if (auth) {
 								invitesRef
 									.doc(match.url.split('/')[2])
 									.get()

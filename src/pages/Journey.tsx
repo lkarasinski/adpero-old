@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-// import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import firebase from '../firebase';
-// import AuthContext from '../contexts/AuthProvider';
 import getSiteState from '../utilities/functions/getSiteState';
 import { SiteData } from '../utilities/interfaces/SiteState';
 import { useDocument } from 'react-firebase-hooks/firestore';
@@ -17,7 +15,6 @@ interface Props extends RouteComponentProps<{ id: string }> {}
 const journeysRef = firebase.firestore().collection('journeys');
 
 export const Journey: React.FC<Props> = ({ match }) => {
-	// const auth = useContext(AuthContext);
 	const [auth] = useAuthState(firebase.auth());
 	const [siteData, setSiteData] = useState<SiteData>({
 		siteState: {

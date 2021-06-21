@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import firebase from '../../firebase';
 import { SmallButton } from 'components/Buttons/SmallButton';
-import AuthContext from '../../contexts/AuthProvider';
 import { withRouter } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const invitesRef = firebase.firestore().collection('invites');
 const journeysRef = firebase.firestore().collection('journeys');
@@ -12,8 +12,8 @@ const journeysRef = firebase.firestore().collection('journeys');
 const Wrapper = styled.div``;
 
 const createInviteLink = async (auth: any, id: string, update: Function) => {
-	if (auth.authenticated && auth.user) {
-		const userEmail = auth.user.email;
+	if (auth) {
+		const userEmail = auth.email;
 		return journeysRef
 			.doc(id)
 			.get()
@@ -44,7 +44,7 @@ const createInviteLink = async (auth: any, id: string, update: Function) => {
 
 export const InviteLinkPanel = withRouter(({ match }) => {
 	const [linkID, setLinkID] = useState('');
-	const auth = useContext(AuthContext);
+	const [auth] = useAuthState(firebase.auth());
 	const journeyID = match.url.split('/')[2];
 
 	useEffect(() => {

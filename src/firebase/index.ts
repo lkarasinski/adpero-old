@@ -1,6 +1,4 @@
 import firebase from 'firebase/app';
-// import {doc, setDoc} from "firebase/firestore"
-// Required for fixing import issue with firebase/auth
 require('firebase/auth');
 require('firebase/firestore');
 
