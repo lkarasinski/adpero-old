@@ -2,8 +2,6 @@ import AuthContext from 'contexts/AuthProvider';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 
-import Layout from '../components/Layout/Layout';
-
 interface Props {}
 
 const Wrapper = styled.div`
@@ -20,15 +18,13 @@ export const Home: React.FC<Props> = () => {
 	const auth = useContext(AuthContext);
 	return (
 		<>
-			<Layout>
-				<Wrapper>
-					<StyledHeading>
-						{auth.authenticated
-							? `Hello ${auth.user?.displayName}`
-							: `Hello stranger 🥺`}
-					</StyledHeading>
-				</Wrapper>
-			</Layout>
+			<Wrapper>
+				<StyledHeading>
+					{auth.authenticated
+						? `Hello ${auth.user?.displayName?.split(' ')[0]}`
+						: `Hello stranger 🥺`}
+				</StyledHeading>
+			</Wrapper>
 		</>
 	);
 };

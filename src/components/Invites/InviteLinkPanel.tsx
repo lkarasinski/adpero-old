@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import firebase from './../../firebase';
+import firebase from '../../firebase';
 import { SmallButton } from 'components/Buttons/SmallButton';
 import AuthContext from '../../contexts/AuthProvider';
 import { withRouter } from 'react-router-dom';
@@ -42,7 +42,7 @@ const createInviteLink = async (auth: any, id: string, update: Function) => {
 	}
 };
 
-export const CreateInviteLinkPanel = withRouter(({ match }) => {
+export const InviteLinkPanel = withRouter(({ match }) => {
 	const [linkID, setLinkID] = useState('');
 	const auth = useContext(AuthContext);
 	const journeyID = match.url.split('/')[2];

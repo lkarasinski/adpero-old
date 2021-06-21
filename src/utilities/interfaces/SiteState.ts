@@ -11,5 +11,5 @@ export interface SiteState {
 
 export interface SiteData {
 	siteState: SiteState;
-	journey?: firebase.firestore.DocumentData | undefined;
+	journey?: firebase.firestore.DocumentData;
 }

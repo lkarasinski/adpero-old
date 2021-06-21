@@ -4,6 +4,9 @@ import { AuthProvider } from './contexts/AuthProvider';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './fonts.css';
 
+// Components
+import Layout from './components/Layout/Layout';
+
 // Pages
 import { Home } from 'pages/Home';
 import { About } from 'pages/About';
@@ -26,15 +29,17 @@ const App: React.FC = () => (
 	<AuthProvider>
 		<GlobalStyles />
 		<BrowserRouter>
-			<Switch>
-				<Route path="/" exact component={Home} />
-				<Route path="/about" exact component={About} />
-				<Route path="/settings" exact component={Settings} />
-				<Route path="/journeys" exact component={Journeys} />
-				<Route path="/journeys/:id" component={Journey} />
-				<Route path="/join/:id" component={Join} />
-				<Route path="/" component={PageNotFound} />
-			</Switch>
+			<Layout>
+				<Switch>
+					<Route path="/" exact component={Home} />
+					<Route path="/about" exact component={About} />
+					<Route path="/settings" exact component={Settings} />
+					<Route path="/journeys" exact component={Journeys} />
+					<Route path="/journeys/:id" component={Journey} />
+					<Route path="/join/:id" component={Join} />
+					<Route path="/" component={PageNotFound} />
+				</Switch>
+			</Layout>
 		</BrowserRouter>
 	</AuthProvider>
 );

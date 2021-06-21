@@ -5,13 +5,15 @@ import { SiteData } from '../interfaces/SiteState';
 
 interface Props {
 	auth: any;
-	journeysRef: firebase.firestore.CollectionReference<firebase.firestore.DocumentData>;
+	journeysRef: firebase.firestore.CollectionReference<
+		firebase.firestore.DocumentData
+	>;
 	id: string;
 	siteData: SiteData;
 	setSiteData: React.Dispatch<React.SetStateAction<SiteData>>;
 }
 
-const getJourneyData: Function = ({
+const getSiteState: Function = ({
 	auth,
 	journeysRef,
 	id,
@@ -34,7 +36,6 @@ const getJourneyData: Function = ({
 			.then((doc) => {
 				if (doc.exists) {
 					tempState.docExists = true;
-					const journeyData = doc.data();
 					const tempData = siteData;
 					const data = doc.data()!;
 					const users = data.users;
@@ -43,7 +44,6 @@ const getJourneyData: Function = ({
 						tempState.hasPermission = true;
 						tempState.author = data.author === user.email;
 					}
-					tempData.journey = journeyData;
 					tempData.siteState = tempState;
 					setSiteData({ ...tempData });
 				}
@@ -51,4 +51,4 @@ const getJourneyData: Function = ({
 	}
 };
 
-export default getJourneyData;
+export default getSiteState;

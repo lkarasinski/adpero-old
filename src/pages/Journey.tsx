@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import firebase from '../firebase';
 import AuthContext from '../contexts/AuthProvider';
-import getJourneyData from '../utilities/functions/getJourneyData';
+import getSiteState from '../utilities/functions/getSiteState';
 import { SiteData } from '../utilities/interfaces/SiteState';
-import Layout from '../components/Layout/Layout';
-import { CreateInviteLinkPanel } from 'components/Invites/CreateInviteLinkPanel';
+import { useDocument } from 'react-firebase-hooks/firestore';
+
+import { InviteLinkPanel } from 'components/Invites/InviteLinkPanel';
 
 interface Props extends RouteComponentProps<{ id: string }> {}
 
@@ -23,6 +24,10 @@ export const Journey: React.FC<Props> = ({ match }) => {
 		},
 	});
 
+	const [data, loading, error] = useDocument(
+		journeysRef.doc(match.params.id)
+	);
+
 	const removeUserFromTheJourney = (email: string) => {
 		if (siteData.siteState.author) {
 			if (siteData.journey?.users.includes(email)) {
@@ -39,8 +44,35 @@ export const Journey: React.FC<Props> = ({ match }) => {
 		}
 	};
 
+	const manageEditorPermissions = (email: string) => {
+		if (siteData.siteState.author) {
+			let editors: string[];
+			if (siteData.journey?.editors.includes(email)) {
+				editors = siteData.journey?.editors.filter(
+					(item: any) => item !== email
+				);
+			} else {
+				editors = siteData.journey?.editors;
+				editors.push(email);
+			}
+			journeysRef.doc(match.params.id).update({ editors: [...editors] });
+		}
+	};
+
+	const updateSiteInfo = () => {
+		if (data) {
+			const x = siteData;
+			x.journey = data.data();
+			setSiteData({ ...x });
+		}
+		if (error) {
+			console.error(error);
+		}
+	};
+
 	useEffect(() => {
-		getJourneyData({
+		updateSiteInfo();
+		getSiteState({
 			auth: auth,
 			journeysRef: journeysRef,
 			id: match.url.split('/')[2],
@@ -48,33 +80,49 @@ export const Journey: React.FC<Props> = ({ match }) => {
 			setSiteData: setSiteData,
 		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [auth, match.url]);
+	}, [auth, match.url, data]);
+
+	if (loading) {
+		return <h1>Loading...</h1>;
+	}
 
 	return (
-		<Layout>
-			siema {auth?.user?.displayName?.split(' ')[0]}
-			<div>
-				<pre>{JSON.stringify(siteData, null, 2)}</pre>
-			</div>
+		<>
+			<h1>Hello {auth?.user?.displayName?.split(' ')[0]}</h1>
 			<ul>
+				<p>Users in journey: </p>
+				<br />
 				{siteData.journey?.users.map((user: string) => (
 					<div key={user}>
 						<li>
 							{user}
 							{siteData.siteState.author ? (
-								<button
-									onClick={() =>
-										removeUserFromTheJourney(user)
-									}
-								>
-									remove user
-								</button>
+								<>
+									<button
+										onClick={() =>
+											removeUserFromTheJourney(user)
+										}
+									>
+										remove user
+									</button>
+									<button
+										onClick={() =>
+											manageEditorPermissions(user)
+										}
+									>
+										give editor
+									</button>
+								</>
 							) : null}
 						</li>
 					</div>
 				))}
 			</ul>
-			{siteData.siteState.author ? <CreateInviteLinkPanel /> : null}
-		</Layout>
+			<br />
+			{siteData.siteState.author ? <InviteLinkPanel /> : null}
+			<div>
+				<pre>{JSON.stringify(siteData, null, 2)}</pre>
+			</div>
+		</>
 	);
 };

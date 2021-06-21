@@ -15,7 +15,6 @@ const StyledList = styled.ul`
 	margin-left: 40px;
 	gap: 1rem;
 	display: grid;
-	/* flex-direction: column; */
 `;
 
 interface Props {

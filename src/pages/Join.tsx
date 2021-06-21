@@ -1,4 +1,3 @@
-import Layout from 'components/Layout/Layout';
 import { useContext, useEffect, useState } from 'react';
 import firebase from '../firebase';
 import AuthContext from '../contexts/AuthProvider';
@@ -66,44 +65,37 @@ export const Join = withRouter(({ match, history }) => {
 	if (!auth.authenticated) {
 		return (
 			<>
-				<Layout>
-					<ErrorMessage>
-						You need to login to join this journey 🥺
-					</ErrorMessage>
-				</Layout>
+				<ErrorMessage>
+					You need to login to join this journey 🥺
+				</ErrorMessage>
 			</>
 		);
 	}
 
 	return (
 		<>
-			<Layout>
-				{isInJourney ? (
-					<div>
-						You have already joined this journey
-						<button
-							onClick={() => {
-								if (auth.authenticated) {
-									invitesRef
-										.doc(match.url.split('/')[2])
-										.get()
-										.then((doc) => {
-											const journeyID = doc.data()
-												?.journeyID;
-											history.push(
-												`/journeys/${journeyID}`
-											);
-										});
-								}
-							}}
-						>
-							Go to the journey
-						</button>
-					</div>
-				) : (
-					<button onClick={joinJourney}>Join journey</button>
-				)}
-			</Layout>
+			{isInJourney ? (
+				<div>
+					You have already joined this journey
+					<button
+						onClick={() => {
+							if (auth.authenticated) {
+								invitesRef
+									.doc(match.url.split('/')[2])
+									.get()
+									.then((doc) => {
+										const journeyID = doc.data()?.journeyID;
+										history.push(`/journeys/${journeyID}`);
+									});
+							}
+						}}
+					>
+						Go to the journey
+					</button>
+				</div>
+			) : (
+				<button onClick={joinJourney}>Join journey</button>
+			)}
 		</>
 	);
 });
