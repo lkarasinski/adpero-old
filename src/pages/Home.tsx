@@ -1,5 +1,6 @@
-import AuthContext from 'contexts/AuthProvider';
-import React, { useContext } from 'react';
+import firebase from 'firebase';
+import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import styled from 'styled-components';
 
 interface Props {}
@@ -15,13 +16,14 @@ const StyledHeading = styled.h1`
 `;
 
 export const Home: React.FC<Props> = () => {
-	const auth = useContext(AuthContext);
+	const [auth, loading] = useAuthState(firebase.auth());
+	if (loading) return <h1>Loading</h1>;
 	return (
 		<>
 			<Wrapper>
 				<StyledHeading>
-					{auth.authenticated
-						? `Hello ${auth.user?.displayName?.split(' ')[0]}`
+					{auth
+						? `Hello ${auth.displayName?.split(' ')[0]}`
 						: `Hello stranger 🥺`}
 				</StyledHeading>
 			</Wrapper>

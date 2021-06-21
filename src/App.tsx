@@ -17,7 +17,7 @@ import { Journey } from 'pages/Journey';
 import { Join } from 'pages/Join';
 
 const GlobalStyles = createGlobalStyle`
-	*{
+	*, *::after, *::before{
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;

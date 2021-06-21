@@ -27,28 +27,32 @@ const getSiteState: Function = ({
 		author: false,
 		success: false,
 	};
-	if (auth?.authenticated) {
+	if (auth) {
 		tempState.authenticated = true;
-		const user = auth.user!;
-		journeysRef
-			.doc(id)
-			.get()
-			.then((doc) => {
-				if (doc.exists) {
-					tempState.docExists = true;
-					const tempData = siteData;
-					const data = doc.data()!;
-					const users = data.users;
-					if (users.includes(user.email)) {
+	}
+
+	const user = auth?.email;
+	journeysRef
+		.doc(id)
+		.get()
+		.then((doc) => {
+			if (doc.exists) {
+				tempState.docExists = true;
+				const tempData = siteData;
+				const data = doc.data()!;
+				const users = data.users;
+				if (user) {
+					if (users.includes(user)) {
+						delete tempState.errorMessage;
 						tempState.success = true;
 						tempState.hasPermission = true;
-						tempState.author = data.author === user.email;
+						tempState.author = data.author === user;
 					}
 					tempData.siteState = tempState;
 					setSiteData({ ...tempData });
 				}
-			});
-	}
+			}
+		});
 };
 
 export default getSiteState;

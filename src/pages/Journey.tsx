@@ -1,19 +1,24 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+// import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import firebase from '../firebase';
-import AuthContext from '../contexts/AuthProvider';
+// import AuthContext from '../contexts/AuthProvider';
 import getSiteState from '../utilities/functions/getSiteState';
 import { SiteData } from '../utilities/interfaces/SiteState';
 import { useDocument } from 'react-firebase-hooks/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { InviteLinkPanel } from 'components/Invites/InviteLinkPanel';
+import { UserList } from 'components/UserList/UserList';
+import { JourneyErrors } from 'components/Errors/JourneyErrors';
 
 interface Props extends RouteComponentProps<{ id: string }> {}
 
 const journeysRef = firebase.firestore().collection('journeys');
 
 export const Journey: React.FC<Props> = ({ match }) => {
-	const auth = useContext(AuthContext);
+	// const auth = useContext(AuthContext);
+	const [auth] = useAuthState(firebase.auth());
 	const [siteData, setSiteData] = useState<SiteData>({
 		siteState: {
 			authenticated: false,
@@ -24,7 +29,7 @@ export const Journey: React.FC<Props> = ({ match }) => {
 		},
 	});
 
-	const [data, loading, error] = useDocument(
+	const [firestoreData, loading, error] = useDocument(
 		journeysRef.doc(match.params.id)
 	);
 
@@ -60,9 +65,9 @@ export const Journey: React.FC<Props> = ({ match }) => {
 	};
 
 	const updateSiteInfo = () => {
-		if (data) {
+		if (firestoreData) {
 			const x = siteData;
-			x.journey = data.data();
+			x.journey = firestoreData.data();
 			setSiteData({ ...x });
 		}
 		if (error) {
@@ -71,7 +76,6 @@ export const Journey: React.FC<Props> = ({ match }) => {
 	};
 
 	useEffect(() => {
-		updateSiteInfo();
 		getSiteState({
 			auth: auth,
 			journeysRef: journeysRef,
@@ -79,45 +83,26 @@ export const Journey: React.FC<Props> = ({ match }) => {
 			siteData: siteData,
 			setSiteData: setSiteData,
 		});
+		updateSiteInfo();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [auth, match.url, data]);
+	}, [match.url, firestoreData, auth]);
 
 	if (loading) {
 		return <h1>Loading...</h1>;
 	}
 
+	if (!siteData.siteState.success || !siteData.journey || !auth) {
+		return <JourneyErrors siteState={siteData.siteState} userAuth={auth} />;
+	}
+
 	return (
 		<>
-			<h1>Hello {auth?.user?.displayName?.split(' ')[0]}</h1>
-			<ul>
-				<p>Users in journey: </p>
-				<br />
-				{siteData.journey?.users.map((user: string) => (
-					<div key={user}>
-						<li>
-							{user}
-							{siteData.siteState.author ? (
-								<>
-									<button
-										onClick={() =>
-											removeUserFromTheJourney(user)
-										}
-									>
-										remove user
-									</button>
-									<button
-										onClick={() =>
-											manageEditorPermissions(user)
-										}
-									>
-										give editor
-									</button>
-								</>
-							) : null}
-						</li>
-					</div>
-				))}
-			</ul>
+			<h1>{siteData?.journey?.name}</h1>
+			<UserList
+				siteData={siteData}
+				remove={removeUserFromTheJourney}
+				manage={manageEditorPermissions}
+			/>
 			<br />
 			{siteData.siteState.author ? <InviteLinkPanel /> : null}
 			<div>
