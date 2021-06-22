@@ -17,7 +17,9 @@ export const Expenses: React.FC<Props> = ({ journeyData, id, editor }) => {
 				{isEditing ? 'Stop editing' : 'Edit'}
 			</button>
 			{!isEditing ? <ExpensesList journeyData={journeyData} /> : null}
-			{editor && isEditing ? <NewExpense id={id} /> : null}
+			{editor && isEditing ? (
+				<NewExpense id={id} setIsEditing={setIsEditing} />
+			) : null}
 		</>
 	);
 };
