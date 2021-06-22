@@ -29,15 +29,27 @@ export const NewExpense: React.FC<Props> = ({ id }) => {
 		title: '',
 		details: [],
 	};
+
 	const updateDatabase = (values: any) => {
 		docRef.get().then((snap) => {
-			let x = snap.data();
-			let y = x?.expenses ?? [];
-			values.details.forEach((element: any) => {
-				y.push(element);
-			});
-
-			docRef.update({ expenses: [...y] });
+			const dbData = snap.data();
+			const dbExpenses = dbData?.expenses ?? [];
+			const titles = [...dbExpenses.map((e: any) => e.title)];
+			console.clear();
+			if (titles.includes(values.title)) {
+				for (let dbExpense of dbExpenses) {
+					if (dbExpense.title === values.title) {
+						dbExpense.details = values.details;
+						const copy = dbData ?? {};
+						docRef.update(copy);
+					}
+				}
+			} else {
+				const copy = dbData ?? {};
+				copy.expenses.push(values);
+				console.log(values);
+				docRef.update(copy);
+			}
 		});
 	};
 
@@ -70,87 +82,69 @@ export const NewExpense: React.FC<Props> = ({ id }) => {
 							<br />
 							<FieldArray name="details">
 								{() =>
-									values.details.map(
-										({ label, value }, i) => {
-											return (
-												<div key={i}>
-													<label
-														htmlFor={`details.${i}.label`}
-													>
-														Label
-													</label>
-													<Field
-														name={`details.${i}.label`}
-														type="text"
-														disabled={!active}
-													/>
-													<label
-														htmlFor={`details.${i}.value`}
-													>
-														Value
-													</label>
-													<Field
-														name={`details.${i}.value`}
-														type="text"
-														disabled={!active}
-													/>
-													<label
-														htmlFor={`details.${i}.type`}
-													>
-														Type
-													</label>
-													<Field
-														name={`details.${i}.type`}
-														type="text"
-														disabled={!active}
-													>
-														{({
-															field,
-														}: {
-															field: any;
-														}) => (
-															<select {...field}>
-																{[
-																	'',
-																	'Text',
-																	'Time / Date',
-																	'Price',
-																	'Link',
-																].map((j) => (
-																	<option
-																		key={j}
-																		value={
-																			j
-																		}
-																	>
-																		{j}
-																	</option>
-																))}
-															</select>
-														)}
-													</Field>
-													<p>
-														<span
-															style={{
-																fontSize:
-																	'1.2em',
-																fontWeight:
-																	'bold',
-															}}
-														>
-															{values.title}
-														</span>{' '}
-														{label}: {value}
-													</p>
-												</div>
-											);
-										}
-									)
+									values.details.map((_, i) => {
+										return (
+											<div key={i}>
+												<label
+													htmlFor={`details.${i}.label`}
+												>
+													Label
+												</label>
+												<Field
+													name={`details.${i}.label`}
+													type="text"
+													disabled={!active}
+												/>
+												<label
+													htmlFor={`details.${i}.value`}
+												>
+													Value
+												</label>
+												<Field
+													name={`details.${i}.value`}
+													type="text"
+													disabled={!active}
+												/>
+												<label
+													htmlFor={`details.${i}.type`}
+												>
+													Type
+												</label>
+												<Field
+													name={`details.${i}.type`}
+													type="text"
+													disabled={!active}
+												>
+													{({
+														field,
+													}: {
+														field: any;
+													}) => (
+														<select {...field}>
+															{[
+																'',
+																'Text',
+																'Time / Date',
+																'Price',
+																'Link',
+															].map((j) => (
+																<option
+																	key={j}
+																	value={j}
+																>
+																	{j}
+																</option>
+															))}
+														</select>
+													)}
+												</Field>
+											</div>
+										);
+									})
 								}
 							</FieldArray>
 							<button type="submit">Submit</button>
 						</Form>
-						<pre>{JSON.stringify(values, null, 2)}</pre>
 					</>
 				)}
 			</Formik>
