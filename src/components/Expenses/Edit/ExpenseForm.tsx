@@ -3,6 +3,7 @@
 import { Field, Form, Formik } from 'formik';
 import * as React from 'react';
 import {
+	Details,
 	Expense,
 	ExpenseFormValues,
 } from '../../../utilities/interfaces/ExpenseFormValues';
@@ -57,6 +58,21 @@ export const ExpenseForm: React.FC<Props> = ({ updateDB, docRef }) => {
 		setValues([...values.filter((expense) => expense !== values[index])]);
 	};
 
+	const removeDetail = (
+		values: ExpenseFormValues,
+		i: number,
+		j: number,
+		setValues: (values: ExpenseFormValues) => void
+	): void => {
+		const details = values
+			.filter((expense) => expense === values[i])[0]
+			.details.filter(
+				(detail: Details) => detail !== values[i].details[j]
+			);
+		const result = [...values];
+		result[i].details = details;
+		setValues([...result]);
+	};
 	return (
 		<div>
 			<p>Hey!</p>
@@ -114,6 +130,19 @@ export const ExpenseForm: React.FC<Props> = ({ updateDB, docRef }) => {
 													<Field
 														name={`[${i}].details[${j}].type`}
 													/>
+													<button
+														type="button"
+														onClick={() => {
+															removeDetail(
+																values,
+																i,
+																j,
+																setValues
+															);
+														}}
+													>
+														X
+													</button>
 												</div>
 											);
 										})}
