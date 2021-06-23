@@ -21,7 +21,8 @@ export const ExpenseTitle = styled.h1`
 `;
 
 export const DetailTextContainer = styled.div`
-	display: flex;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 `;
 
 export const DetailText = styled.p`
@@ -31,8 +32,9 @@ export const DetailText = styled.p`
 	padding: 10px;
 	margin: 10px;
 	border-radius: 15px;
-	width: 100%;
-	max-width: 400px;
-	flex-grow: 1;
+	/* width: 100%; */
+	/* max-width: 400px; */
+	/* flex-grow: 1; */
 	overflow: wrap;
+	grid-row: 1/2;
 `;

@@ -71,7 +71,7 @@ export const InviteLinkPanel = withRouter(({ match }) => {
 				Create link
 			</SmallButton>
 			{linkID ? (
-				<CopyToClipboard text={`localhost:3000/join/${linkID}`}>
+				<CopyToClipboard text={`adpero.netlify.app/join/${linkID}`}>
 					<div
 						style={{
 							backgroundColor: 'aquamarine',
@@ -80,7 +80,7 @@ export const InviteLinkPanel = withRouter(({ match }) => {
 							cursor: 'pointer',
 						}}
 					>
-						<div>{`localhost:3000/join/${linkID}`}</div>
+						<div>{`adpero.netlify.app/join/${linkID}`}</div>
 						<p>Click to copy!</p>
 					</div>
 				</CopyToClipboard>
