@@ -24,8 +24,6 @@ export const Edit: React.FC<Props> = ({ id, setIsEditing }) => {
 
 	return (
 		<div>
-			siema {id}
-			<div></div>
 			<ExpenseForm updateDB={updateDatabase} docRef={docRef} />
 		</div>
 	);
