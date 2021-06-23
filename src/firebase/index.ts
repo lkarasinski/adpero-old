@@ -3,6 +3,7 @@ require('firebase/auth');
 require('firebase/firestore');
 
 export type authType = firebase.User | undefined | null;
+export type documentDataType = firebase.firestore.DocumentData;
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyA3Jczs7ht_gFUrZIB0jbn74jQZPoybNWc',

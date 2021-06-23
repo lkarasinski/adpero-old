@@ -1,9 +1,10 @@
+import { documentDataType } from 'firebase';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 interface Props {
 	data: {
-		[key: string]: any;
+		[key: string]: documentDataType;
 	};
 }
 

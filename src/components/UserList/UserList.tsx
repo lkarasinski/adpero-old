@@ -8,7 +8,6 @@ interface Props {
 }
 
 export const UserList: React.FC<Props> = ({ siteData, remove, manage }) => {
-	console.log(siteData);
 	const usersWithoutAuthor = siteData?.journey?.users.filter(
 		(x: string) => x !== siteData?.journey?.author
 	);

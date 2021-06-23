@@ -79,7 +79,6 @@ const JourneyList = withRouter(({ history }) => {
 			</Wrapper>
 		);
 	}
-
 	return (
 		<Wrapper>
 			<StyledHeading>Your Journeys: </StyledHeading>

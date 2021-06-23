@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 
 import { ExpensesList } from './ExpensesList';
-import { NewExpense } from './NewExpense';
+import { Edit } from './Edit';
+
+import { documentDataType } from '../../firebase';
 
 interface Props {
 	id: string;
-	journeyData: any;
+	journeyData: documentDataType;
 	editor: boolean;
 }
 
 export const Expenses: React.FC<Props> = ({ journeyData, id, editor }) => {
-	const [isEditing, setIsEditing] = useState(false);
+	const [isEditing, setIsEditing] = useState(true);
 	return (
 		<>
 			<button onClick={() => setIsEditing(!isEditing)}>
@@ -18,7 +20,7 @@ export const Expenses: React.FC<Props> = ({ journeyData, id, editor }) => {
 			</button>
 			{!isEditing ? <ExpensesList journeyData={journeyData} /> : null}
 			{editor && isEditing ? (
-				<NewExpense id={id} setIsEditing={setIsEditing} />
+				<Edit id={id} setIsEditing={setIsEditing} />
 			) : null}
 		</>
 	);
