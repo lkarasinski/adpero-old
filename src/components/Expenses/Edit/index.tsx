@@ -17,7 +17,7 @@ export const Edit: React.FC<Props> = ({ id, setIsEditing }) => {
 			const dbData = snap.data();
 			const copy = dbData ?? {};
 			copy.expenses = values;
-			docRef.update(copy);
+			docRef.set(copy);
 		});
 		setIsEditing(false);
 	};

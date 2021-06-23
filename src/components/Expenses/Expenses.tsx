@@ -12,12 +12,15 @@ interface Props {
 }
 
 export const Expenses: React.FC<Props> = ({ journeyData, id, editor }) => {
-	const [isEditing, setIsEditing] = useState(true);
+	const [isEditing, setIsEditing] = useState(false);
 	return (
 		<>
-			<button onClick={() => setIsEditing(!isEditing)}>
-				{isEditing ? 'Stop editing' : 'Edit'}
-			</button>
+			{editor ? (
+				<button onClick={() => setIsEditing(!isEditing)}>
+					{isEditing ? 'Stop editing' : 'Edit'}
+				</button>
+			) : null}
+
 			{!isEditing ? <ExpensesList journeyData={journeyData} /> : null}
 			{editor && isEditing ? (
 				<Edit id={id} setIsEditing={setIsEditing} />

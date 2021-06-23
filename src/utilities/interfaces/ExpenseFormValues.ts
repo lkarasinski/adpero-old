@@ -2,6 +2,7 @@ export interface Details {
 	label: string;
 	type: string;
 	value: string;
+	currency?: string;
 }
 type DetailsArray = Details[];
 

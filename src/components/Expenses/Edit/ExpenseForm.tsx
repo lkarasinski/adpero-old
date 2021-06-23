@@ -34,6 +34,7 @@ export const ExpenseForm: React.FC<Props> = ({ updateDB, docRef }) => {
 					label: '',
 					value: '',
 					type: '',
+					currency: '',
 				},
 			],
 		});
@@ -46,6 +47,7 @@ export const ExpenseForm: React.FC<Props> = ({ updateDB, docRef }) => {
 			label: '',
 			value: '',
 			type: '',
+			currency: '',
 		});
 		return copy;
 	};
@@ -126,6 +128,12 @@ export const ExpenseForm: React.FC<Props> = ({ updateDB, docRef }) => {
 													<Field
 														name={`[${i}].details[${j}].value`}
 													/>
+													{values[i].details[j]
+														.type === 'Price' ? (
+														<Field
+															name={`[${i}].details[${j}].currency`}
+														/>
+													) : null}
 													<Field
 														name={`[${i}].details[${j}].type`}
 													/>
