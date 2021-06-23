@@ -75,7 +75,6 @@ export const ExpenseForm: React.FC<Props> = ({ updateDB, docRef }) => {
 	};
 	return (
 		<div>
-			<p>Hey!</p>
 			<Formik
 				initialValues={initialValues}
 				onSubmit={(values: ExpenseFormValues) => updateDB(values)}
