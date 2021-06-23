@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
-import firebase from '../../firebase';
+import firebase, { authType } from '../../firebase';
 import { SmallButton } from 'components/Buttons/SmallButton';
 import { withRouter } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -11,7 +11,11 @@ const journeysRef = firebase.firestore().collection('journeys');
 
 const Wrapper = styled.div``;
 
-const createInviteLink = async (auth: any, id: string, update: Function) => {
+const createInviteLink = async (
+	auth: authType,
+	id: string,
+	update: React.Dispatch<React.SetStateAction<string>>
+) => {
 	if (auth) {
 		const userEmail = auth.email;
 		return journeysRef
@@ -43,11 +47,11 @@ const createInviteLink = async (auth: any, id: string, update: Function) => {
 };
 
 export const InviteLinkPanel = withRouter(({ match }) => {
-	const [linkID, setLinkID] = useState('');
+	const [linkID, setLinkID] = React.useState('');
 	const [auth] = useAuthState(firebase.auth());
 	const journeyID = match.url.split('/')[2];
 
-	useEffect(() => {
+	React.useEffect(() => {
 		invitesRef
 			.where('journeyID', '==', journeyID)
 			.get()
@@ -56,7 +60,6 @@ export const InviteLinkPanel = withRouter(({ match }) => {
 					setLinkID(doc.id);
 				});
 			});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

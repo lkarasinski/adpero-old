@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import firebase from '../firebase';
 import { ErrorMessage } from 'components/Text decoration/ErrorMessage';
 import { withRouter } from 'react-router-dom';
@@ -9,7 +9,7 @@ const journeysRef = firebase.firestore().collection('journeys');
 
 export const Join = withRouter(({ match, history }) => {
 	const [auth] = useAuthState(firebase.auth());
-	const [isInJourney, setIsInJourney] = useState(false);
+	const [isInJourney, setIsInJourney] = React.useState(false);
 
 	const isUserInJourney = () => {
 		if (auth) {
@@ -33,7 +33,6 @@ export const Join = withRouter(({ match, history }) => {
 
 	useEffect(() => {
 		isUserInJourney();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [auth]);
 
 	const joinJourney = () => {

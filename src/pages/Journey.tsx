@@ -11,11 +11,11 @@ import { UserList } from 'components/UserList/UserList';
 import { JourneyErrors } from 'components/Errors/JourneyErrors';
 import { Expenses } from 'components/Expenses/Expenses';
 
-interface Props extends RouteComponentProps<{ id: string }> {}
-
 const journeysRef = firebase.firestore().collection('journeys');
 
-export const Journey: React.FC<Props> = ({ match }) => {
+export const Journey: React.FC<RouteComponentProps<{ id: string }>> = ({
+	match,
+}) => {
 	const [auth] = useAuthState(firebase.auth());
 	const [siteData, setSiteData] = useState<SiteData>({
 		siteState: {
@@ -36,7 +36,7 @@ export const Journey: React.FC<Props> = ({ match }) => {
 		if (siteData.siteState.author) {
 			if (siteData.journey?.users.includes(email)) {
 				const users = siteData.journey?.users.filter(
-					(item: any) => item !== email
+					(item: string) => item !== email
 				);
 				journeysRef
 					.doc(match.params.id)
@@ -53,7 +53,7 @@ export const Journey: React.FC<Props> = ({ match }) => {
 			let editors: string[];
 			if (siteData.journey?.editors.includes(email)) {
 				editors = siteData.journey?.editors.filter(
-					(item: any) => item !== email
+					(item: string) => item !== email
 				);
 			} else {
 				editors = siteData.journey?.editors;
@@ -83,7 +83,6 @@ export const Journey: React.FC<Props> = ({ match }) => {
 			setSiteData: setSiteData,
 		});
 		updateSiteInfo();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [match.url, firestoreData, auth]);
 
 	if (loading) {

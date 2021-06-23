@@ -4,7 +4,7 @@ import firebase from '../../firebase';
 import { SiteData } from '../interfaces/SiteState';
 
 interface Props {
-	auth: any;
+	auth: firebase.User | null | undefined;
 	journeysRef: firebase.firestore.CollectionReference<
 		firebase.firestore.DocumentData
 	>;
@@ -13,13 +13,13 @@ interface Props {
 	setSiteData: React.Dispatch<React.SetStateAction<SiteData>>;
 }
 
-const getSiteState: Function = ({
+const getSiteState = ({
 	auth,
 	journeysRef,
 	id,
 	siteData,
 	setSiteData,
-}: Props) => {
+}: Props): void => {
 	const tempState: SiteState = {
 		authenticated: false,
 		docExists: false,
@@ -40,23 +40,24 @@ const getSiteState: Function = ({
 			if (doc.exists) {
 				tempState.docExists = true;
 				const tempData = siteData;
-				const data = doc.data()!;
-				const users = data.users;
+				const data = doc.data();
+				const users = data?.users;
 				if (user) {
 					if (users.includes(user)) {
 						delete tempState.errorMessage;
-						if (data.editors.includes(user)) {
+						if (data?.editors.includes(user)) {
 							tempState.editor = true;
 						}
 						tempState.success = true;
 						tempState.hasPermission = true;
-						tempState.author = data.author === user;
+						tempState.author = data?.author === user;
 					}
 					tempData.siteState = tempState;
 					setSiteData({ ...tempData });
 				}
 			}
 		});
+	return;
 };
 
 export default getSiteState;

@@ -1,10 +1,11 @@
 import { ErrorMessage } from 'components/Text decoration/ErrorMessage';
 import React from 'react';
 import { SiteState } from 'utilities/interfaces/SiteState';
+import firebase from '../../firebase';
 
 interface Props {
 	siteState: SiteState;
-	userAuth: any;
+	userAuth: firebase.User | undefined | null;
 }
 
 export const JourneyErrors: React.FC<Props> = ({ siteState, userAuth }) => {
@@ -24,7 +25,7 @@ export const JourneyErrors: React.FC<Props> = ({ siteState, userAuth }) => {
 	if (!siteState.hasPermission) {
 		return (
 			<ErrorMessage>
-				You don't have permission to access this page.
+				You don&apost have permission to access this page.
 			</ErrorMessage>
 		);
 	}

@@ -2,6 +2,8 @@ import firebase from 'firebase/app';
 require('firebase/auth');
 require('firebase/firestore');
 
+export type authType = firebase.User | undefined | null;
+
 const firebaseConfig = {
 	apiKey: 'AIzaSyA3Jczs7ht_gFUrZIB0jbn74jQZPoybNWc',
 	authDomain: 'adpero-1a98f.firebaseapp.com',

@@ -65,7 +65,7 @@ const InputGrid = styled.div`
 
 const DetailsPanel = ({ currentCategory }: { currentCategory: string }) => {
 	const [auth] = useAuthState(firebase.auth());
-	let initial: any = {};
+	const initial: any = {};
 	const [detailsArray, setDetailsArray] = useState(['']);
 	const usersRef = firebase.firestore().collection('users');
 

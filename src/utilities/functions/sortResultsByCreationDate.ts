@@ -2,8 +2,11 @@ import firebase from '../../firebase';
 
 export const sortResultsByCreationDate = (
 	array: firebase.firestore.DocumentData[]
-) => {
-	const compareDate = (a: any, b: any) => {
+): void => {
+	const compareDate = (
+		a: firebase.firestore.DocumentData,
+		b: firebase.firestore.DocumentData
+	) => {
 		return a.createdAt.seconds > b.createdAt.seconds
 			? -1
 			: a.createdAt.seconds < b.createdAt.seconds
@@ -11,4 +14,5 @@ export const sortResultsByCreationDate = (
 			: 0;
 	};
 	array.sort(compareDate);
+	return;
 };

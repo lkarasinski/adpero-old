@@ -5,12 +5,12 @@ import firebase from '../../firebase';
 
 interface Props {
 	id: string;
-	setIsEditing: Function;
+	setIsEditing: React.Dispatch<React.SetStateAction<string>>;
 }
 interface Props2 {
 	field: any;
 	expenses: any;
-	setSelectedExpense: Function;
+	setSelectedExpense: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ExpensesSelector: React.FC<Props2> = ({
@@ -18,6 +18,13 @@ const ExpensesSelector: React.FC<Props2> = ({
 	expenses,
 	setSelectedExpense,
 }) => {
+	const temp = () => {
+		setSelectedExpense('test');
+		return;
+	};
+	if (field === null) {
+		temp();
+	}
 	return (
 		<select
 			{...field}
@@ -39,9 +46,13 @@ const ExpensesSelector: React.FC<Props2> = ({
 			})}
 		</select>
 	);
-
-	setSelectedExpense();
 };
+
+interface IDetails {}
+interface IValue {
+	title: string;
+	details: IDetails[];
+}
 
 export const NewExpense: React.FC<Props> = ({ id, setIsEditing }) => {
 	const journeysRef = firebase.firestore().collection('journeys');
@@ -49,7 +60,7 @@ export const NewExpense: React.FC<Props> = ({ id, setIsEditing }) => {
 	const [data, loading] = useDocument(docRef);
 	const [selectedExpense, setSelectedExpense] = useState<any>(null);
 
-	let initialValues: any = selectedExpense ?? {
+	let initialValues: IValue = selectedExpense ?? {
 		title: '',
 		details: [],
 	};
@@ -63,7 +74,7 @@ export const NewExpense: React.FC<Props> = ({ id, setIsEditing }) => {
 			const dbExpenses = dbData?.expenses ?? [];
 			const titles = [...dbExpenses.map((e: any) => e.title)];
 			if (titles.includes(values.title)) {
-				for (let dbExpense of dbExpenses) {
+				for (const dbExpense of dbExpenses) {
 					if (dbExpense.title === values.title) {
 						dbExpense.details = values.details;
 						const copy = dbData ?? {};
@@ -121,74 +132,64 @@ export const NewExpense: React.FC<Props> = ({ id, setIsEditing }) => {
 								<br />
 								<FieldArray name="details">
 									{() =>
-										values.details.map(
-											(_: any, i: number) => {
-												return (
-													<div key={i}>
-														<label
-															htmlFor={`details.${i}.label`}
-														>
-															Label
-														</label>
-														<Field
-															name={`details.${i}.label`}
-															type="text"
-														/>
-														<label
-															htmlFor={`details.${i}.value`}
-														>
-															Value
-														</label>
-														<Field
-															name={`details.${i}.value`}
-															type="text"
-														/>
-														<label
-															htmlFor={`details.${i}.type`}
-														>
-															Type
-														</label>
-														<Field
-															name={`details.${i}.type`}
-															type="text"
-														>
-															{({
-																field,
-															}: {
-																field: any;
-															}) => (
-																<select
-																	{...field}
-																>
-																	{[
-																		'',
-																		'Text',
-																		'Time / Date',
-																		'Price',
-																		'Link',
-																	].map(
-																		(j) => (
-																			<option
-																				key={
-																					j
-																				}
-																				value={
-																					j
-																				}
-																			>
-																				{
-																					j
-																				}
-																			</option>
-																		)
-																	)}
-																</select>
-															)}
-														</Field>
-													</div>
-												);
-											}
-										)
+										values.details.map((_, i: number) => {
+											return (
+												<div key={i}>
+													<label
+														htmlFor={`details.${i}.label`}
+													>
+														Label
+													</label>
+													<Field
+														name={`details.${i}.label`}
+														type="text"
+													/>
+													<label
+														htmlFor={`details.${i}.value`}
+													>
+														Value
+													</label>
+													<Field
+														name={`details.${i}.value`}
+														type="text"
+													/>
+													<label
+														htmlFor={`details.${i}.type`}
+													>
+														Type
+													</label>
+													<Field
+														name={`details.${i}.type`}
+														type="text"
+													>
+														{({
+															field,
+														}: {
+															field: any;
+														}) => (
+															<select {...field}>
+																{[
+																	'',
+																	'Text',
+																	'Time / Date',
+																	'Price',
+																	'Link',
+																].map((j) => (
+																	<option
+																		key={j}
+																		value={
+																			j
+																		}
+																	>
+																		{j}
+																	</option>
+																))}
+															</select>
+														)}
+													</Field>
+												</div>
+											);
+										})
 									}
 								</FieldArray>
 								<button type="submit">Submit</button>

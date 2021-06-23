@@ -1,8 +1,6 @@
 import React from 'react';
 
-interface Props {}
-
-export const PageNotFound: React.FC<Props> = () => {
+export const PageNotFound: React.FC = () => {
 	return (
 		<>
 			<div>Error 404 🥺</div>

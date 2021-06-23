@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { Formik } from 'formik';
 import firebase from '../../firebase';
@@ -20,9 +20,9 @@ const StyledHeading = styled.h3`
 `;
 
 const JourneyList = withRouter(({ history }) => {
-	const [content, setContent] = useState<firebase.firestore.DocumentData[]>(
-		[]
-	);
+	const [content, setContent] = React.useState<
+		firebase.firestore.DocumentData[]
+	>([]);
 	const [auth] = useAuthState(firebase.auth());
 	const journeysRef = firebase.firestore().collection('journeys');
 
@@ -68,9 +68,8 @@ const JourneyList = withRouter(({ history }) => {
 		}
 	};
 
-	useEffect(() => {
+	React.useEffect(() => {
 		getData();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [auth]);
 
 	if (!auth) {

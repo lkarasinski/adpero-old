@@ -1,12 +1,14 @@
 import React from 'react';
+import { SiteData } from '../../utilities/interfaces/SiteState';
 
 interface Props {
-	siteData: any;
+	siteData: SiteData;
 	remove: (x: string) => void;
 	manage: (x: string) => void;
 }
 
 export const UserList: React.FC<Props> = ({ siteData, remove, manage }) => {
+	console.log(siteData);
 	const usersWithoutAuthor = siteData?.journey?.users.filter(
 		(x: string) => x !== siteData?.journey?.author
 	);

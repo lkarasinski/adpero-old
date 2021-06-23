@@ -1,7 +1,5 @@
 import React from 'react';
 
-interface Props {}
-
-export const About: React.FC<Props> = () => {
+export const About: React.FC = () => {
 	return <></>;
 };
