@@ -26,13 +26,17 @@ const detailsSchema = {
 		then: yup.number().required(),
 		otherwise: yup.string().required(),
 	}),
-	// currency: yup.string().max(3),
-	currency: yup
-		.string()
-		.when('type', {
-			is: 'Price',
-			then: yup.string().required().min(3).max(3),
-		}),
+	currency: yup.string().when('type', {
+		is: 'Price',
+		then: yup
+			.string()
+			.required()
+			.test(
+				'len',
+				'Enter currency code. For example: USD, GBP',
+				(val) => val?.length === 3
+			),
+	}),
 };
 
 const validationSchema = yup.array().of(

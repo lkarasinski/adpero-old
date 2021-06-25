@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Formik } from 'formik';
 import firebase from '../../firebase';
+import * as yup from 'yup';
 
 import { ErrorMessage } from '../Text decoration/ErrorMessage';
 import JourneyPanel from './JourneyPanel';
@@ -18,6 +19,11 @@ const StyledHeading = styled.h3`
 	text-align: center;
 	font-weight: lighter;
 `;
+
+const validationSchema = yup.object({
+	name: yup.string().required().min(3),
+	users: yup.array(),
+});
 
 const JourneyList = withRouter(({ history }) => {
 	const [content, setContent] = React.useState<
@@ -93,6 +99,7 @@ const JourneyList = withRouter(({ history }) => {
 				onSubmit={async (values) => {
 					handleNewJourney(values.name);
 				}}
+				validationSchema={validationSchema}
 			>
 				{({ handleSubmit }) => (
 					<NewJourneyForm handleSubmit={handleSubmit} />
