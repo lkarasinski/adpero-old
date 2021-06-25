@@ -11,6 +11,8 @@ import { UserList } from 'components/UserList/UserList';
 import { JourneyErrors } from 'components/Errors/JourneyErrors';
 import { Expenses } from 'components/Expenses/Display';
 
+import { DeleteJourney } from 'components/DeleteJourney';
+
 const journeysRef = firebase.firestore().collection('journeys');
 
 export const Journey: React.FC<RouteComponentProps<{ id: string }>> = ({
@@ -112,6 +114,7 @@ export const Journey: React.FC<RouteComponentProps<{ id: string }>> = ({
 				editor={editor}
 			/>
 			{author ? <InviteLinkPanel /> : null}
+			{author ? <DeleteJourney id={match.params.id} /> : null}
 		</>
 	);
 };
