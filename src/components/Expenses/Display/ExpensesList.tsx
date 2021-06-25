@@ -1,11 +1,16 @@
 import React from 'react';
-import { documentDataType } from '../../firebase';
-import { Expense, Details } from '../../utilities/interfaces/ExpenseFormValues';
+import { documentDataType } from '../../../firebase';
+import {
+	Expense,
+	Details,
+} from '../../../utilities/interfaces/ExpenseFormValues';
 import {
 	DetailText,
 	DetailTextContainer,
 	ExpenseTitle,
-} from './styledComponents';
+} from '../shared/styledComponents';
+import { Spendings } from './../Spendings';
+import { getAllSpendings } from '../../../utilities/functions/getAllSpendings';
 
 interface Props {
 	journeyData: documentDataType;
@@ -16,6 +21,7 @@ export const ExpensesList: React.FC<Props> = ({ journeyData }) => {
 
 	return (
 		<div>
+			<Spendings spendings={getAllSpendings(journeyData.expenses)} />
 			<div
 				style={{ display: 'flex', gap: '1em', flexDirection: 'column' }}
 			>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 import { ExpensesList } from './ExpensesList';
-import { Edit } from './Edit';
+import { Edit } from '../Edit';
 
-import { documentDataType } from '../../firebase';
+import { documentDataType } from '../../../firebase';
 
 interface Props {
 	id: string;
@@ -20,7 +20,6 @@ export const Expenses: React.FC<Props> = ({ journeyData, id, editor }) => {
 					{isEditing ? 'Stop editing' : 'Edit'}
 				</button>
 			) : null}
-
 			{!isEditing ? <ExpensesList journeyData={journeyData} /> : null}
 			{editor && isEditing ? (
 				<Edit id={id} setIsEditing={setIsEditing} />

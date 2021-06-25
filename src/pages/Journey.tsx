@@ -9,7 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { InviteLinkPanel } from 'components/Invites/InviteLinkPanel';
 import { UserList } from 'components/UserList/UserList';
 import { JourneyErrors } from 'components/Errors/JourneyErrors';
-import { Expenses } from 'components/Expenses/Expenses';
+import { Expenses } from 'components/Expenses/Display';
 
 const journeysRef = firebase.firestore().collection('journeys');
 
