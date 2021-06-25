@@ -1,9 +1,6 @@
 import React from 'react';
 import { documentDataType } from '../../../firebase';
-import {
-	Expense,
-	Details,
-} from '../../../utilities/interfaces/ExpenseFormValues';
+import { Expense, Details } from '../../../utilities/interfaces/Expenses';
 import {
 	DetailText,
 	DetailTextContainer,

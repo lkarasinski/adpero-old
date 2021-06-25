@@ -11,7 +11,7 @@ interface Props {
 const Wrapper = styled.div`
 	font-size: 1em;
 	margin: 2rem;
-	border: 0.4rem #6730cf solid;
+	border: 0.4rem #9d62fd solid;
 	border-radius: 1rem;
 	padding: 1rem;
 `;

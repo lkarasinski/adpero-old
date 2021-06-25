@@ -12,6 +12,7 @@ import { JourneyErrors } from 'components/Errors/JourneyErrors';
 import { Expenses } from 'components/Expenses/Display';
 
 import { DeleteJourney } from 'components/DeleteJourney';
+import { CreateNewPoll } from 'components/Expenses/Polls/CreateNewPoll';
 
 const journeysRef = firebase.firestore().collection('journeys');
 
@@ -115,6 +116,7 @@ export const Journey: React.FC<RouteComponentProps<{ id: string }>> = ({
 			/>
 			{author ? <InviteLinkPanel /> : null}
 			{author ? <DeleteJourney id={match.params.id} /> : null}
+			<CreateNewPoll id={match.params.id} />
 		</>
 	);
 };

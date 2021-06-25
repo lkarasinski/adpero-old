@@ -9,11 +9,13 @@ interface Props {
 const Wrapper = styled.form``;
 
 const NewJourneyButton = styled.button`
-	border: 0.4rem solid #98cf30;
+	border: 0.4rem solid #62fd8d;
 	border-radius: 1rem;
 	padding: 1rem;
 	background-color: transparent;
 	cursor: pointer;
+	font-weight: bold;
+	font-size: 1.3em;
 `;
 
 export const NewJourneyForm: React.FC<Props> = ({ handleSubmit }) => {

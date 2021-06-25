@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { Expense } from '../interfaces/ExpenseFormValues';
-import { Details } from '../interfaces/ExpenseFormValues';
+import { Expense } from '../interfaces/Expenses';
+import { Details } from '../interfaces/Expenses';
 import { spending } from '../interfaces/spending';
 
 type Props = Expense[];

@@ -6,24 +6,65 @@ import {
 	Details,
 	Expense,
 	ExpenseFormValues,
-} from '../../../utilities/interfaces/ExpenseFormValues';
-import firebase from './../../../firebase';
+} from '../../../../utilities/interfaces/Expenses';
+import firebase from '../../../../firebase';
 import { useDocument } from 'react-firebase-hooks/firestore';
+import * as yup from 'yup';
 
 interface Props {
-	updateDB: (value: ExpenseFormValues) => void;
 	docRef: firebase.firestore.DocumentReference<
 		firebase.firestore.DocumentData
 	>;
+	setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ExpenseForm: React.FC<Props> = ({ updateDB, docRef }) => {
+const detailsSchema = {
+	label: yup.string().required().max(24),
+	type: yup.string().required(),
+	value: yup.mixed().when('type', {
+		is: 'Price',
+		then: yup.number().required(),
+		otherwise: yup.string().required(),
+	}),
+	// currency: yup.string().max(3),
+	currency: yup
+		.string()
+		.when('type', {
+			is: 'Price',
+			then: yup.string().required().min(3).max(3),
+		}),
+};
+
+const validationSchema = yup.array().of(
+	yup.object({
+		title: yup.string().required().max(24),
+		details: yup.array().of(yup.object().shape(detailsSchema)),
+	})
+);
+
+/**
+ * Creates a form that allows editing of a firestore document
+ *  @param {firebase.firestore.DocumentReference<firebase.firestore.DocumentData>} docRef reference to the docuemnt that you want to edit
+ *  @param { React.Dispatch<React.SetStateAction<boolean>>} setIsEditing state update function for isEditing
+ */
+export const ExpenseForm: React.FC<Props> = ({ docRef, setIsEditing }) => {
 	const [firestoreData, loading] = useDocument(docRef);
 	if (loading || !firestoreData) {
 		return <div>Loading</div>;
 	}
 
 	const initialValues: ExpenseFormValues = firestoreData?.data()?.expenses;
+
+	const updateDatabase = (values: ExpenseFormValues) => {
+		console.log(values);
+		docRef.get().then((snap) => {
+			const dbData = snap.data();
+			const copy = dbData ?? {};
+			copy.expenses = values;
+			docRef.set(copy);
+		});
+		setIsEditing(false);
+	};
 
 	const addNewExpense = (values: ExpenseFormValues): ExpenseFormValues => {
 		const copy = values;
@@ -79,7 +120,8 @@ export const ExpenseForm: React.FC<Props> = ({ updateDB, docRef }) => {
 		<div>
 			<Formik
 				initialValues={initialValues}
-				onSubmit={(values: ExpenseFormValues) => updateDB(values)}
+				onSubmit={(values: ExpenseFormValues) => updateDatabase(values)}
+				validationSchema={validationSchema}
 			>
 				{({
 					values,
@@ -136,7 +178,13 @@ export const ExpenseForm: React.FC<Props> = ({ updateDB, docRef }) => {
 													) : null}
 													<Field
 														name={`[${i}].details[${j}].type`}
-													/>
+														as="select"
+													>
+														<option></option>
+														<option>Text</option>
+														<option>Price</option>
+														<option>Link</option>
+													</Field>
 													<button
 														type="button"
 														onClick={() => {

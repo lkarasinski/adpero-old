@@ -22,7 +22,7 @@ const StyledNavLink = styled(NavLink)`
 	margin: 1rem;
 
 	&.active {
-		color: peru;
+		color: #9d62fd;
 		font-weight: bold;
 	}
 `;

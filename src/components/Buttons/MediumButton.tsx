@@ -12,7 +12,7 @@ export interface ButtonProps {
 }
 
 const StyledButton = styled.button`
-	background-color: #6730cf;
+	background-color: #9d62fd;
 	color: white;
 	margin: 4rem;
 	border: none;
@@ -27,8 +27,8 @@ const StyledButton = styled.button`
 
 	:hover {
 		background-color: transparent;
-		color: #6730cf;
-		border: 5px solid #6730cf;
+		color: #9d62fd;
+		border: 5px solid #9d62fd;
 	}
 `;
 

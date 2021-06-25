@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const SmallButton = styled.button`
-	background-color: #6730cf;
+	background-color: #9d62fd;
 	color: white;
 	margin: 0.5rem;
 	border-radius: 1rem;
@@ -16,7 +16,7 @@ export const SmallButton = styled.button`
 
 	:hover {
 		background-color: transparent;
-		color: #6730cf;
-		border: 3px solid #6730cf;
+		color: #9d62fd;
+		border: 3px solid #9d62fd;
 	}
 `;

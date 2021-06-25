@@ -54,7 +54,7 @@ export const UnderlineHighlight = styled.span`
 	::after {
 		content: '';
 		position: absolute;
-		height: 3px;
+		height: 0.2rem;
 		bottom: -5px;
 		background-color: #9d62fd;
 		margin: 0 auto;

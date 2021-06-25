@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { deleteJourney } from '../../utilities/functions/deleteJourney';
 
 interface Props {
@@ -8,9 +9,9 @@ interface Props {
 export const DeleteJourney: React.FC<Props> = ({ id }) => {
 	return (
 		<>
-			<button onClick={() => deleteJourney(id)}>
-				Delete this journey
-			</button>
+			<Link to="/journeys" onClick={() => deleteJourney(id)}>
+				<button>Delete this journey</button>
+			</Link>
 		</>
 	);
 };
