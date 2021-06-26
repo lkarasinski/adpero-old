@@ -2,6 +2,7 @@ import * as React from 'react';
 import firebase from './../../../firebase';
 import { Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
+import { SmallButton } from 'components/Buttons/SmallButton';
 
 interface Props {
 	id: string;
@@ -18,9 +19,8 @@ const validationSchema = yup.object({
 });
 
 export const CreateNewPoll: React.FC<Props> = ({ id }) => {
-	const initialValues = { title: '', id: { id }, votes: [] };
+	const initialValues = { title: '', id: id, votes: [] };
 	const createNewPoll = (values: IValues): void => {
-		console.log(values);
 		pollsRef.add(values);
 	};
 
@@ -33,7 +33,7 @@ export const CreateNewPoll: React.FC<Props> = ({ id }) => {
 			>
 				<Form>
 					<Field name="title" placeholder="Poll title" />
-					<button type="submit">Create new poll</button>
+					<SmallButton type="submit">Create new poll</SmallButton>
 				</Form>
 			</Formik>
 		</>

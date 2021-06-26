@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import firebase from '../firebase';
 import getSiteState from '../utilities/functions/getSiteState';
 import { SiteData } from '../utilities/interfaces/SiteState';
@@ -12,7 +12,8 @@ import { JourneyErrors } from 'components/Errors/JourneyErrors';
 import { Expenses } from 'components/Expenses/Display';
 
 import { DeleteJourney } from 'components/DeleteJourney';
-import { CreateNewPoll } from 'components/Expenses/Polls/CreateNewPoll';
+
+import { SmallButton } from 'components/Buttons/SmallButton';
 
 const journeysRef = firebase.firestore().collection('journeys');
 
@@ -109,14 +110,12 @@ export const Journey: React.FC<RouteComponentProps<{ id: string }>> = ({
 			/>
 			<br />
 
-			<Expenses
-				journeyData={siteData.journey}
-				id={match.params.id}
-				editor={editor}
-			/>
+			<Expenses id={match.params.id} editor={editor} />
 			{author ? <InviteLinkPanel /> : null}
 			{author ? <DeleteJourney id={match.params.id} /> : null}
-			<CreateNewPoll id={match.params.id} />
+			<Link to={`/journeys/${match.params.id}/polls`}>
+				<SmallButton>Go to polls</SmallButton>
+			</Link>
 		</>
 	);
 };
