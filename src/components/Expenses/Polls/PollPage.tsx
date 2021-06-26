@@ -3,9 +3,11 @@ import firebase from 'firebase';
 import * as React from 'react';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { RouteComponentProps } from 'react-router-dom';
+import { getPollResults } from 'utilities/functions/getPollResults';
 import { Expense } from 'utilities/interfaces/Expenses';
 import { ExpensePanel } from '../Display/ExpensePanel';
 import { ExpenseForm } from '../Edit/ExpenseForm';
+import { Heading1 } from '../shared/styledComponents';
 import { VotingPanel } from './VotingPanel';
 
 const pollsRef = firebase.firestore().collection('polls');
@@ -19,6 +21,16 @@ export const PollPage: React.FC<RouteComponentProps<{ pollid: string }>> = ({
 	if (loading) {
 		return null;
 	}
+	getPollResults({
+		votes: firebaseData?.data()?.votes,
+		options: firebaseData?.data()?.expenses,
+	});
+
+	const pollResults = getPollResults({
+		votes: firebaseData?.data()?.votes,
+		options: firebaseData?.data()?.expenses,
+	});
+
 	return (
 		<>
 			<div>
@@ -30,6 +42,14 @@ export const PollPage: React.FC<RouteComponentProps<{ pollid: string }>> = ({
 				<ExpenseForm docRef={docRef} setIsEditing={setIsEditing} />
 			) : (
 				<>
+					<Heading1>
+						{pollResults.length > 1 ? 'Winners' : 'Winner'}
+					</Heading1>
+					{pollResults.map((expense, key) => (
+						<ExpensePanel key={key} expense={expense} />
+					))}
+					<br />
+					<hr />
 					{firebaseData
 						?.data()
 						?.expenses?.map((pollDetails: Expense, i: number) => (

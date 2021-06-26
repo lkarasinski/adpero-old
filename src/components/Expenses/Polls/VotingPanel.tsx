@@ -1,5 +1,5 @@
-import React from 'react';
-import { Field, Form, Formik } from 'formik';
+import React, { ChangeEvent } from 'react';
+// import { Field, Form, Formik } from 'formik';
 import firebase from 'firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useDocument } from 'react-firebase-hooks/firestore';
@@ -14,38 +14,53 @@ interface Props {
 
 export const VotingPanel: React.FC<Props> = ({ id, docRef }) => {
 	const [auth] = useAuthState(firebase.auth());
-	const [documentData] = useDocument(docRef);
+	const [documentData, loading] = useDocument(docRef);
+	const [value, setValue] = React.useState<number>();
+
+	React.useEffect(() => {
+		getInitialData();
+	}, [loading, documentData]);
+
+	const getInitialData = () => {
+		const thisVote = documentData
+			?.data()
+			?.votes.filter(
+				(vote: Vote) => vote.id === id && vote.email === auth?.email
+			);
+		if (!loading) {
+			setValue(thisVote[0]?.value);
+		}
+	};
+
+	const handleSubmit = (e: ChangeEvent<HTMLSelectElement>) => {
+		setValue(Number(e.target.value));
+		const votesArray = documentData
+			?.data()
+			?.votes.filter(
+				(vote: Vote) => !(vote.id === id && vote.email === auth?.email)
+			);
+
+		const copy = { ...documentData?.data() };
+		votesArray.push({ id: id, email: auth?.email, value: e.target.value });
+		copy.votes = votesArray;
+		docRef.update(copy);
+	};
+
+	if (loading) {
+		return null;
+	}
+
 	return (
 		<div>
-			<Formik
-				initialValues={{ value: '4', email: auth?.email, id: id }}
-				onSubmit={(values) => {
-					const votesArray = documentData
-						?.data()
-						?.votes.filter(
-							(vote: Vote) =>
-								!(vote.id === id && vote.email === auth?.email)
-						);
-
-					const copy = { ...documentData?.data() };
-					votesArray.push(values);
-					copy.votes = votesArray;
-					docRef.update(copy);
-				}}
-			>
-				<Form>
-					<Field name="value" as="select">
-						<option value="1">Not taking part if this wins</option>
-						<option value="2">Very bad</option>
-						<option value="3">Bad</option>
-						<option value="4">Ok</option>
-						<option value="5">Good</option>
-						<option value="6">Very good</option>
-						<option value="7">Taking part only if this wins</option>
-					</Field>
-					<button type="submit">ok</button>
-				</Form>
-			</Formik>
+			<form>
+				<select onChange={(e) => handleSubmit(e)} value={value}>
+					<option value="1">⭐️</option>
+					<option value="2">⭐️⭐️</option>
+					<option value="3">⭐️⭐️⭐️</option>
+					<option value="4">⭐️⭐️⭐️⭐️</option>
+					<option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+				</select>
+			</form>
 		</div>
 	);
 };
