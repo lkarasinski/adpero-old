@@ -10,6 +10,11 @@ import {
 import firebase from '../../../../firebase';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import * as yup from 'yup';
+import { TinyButton } from 'components/Buttons/TinyButton';
+import {
+	AddDetailButton,
+	RemoveDetailButton,
+} from 'components/Expenses/shared/styledComponents';
 
 interface Props {
 	docRef: firebase.firestore.DocumentReference<
@@ -48,7 +53,7 @@ const validationSchema = yup.array().of(
 
 /**
  * Creates a form that allows editing of a firestore document
- *  @param {firebase.firestore.DocumentReference<firebase.firestore.DocumentData>} docRef reference to the docuemnt that you want to edit
+ *  @param {firebase.firestore.DocumentReference<firebase.firestore.DocumentData>} docRef reference to the document that you want to edit
  *  @param { React.Dispatch<React.SetStateAction<boolean>>} setIsEditing state update function for isEditing
  */
 export const ExpenseForm: React.FC<Props> = ({ docRef, setIsEditing }) => {
@@ -57,10 +62,15 @@ export const ExpenseForm: React.FC<Props> = ({ docRef, setIsEditing }) => {
 		return <div>Loading</div>;
 	}
 
-	const initialValues: ExpenseFormValues = firestoreData?.data()?.expenses;
+	const initialValues: ExpenseFormValues = firestoreData?.data()
+		?.expenses ?? [
+		{
+			title: '',
+			details: [{ label: '', value: '', type: '', currency: '' }],
+		},
+	];
 
 	const updateDatabase = (values: ExpenseFormValues) => {
-		console.log(values);
 		docRef.get().then((snap) => {
 			const dbData = snap.data();
 			const copy = dbData ?? {};
@@ -137,19 +147,19 @@ export const ExpenseForm: React.FC<Props> = ({ docRef, setIsEditing }) => {
 					return (
 						<>
 							<Form>
-								<button
+								<TinyButton
 									type="button"
 									onClick={() => {
 										setValues([...addNewExpense(values)]);
 									}}
 								>
 									Add new expense
-								</button>
+								</TinyButton>
 
 								{values.map((expense: Expense, i: number) => (
 									<div key={i} style={{ margin: '1em 0' }}>
 										<Field name={`[${i}].title`} />
-										<button
+										<TinyButton
 											onClick={() =>
 												removeExpense(
 													values,
@@ -159,7 +169,7 @@ export const ExpenseForm: React.FC<Props> = ({ docRef, setIsEditing }) => {
 											}
 										>
 											Remove this expense
-										</button>
+										</TinyButton>
 										{expense.details.map((_, j: number) => {
 											return (
 												<div
@@ -189,7 +199,7 @@ export const ExpenseForm: React.FC<Props> = ({ docRef, setIsEditing }) => {
 														<option>Price</option>
 														<option>Link</option>
 													</Field>
-													<button
+													<RemoveDetailButton
 														type="button"
 														onClick={() => {
 															removeDetail(
@@ -199,13 +209,11 @@ export const ExpenseForm: React.FC<Props> = ({ docRef, setIsEditing }) => {
 																setValues
 															);
 														}}
-													>
-														X
-													</button>
+													/>
 												</div>
 											);
 										})}
-										<button
+										<AddDetailButton
 											type="button"
 											onClick={() => {
 												setValues([
@@ -214,11 +222,11 @@ export const ExpenseForm: React.FC<Props> = ({ docRef, setIsEditing }) => {
 											}}
 										>
 											Add new detail
-										</button>
+										</AddDetailButton>
 									</div>
 								))}
 
-								<button type="submit">Submit</button>
+								<TinyButton type="submit">Submit</TinyButton>
 							</Form>
 						</>
 					);

@@ -31,7 +31,7 @@ export const SpendingSummaryTitle = styled.h3`
 `;
 
 export const DetailText = styled.p`
-	color: #626262;
+	color: #2e2e2e;
 	background-color: #f3f3f3;
 	font-size: 1.2em;
 	padding: 10px;
@@ -62,3 +62,38 @@ export const UnderlineHighlight = styled.span`
 		width: 100%;
 	}
 `;
+
+export const ExpenseContainer = styled.div`
+	display: flex;
+	gap: 1em;
+	flex-direction: column;
+`;
+
+export const RemoveDetailButton = styled.button`
+	background-color: #fd6262;
+	width: 40px;
+	height: 40px;
+	border-radius: 15px;
+	border: none;
+	cursor: pointer;
+	position: relative;
+	display: grid;
+	place-items: center;
+
+	::after,
+	::before {
+		content: '';
+		position: absolute;
+		height: 20px;
+		width: 2px;
+		background-color: #626262;
+	}
+	::after {
+		transform: rotate(45deg);
+	}
+	::before {
+		transform: rotate(135deg);
+	}
+`;
+
+export const AddDetailButton = styled.button``;

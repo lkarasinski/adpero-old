@@ -21,7 +21,7 @@ const StyledHeading = styled.h3`
 `;
 
 const validationSchema = yup.object({
-	name: yup.string().required().min(3),
+	name: yup.string().required().min(3, 'Title is too short!'),
 	users: yup.array(),
 });
 
