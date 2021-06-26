@@ -2,17 +2,16 @@ import React, { useState } from 'react';
 
 import { ExpensesList } from './ExpensesList';
 import { Edit } from '../Edit';
-
-import { documentDataType } from '../../../firebase';
+import firebase from 'firebase';
 
 interface Props {
 	id: string;
-	journeyData: documentDataType;
 	editor: boolean;
 }
 
-export const Expenses: React.FC<Props> = ({ journeyData, id, editor }) => {
+export const Expenses: React.FC<Props> = ({ id, editor }) => {
 	const [isEditing, setIsEditing] = useState(false);
+	const docRef = firebase.firestore().collection('journeys').doc(id);
 	return (
 		<>
 			{editor ? (
@@ -20,7 +19,7 @@ export const Expenses: React.FC<Props> = ({ journeyData, id, editor }) => {
 					{isEditing ? 'Stop editing' : 'Edit'}
 				</button>
 			) : null}
-			{!isEditing ? <ExpensesList journeyData={journeyData} /> : null}
+			{!isEditing ? <ExpensesList docRef={docRef} /> : null}
 			{editor && isEditing ? (
 				<Edit id={id} setIsEditing={setIsEditing} />
 			) : null}

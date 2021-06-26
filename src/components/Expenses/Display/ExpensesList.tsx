@@ -1,48 +1,33 @@
 import React from 'react';
-import { documentDataType } from '../../../firebase';
-import { Expense, Details } from '../../../utilities/interfaces/Expenses';
-import {
-	DetailText,
-	DetailTextContainer,
-	ExpenseTitle,
-} from '../shared/styledComponents';
+import { Expense } from '../../../utilities/interfaces/Expenses';
 import { Spendings } from './../Spendings';
 import { getAllSpendings } from '../../../utilities/functions/getAllSpendings';
+import { useDocument } from 'react-firebase-hooks/firestore';
+import firebase from 'firebase';
+import { ExpensePanel } from './ExpensePanel';
+import { ExpenseContainer } from '../shared/styledComponents';
 
 interface Props {
-	journeyData: documentDataType;
+	docRef: firebase.firestore.DocumentReference<
+		firebase.firestore.DocumentData
+	>;
 }
 
-export const ExpensesList: React.FC<Props> = ({ journeyData }) => {
-	const expenses = journeyData.expenses;
+export const ExpensesList: React.FC<Props> = ({ docRef }) => {
+	const [firestoreData, loading] = useDocument(docRef);
+	if (loading || !firestoreData) {
+		return null;
+	}
+	const expenses = firestoreData.data()?.expenses;
 
 	return (
-		<div>
-			<Spendings spendings={getAllSpendings(journeyData.expenses)} />
-			<div
-				style={{ display: 'flex', gap: '1em', flexDirection: 'column' }}
-			>
-				{expenses.map((expense: Expense, i: number) => {
-					return (
-						<div key={i}>
-							<ExpenseTitle>{expense.title}</ExpenseTitle>
-							{expense.details.map(
-								(detail: Details, j: number) => (
-									<DetailTextContainer key={j}>
-										<DetailText>{detail.label}</DetailText>
-										<DetailText>{detail.value}</DetailText>
-										{detail.currency !== '' ? (
-											<DetailText>
-												{detail.currency}
-											</DetailText>
-										) : null}
-									</DetailTextContainer>
-								)
-							)}
-						</div>
-					);
-				})}
-			</div>
-		</div>
+		<>
+			<Spendings spendings={getAllSpendings(expenses)} />
+			<ExpenseContainer>
+				{expenses.map((expense: Expense, i: number) => (
+					<ExpensePanel key={i} expense={expense} />
+				))}
+			</ExpenseContainer>
+		</>
 	);
 };

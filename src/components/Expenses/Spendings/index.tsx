@@ -12,6 +12,9 @@ interface Props {
 }
 
 export const Spendings: React.FC<Props> = ({ spendings }) => {
+	if (spendings.length === 0) {
+		return null;
+	}
 	return (
 		<>
 			<UnderlineHighlight>
