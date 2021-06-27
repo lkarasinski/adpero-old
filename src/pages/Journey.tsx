@@ -112,7 +112,7 @@ export const Journey: React.FC<RouteComponentProps<{ id: string }>> = ({
 
 			<Expenses id={match.params.id} editor={editor} />
 			{author ? <InviteLinkPanel /> : null}
-			{author ? <DeleteJourney id={match.params.id} /> : null}
+			{author ? <DeleteJourney /> : null}
 			<Link to={`/journeys/${match.params.id}/polls`}>
 				<SmallButton>Go to polls</SmallButton>
 			</Link>
