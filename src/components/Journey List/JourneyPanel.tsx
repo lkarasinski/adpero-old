@@ -1,11 +1,9 @@
-import { documentDataType } from 'firebase';
+import firebase from 'firebase';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 interface Props {
-	data: {
-		[key: string]: documentDataType;
-	};
+	data: firebase.firestore.DocumentData;
 }
 
 const Wrapper = styled.div`
@@ -17,15 +15,18 @@ const Wrapper = styled.div`
 `;
 
 const JourneyPanel: React.FC<Props> = ({ data }) => {
+	console.log;
+	// return null;
+
 	return (
 		<Wrapper>
-			<h2>{data.name}</h2>
+			<h2>{data.data().name}</h2>
 			<ul>
-				{data.users.map((user: string, id: number) => (
+				{data.data().users.map((user: string, id: number) => (
 					<li key={id}>{user}</li>
 				))}
 			</ul>
-			<Link to={`/journeys/${data.docId}`}>More details</Link>
+			<Link to={`/journeys/${data.ref.id}`}>More details</Link>
 		</Wrapper>
 	);
 };

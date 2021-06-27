@@ -9,8 +9,8 @@ import JourneyPanel from './JourneyPanel';
 import { withRouter } from 'react-router-dom';
 import { NewJourneyForm } from './NewJourneyForm';
 
-import { sortResultsByCreationDate } from '../../utilities/functions/sortResultsByCreationDate';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 const Wrapper = styled.div``;
 
@@ -28,13 +28,19 @@ const validationSchema = yup.object({
 		.max(24, 'Name must be at most 24 characters'),
 	users: yup.array(),
 });
+const journeysRef = firebase.firestore().collection('journeys');
 
 const JourneyList = withRouter(({ history }) => {
-	const [content, setContent] = React.useState<
-		firebase.firestore.DocumentData[]
-	>([]);
 	const [auth] = useAuthState(firebase.auth());
-	const journeysRef = firebase.firestore().collection('journeys');
+
+	const email = auth?.email ?? '';
+	const dataQuery = journeysRef.where('users', 'array-contains', email);
+	// .orderBy('name');
+	const [collectionData, loading] = useCollection(dataQuery);
+
+	if (loading) {
+		return <div>Loading...</div>;
+	}
 
 	const handleNewJourney = async (name: string) => {
 		if (auth) {
@@ -56,32 +62,6 @@ const JourneyList = withRouter(({ history }) => {
 		}
 	};
 
-	const getData = () => {
-		if (auth) {
-			const query = journeysRef.where(
-				'users',
-				'array-contains',
-				auth.email
-			);
-
-			query.get().then((data) => {
-				const array = data.docs.map((doc) => {
-					const tempData = doc.data();
-					const docId = doc.id;
-					return { ...tempData, docId };
-				});
-				sortResultsByCreationDate(array);
-				setContent(array);
-			});
-		} else {
-			setContent([]);
-		}
-	};
-
-	React.useEffect(() => {
-		getData();
-	}, [auth]);
-
 	if (!auth) {
 		return (
 			<Wrapper>
@@ -89,12 +69,21 @@ const JourneyList = withRouter(({ history }) => {
 			</Wrapper>
 		);
 	}
+
+	const displayJourneys = () => {
+		if (collectionData) {
+			return collectionData.docs.map(
+				(data: firebase.firestore.DocumentData, i: number) => {
+					return <JourneyPanel key={i} data={data} />;
+				}
+			);
+		}
+	};
+
 	return (
 		<Wrapper>
 			<StyledHeading>Your Journeys: </StyledHeading>
-			{content.map((data, id) => (
-				<JourneyPanel data={data} key={id} />
-			))}
+			{displayJourneys()}
 			<Formik
 				initialValues={{
 					name: '',
@@ -112,6 +101,7 @@ const JourneyList = withRouter(({ history }) => {
 					/>
 				)}
 			</Formik>
+			<React.Fragment></React.Fragment>
 		</Wrapper>
 	);
 });
