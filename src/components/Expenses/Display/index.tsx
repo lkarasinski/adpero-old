@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { ExpensesList } from './ExpensesList';
 import { Edit } from '../Edit';
 import firebase from 'firebase';
+import { LeaveJourneyButton } from 'components/Journey List/LeaveJourneyButton';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 interface Props {
 	id: string;
@@ -10,7 +12,8 @@ interface Props {
 }
 
 export const Expenses: React.FC<Props> = ({ id, editor }) => {
-	const [isEditing, setIsEditing] = useState(false);
+	const [isEditing, setIsEditing] = React.useState(false);
+	const [auth] = useAuthState(firebase.auth());
 	const docRef = firebase.firestore().collection('journeys').doc(id);
 	return (
 		<>
@@ -23,6 +26,7 @@ export const Expenses: React.FC<Props> = ({ id, editor }) => {
 			{editor && isEditing ? (
 				<Edit id={id} setIsEditing={setIsEditing} />
 			) : null}
+			<LeaveJourneyButton id={id} auth={auth} />
 		</>
 	);
 };
