@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { Field, Form, Formik } from 'formik';
+import { Form, Formik, FormikErrors } from 'formik';
 import * as React from 'react';
 import {
 	Details,
@@ -11,10 +11,9 @@ import firebase from '../../../../firebase';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import * as yup from 'yup';
 import { TinyButton } from 'components/Buttons/TinyButton';
-import {
-	AddDetailButton,
-	RemoveDetailButton,
-} from 'components/Expenses/shared/styledComponents';
+import { AddDetailButton } from 'components/Expenses/shared/styledComponents';
+import { DetailFields } from './DetailFields';
+import { InputField } from './InputField';
 
 interface Props {
 	docRef: firebase.firestore.DocumentReference<
@@ -24,18 +23,23 @@ interface Props {
 }
 
 const detailsSchema = {
-	label: yup.string().required().max(24),
-	type: yup.string().required(),
-	value: yup.mixed().when('type', {
-		is: 'Price',
-		then: yup.number().required(),
-		otherwise: yup.string().required(),
-	}),
+	label: yup.string().required('Label is required').max(24),
+	type: yup.string().required('Type is required'),
+	value: yup
+		.mixed()
+		.required('Value is required')
+		.when('type', {
+			is: 'Price',
+			then: yup
+				.number()
+				.typeError('Enter a number. For decimals use a dot '),
+			otherwise: yup.string(),
+		}),
 	currency: yup.string().when('type', {
 		is: 'Price',
 		then: yup
 			.string()
-			.required()
+			.required('Currency is required')
 			.test(
 				'len',
 				'Enter currency code. For example: USD, GBP',
@@ -46,7 +50,7 @@ const detailsSchema = {
 
 const validationSchema = yup.array().of(
 	yup.object({
-		title: yup.string().required().max(24),
+		title: yup.string().required('Title is required').max(24),
 		details: yup.array().of(yup.object().shape(detailsSchema)),
 	})
 );
@@ -140,9 +144,11 @@ export const ExpenseForm: React.FC<Props> = ({ docRef, setIsEditing }) => {
 				{({
 					values,
 					setValues,
+					errors,
 				}: {
 					values: ExpenseFormValues;
 					setValues: (values: ExpenseFormValues) => void;
+					errors: FormikErrors<ExpenseFormValues>;
 				}) => {
 					return (
 						<>
@@ -158,7 +164,10 @@ export const ExpenseForm: React.FC<Props> = ({ docRef, setIsEditing }) => {
 
 								{values.map((expense: Expense, i: number) => (
 									<div key={i} style={{ margin: '1em 0' }}>
-										<Field name={`[${i}].title`} />
+										<InputField
+											name={`[${i}].title`}
+											errors={errors}
+										/>
 										<TinyButton
 											onClick={() =>
 												removeExpense(
@@ -172,45 +181,15 @@ export const ExpenseForm: React.FC<Props> = ({ docRef, setIsEditing }) => {
 										</TinyButton>
 										{expense.details.map((_, j: number) => {
 											return (
-												<div
+												<DetailFields
 													key={j}
-													style={{
-														margin: '0.5em 0 0 0 ',
-													}}
-												>
-													<Field
-														name={`[${i}].details[${j}].label`}
-													/>
-													<Field
-														name={`[${i}].details[${j}].value`}
-													/>
-													{values[i].details[j]
-														.type === 'Price' ? (
-														<Field
-															name={`[${i}].details[${j}].currency`}
-														/>
-													) : null}
-													<Field
-														name={`[${i}].details[${j}].type`}
-														as="select"
-													>
-														<option></option>
-														<option>Text</option>
-														<option>Price</option>
-														<option>Link</option>
-													</Field>
-													<RemoveDetailButton
-														type="button"
-														onClick={() => {
-															removeDetail(
-																values,
-																i,
-																j,
-																setValues
-															);
-														}}
-													/>
-												</div>
+													values={values}
+													removeDetail={removeDetail}
+													i={i}
+													j={j}
+													setValues={setValues}
+													errors={errors}
+												/>
 											);
 										})}
 										<AddDetailButton

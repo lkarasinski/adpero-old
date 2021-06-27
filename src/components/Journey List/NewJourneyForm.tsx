@@ -1,9 +1,11 @@
-import { Field } from 'formik';
+import { InputField } from 'components/Expenses/Edit/ExpenseForm/InputField';
+import { FormikErrors } from 'formik';
 import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
 	handleSubmit: () => void;
+	errors: FormikErrors<{ name: string; users: string[] }>;
 }
 
 const Wrapper = styled.form``;
@@ -18,12 +20,12 @@ const NewJourneyButton = styled.button`
 	font-size: 1.3em;
 `;
 
-export const NewJourneyForm: React.FC<Props> = ({ handleSubmit }) => {
+export const NewJourneyForm: React.FC<Props> = ({ handleSubmit, errors }) => {
 	return (
 		<Wrapper onSubmit={handleSubmit}>
 			<div>
-				<Field
-					type="text"
+				<InputField
+					erorrs={errors}
 					name={'name'}
 					placeholder={'Where are you going?'}
 				/>

@@ -21,7 +21,11 @@ const StyledHeading = styled.h3`
 `;
 
 const validationSchema = yup.object({
-	name: yup.string().required().min(3, 'Title is too short!'),
+	name: yup
+		.string()
+		.required('Name is required')
+		.min(3, 'Name must be at least 3 characters')
+		.max(24, 'Name must be at most 24 characters'),
 	users: yup.array(),
 });
 
@@ -101,8 +105,11 @@ const JourneyList = withRouter(({ history }) => {
 				}}
 				validationSchema={validationSchema}
 			>
-				{({ handleSubmit }) => (
-					<NewJourneyForm handleSubmit={handleSubmit} />
+				{({ handleSubmit, errors }) => (
+					<NewJourneyForm
+						handleSubmit={handleSubmit}
+						errors={errors}
+					/>
 				)}
 			</Formik>
 		</Wrapper>
