@@ -26,7 +26,6 @@ export const DetailFields: React.FC<Props> = ({
 	setValues,
 	errors,
 }) => {
-	console.log(errors);
 	return (
 		<div>
 			<InputField name={`[${i}].details[${j}].label`} errors={errors} />

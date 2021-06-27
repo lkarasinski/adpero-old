@@ -68,7 +68,7 @@ export const InviteLinkPanel = withRouter(({ match }) => {
 				type="submit"
 				onClick={() => createInviteLink(auth, journeyID, setLinkID)}
 			>
-				Create link
+				{linkID ? 'Generate new invite link' : 'Create invite link'}
 			</SmallButton>
 			{linkID ? (
 				<CopyToClipboard
