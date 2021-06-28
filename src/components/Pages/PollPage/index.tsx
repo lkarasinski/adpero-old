@@ -11,7 +11,7 @@ import { ExpensePanel } from '../../Shared/Expenses/Display/ExpensePanel';
 import { ExpenseForm } from '../../Shared/Expenses/ExpenseForm';
 
 // Styled components
-import { Heading1 } from '../../Shared/Expenses/shared/styledComponents';
+import { Heading1 } from '../../Shared/Expenses/_shared/styledComponents';
 
 // Functions
 import { getPollResults } from 'functions/getPollResults';
@@ -37,6 +37,7 @@ export const PollPage: React.FC<RouteComponentProps<{
 	const [firebaseData, loading] = useDocument(docRef);
 	if (loading) {
 		return null;
+		// SKELETON
 	}
 	let pollResults: Expense[] = [];
 	if (firebaseData?.data()?.votes.length) {

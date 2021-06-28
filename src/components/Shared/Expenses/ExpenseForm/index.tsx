@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import { Form, Formik, FormikErrors } from 'formik';
 import * as React from 'react';
 import { Details, Expense, ExpenseFormValues } from 'interfaces/Expenses';
@@ -7,7 +5,7 @@ import firebase from 'firebase';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import * as yup from 'yup';
 import { TinyButton } from 'components/Shared/Buttons/TinyButton';
-import { AddDetailButton } from 'components/Shared/Expenses/shared/styledComponents';
+import { AddDetailButton } from 'components/Shared/Expenses/_shared/styledComponents';
 import { DetailFields } from './DetailFields';
 import { InputField } from './InputField';
 interface Props {
@@ -65,6 +63,7 @@ export const ExpenseForm: React.FC<Props> = ({
 	const [firestoreData, loading] = useDocument(docRef);
 	if (loading || !firestoreData) {
 		return <div>Loading</div>;
+		// SKELETON
 	}
 
 	const initialValues: ExpenseFormValues = firestoreData?.data()

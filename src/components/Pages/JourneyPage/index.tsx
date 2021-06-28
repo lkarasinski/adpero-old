@@ -23,7 +23,7 @@ const journeysRef = firebase.firestore().collection('journeys');
 export const JourneyPage: React.FC<RouteComponentProps<{ id: string }>> = ({
 	match,
 }) => {
-	const [auth] = useAuthState(firebase.auth());
+	const [auth, loadingAuth] = useAuthState(firebase.auth());
 	const [siteData, setSiteData] = useState<SiteData>({
 		siteState: {
 			authenticated: false,
@@ -35,7 +35,7 @@ export const JourneyPage: React.FC<RouteComponentProps<{ id: string }>> = ({
 		},
 	});
 
-	const [firestoreData, loading, error] = useDocument(
+	const [firestoreData, loadingData, error] = useDocument(
 		journeysRef.doc(match.params.id)
 	);
 
@@ -92,8 +92,9 @@ export const JourneyPage: React.FC<RouteComponentProps<{ id: string }>> = ({
 		updateSiteInfo();
 	}, [match.url, firestoreData, auth]);
 
-	if (loading) {
+	if (loadingData || loadingAuth) {
 		return <h1>Loading...</h1>;
+		// SKELETON
 	}
 
 	if (!siteData.siteState.success || !siteData.journey || !auth) {

@@ -23,9 +23,6 @@ export const LogInButton: React.FC = () => {
 			firebase
 				.auth()
 				.signInWithPopup(provider)
-				.then(() => {
-					// setColor('blue');
-				})
 				.catch((err) => {
 					const errorCode = err.code;
 					const errorMessage = err.message;

@@ -18,7 +18,13 @@ const StyledHeading = styled.h1`
  */
 export const Home: React.FC = () => {
 	const [auth, loading] = useAuthState(firebase.auth());
-	if (loading) return <h1>Loading</h1>;
+	if (loading)
+		return (
+			<h1>
+				<>Loading</>
+			</h1>
+		);
+
 	return (
 		<>
 			<Wrapper>

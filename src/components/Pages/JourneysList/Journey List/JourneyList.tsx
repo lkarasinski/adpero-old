@@ -23,14 +23,22 @@ const journeysRef = firebase.firestore().collection('journeys');
  * withRouter component rendering journeys accessible to currently logged in user and a new journey form.
  */
 const JourneyList = withRouter(({ history }) => {
-	const [auth] = useAuthState(firebase.auth());
+	const [auth, loadingAuth] = useAuthState(firebase.auth());
 
 	const email = auth?.email ?? '';
 	const dataQuery = journeysRef.where('users', 'array-contains', email);
 	const [collectionData, loading] = useCollection(dataQuery);
 
+	if (loadingAuth) {
+		return null;
+		// LOADING
+	}
+
 	if (loading) {
 		return <div>Loading...</div>;
+		{
+			/* SKELETON */
+		}
 	}
 
 	if (!auth) {

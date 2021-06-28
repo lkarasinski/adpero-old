@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 `;
 
 /**
- * Brief description of the journey referenced in the docs.
+ * Brief description of the journey referenced in the docs. Displayed on the JourneyList
  * @param data - firebase journey document snapshot data
  */
 const JourneyPanel: React.FC<Props> = ({ data }) => {

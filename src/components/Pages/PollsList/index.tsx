@@ -11,14 +11,14 @@ const collectionRef = firebase.firestore().collection('polls');
  * Renders a list of polls attached to the journey of given id
  * @param id
  */
-
 export const PollsList: React.FC<RouteComponentProps<{ id: string }>> = ({
 	match,
 }) => {
 	const query = collectionRef.where('id', '==', match.params.id);
-	const [collection] = useCollection(query);
-	if (!collection) {
+	const [collection, loading] = useCollection(query);
+	if (!collection || !loading) {
 		return null;
+		// SKELETON
 	}
 	const pollsData = collection?.docs;
 

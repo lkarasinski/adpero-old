@@ -3,7 +3,7 @@ import {
 	SpendingSummaryTitle,
 	UnderlineHighlight,
 	ColorHighlight,
-} from '../shared/styledComponents';
+} from '../_shared/styledComponents';
 
 import { spending } from '../../../../interfaces/spending';
 

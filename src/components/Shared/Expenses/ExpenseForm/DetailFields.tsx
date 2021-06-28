@@ -1,4 +1,4 @@
-import { RemoveDetailButton } from 'components/Shared/Expenses/shared/styledComponents';
+import { RemoveDetailButton } from 'components/Shared/Expenses/_shared/styledComponents';
 import { Field, FormikErrors } from 'formik';
 import * as React from 'react';
 import { ExpenseFormValues } from 'interfaces/Expenses';

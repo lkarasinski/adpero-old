@@ -9,9 +9,9 @@ interface Props {
 }
 
 /**
- * Renders a user list where every user has two buttons used to manage their access
+ * Renders a user list where every user has two buttons used to manage their
  * @param siteData - siteData
- * @param remove - function that removes a user from the journey.users array§
+ * @param remove - function that removes a user from the journey.users array
  * @param manage - function that grants or revokes editor access from a user
  */
 export const UserList: React.FC<Props> = ({ siteData, remove, manage }) => {

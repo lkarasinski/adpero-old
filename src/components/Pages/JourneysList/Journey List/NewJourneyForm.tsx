@@ -24,7 +24,12 @@ const validationSchema = yup.object({
  * @param historyPush - function linking to created journey
  */
 export const NewJourneyForm: React.FC<Props> = ({ historyPush }) => {
-	const [auth] = useAuthState(firebase.auth());
+	const [auth, loading] = useAuthState(firebase.auth());
+
+	if (loading) {
+		return null;
+		// LOADING
+	}
 
 	return (
 		<Formik

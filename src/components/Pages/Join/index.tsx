@@ -11,9 +11,13 @@ const journeysRef = firebase.firestore().collection('journeys');
  * Page with a join button. After clicking the button, logged in user will be added to the journey with id of the matching link id
  */
 export const Join: React.FC<RouteComponentProps> = ({ match, history }) => {
-	const [auth] = useAuthState(firebase.auth());
+	const [auth, loading] = useAuthState(firebase.auth());
 	const [isInJourney, setIsInJourney] = React.useState(false);
 
+	if (loading) {
+		return null;
+		// LOADING
+	}
 	const isUserInJourney = () => {
 		if (auth) {
 			invitesRef
@@ -66,6 +70,7 @@ export const Join: React.FC<RouteComponentProps> = ({ match, history }) => {
 			<>
 				<ErrorMessage>
 					You need to login to join this journey 🥺
+					{/* LOADING */}
 				</ErrorMessage>
 			</>
 		);

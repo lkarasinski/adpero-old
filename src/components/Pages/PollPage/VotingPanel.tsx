@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from 'react';
-// import { Field, Form, Formik } from 'formik';
 import firebase from 'firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useDocument } from 'react-firebase-hooks/firestore';
@@ -18,9 +17,14 @@ interface Props {
  * @param docRef
  */
 export const VotingPanel: React.FC<Props> = ({ id, docRef }) => {
-	const [auth] = useAuthState(firebase.auth());
+	const [auth, loadingAuth] = useAuthState(firebase.auth());
 	const [documentData, loading] = useDocument(docRef);
 	const [value, setValue] = React.useState<number>();
+
+	if (loadingAuth) {
+		return null;
+		// LOADING
+	}
 
 	React.useEffect(() => {
 		getInitialData();
@@ -53,6 +57,7 @@ export const VotingPanel: React.FC<Props> = ({ id, docRef }) => {
 
 	if (loading) {
 		return null;
+		// SKELETON
 	}
 
 	return (

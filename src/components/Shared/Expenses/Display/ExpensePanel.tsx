@@ -4,7 +4,7 @@ import {
 	DetailText,
 	DetailTextContainer,
 	ExpenseTitle,
-} from '../shared/styledComponents';
+} from '../_shared/styledComponents';
 
 interface Props {
 	expense: Expense;
