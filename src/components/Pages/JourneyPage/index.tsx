@@ -9,7 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { InviteLinkPanel } from 'components/Pages/JourneyPage/InviteLinkPanel';
 import { UserList } from './UserList';
 import { JourneyErrors } from 'components/Pages/JourneyPage/JourneyErrors';
-import { Expenses } from 'components/Shared/Expenses/Display';
+import { Expenses } from 'components/Shared/Expenses';
 
 import { DeleteJourney } from 'components/Pages/JourneyPage/DeleteJourneyButton';
 
@@ -17,7 +17,10 @@ import { SmallButton } from 'components/Shared/Buttons/SmallButton';
 
 const journeysRef = firebase.firestore().collection('journeys');
 
-export const Journey: React.FC<RouteComponentProps<{ id: string }>> = ({
+/**
+ * Page of journey. Takes id from the link and renders details of the journey.
+ */
+export const JourneyPage: React.FC<RouteComponentProps<{ id: string }>> = ({
 	match,
 }) => {
 	const [auth] = useAuthState(firebase.auth());

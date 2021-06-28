@@ -8,7 +8,7 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 import { SmallButton } from 'components/Shared/Buttons/SmallButton';
 import { VotingPanel } from './VotingPanel';
 import { ExpensePanel } from '../../Shared/Expenses/Display/ExpensePanel';
-import { ExpenseForm } from '../../Shared/Expenses/Edit/ExpenseForm';
+import { ExpenseForm } from '../../Shared/Expenses/ExpenseForm';
 
 // Styled components
 import { Heading1 } from '../../Shared/Expenses/shared/styledComponents';
@@ -22,6 +22,12 @@ import { Expense } from 'interfaces/Expenses';
 
 const pollsRef = firebase.firestore().collection('polls');
 
+/**
+ *	Page of the selected poll. Allows to vote and edit polls
+ * @param pollid - id of the poll
+ * @param id - id of the journey
+ * @returns
+ */
 export const PollPage: React.FC<RouteComponentProps<{
 	pollid: string;
 	id: string;
@@ -48,7 +54,10 @@ export const PollPage: React.FC<RouteComponentProps<{
 			</div>
 			{isEditing || !pollResults ? (
 				<>
-					<ExpenseForm docRef={docRef} setIsEditing={setIsEditing} />
+					<ExpenseForm
+						id={match.params.pollid}
+						setIsEditing={setIsEditing}
+					/>
 					<button
 						onClick={() => {
 							deletePoll(match.params.pollid);

@@ -14,10 +14,11 @@ const Wrapper = styled.div`
 	padding: 1rem;
 `;
 
+/**
+ * Brief description of the journey referenced in the docs.
+ * @param data - firebase journey document snapshot data
+ */
 const JourneyPanel: React.FC<Props> = ({ data }) => {
-	console.log;
-	// return null;
-
 	return (
 		<Wrapper>
 			<h2>{data.data().name}</h2>

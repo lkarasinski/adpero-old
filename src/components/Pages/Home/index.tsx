@@ -13,6 +13,9 @@ const StyledHeading = styled.h1`
 	text-align: center;
 `;
 
+/**
+ * Home page with a greeting and a button taking to journeys.
+ */
 export const Home: React.FC = () => {
 	const [auth, loading] = useAuthState(firebase.auth());
 	if (loading) return <h1>Loading</h1>;

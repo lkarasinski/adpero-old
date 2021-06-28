@@ -46,6 +46,9 @@ const createInviteLink = async (
 	}
 };
 
+/**
+ * withRouter component that takes in the journey id from the link and creates a invite link
+ */
 export const InviteLinkPanel = withRouter(({ match }) => {
 	const [linkID, setLinkID] = React.useState('');
 	const [auth] = useAuthState(firebase.auth());

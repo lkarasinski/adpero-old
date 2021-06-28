@@ -7,7 +7,12 @@ interface Props {
 	siteState: SiteState;
 	userAuth: firebase.User | undefined | null;
 }
-
+/**
+ * Takes in siteState and userAuth and returns error message if there is one
+ * @param siteState - SiteState used for error identification
+ * @param userAuth - Firebase auth object
+ * @returns
+ */
 export const JourneyErrors: React.FC<Props> = ({ siteState, userAuth }) => {
 	if (!userAuth) {
 		return (

@@ -12,7 +12,10 @@ interface Props {
 		firebase.firestore.DocumentData
 	>;
 }
-
+/**
+ * Renders a list of all expenses and counts all the spendings of the journey referenced.
+ * @param docRef reference to the journey document
+ */
 export const ExpensesList: React.FC<Props> = ({ docRef }) => {
 	const [firestoreData, loading] = useDocument(docRef);
 	if (loading || !firestoreData) {

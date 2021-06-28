@@ -2,6 +2,9 @@ import { ConfirmButton } from 'components/Shared/Buttons/ConfirmButton';
 import { withRouter } from 'react-router-dom';
 import { deleteJourney } from '../../../functions/deleteJourney';
 
+/**
+ * ConfirmButton with history.push('/journeys/')
+ */
 export const DeleteJourney = withRouter(({ match, history }) => {
 	return (
 		<>

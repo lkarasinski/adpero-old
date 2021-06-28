@@ -12,6 +12,11 @@ interface Props {
 	>;
 }
 
+/**
+ * Renders form with a select allowiong to choose value of your vote.
+ * @param id
+ * @param docRef
+ */
 export const VotingPanel: React.FC<Props> = ({ id, docRef }) => {
 	const [auth] = useAuthState(firebase.auth());
 	const [documentData, loading] = useDocument(docRef);

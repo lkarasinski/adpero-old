@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
 import firebase from '../../../firebase';
 import { ErrorMessage } from 'components/Shared/Text decoration/ErrorMessage';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const invitesRef = firebase.firestore().collection('invites');
 const journeysRef = firebase.firestore().collection('journeys');
 
-export const Join = withRouter(({ match, history }) => {
+/**
+ * Page with a join button. After clicking the button, logged in user will be added to the journey with id of the matching link id
+ */
+export const Join: React.FC<RouteComponentProps> = ({ match, history }) => {
 	const [auth] = useAuthState(firebase.auth());
 	const [isInJourney, setIsInJourney] = React.useState(false);
 
@@ -94,4 +97,4 @@ export const Join = withRouter(({ match, history }) => {
 			)}
 		</>
 	);
-});
+};

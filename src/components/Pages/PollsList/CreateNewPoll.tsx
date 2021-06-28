@@ -3,7 +3,7 @@ import firebase from '../../../firebase';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { SmallButton } from 'components/Shared/Buttons/SmallButton';
-import { InputField } from '../../Shared/Expenses/Edit/ExpenseForm/InputField';
+import { InputField } from '../../Shared/Expenses/ExpenseForm/InputField';
 
 interface Props {
 	id: string;
@@ -23,8 +23,12 @@ const validationSchema = yup.object({
 		.min(2, 'Title must be at least 2 characters'),
 });
 
+/**
+ * Renders a form allowing to create a new poll
+ * @param id - id of the journey you want this poll to be attached to
+ */
 export const CreateNewPoll: React.FC<Props> = ({ id }) => {
-	const initialValues = { title: '', id: id, votes: [] };
+	const initialValues = { title: '', id: id, votes: [], expenses: [] };
 	const createNewPoll = (values: IValues): void => {
 		pollsRef.add(values);
 	};

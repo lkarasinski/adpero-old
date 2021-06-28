@@ -9,7 +9,11 @@ import {
 interface Props {
 	expense: Expense;
 }
-
+/**
+ * Expense Panel displaying all it's details
+ * @param expense - Expense data
+ * @returns
+ */
 export const ExpensePanel: React.FC<Props> = ({ expense }) => {
 	return (
 		<div>

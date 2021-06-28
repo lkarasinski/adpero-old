@@ -7,16 +7,21 @@ import { CreateNewPoll } from './CreateNewPoll';
 
 const collectionRef = firebase.firestore().collection('polls');
 
+/**
+ * Renders a list of polls attached to the journey of given id
+ * @param id
+ */
+
 export const PollsList: React.FC<RouteComponentProps<{ id: string }>> = ({
 	match,
 }) => {
 	const query = collectionRef.where('id', '==', match.params.id);
-	const [test] = useCollection(query);
-
-	if (!test) {
+	const [collection] = useCollection(query);
+	if (!collection) {
 		return null;
 	}
-	const pollsData = test?.docs;
+	const pollsData = collection?.docs;
+	console.log(pollsData.length);
 
 	return (
 		<>

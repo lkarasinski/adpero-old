@@ -10,7 +10,10 @@ import { spending } from '../../../../interfaces/spending';
 interface Props {
 	spendings: spending[];
 }
-
+/**
+ * Renders a spending details
+ * @param spendings - array of spendings
+ */
 export const Spendings: React.FC<Props> = ({ spendings }) => {
 	if (spendings.length === 0) {
 		return null;

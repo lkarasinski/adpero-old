@@ -4,12 +4,16 @@ import React from 'react';
 interface Props {
 	onSuccess: () => void;
 	text: string;
-	size?: string;
 	push?: () => void;
 }
 
 type ButtonType = React.ButtonHTMLAttributes<HTMLButtonElement>;
-
+/**
+ * withRouter components that will call a function on second click
+ * @param onSuccess - Function executed after second click
+ * @param text - Text displayed before clicking
+ * @param push - If you want to link to another page enter push={() => history.push(PATH)}
+ */
 export const ConfirmButton: React.FC<Props & ButtonType> = ({
 	onSuccess,
 	text,
