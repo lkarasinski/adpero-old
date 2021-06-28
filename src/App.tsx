@@ -4,18 +4,17 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './fonts.css';
 
 // Components
-import Layout from './components/Layout';
+import Layout from './components/Shared/Layout';
 
 // Pages
-import { Home } from 'pages/Home';
-import { About } from 'pages/About';
-import { Journeys } from 'pages/Journeys';
-import { Settings } from 'pages/Settings';
-import { PageNotFound } from 'pages/404';
-import { Journey } from 'pages/Journey';
-import { Join } from 'pages/Join';
-import { Polls } from 'components/Expenses/Polls';
-import { PollPage } from 'components/Expenses/Polls/PollPage';
+import { Home } from 'components/Pages/Home';
+import { About } from 'components/Pages/About';
+import { Journeys } from 'components/Pages/JourneysList';
+import { PageNotFound } from 'components/Pages/404';
+import { Journey } from 'components/Pages/JourneyPage';
+import { Join } from 'components/Pages/Join';
+import { PollsList } from 'components/Pages/PollsList';
+import { PollPage } from 'components/Pages/PollPage';
 
 const GlobalStyles = createGlobalStyle`
 	*, *::after, *::before{
@@ -34,10 +33,13 @@ const App: React.FC = () => (
 				<Switch>
 					<Route path="/" exact component={Home} />
 					<Route path="/about" exact component={About} />
-					<Route path="/settings" exact component={Settings} />
 					<Route path="/journeys" exact component={Journeys} />
 					<Route path="/journeys/:id" exact component={Journey} />
-					<Route path="/journeys/:id/polls" exact component={Polls} />
+					<Route
+						path="/journeys/:id/polls"
+						exact
+						component={PollsList}
+					/>
 					<Route
 						path="/journeys/:id/polls/:pollid"
 						exact
