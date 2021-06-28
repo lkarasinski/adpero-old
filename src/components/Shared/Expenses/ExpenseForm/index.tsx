@@ -10,16 +10,9 @@ import { TinyButton } from 'components/Shared/Buttons/TinyButton';
 import { AddDetailButton } from 'components/Shared/Expenses/shared/styledComponents';
 import { DetailFields } from './DetailFields';
 import { InputField } from './InputField';
-
-// interface Props {
-// 	docRef: firebase.firestore.DocumentReference<
-// 		firebase.firestore.DocumentData
-// 	>;
-// 	setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
-// 	id: string;
-// }
 interface Props {
-	id: string;
+	collectionID: string;
+	docID: string;
 	setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -56,15 +49,19 @@ const validationSchema = yup.array().of(
 	})
 );
 
-const journeysRef = firebase.firestore().collection('journeys');
-
 /**
  * Creates a form that allows editing of a firestore document
- *  @param id id of the document that you want to edit
+ *  @param collectionID id of the collection that you want to edit
+ *  @param docID id of the doc that you want to edit
  *  @param setIsEditing state update function for isEditing
  */
-export const ExpenseForm: React.FC<Props> = ({ id, setIsEditing }) => {
-	const docRef = journeysRef.doc(id);
+export const ExpenseForm: React.FC<Props> = ({
+	collectionID,
+	docID,
+	setIsEditing,
+}) => {
+	const collectionRef = firebase.firestore().collection(collectionID);
+	const docRef = collectionRef.doc(docID);
 	const [firestoreData, loading] = useDocument(docRef);
 	if (loading || !firestoreData) {
 		return <div>Loading</div>;

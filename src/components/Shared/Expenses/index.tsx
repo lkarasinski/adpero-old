@@ -6,7 +6,8 @@ import firebase from 'firebase';
 import { LeaveJourneyButton } from 'components/Pages/JourneysList/Journey List/LeaveJourneyButton';
 
 interface Props {
-	id: string;
+	collectionID: string;
+	docID: string;
 	editor: boolean;
 }
 /**
@@ -15,9 +16,9 @@ interface Props {
  * @param id
  * @param editor
  */
-export const Expenses: React.FC<Props> = ({ id, editor }) => {
+export const Expenses: React.FC<Props> = ({ collectionID, docID, editor }) => {
 	const [isEditing, setIsEditing] = React.useState(false);
-	const docRef = firebase.firestore().collection('journeys').doc(id);
+	const docRef = firebase.firestore().collection(collectionID).doc(docID);
 	return (
 		<>
 			{editor ? (
@@ -27,7 +28,11 @@ export const Expenses: React.FC<Props> = ({ id, editor }) => {
 			) : null}
 			{!isEditing ? <ExpensesList docRef={docRef} /> : null}
 			{editor && isEditing ? (
-				<ExpenseForm id={id} setIsEditing={setIsEditing} />
+				<ExpenseForm
+					collectionID={collectionID}
+					docID={docID}
+					setIsEditing={setIsEditing}
+				/>
 			) : null}
 			<LeaveJourneyButton />
 		</>

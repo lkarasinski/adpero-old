@@ -55,7 +55,8 @@ export const PollPage: React.FC<RouteComponentProps<{
 			{isEditing || !pollResults ? (
 				<>
 					<ExpenseForm
-						id={match.params.pollid}
+						collectionID={'polls'}
+						docID={match.params.pollid}
 						setIsEditing={setIsEditing}
 					/>
 					<button

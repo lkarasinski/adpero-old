@@ -21,7 +21,6 @@ export const PollsList: React.FC<RouteComponentProps<{ id: string }>> = ({
 		return null;
 	}
 	const pollsData = collection?.docs;
-	console.log(pollsData.length);
 
 	return (
 		<>
