@@ -7,7 +7,7 @@ interface Props extends RouteComponentProps {
 	id: string;
 }
 
-export const Journeys: React.FC<Props> = () => {
+export const JourneysList: React.FC<Props> = () => {
 	return (
 		<>
 			<JourneyList />

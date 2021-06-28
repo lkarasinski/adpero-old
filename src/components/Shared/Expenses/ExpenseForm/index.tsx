@@ -2,12 +2,8 @@
 
 import { Form, Formik, FormikErrors } from 'formik';
 import * as React from 'react';
-import {
-	Details,
-	Expense,
-	ExpenseFormValues,
-} from '../../../../../interfaces/Expenses';
-import firebase from '../../../../../firebase';
+import { Details, Expense, ExpenseFormValues } from 'interfaces/Expenses';
+import firebase from 'firebase';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import * as yup from 'yup';
 import { TinyButton } from 'components/Shared/Buttons/TinyButton';
@@ -15,10 +11,15 @@ import { AddDetailButton } from 'components/Shared/Expenses/shared/styledCompone
 import { DetailFields } from './DetailFields';
 import { InputField } from './InputField';
 
+// interface Props {
+// 	docRef: firebase.firestore.DocumentReference<
+// 		firebase.firestore.DocumentData
+// 	>;
+// 	setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+// 	id: string;
+// }
 interface Props {
-	docRef: firebase.firestore.DocumentReference<
-		firebase.firestore.DocumentData
-	>;
+	id: string;
 	setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -55,12 +56,15 @@ const validationSchema = yup.array().of(
 	})
 );
 
+const journeysRef = firebase.firestore().collection('journeys');
+
 /**
  * Creates a form that allows editing of a firestore document
- *  @param {firebase.firestore.DocumentReference<firebase.firestore.DocumentData>} docRef reference to the document that you want to edit
- *  @param { React.Dispatch<React.SetStateAction<boolean>>} setIsEditing state update function for isEditing
+ *  @param id id of the document that you want to edit
+ *  @param setIsEditing state update function for isEditing
  */
-export const ExpenseForm: React.FC<Props> = ({ docRef, setIsEditing }) => {
+export const ExpenseForm: React.FC<Props> = ({ id, setIsEditing }) => {
+	const docRef = journeysRef.doc(id);
 	const [firestoreData, loading] = useDocument(docRef);
 	if (loading || !firestoreData) {
 		return <div>Loading</div>;

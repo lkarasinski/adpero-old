@@ -9,9 +9,9 @@ import Layout from './components/Shared/Layout';
 // Pages
 import { Home } from 'components/Pages/Home';
 import { About } from 'components/Pages/About';
-import { Journeys } from 'components/Pages/JourneysList';
+import { JourneysList } from 'components/Pages/JourneysList';
 import { PageNotFound } from 'components/Pages/404';
-import { Journey } from 'components/Pages/JourneyPage';
+import { JourneyPage } from 'components/Pages/JourneyPage';
 import { Join } from 'components/Pages/Join';
 import { PollsList } from 'components/Pages/PollsList';
 import { PollPage } from 'components/Pages/PollPage';
@@ -33,8 +33,8 @@ const App: React.FC = () => (
 				<Switch>
 					<Route path="/" exact component={Home} />
 					<Route path="/about" exact component={About} />
-					<Route path="/journeys" exact component={Journeys} />
-					<Route path="/journeys/:id" exact component={Journey} />
+					<Route path="/journeys" exact component={JourneysList} />
+					<Route path="/journeys/:id" exact component={JourneyPage} />
 					<Route
 						path="/journeys/:id/polls"
 						exact

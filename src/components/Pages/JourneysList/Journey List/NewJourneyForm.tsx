@@ -1,38 +1,55 @@
-import { InputField } from 'components/Shared/Expenses/Edit/ExpenseForm/InputField';
-import { FormikErrors } from 'formik';
+import { InputField } from 'components/Shared/Expenses/ExpenseForm/InputField';
+import { Form, Formik } from 'formik';
 import React from 'react';
-import styled from 'styled-components';
+import * as yup from 'yup';
+import { handleNewJourney } from 'functions/handleNewJourney';
+import firebase from 'firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 interface Props {
-	handleSubmit: () => void;
-	errors: FormikErrors<{ name: string; users: string[] }>;
+	historyPush: (x: string) => void;
 }
 
-const Wrapper = styled.form``;
+const validationSchema = yup.object({
+	name: yup
+		.string()
+		.required('Name is required')
+		.min(3, 'Name must be at least 3 characters')
+		.max(24, 'Name must be at most 24 characters'),
+	users: yup.array(),
+});
 
-const NewJourneyButton = styled.button`
-	border: 0.4rem solid #62fd8d;
-	border-radius: 1rem;
-	padding: 1rem;
-	background-color: transparent;
-	cursor: pointer;
-	font-weight: bold;
-	font-size: 1.3em;
-`;
+/**
+ * Formik component with a input field allowing to create a new journey.
+ * @param historyPush - function linking to created journey
+ */
+export const NewJourneyForm: React.FC<Props> = ({ historyPush }) => {
+	const [auth] = useAuthState(firebase.auth());
 
-export const NewJourneyForm: React.FC<Props> = ({ handleSubmit, errors }) => {
 	return (
-		<Wrapper onSubmit={handleSubmit}>
-			<div>
-				<InputField
-					erorrs={errors}
-					name={'name'}
-					placeholder={'Where are you going?'}
-				/>
-			</div>
-			<NewJourneyButton type="submit">
-				Create new journey
-			</NewJourneyButton>
-		</Wrapper>
+		<Formik
+			initialValues={{
+				name: '',
+				users: [],
+			}}
+			onSubmit={async (values) => {
+				const name = values.name;
+				handleNewJourney({ name, historyPush, auth });
+			}}
+			validationSchema={validationSchema}
+		>
+			{({ errors }) => (
+				<Form>
+					<div>
+						<InputField
+							erorrs={errors}
+							name={'name'}
+							placeholder={'Where are you going?'}
+						/>
+					</div>
+					<button type="submit">Create new journey</button>
+				</Form>
+			)}
+		</Formik>
 	);
 };
