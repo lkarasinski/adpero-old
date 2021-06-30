@@ -35,7 +35,6 @@ const Content = styled.div`
 	grid-row: 2/3;
 	grid-column: 2/3;
 `;
-
 // Main component
 const Layout: React.FC = ({ children }) => {
 	return (
