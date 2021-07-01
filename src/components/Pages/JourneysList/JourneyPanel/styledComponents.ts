@@ -2,10 +2,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-	width: 910px;
-	height: 160px;
+	height: 120px;
 	border-radius: 20px;
-	padding: 0 40px;
+	padding: 0 20px;
 	filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 25%));
 	background-color: white;
 	display: flex;

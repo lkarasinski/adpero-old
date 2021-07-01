@@ -3,9 +3,9 @@ import { InputField } from 'components/Shared/Expenses/ExpenseForm/InputField';
 
 export const Wrapper = styled.div`
 	display: grid;
-	grid-template-columns: 275px 54px;
+	grid-template-columns: 290px 54px;
 	grid-template-rows: 54px 54px;
-	gap: 26px;
+	gap: 17px;
 `;
 
 export const Heading = styled.h3`
@@ -17,6 +17,7 @@ export const Heading = styled.h3`
 
 export const Span = styled.span`
 	color: #5671fe;
+	font-weight: 700;
 `;
 
 export const Input = styled(InputField)`
@@ -26,7 +27,7 @@ export const Input = styled(InputField)`
 export const Button = styled.button`
 	width: 54px;
 	height: 54px;
-	border-radius: 10px;
+	border-radius: 5px;
 	background-color: #5671fe;
 	border: none;
 	cursor: pointer;

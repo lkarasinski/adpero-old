@@ -31,6 +31,7 @@ export const InputField: React.FC<FieldAttributes<Record<string, unknown>>> = ({
 				as={TextField}
 				helperText={errorText}
 				error={!!errorText}
+				variant="outlined"
 			/>
 		</>
 	);

@@ -3,15 +3,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const Wrapper = styled(Link)`
-	display: grid;
-	place-items: center;
-	font-size: 36px;
+	font-size: 64px;
 	font-weight: bold;
 	text-decoration: none;
-	color: black;
-
-	grid-column: 1/2;
-	grid-row: 1/2;
+	color: #3d5eff;
 `;
 
 const Logo: React.FC = () => {

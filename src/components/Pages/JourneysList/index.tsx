@@ -7,6 +7,7 @@ import { NewJourneyForm } from './CreateNewJourney';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { Heading, Span } from './styledComponents';
 
 const journeysRef = firebase.firestore().collection('journeys');
 
@@ -52,7 +53,9 @@ export const JourneysList = withRouter(({ history }) => {
 
 	return (
 		<div>
-			<h2>Your Journeys: </h2>
+			<Heading>
+				Your <Span>journeys</Span>
+			</Heading>
 			{displayJourneys()}
 			<NewJourneyForm historyPush={(x: string) => history.push(x)} />
 		</div>
