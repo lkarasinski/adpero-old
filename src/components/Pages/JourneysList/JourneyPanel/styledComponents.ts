@@ -1,84 +1,45 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-	width: 716px;
-	height: 450px;
-	border-radius: 10px;
+	width: 910px;
+	height: 160px;
+	border-radius: 20px;
+	padding: 0 40px;
 	filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 25%));
 	background-color: white;
-	margin: 54px;
-	padding: 17px;
-`;
-
-export const DetailsContainer = styled.div`
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: 152px 152px;
-	/* gap: 30px; */
-`;
-
-export const DescriptionContainer = styled.div`
-	grid-row: 1/3;
-	grid-column: 1/3;
-	background-color: #ffffff;
-	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 25%));
-	border-radius: 10px;
-	padding: 10px;
-	width: 442px;
-`;
-export const CostsContainer = styled.div`
-	padding: 10px;
-	grid-row: 1/2;
-	grid-column: 3/4;
-	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 25%));
-	border-radius: 10px;
-
-	margin-left: 17px;
-	margin-bottom: 15px;
-	background-color: white;
-`;
-export const UsersContainer = styled.div`
-	padding: 10px;
-	grid-row: 2/3;
-	grid-column: 3/4;
-	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 25%));
-	border-radius: 10px;
-	background-color: white;
-	margin-top: 15px;
-	margin-left: 17px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 40px 0;
 `;
 
 export const JourneyHeading = styled.h2`
 	color: #3d5eff;
 	font-weight: 700;
-	font-size: 36px;
-	text-align: center;
+	font-size: 40px;
 `;
 
-export const DetailHeading = styled.h3`
-	color: #5671fe;
-	font-weight: 700;
-	font-size: 21px;
-	text-align: center;
+export const SLink = styled(Link)`
+	text-decoration: none;
 `;
 
-export const DetailDescription = styled.p`
-	font-size: 18px;
-`;
+export const Button = styled.div`
+	width: 220px;
+	height: 66px;
+	border-radius: 20px;
+	padding: 37px;
+	background: linear-gradient(92.27deg, #5671fe 0%, #3d5eff 100%);
+	filter: drop-shadow(4px 0px 4px rgba(0, 0, 0, 25%));
 
-export const DetailListElement = styled.li`
-	font-size: 12px;
-	margin-left: 10px;
-	list-style-type: '- ';
-`;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 
-export const GoButton = styled.div`
-	width: 42px;
-	height: 42px;
-	border-radius: 50%;
-	background-color: #4ac7ff;
-	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 25%));
-	margin: 15px 0 17px auto;
-	display: grid;
-	place-items: center;
+	span {
+		font-size: 18px;
+		font-weight: 600;
+		color: white;
+	}
 `;

@@ -16,7 +16,6 @@
 		"noEmit": true,
 		"jsx": "react-jsx",
 		"baseUrl": "./src",
-		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"downlevelIteration": true
 	},
