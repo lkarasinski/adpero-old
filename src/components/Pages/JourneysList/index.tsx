@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import { ErrorMessage } from '../../Shared/Text decoration/ErrorMessage';
 import JourneyPanel from './JourneyPanel';
 import { withRouter } from 'react-router-dom';
-import { NewJourneyForm } from './NewJourneyForm';
+import { NewJourneyForm } from './CreateNewJourney';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';

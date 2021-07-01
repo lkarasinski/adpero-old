@@ -14,6 +14,7 @@ const Wrapper = styled.div`
 
 	grid-template-rows: 100px auto;
 	display: grid;
+	margin-bottom: 5em;
 `;
 
 const StyledNavLink = styled(NavLink)`

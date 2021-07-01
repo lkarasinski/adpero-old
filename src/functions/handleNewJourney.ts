@@ -22,7 +22,7 @@ export const handleNewJourney = ({ name, historyPush, auth }: Props): void => {
 					expenses: [],
 				})
 				.then((docRef) => {
-					historyPush(docRef.id);
+					historyPush(`/journeys/${docRef.id}`);
 				});
 		}
 	}

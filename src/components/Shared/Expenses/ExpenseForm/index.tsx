@@ -165,6 +165,7 @@ export const ExpenseForm: React.FC<Props> = ({
 								{values.map((expense: Expense, i: number) => (
 									<div key={i} style={{ margin: '1em 0' }}>
 										<InputField
+											objectDepth="1"
 											name={`[${i}].title`}
 											errors={errors}
 										/>

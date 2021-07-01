@@ -28,11 +28,20 @@ export const DetailFields: React.FC<Props> = ({
 }) => {
 	return (
 		<div>
-			<InputField name={`[${i}].details[${j}].label`} errors={errors} />
-			<InputField name={`[${i}].details[${j}].value`} errors={errors} />
+			<InputField
+				name={`[${i}].details[${j}].label`}
+				objectDepth="2"
+				errors={errors}
+			/>
+			<InputField
+				name={`[${i}].details[${j}].value`}
+				objectDepth="2"
+				errors={errors}
+			/>
 			{values[i].details[j].type === 'Price' ? (
 				<InputField
 					name={`[${i}].details[${j}].currency`}
+					objectDepth="2"
 					errors={errors}
 				/>
 			) : null}
