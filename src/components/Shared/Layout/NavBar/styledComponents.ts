@@ -5,10 +5,9 @@ export const StyledNavLink = styled(NavLink)`
 	color: black;
 	text-decoration: none;
 	font-size: 24px;
-	margin: 30px;
+	margin: 20px;
 	&.active {
 		color: #5671fe;
-		/* font-weight: bold; */
 	}
 `;
 

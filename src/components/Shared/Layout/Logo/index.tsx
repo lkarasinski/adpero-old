@@ -7,6 +7,7 @@ const Wrapper = styled(Link)`
 	font-weight: bold;
 	text-decoration: none;
 	color: #3d5eff;
+	margin-left: 20px;
 `;
 
 const Logo: React.FC = () => {

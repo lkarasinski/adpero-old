@@ -14,7 +14,6 @@ export const Wrapper = styled.div`
 export const StyledNavLink = styled(NavLink)`
 	color: black;
 	text-decoration: none;
-	margin: 1rem;
 
 	&.active {
 		color: #9d62fd;
