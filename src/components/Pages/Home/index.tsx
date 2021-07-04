@@ -3,6 +3,8 @@ import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import styled from 'styled-components';
 
+import { Earth } from './Earth';
+
 const Wrapper = styled.div`
 	grid-row: 2/3;
 	grid-column: 2/3;
@@ -33,6 +35,7 @@ export const Home: React.FC = () => {
 						? `Hello ${auth.displayName?.split(' ')[0]}`
 						: `Hello stranger 🥺`}
 				</StyledHeading>
+				<Earth />
 			</Wrapper>
 		</>
 	);

@@ -23,7 +23,9 @@
 			"@interfaces/*": ["./src/interfaces/*"],
 			"@pages/*": ["./src/components/Pages/*"],
 			"@functions/*": ["./src/functions/*"],
-			"@components/*": ["./src/components/*"]
+			"@components/*": ["./src/components/*"],
+			"@models/*": ["./src/models/*"],
+			"@static/*": ["./static/*"]
 		}
 	},
 	"include": ["src"]

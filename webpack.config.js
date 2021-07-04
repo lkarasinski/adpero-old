@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackMessages = require('webpack-messages');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
@@ -17,6 +18,10 @@ module.exports = {
 	devServer: { contentBase: path.join(__dirname, 'src'), port: 3000 },
 	module: {
 		rules: [
+			{
+				test: /\.(glb)$/,
+				use: [{ loader: 'gltf-webpack-loader' }],
+			},
 			{
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
@@ -44,6 +49,9 @@ module.exports = {
 		new WebpackMessages({
 			name: 'client',
 			logger: (str) => console.log(`>> ${str}`),
+		}),
+		new CopyWebpackPlugin({
+			patterns: [{ from: path.resolve(__dirname, './static') }],
 		}),
 	],
 };
