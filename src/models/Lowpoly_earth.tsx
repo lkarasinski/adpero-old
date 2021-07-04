@@ -8,6 +8,8 @@ import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { useFrame } from '@react-three/fiber';
 
+const ANIMATION_SPEED = 0.005;
+
 type GLTFResult = GLTF & {
 	nodes: {
 		Icosphere_1: THREE.Mesh;
@@ -25,16 +27,21 @@ type GLTFResult = GLTF & {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Model(props: JSX.IntrinsicElements['group']): any {
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const earth = useRef<THREE.Group>(null!);
-	const clouds = useRef<THREE.Group>(null!);
+	const light = useRef<THREE.DirectionalLight>(null!);
 	const { nodes, materials } = useGLTF('/lowpoly_earth.glb') as GLTFResult;
-	useFrame(() => (earth.current.rotation.y += 0.01));
-	// useFrame((state, delta) => (clouds.current.rotation.z += 0.005));
+	const clock = new THREE.Clock();
+	useFrame(() => (earth.current.rotation.y += ANIMATION_SPEED));
+	useFrame(() => {
+		const elapsed = clock.getElapsedTime();
+		light.current.position.z = Math.sin(elapsed) * 6;
+	});
 	return (
 		<group {...props} dispose={null}>
 			<group
 				ref={earth}
-				position={[0, 3.47, 0]}
+				position={[0, 0, 0]}
 				scale={3.46}
 				rotation={[Math.PI / 2, 0, 0, 'XYZ']}
 			>
@@ -46,18 +53,23 @@ export default function Model(props: JSX.IntrinsicElements['group']): any {
 					geometry={nodes.Icosphere_2.geometry}
 					material={materials.Ocean}
 				/>
-				<ambientLight />
 				<mesh
 					geometry={nodes.Icosphere_3.geometry}
 					material={materials.Poles}
 				/>
 			</group>
-			<mesh
+			{/* <mesh
 				ref={clouds}
 				geometry={nodes.Icosphere001.geometry}
 				material={materials.Coluds}
 				position={[-4.4, 5.16, -1.38]}
 				scale={0.76}
+			/> */}
+			<directionalLight
+				ref={light}
+				color={0xffffff}
+				intensity={0.75}
+				position={[0, -10, 0]}
 			/>
 		</group>
 	);
