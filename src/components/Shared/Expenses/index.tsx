@@ -1,9 +1,8 @@
 import React from 'react';
-
 import { ExpensesList } from './Display/ExpensesList';
 import { ExpenseForm } from './ExpenseForm';
-import firebase from 'firebase';
-import { LeaveJourneyButton } from 'components/Shared/Expenses/_shared/LeaveJourneyButton';
+import firebase from '@firebase';
+import { LeaveJourneyButton } from '@components/Shared/Expenses/_shared/LeaveJourneyButton';
 
 interface Props {
 	collectionID: string;

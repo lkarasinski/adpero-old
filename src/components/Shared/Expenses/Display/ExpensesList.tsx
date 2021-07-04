@@ -1,16 +1,14 @@
 import React from 'react';
-import { Expense } from '../../../../interfaces/Expenses';
+import { Expense } from '@interfaces/Expenses';
 import { Spendings } from '../Spendings';
-import { getAllSpendings } from '../../../../functions/getAllSpendings';
+import { getAllSpendings } from '@functions/getAllSpendings';
 import { useDocument } from 'react-firebase-hooks/firestore';
-import firebase from 'firebase';
+import firebase from '@firebase';
 import { ExpensePanel } from './ExpensePanel';
 import { ExpenseContainer } from '../_shared/styledComponents';
 
 interface Props {
-	docRef: firebase.firestore.DocumentReference<
-		firebase.firestore.DocumentData
-	>;
+	docRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>;
 }
 /**
  * Renders a list of all expenses and counts all the spendings of the journey referenced.

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import firebase, { authType } from '../../../firebase';
-import { SmallButton } from 'components/Shared/Buttons/SmallButton';
+import firebase, { authType } from '@firebase';
+import { SmallButton } from '@components/Shared/Buttons/SmallButton';
 import { withRouter } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -33,7 +33,8 @@ const createInviteLink = async (
 
 								invitesRef
 									.add({
-										createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+										createdAt:
+											firebase.firestore.FieldValue.serverTimestamp(),
 										journeyID: id,
 									})
 									.then((docRef) => {

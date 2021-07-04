@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import firebase from '../../../firebase';
-import { getSiteState } from '../../../functions/getSiteState';
-import { SiteData } from '../../../interfaces/SiteState';
+import firebase from '@firebase';
+import { getSiteState } from '@functions/getSiteState';
+import { SiteData } from '@interfaces/SiteState';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { InviteLinkPanel } from 'components/Pages/JourneyPage/InviteLinkPanel';
+import { InviteLinkPanel } from '@pages/JourneyPage/InviteLinkPanel';
 import { UserList } from './UserList';
-import { JourneyErrors } from 'components/Pages/JourneyPage/JourneyErrors';
-import { Expenses } from 'components/Shared/Expenses';
+import { JourneyErrors } from '@pages/JourneyPage/JourneyErrors';
+import { Expenses } from '@components/Shared/Expenses';
 
-import { DeleteJourney } from 'components/Pages/JourneyPage/DeleteJourneyButton';
+import { DeleteJourney } from '@pages/JourneyPage/DeleteJourneyButton';
 
-import { SmallButton } from 'components/Shared/Buttons/SmallButton';
+import { SmallButton } from '@components/Shared/Buttons/SmallButton';
 
 const journeysRef = firebase.firestore().collection('journeys');
 

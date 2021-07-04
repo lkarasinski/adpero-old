@@ -1,7 +1,7 @@
-import { ErrorMessage } from 'components/Shared/Text decoration/ErrorMessage';
+import { ErrorMessage } from '@components/Shared/Text decoration/ErrorMessage';
 import React from 'react';
-import { SiteState } from 'interfaces/SiteState';
-import firebase from '../../../firebase';
+import { SiteState } from '@interfaces/SiteState';
+import firebase from '@firebase';
 
 interface Props {
 	siteState: SiteState;

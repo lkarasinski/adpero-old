@@ -1,5 +1,5 @@
-import { Expense } from 'interfaces/Expenses';
-import { Vote } from '../interfaces/Votes';
+import { Expense } from '@interfaces/Expenses';
+import { Vote } from '@interfaces/Votes';
 
 interface Props {
 	votes: Vote[];

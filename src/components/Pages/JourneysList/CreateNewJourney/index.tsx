@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
 import * as yup from 'yup';
-import { handleNewJourney } from 'functions/handleNewJourney';
+import { handleNewJourney } from '@functions/handleNewJourney';
 import firebase from 'firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Heading, Span, Button, Wrapper, Input } from './styledComponents';

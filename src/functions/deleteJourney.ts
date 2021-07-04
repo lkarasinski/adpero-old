@@ -1,4 +1,4 @@
-import firebase from '../firebase';
+import firebase from '@firebase';
 
 const journeysRef = firebase.firestore().collection('journeys');
 const invitesRef = firebase.firestore().collection('invites');

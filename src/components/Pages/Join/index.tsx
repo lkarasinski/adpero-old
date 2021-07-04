@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import firebase from '../../../firebase';
-import { ErrorMessage } from 'components/Shared/Text decoration/ErrorMessage';
+import firebase from '@firebase';
+import { ErrorMessage } from '@components/Shared/Text decoration/ErrorMessage';
 import { RouteComponentProps } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 

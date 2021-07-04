@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-import { ErrorMessage } from '../../Shared/Text decoration/ErrorMessage';
+import { ErrorMessage } from '@components/Shared/Text decoration/ErrorMessage';
 import JourneyPanel from './JourneyPanel';
 import { withRouter } from 'react-router-dom';
 import { NewJourneyForm } from './CreateNewJourney';

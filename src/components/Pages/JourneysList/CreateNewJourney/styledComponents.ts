@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { InputField } from 'components/Shared/Expenses/ExpenseForm/InputField';
+import { InputField } from '@components/Shared/Expenses/ExpenseForm/InputField';
 
 export const Wrapper = styled.div`
 	display: grid;

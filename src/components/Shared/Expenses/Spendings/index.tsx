@@ -5,7 +5,7 @@ import {
 	ColorHighlight,
 } from '../_shared/styledComponents';
 
-import { spending } from '../../../../interfaces/spending';
+import { spending } from '@interfaces/spending';
 
 interface Props {
 	spendings: spending[];

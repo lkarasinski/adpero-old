@@ -1,24 +1,24 @@
 // Packages
 import * as React from 'react';
-import firebase from 'firebase';
+import firebase from '@firebase';
 import { RouteComponentProps } from 'react-router-dom';
 import { useDocument } from 'react-firebase-hooks/firestore';
 
 // Components
-import { SmallButton } from 'components/Shared/Buttons/SmallButton';
+import { SmallButton } from '@components/Shared/Buttons/SmallButton';
 import { VotingPanel } from './VotingPanel';
-import { ExpensePanel } from '../../Shared/Expenses/Display/ExpensePanel';
-import { ExpenseForm } from '../../Shared/Expenses/ExpenseForm';
+import { ExpensePanel } from '@components/Shared/Expenses/Display/ExpensePanel';
+import { ExpenseForm } from '@components/Shared/Expenses/ExpenseForm';
 
 // Styled components
-import { Heading1 } from '../../Shared/Expenses/_shared/styledComponents';
+import { Heading1 } from '@components/Shared/Expenses/_shared/styledComponents';
 
 // Functions
-import { getPollResults } from 'functions/getPollResults';
-import { deletePoll } from 'functions/deletePoll';
+import { getPollResults } from '@functions/getPollResults';
+import { deletePoll } from '@functions/deletePoll';
 
 // Interfaces
-import { Expense } from 'interfaces/Expenses';
+import { Expense } from '@interfaces/Expenses';
 
 const pollsRef = firebase.firestore().collection('polls');
 
@@ -28,10 +28,12 @@ const pollsRef = firebase.firestore().collection('polls');
  * @param id - id of the journey
  * @returns
  */
-export const PollPage: React.FC<RouteComponentProps<{
-	pollid: string;
-	id: string;
-}>> = ({ match, history }) => {
+export const PollPage: React.FC<
+	RouteComponentProps<{
+		pollid: string;
+		id: string;
+	}>
+> = ({ match, history }) => {
 	const [isEditing, setIsEditing] = React.useState(false);
 	const docRef = pollsRef.doc(match.params.pollid);
 	const [firebaseData, loading] = useDocument(docRef);

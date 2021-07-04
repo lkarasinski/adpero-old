@@ -1,4 +1,4 @@
-import firebase from '../../../firebase';
+import firebase from '@firebase';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import styled from 'styled-components';

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Expense } from 'interfaces/Expenses';
-import firebase from '../../../firebase';
+import { Expense } from '@interfaces/Expenses';
+import firebase from '@firebase';
 import { CreateNewPoll } from './CreateNewPoll';
 
 const collectionRef = firebase.firestore().collection('polls');

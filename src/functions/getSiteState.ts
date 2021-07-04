@@ -1,13 +1,11 @@
-import { SiteState } from 'interfaces/SiteState';
-import firebase from '../firebase';
+import { SiteState } from '@interfaces/SiteState';
+import firebase from '@firebase';
 
-import { SiteData } from '../interfaces/SiteState';
+import { SiteData } from '@interfaces/SiteState';
 
 interface Props {
 	auth: firebase.User | null | undefined;
-	journeysRef: firebase.firestore.CollectionReference<
-		firebase.firestore.DocumentData
-	>;
+	journeysRef: firebase.firestore.CollectionReference<firebase.firestore.DocumentData>;
 	id: string;
 	siteData: SiteData;
 	setSiteData: React.Dispatch<React.SetStateAction<SiteData>>;

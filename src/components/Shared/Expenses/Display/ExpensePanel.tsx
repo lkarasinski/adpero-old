@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Details, Expense } from 'interfaces/Expenses';
+import { Details, Expense } from '@interfaces/Expenses';
 import {
 	DetailText,
 	DetailTextContainer,

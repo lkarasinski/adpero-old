@@ -4,17 +4,17 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './fonts.css';
 
 // Components
-import Layout from './components/Shared/Layout';
+import Layout from '@components/Shared/Layout';
 
 // Pages
-import { Home } from 'components/Pages/Home';
-import { About } from 'components/Pages/About';
-import { JourneysList } from 'components/Pages/JourneysList';
-import { PageNotFound } from 'components/Pages/404';
-import { JourneyPage } from 'components/Pages/JourneyPage';
-import { Join } from 'components/Pages/Join';
-import { PollsList } from 'components/Pages/PollsList';
-import { PollPage } from 'components/Pages/PollPage';
+import { Home } from '@components/Pages/Home';
+import { About } from '@components/Pages/About';
+import { JourneysList } from '@components/Pages/JourneysList';
+import { PageNotFound } from '@components/Pages/404';
+import { JourneyPage } from '@components/Pages/JourneyPage';
+import { Join } from '@components/Pages/Join';
+import { PollsList } from '@components/Pages/PollsList';
+import { PollPage } from '@components/Pages/PollPage';
 
 const GlobalStyles = createGlobalStyle`
 	*, *::after, *::before{

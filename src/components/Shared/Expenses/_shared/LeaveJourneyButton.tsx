@@ -1,6 +1,6 @@
-import { leaveJourney } from '../../../../functions/leaveJourney';
+import { leaveJourney } from '@functions/leaveJourney';
 import firebase from 'firebase';
-import { ConfirmButton } from 'components/Shared/Buttons/ConfirmButton';
+import { ConfirmButton } from '@components/Shared/Buttons/ConfirmButton';
 import { withRouter } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 

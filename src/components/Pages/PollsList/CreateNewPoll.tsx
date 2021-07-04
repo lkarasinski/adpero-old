@@ -1,9 +1,9 @@
 import * as React from 'react';
-import firebase from '../../../firebase';
+import firebase from '@firebase';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
-import { SmallButton } from 'components/Shared/Buttons/SmallButton';
-import { InputField } from '../../Shared/Expenses/ExpenseForm/InputField';
+import { SmallButton } from '@components/Shared/Buttons/SmallButton';
+import { InputField } from '@components/Shared/Expenses/ExpenseForm/InputField';
 
 interface Props {
 	id: string;

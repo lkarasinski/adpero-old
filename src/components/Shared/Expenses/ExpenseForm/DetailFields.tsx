@@ -1,7 +1,7 @@
-import { RemoveDetailButton } from 'components/Shared/Expenses/_shared/styledComponents';
+import { RemoveDetailButton } from '../_shared/styledComponents';
 import { Field, FormikErrors } from 'formik';
 import * as React from 'react';
-import { ExpenseFormValues } from 'interfaces/Expenses';
+import { ExpenseFormValues } from '@interfaces/Expenses';
 import { InputField } from './InputField';
 
 interface Props {
