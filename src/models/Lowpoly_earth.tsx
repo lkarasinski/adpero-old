@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import React, { useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+import { useFrame } from '@react-three/fiber';
 
 type GLTFResult = GLTF & {
 	nodes: {
@@ -24,11 +25,19 @@ type GLTFResult = GLTF & {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Model(props: JSX.IntrinsicElements['group']): any {
-	const group = useRef<THREE.Group>();
+	const earth = useRef<THREE.Group>(null!);
+	const clouds = useRef<THREE.Group>(null!);
 	const { nodes, materials } = useGLTF('/lowpoly_earth.glb') as GLTFResult;
+	useFrame(() => (earth.current.rotation.y += 0.01));
+	// useFrame((state, delta) => (clouds.current.rotation.z += 0.005));
 	return (
-		<group ref={group} {...props} dispose={null}>
-			<group position={[0, 3.47, 0]} scale={3.46}>
+		<group {...props} dispose={null}>
+			<group
+				ref={earth}
+				position={[0, 3.47, 0]}
+				scale={3.46}
+				rotation={[Math.PI / 2, 0, 0, 'XYZ']}
+			>
 				<mesh
 					geometry={nodes.Icosphere_1.geometry}
 					material={materials['tectonic plates']}
@@ -37,12 +46,14 @@ export default function Model(props: JSX.IntrinsicElements['group']): any {
 					geometry={nodes.Icosphere_2.geometry}
 					material={materials.Ocean}
 				/>
+				<ambientLight />
 				<mesh
 					geometry={nodes.Icosphere_3.geometry}
 					material={materials.Poles}
 				/>
 			</group>
 			<mesh
+				ref={clouds}
 				geometry={nodes.Icosphere001.geometry}
 				material={materials.Coluds}
 				position={[-4.4, 5.16, -1.38]}
