@@ -36,11 +36,6 @@ export const Home: React.FC = () => {
 						: `Hello stranger 🥺`}
 				</StyledHeading>
 				<Earth />
-				<Earth />
-				<Earth />
-				<Earth />
-				<Earth />
-				<Earth />
 			</Wrapper>
 		</>
 	);
