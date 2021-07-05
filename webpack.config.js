@@ -15,7 +15,11 @@ module.exports = {
 		extensions: ['.tsx', '.ts', '.js'],
 		plugins: [new TsconfigPathsPlugin({})],
 	},
-	devServer: { contentBase: path.join(__dirname, 'src'), port: 3000 },
+	devServer: {
+		contentBase: path.join(__dirname, 'src'),
+		port: 3000,
+		host: '192.168.0.160',
+	},
 	module: {
 		rules: [
 			{

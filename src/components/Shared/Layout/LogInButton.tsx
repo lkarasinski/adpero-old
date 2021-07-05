@@ -2,6 +2,7 @@ import firebase from '@firebase';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import styled from 'styled-components';
+import { handleLoginLogout } from '@functions/handleLoginLogout';
 
 const Button = styled.button`
 	height: 3rem;
@@ -15,26 +16,8 @@ const Button = styled.button`
 export const LogInButton: React.FC = () => {
 	const [auth] = useAuthState(firebase.auth());
 
-	const handleAuth = () => {
-		if (auth) {
-			firebase.auth().signOut();
-		} else {
-			const provider = new firebase.auth.GoogleAuthProvider();
-			firebase
-				.auth()
-				.signInWithPopup(provider)
-				.catch((err) => {
-					const errorCode = err.code;
-					const errorMessage = err.message;
-					console.error(errorCode);
-					console.error(errorMessage);
-				});
-		}
-		return;
-	};
-
 	return (
-		<Button onClick={() => handleAuth()}>
+		<Button onClick={() => handleLoginLogout(auth)}>
 			{auth ? 'Log out' : 'Log in'}
 		</Button>
 	);

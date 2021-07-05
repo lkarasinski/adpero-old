@@ -8,7 +8,7 @@ import { OrbitControls, useGLTF } from '@react-three/drei';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { useFrame } from '@react-three/fiber';
 
-const ANIMATION_SPEED = 0.005;
+const ANIMATION_SPEED = 0.001;
 
 type GLTFResult = GLTF & {
 	nodes: {
@@ -38,7 +38,7 @@ export default function Model(props: JSX.IntrinsicElements['group']): any {
 				<group
 					ref={earth}
 					position={[0, 0, 0]}
-					scale={3.46}
+					scale={4.5}
 					rotation={[0, 0, 0, 'XYZ']}
 				>
 					<mesh
@@ -58,15 +58,15 @@ export default function Model(props: JSX.IntrinsicElements['group']): any {
 				<directionalLight
 					ref={light}
 					color={0xffffff}
-					intensity={0.1}
-					position={[-11, 0, -11]}
+					intensity={0.5}
+					position={[0, 0, -10]}
 				/>
 				{/* SUN */}
 				<directionalLight
 					ref={light}
 					color={0xffffff}
-					intensity={1}
-					position={[11, 0, 11]}
+					intensity={1.5}
+					position={[0, 0, 10]}
 				/>
 				<ambientLight color={0xffffff} intensity={0.25} />
 				<OrbitControls
