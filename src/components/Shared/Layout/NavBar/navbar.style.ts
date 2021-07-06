@@ -2,6 +2,17 @@ import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { breakpoints } from '@constants/breakpoints';
 
+export const Nav = styled.nav`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.3);
+	${breakpoints.maxMedium} {
+		justify-content: center;
+		padding: 10px 0;
+	}
+`;
+
 export const StyledNavLink = styled(NavLink)`
 	color: black;
 	text-decoration: none;
@@ -14,24 +25,6 @@ export const StyledNavLink = styled(NavLink)`
 
 export const StyledUl = styled.ul`
 	margin: 1rem;
-`;
-
-export const Container = styled.div`
-	display: grid;
-	place-items: center;
-`;
-
-export const Nav = styled.nav`
-	display: flex;
-	align-items: center;
-`;
-
-export const Wrapper = styled.div`
-	/* MEDIUM */
-	${breakpoints.medium} {
-		display: grid;
-		place-items: center;
-	}
 `;
 
 export const Logo = styled(Link)`
@@ -49,6 +42,14 @@ export const Logo = styled(Link)`
 	}
 	/* LARGE */
 	${breakpoints.large} {
+		font-size: 4em;
+		margin-left: 20px;
+	}
+	${breakpoints.xlarge} {
+		font-size: 4em;
+		margin-left: 20px;
+	}
+	${breakpoints.xxlarge} {
 		font-size: 4em;
 		margin-left: 20px;
 	}

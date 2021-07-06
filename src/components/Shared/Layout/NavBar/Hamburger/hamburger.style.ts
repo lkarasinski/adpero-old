@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { breakpoints } from '@constants/breakpoints';
 
-const spacing = 8;
-
 export const HamburgerButton = styled.div`
 	background-color: black;
 	position: absolute;
@@ -15,7 +13,7 @@ export const HamburgerButton = styled.div`
 		background-color: black;
 	}
 
-	${breakpoints.xsmall} {
+	${breakpoints.maxMedium} {
 		left: -20px;
 		width: 20px;
 		height: 3px;
@@ -31,12 +29,17 @@ export const HamburgerButton = styled.div`
 			bottom: 8px;
 		}
 	}
+	${breakpoints.small} {
+		transform: scale(1.4);
+	}
+	${breakpoints.medium} {
+		transform: scale(1.8);
+	}
 `;
 
 export const Container = styled.button`
-	position: fixed;
-	top: ${13 + spacing}px;
-	right: 13px;
+	position: absolute;
 	background: none;
 	border: none;
+	right: 30px;
 `;

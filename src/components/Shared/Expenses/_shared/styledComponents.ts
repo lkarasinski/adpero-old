@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ExpenseTitle = styled.h1`
-	font-family: Open Sans;
+	font-family: Open Sans, sans-serif;
 	font-size: 1.7em;
 	width: auto;
 	margin: 1rem 0;
@@ -22,7 +22,7 @@ export const ExpenseTitle = styled.h1`
 `;
 
 export const Heading1 = styled.h1`
-	font-family: Open Sans;
+	font-family: Open Sans, sans-serif;
 	font-size: 2em;
 	width: auto;
 	margin: 1rem 0;

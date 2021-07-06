@@ -24,6 +24,10 @@ export const CanvasContainer = styled.div`
 		width: 500px;
 		height: 500px;
 	}
+	${breakpoints.xxlarge} {
+		width: 600px;
+		height: 600px;
+	}
 `;
 
 export const EarthPanel = styled.div`
@@ -52,6 +56,11 @@ export const EarthPanel = styled.div`
 		grid-column: 2/3;
 		grid-row: 1/2;
 	}
+	${breakpoints.xxlarge} {
+		font-size: 2em;
+		grid-column: 2/3;
+		grid-row: 1/2;
+	}
 `;
 
 export const Highlight = styled.span`
@@ -73,22 +82,8 @@ export const Highlight = styled.span`
 `;
 
 export const EarthHeading = styled.h2`
-	font-family: Poppins;
+	font-family: Poppins, sans-serif;
 	font-style: normal;
 	font-weight: 500;
 	line-height: 1.75em;
-	${breakpoints.xsmall} {
-		max-width: 300px;
-	}
-	${breakpoints.small} {
-		max-width: 300px;
-	}
-	/* MEDIUM */
-	${breakpoints.medium} {
-		/* max-width: 400px; */
-	}
-	/* LARGE */
-	${breakpoints.large} {
-	}
-	/* EXTRA LARGE */
 `;

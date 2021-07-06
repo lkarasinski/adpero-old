@@ -14,6 +14,10 @@ export const Container = styled.div`
 		grid-column: 1/2;
 		grid-row: 1/2;
 	}
+	${breakpoints.xxlarge} {
+		grid-column: 1/2;
+		grid-row: 1/2;
+	}
 `;
 
 export const Button = styled.button`
@@ -39,11 +43,11 @@ export const Button = styled.button`
 	}
 	/* EXTRA LARGE */
 	${breakpoints.xlarge} {
-		font-size: 2.5em;
+		font-size: 3em;
 	}
 
 	overflow-wrap: normal;
-	font-family: Poppins;
+	font-family: Poppins, sans-serif;
 	font-style: normal;
 	font-weight: bold;
 	padding: 0.5em 1.5em;
@@ -53,7 +57,7 @@ export const Button = styled.button`
 `;
 
 export const Heading = styled.h2`
-	font-family: Poppins;
+	font-family: Poppins, sans-serif;
 	font-style: normal;
 	font-weight: 500;
 	text-align: center;
@@ -72,10 +76,10 @@ export const Heading = styled.h2`
 	}
 	/* LARGE */
 	${breakpoints.large} {
-		font-size: 1.55em;
+		font-size: 2em;
 	}
 	/* EXTRA LARGE */
 	${breakpoints.xlarge} {
-		font-size: 2em;
+		font-size: 2.5em;
 	}
 `;
