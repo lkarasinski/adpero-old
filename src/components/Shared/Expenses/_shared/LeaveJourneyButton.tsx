@@ -1,4 +1,4 @@
-import { leaveJourney } from '@functions/leaveJourney';
+import { leaveJourney } from '@utils/functions/leaveJourney';
 import firebase from 'firebase';
 import { ConfirmButton } from '@components/Shared/Buttons/ConfirmButton';
 import { withRouter } from 'react-router-dom';

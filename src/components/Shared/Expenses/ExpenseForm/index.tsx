@@ -1,6 +1,10 @@
 import { Form, Formik, FormikErrors } from 'formik';
 import * as React from 'react';
-import { Details, Expense, ExpenseFormValues } from '@interfaces/Expenses';
+import {
+	Details,
+	Expense,
+	ExpenseFormValues,
+} from '@utils/interfaces/Expenses';
 import firebase from 'firebase';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import * as yup from 'yup';

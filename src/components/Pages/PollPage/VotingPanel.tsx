@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 import firebase from '@firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useDocument } from 'react-firebase-hooks/firestore';
-import { Vote } from '@interfaces/Votes';
+import { Vote } from '@utils/interfaces/Votes';
 
 interface Props {
 	id: number;

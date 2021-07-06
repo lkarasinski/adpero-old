@@ -1,7 +1,7 @@
 import React from 'react';
-import { Expense } from '@interfaces/Expenses';
+import { Expense } from '@utils/interfaces/Expenses';
 import { Spendings } from '../Spendings';
-import { getAllSpendings } from '@functions/getAllSpendings';
+import { getAllSpendings } from '@utils/functions/getAllSpendings';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import firebase from '@firebase';
 import { ExpensePanel } from './ExpensePanel';

@@ -20,11 +20,13 @@
 		"baseUrl": "./",
 		"paths": {
 			"@firebase": ["./src/firebase"],
-			"@interfaces/*": ["./src/interfaces/*"],
+			"@interfaces/*": ["src/utils/interfaces/*"],
 			"@pages/*": ["./src/components/Pages/*"],
-			"@functions/*": ["./src/functions/*"],
+			"@functions/*": ["src/utils/functions/*"],
+			"@constants/*": ["./src/utils/constants/*"],
 			"@components/*": ["./src/components/*"],
-			"@models/*": ["./src/models/*"],
+			"@utils/*": ["./src/utils/*"],
+			"@models/*": ["src/utils/models/*"],
 			"@static/*": ["./static/*"]
 		}
 	},

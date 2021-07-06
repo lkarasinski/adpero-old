@@ -14,11 +14,11 @@ import { ExpenseForm } from '@components/Shared/Expenses/ExpenseForm';
 import { Heading1 } from '@components/Shared/Expenses/_shared/styledComponents';
 
 // Functions
-import { getPollResults } from '@functions/getPollResults';
-import { deletePoll } from '@functions/deletePoll';
+import { getPollResults } from '@utils/functions/getPollResults';
+import { deletePoll } from '@utils/functions/deletePoll';
 
 // Interfaces
-import { Expense } from '@interfaces/Expenses';
+import { Expense } from '@utils/interfaces/Expenses';
 
 const pollsRef = firebase.firestore().collection('polls');
 

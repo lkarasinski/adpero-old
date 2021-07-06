@@ -1,7 +1,7 @@
-import { SiteState } from '@interfaces/SiteState';
+import { SiteState } from '@utils/interfaces/SiteState';
 import firebase from '@firebase';
 
-import { SiteData } from '@interfaces/SiteState';
+import { SiteData } from '@utils/interfaces/SiteState';
 
 interface Props {
 	auth: firebase.User | null | undefined;

@@ -29,6 +29,7 @@ type GLTFResult = GLTF & {
 export default function Model(props: JSX.IntrinsicElements['group']): any {
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const earth = useRef<THREE.Group>(null!);
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const light = useRef<THREE.DirectionalLight>(null!);
 	const { nodes, materials } = useGLTF('/lowpoly_earth.glb') as GLTFResult;
 	useFrame(() => (earth.current.rotation.y += ANIMATION_SPEED));

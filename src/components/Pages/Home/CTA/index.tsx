@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from '@firebase';
-import { handleLoginLogout } from '@functions/handleLoginLogout';
+import { handleLoginLogout } from '@utils/functions/handleLoginLogout';
 
 import { Button, Container, Heading } from './CTA.style';
 

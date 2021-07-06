@@ -2,7 +2,7 @@ import firebase from '@firebase';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import styled from 'styled-components';
-import { handleLoginLogout } from '@functions/handleLoginLogout';
+import { handleLoginLogout } from '@utils/functions/handleLoginLogout';
 
 const Button = styled.button`
 	height: 3rem;

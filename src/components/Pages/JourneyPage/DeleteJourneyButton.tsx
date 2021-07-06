@@ -1,6 +1,6 @@
 import { ConfirmButton } from '@components/Shared/Buttons/ConfirmButton';
 import { withRouter } from 'react-router-dom';
-import { deleteJourney } from '@functions/deleteJourney';
+import { deleteJourney } from '@utils/functions/deleteJourney';
 
 /**
  * ConfirmButton with history.push('/journeys/')

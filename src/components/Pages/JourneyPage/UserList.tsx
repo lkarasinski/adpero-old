@@ -1,6 +1,6 @@
 import { ConfirmButton } from '@components/Shared/Buttons/ConfirmButton';
 import React from 'react';
-import { SiteData } from '@interfaces/SiteState';
+import { SiteData } from '@utils/interfaces/SiteState';
 
 interface Props {
 	siteData: SiteData;

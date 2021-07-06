@@ -27,6 +27,7 @@
 		"@types/styled-components": "^5.1.11",
 		"@types/three": "^0.129.2",
 		"babel-loader": "^8.2.2",
+		"babel-plugin-styled-components": "^1.13.1",
 		"css-loader": "^5.2.6",
 		"eslint": "^7.30.0",
 		"file-loader": "^6.2.0",

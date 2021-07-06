@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Expense } from '@interfaces/Expenses';
+import { Expense } from '@utils/interfaces/Expenses';
 import firebase from '@firebase';
 import { CreateNewPoll } from './CreateNewPoll';
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import firebase from '@firebase';
-import { getSiteState } from '@functions/getSiteState';
-import { SiteData } from '@interfaces/SiteState';
+import { getSiteState } from '@utils/functions/getSiteState';
+import { SiteData } from '@utils/interfaces/SiteState';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
