@@ -1,15 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { breakpoints } from '@constants/breakpoints';
 
 export const Wrapper = styled.div`
 	width: 100%;
-	/* ${breakpoints.large} {
-		grid-template-columns: 1fr 3fr 1fr;
-
-		grid-template-rows: 100px auto;
-		display: grid;
-	} */
 `;
 
 export const StyledNavLink = styled(NavLink)`

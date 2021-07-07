@@ -28,6 +28,10 @@ export const CanvasContainer = styled.div`
 		width: 600px;
 		height: 600px;
 	}
+	${breakpoints.xxxlarge} {
+		width: 900px;
+		height: 900px;
+	}
 `;
 
 export const EarthPanel = styled.div`
@@ -45,21 +49,22 @@ export const EarthPanel = styled.div`
 		font-size: 1.5em;
 		margin-top: 1em;
 	}
+	${breakpoints.minLarge} {
+		grid-column: 2/3;
+		grid-row: 1/2;
+	}
 	${breakpoints.large} {
 		font-size: 1.75em;
 		margin-left: 50px;
-		grid-column: 2/3;
-		grid-row: 1/2;
 	}
 	${breakpoints.xlarge} {
 		font-size: 2em;
-		grid-column: 2/3;
-		grid-row: 1/2;
 	}
 	${breakpoints.xxlarge} {
-		font-size: 2em;
-		grid-column: 2/3;
-		grid-row: 1/2;
+		font-size: 2.5em;
+	}
+	${breakpoints.xxxlarge} {
+		font-size: 3em;
 	}
 `;
 
