@@ -3,13 +3,15 @@ import { breakpoints } from '@constants/breakpoints';
 import { Container, HamburgerButton } from './hamburger.style';
 
 export const Hamburger: React.FC = () => {
-	const [isActive, setIsActive] = useState(false);
+	const [isActive, setIsActive] = useState(true);
 	if (breakpoints.values.large) {
 		return (
-			<Container>
-				<HamburgerButton
-					onClick={() => setIsActive(!isActive)}
-				></HamburgerButton>
+			<Container
+				onClick={() => {
+					setIsActive(!isActive);
+				}}
+			>
+				<HamburgerButton isActive={isActive}></HamburgerButton>
 			</Container>
 		);
 	} else {

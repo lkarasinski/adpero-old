@@ -1,45 +1,55 @@
 import styled from 'styled-components';
 import { breakpoints } from '@constants/breakpoints';
+interface Props {
+	isActive: boolean;
+}
 
-export const HamburgerButton = styled.div`
-	background-color: black;
+export const HamburgerButton = styled.div<Props>`
+	background-color: ${({ isActive }) => (isActive ? 'transparent' : 'black')};
 	position: absolute;
 	display: block;
+	transition: background-color 0.3s 0.1s ease;
 	::after,
 	::before {
 		content: '';
 		left: 0;
 		position: absolute;
 		background-color: black;
+		transition: transform 0.3s 0.1s ease;
 	}
 
-	${breakpoints.maxMedium} {
-		left: -20px;
+	width: 20px;
+	height: 3px;
+	::after,
+	::before {
 		width: 20px;
 		height: 3px;
-		::after,
-		::before {
-			width: 20px;
-			height: 3px;
-		}
-		::after {
-			top: 8px;
-		}
-		::before {
-			bottom: 8px;
-		}
 	}
+	::after {
+		top: 8px;
+		transform: translateY(${({ isActive }) => (isActive ? '-8px' : 0)})
+			rotate(${({ isActive }) => (isActive ? '45deg' : '0deg')});
+	}
+	::before {
+		transform: translateY(${({ isActive }) => (isActive ? '8px' : 0)})
+			rotate(${({ isActive }) => (isActive ? '-45deg' : '0deg')});
+		bottom: 8px;
+	}
+`;
+
+export const Container = styled.button`
 	${breakpoints.small} {
 		transform: scale(1.4);
 	}
 	${breakpoints.medium} {
 		transform: scale(1.8);
 	}
-`;
-
-export const Container = styled.button`
 	position: absolute;
 	background: none;
 	border: none;
 	right: 30px;
+	width: 30px;
+	height: 30px;
+	display: grid;
+	place-items: center;
 `;
