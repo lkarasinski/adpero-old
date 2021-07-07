@@ -24,7 +24,7 @@ export const NavBar: React.FC = () => {
 					</StyledUl>
 				</>
 			) : null}
-			{width >= 769 ? <LogInButton /> : <Hamburger />}
+			{width >= 769 ? <LogInButton horizontal /> : <Hamburger />}
 		</Nav>
 	);
 };

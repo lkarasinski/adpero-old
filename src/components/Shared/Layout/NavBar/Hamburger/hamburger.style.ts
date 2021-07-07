@@ -8,14 +8,14 @@ export const HamburgerButton = styled.div<Props>`
 	background-color: ${({ isActive }) => (isActive ? 'transparent' : 'black')};
 	position: absolute;
 	display: block;
-	transition: background-color 0.3s 0.1s ease;
+	transition: background-color 0.3s ease;
 	::after,
 	::before {
 		content: '';
 		left: 0;
 		position: absolute;
 		background-color: black;
-		transition: transform 0.3s 0.1s ease;
+		transition: transform 0.3s ease;
 	}
 
 	width: 20px;
@@ -44,7 +44,7 @@ export const Container = styled.button`
 	${breakpoints.medium} {
 		transform: scale(1.8);
 	}
-	position: absolute;
+	position: fixed;
 	background: none;
 	border: none;
 	right: 30px;
@@ -52,4 +52,5 @@ export const Container = styled.button`
 	height: 30px;
 	display: grid;
 	place-items: center;
+	z-index: 200;
 `;
