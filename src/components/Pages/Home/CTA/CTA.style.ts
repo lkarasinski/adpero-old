@@ -8,23 +8,22 @@ export const Container = styled.div`
 		grid-column: 1/2;
 		grid-row: 1/2;
 	}
-	/* EXTRA SMALL */
 	${breakpoints.xsmall} {
 		font-size: 1.5em;
 	}
-	/* SMALL */
 	${breakpoints.small} {
 		font-size: 2em;
 	}
-	/* MEDIUM */
 	${breakpoints.medium} {
 		font-size: 2.25em;
 	}
-	/* LARGE */
 	${breakpoints.large} {
 		font-size: 2.25em;
 	}
-	/* EXTRA LARGE */
+	/* Edge case for cta button */
+	@media (min-width: 769px) and (max-width: 840px) {
+		font-size: 1.8em;
+	}
 	${breakpoints.xlarge} {
 		font-size: 3em;
 	}
