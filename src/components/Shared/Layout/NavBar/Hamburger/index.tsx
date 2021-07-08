@@ -4,7 +4,7 @@ import { Container, HamburgerButton } from './hamburger.style';
 import { OpenBurger } from './OpenBurger';
 
 export const Hamburger: React.FC = () => {
-	const [isActive, setIsActive] = useState(true);
+	const [isActive, setIsActive] = useState(false);
 	if (breakpoints.values.large) {
 		return (
 			<>
