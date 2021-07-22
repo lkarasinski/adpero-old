@@ -1,15 +1,15 @@
-import firebase from 'firebase';
+import firebase from "firebase";
 
-import { ErrorMessage } from '@components/Shared/Text decoration/ErrorMessage';
-import JourneyPanel from './JourneyPanel';
-import { withRouter } from 'react-router-dom';
-import { NewJourneyForm } from './CreateNewJourney';
+import { ErrorMessage } from "@components/Shared/Text decoration/ErrorMessage";
+import JourneyPanel from "./JourneyPanel";
+import { withRouter } from "react-router-dom";
+import { NewJourneyForm } from "./CreateNewJourney";
 
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { Heading, Span, Wrapper } from './journeyList.style';
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { Heading, Span, Wrapper } from "./journeyList.style";
 
-const journeysRef = firebase.firestore().collection('journeys');
+const journeysRef = firebase.firestore().collection("journeys");
 
 /**
  * withRouter component rendering journeys accessible to currently logged in user and a new journey form.
@@ -17,8 +17,8 @@ const journeysRef = firebase.firestore().collection('journeys');
 export const JourneysList = withRouter(({ history }) => {
     const [auth, loadingAuth] = useAuthState(firebase.auth());
 
-    const email = auth?.email ?? '';
-    const dataQuery = journeysRef.where('users', 'array-contains', email);
+    const email = auth?.email ?? "";
+    const dataQuery = journeysRef.where("users", "array-contains", email);
     const [collectionData, loading] = useCollection(dataQuery);
 
     if (loadingAuth) {
@@ -63,7 +63,7 @@ export const JourneysList = withRouter(({ history }) => {
             <Heading>
                 Your <Span>journeys</Span>
             </Heading>
-            {loading ? 'Loading' : displayJourneys()}
+            {loading ? "Loading" : displayJourneys()}
             <NewJourneyForm historyPush={(x: string) => history.push(x)} />
         </Wrapper>
     );

@@ -1,21 +1,29 @@
-import React, { useState } from 'react';
-import { LogInButton } from './LogInButton';
-import { Hamburger } from './Hamburger';
-import { Logo, StyledUl, StyledNavLink, Nav } from './navbar.style';
+import React, { useState } from "react";
+import { LogInButton } from "./LogInButton";
+import { Hamburger } from "./Hamburger";
+import { Logo, StyledUl, StyledNavLink, Nav } from "./navbar.style";
 
 export const NavBar: React.FC = () => {
     const [width, setWidth] = useState(window.innerWidth);
-    window.addEventListener('resize', () => setWidth(window.innerWidth));
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
     return (
         <Nav>
-            <Logo to={'/'}>Adpero</Logo>
+            <Logo to={"/"}>Adpero</Logo>
             {width >= 769 ? (
                 <>
                     <StyledUl>
-                        <StyledNavLink to="/journeys" activeClassName="active">
+                        <StyledNavLink
+                            exact
+                            to="/journeys"
+                            activeClassName="active"
+                        >
                             Journeys
                         </StyledNavLink>
-                        <StyledNavLink to="/about" activeClassName="active">
+                        <StyledNavLink
+                            exact
+                            to="/about"
+                            activeClassName="active"
+                        >
                             About
                         </StyledNavLink>
                     </StyledUl>

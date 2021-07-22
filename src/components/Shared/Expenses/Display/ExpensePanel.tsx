@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { Details, Expense } from '@utils/interfaces/Expenses';
+import * as React from "react";
+import { Details, Expense } from "@utils/interfaces/Expenses";
 import {
-	DetailText,
-	DetailTextContainer,
-	ExpenseTitle,
-} from '../_shared/styledComponents';
+    DetailText,
+    DetailTextContainer,
+    ExpenseTitle,
+} from "../_shared/leaveJourneyButton.style";
 
 interface Props {
-	expense: Expense;
+    expense: Expense;
 }
 /**
  * Expense Panel displaying all it's details
@@ -15,18 +15,18 @@ interface Props {
  * @returns
  */
 export const ExpensePanel: React.FC<Props> = ({ expense }) => {
-	return (
-		<div>
-			<ExpenseTitle>{expense.title}</ExpenseTitle>
-			{expense.details.map((detail: Details, j: number) => (
-				<DetailTextContainer key={j}>
-					<DetailText>{detail.label}</DetailText>
-					<DetailText>{detail.value}</DetailText>
-					{detail.currency !== '' ? (
-						<DetailText>{detail.currency}</DetailText>
-					) : null}
-				</DetailTextContainer>
-			))}
-		</div>
-	);
+    return (
+        <div>
+            <ExpenseTitle>{expense.title}</ExpenseTitle>
+            {expense.details.map((detail: Details, j: number) => (
+                <DetailTextContainer key={j}>
+                    <DetailText>{detail.label}</DetailText>
+                    <DetailText>{detail.value}</DetailText>
+                    {detail.currency !== "" ? (
+                        <DetailText>{detail.currency}</DetailText>
+                    ) : null}
+                </DetailTextContainer>
+            ))}
+        </div>
+    );
 };
