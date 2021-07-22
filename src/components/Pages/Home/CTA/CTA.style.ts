@@ -37,7 +37,7 @@ export const Container = styled.div`
 `;
 
 export const Button = styled.button`
-    /* Box Model*/
+    /* Box Model */
     padding: 0.25em 1.5em;
 
     /* Typographic */

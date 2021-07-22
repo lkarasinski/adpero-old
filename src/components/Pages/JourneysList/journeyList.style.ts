@@ -2,7 +2,7 @@ import { breakpoints } from "@constants/breakpoints";
 import styled from "styled-components";
 
 export const Heading = styled.h2`
-    /* Typographic */
+    /* Typographic*/
     font-size: 3rem;
     font-weight: 400;
     text-align: center;
