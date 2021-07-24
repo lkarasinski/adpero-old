@@ -1,19 +1,15 @@
-import firebase from '@firebase';
+import firebase from "@firebase";
 
-const journeysRef = firebase.firestore().collection('journeys');
-const invitesRef = firebase.firestore().collection('invites');
+const journeysRef = firebase.firestore().collection("journeys");
+const invitesRef = firebase.firestore().collection("invites");
 
 /**
  * Deletes journey od ID
  * @param id ID of journey that will be deleted
  */
-export const deleteJourney = (id: string): void => {
-	journeysRef.doc(id).delete();
-	invitesRef
-		.where('journeyID', '==', id)
-		.get()
-		.then((doc) => {
-			doc.forEach((doc) => doc.ref.delete());
-		});
-	return;
+export const deleteJourney = async (id: string) => {
+    const invitesDoc = await invitesRef.where("journeyID", "==", id).get();
+    journeysRef.doc(id).delete();
+    invitesDoc.forEach((invite) => invite.ref.delete());
+    return;
 };

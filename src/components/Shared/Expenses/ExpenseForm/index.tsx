@@ -78,13 +78,12 @@ export const ExpenseForm: React.FC<Props> = ({
         },
     ];
 
-    const updateDatabase = (values: ExpenseFormValues) => {
-        docRef.get().then((snap) => {
-            const dbData = snap.data();
-            const copy = dbData ?? {};
-            copy.expenses = values;
-            docRef.set(copy);
-        });
+    const updateDatabase = async (values: ExpenseFormValues) => {
+        const docData = await docRef.get();
+        const dbData = docData.data();
+        const copy = dbData ?? {};
+        copy.expenses = values;
+        docRef.set(copy);
         setIsEditing(false);
     };
 
