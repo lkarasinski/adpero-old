@@ -1,3 +1,5 @@
+/* eslint-disable*/
+
 /*
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
@@ -20,10 +22,14 @@ export default {
     collectCoverage: true,
 
     // An array of glob patterns indicating a set of files for which coverage information should be collected
-    collectCoverageFrom: ["**/components/**/*.tsx", "**/functions/**/*.ts"],
+    collectCoverageFrom: [
+        '**/components/**/*.tsx',
+        '**/functions/**/*.ts',
+        '!**/functions/**/*.(test|stories).ts',
+    ],
 
     // The directory where Jest should output its coverage files
-    coverageDirectory: "coverage",
+    coverageDirectory: 'coverage',
 
     // An array of regexp pattern strings used to skip coverage collection
     // coveragePathIgnorePatterns: [
@@ -82,7 +88,7 @@ export default {
 
     // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
     moduleNameMapper: {
-        "/^.+.(js|jsx|ts|tsx)$/": "<rootDir>/node_modules/babel-jest",
+        '/^.+.(js|jsx|ts|tsx)$/': '/node_modules/babel-jest',
     },
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -139,7 +145,7 @@ export default {
     // snapshotSerializers: [],
 
     // The test environment that will be used for testing
-    testEnvironment: "jsdom",
+    testEnvironment: 'jsdom',
 
     // Options that will be passed to the testEnvironment
     // testEnvironmentOptions: {},
