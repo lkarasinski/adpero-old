@@ -1,7 +1,12 @@
 import React from "react";
 
-const Label: React.FC = () => {
-    return <div>label</div>;
+interface Props {
+    a: number;
+    b: number;
+}
+
+const Label: React.FC<Props> = ({ a, b }) => {
+    return <div>label - {a + b}</div>;
 };
 
 export default Label;
