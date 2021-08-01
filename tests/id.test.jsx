@@ -6,21 +6,28 @@ import getMockAuthUser from './helpers/getMockAuthUser';
 
 jest.mock('next-firebase-auth');
 
-test('Display correct message when there is no logged in user', () => {
-    const container = document.createElement('div');
-    ReactDOM.render(<ID />, container);
-    expect(container.textContent).toMatch(`witam mock-user-id`);
+describe('Handle not authenticated user', () => {
+    beforeEach(() => {
+        useAuthUser.mockReturnValue(getMockAuthUser(false));
+        const getWrapperComponent = (wrappedComponent) => wrappedComponent;
+        withAuthUser.mockImplementation(() => getWrapperComponent);
+    });
+    it('Show unknown user message', () => {
+        const container = document.createElement('div');
+        ReactDOM.render(<ID />, container);
+        expect(container.textContent).toMatch(`hello stranger`);
+    });
 });
 
-describe('Show user id', () => {
+describe('Handle logged in user', () => {
     beforeEach(() => {
         useAuthUser.mockReturnValue(getMockAuthUser());
         const getWrapperComponent = (wrappedComponent) => wrappedComponent;
         withAuthUser.mockImplementation(() => getWrapperComponent);
     });
-    it('xd', () => {
+    it("Show logged in user's name", () => {
         const container = document.createElement('div');
         ReactDOM.render(<ID />, container);
-        expect(container.textContent).toMatch(`witam abcd1234`);
+        expect(container.textContent).toMatch(`hello user`);
     });
 });

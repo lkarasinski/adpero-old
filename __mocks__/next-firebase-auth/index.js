@@ -14,7 +14,7 @@ const getMockAuthUser = () => ({
 const withAuthUserTokenSSR = jest.fn(
     () => (getServerSidePropsFunc) => (ctx) => getServerSidePropsFunc(ctx)
 );
-
+// eslint-disable-next-line
 module.exports = {
     init: jest.fn(),
     withAuthUser,

@@ -25,7 +25,7 @@ export default {
     collectCoverageFrom: [
         '**/components/**/*.tsx',
         '**/functions/**/*.ts',
-        '!**/functions/**/*.(test|stories).ts',
+        '!**/*.(test|stories).(ts|tsx)',
     ],
 
     // The directory where Jest should output its coverage files
@@ -89,6 +89,7 @@ export default {
     // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
     moduleNameMapper: {
         '/^.+.(js|jsx|ts|tsx)$/': '/node_modules/babel-jest',
+        'components/(.*)': '<rootDir>/components/$1',
     },
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

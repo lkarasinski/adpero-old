@@ -1,12 +1,10 @@
 import React from 'react';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import initAuth from '../lib/initAuth';
+import initAuth from '../utils/initAuth';
 import firebase from 'firebase/app';
 import 'regenerator-runtime/runtime.js';
 require('regenerator-runtime/runtime');
-
-initAuth();
 
 const firebaseConfig = {
     apiKey: 'AIzaSyA3Jczs7ht_gFUrZIB0jbn74jQZPoybNWc',
@@ -18,6 +16,7 @@ const firebaseConfig = {
     measurementId: 'G-1G58M2XVBV',
 };
 
+initAuth();
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 } else {

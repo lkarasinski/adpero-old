@@ -11,7 +11,7 @@ const mockFirebaseUser = {
  * @returns {AuthUserContext} - A mocked AuthUser instance, with 'serialize' added.
  */
 const getMockAuthUser = (isLoggedIn = true) => ({
-    id: isLoggedIn ? 'abcd1234' : null,
+    id: isLoggedIn ? 'user' : null,
     email: isLoggedIn ? 'banana@banana.com' : null,
     emailVerified: isLoggedIn,
     getIdToken: jest.fn(async () => (isLoggedIn ? 'i_am_a_token' : null)),

@@ -4,12 +4,18 @@ import {
     withAuthUser,
     withAuthUserTokenSSR,
 } from 'next-firebase-auth';
+import Button from '../../../components/Atoms/Button';
 
 const Journey: React.FC = () => {
     const AuthUser = useAuthUser();
-    const data = AuthUser.id ?? 'nico';
+    const data = AuthUser.id ?? 'stranger';
 
-    return <div>witam {data}</div>;
+    return (
+        <div>
+            hello {data}
+            <Button>Przycisk</Button>
+        </div>
+    );
 };
 
 export const getServerSideProps = withAuthUserTokenSSR()();
