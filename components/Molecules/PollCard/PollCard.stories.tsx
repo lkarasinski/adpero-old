@@ -1,12 +1,12 @@
-import React from 'react';
-import PollCard from './index';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ThemeProvider } from 'styled-components';
-import theme from 'utils/theme';
-import 'styles/globals.css';
+import React from "react";
+import PollCard from "./index";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ThemeProvider } from "styled-components";
+import theme from "utils/theme";
+import "styles/globals.css";
 
 export default {
-    title: 'Molecules/PollCard',
+    title: "Molecules/PollCard",
     component: PollCard,
     decorators: [
         (Story) => (
@@ -23,6 +23,6 @@ const Template: ComponentStory<typeof PollCard> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-    detail: 'Apartament',
-    journeyName: 'Poznań',
+    detail: "Apartament",
+    label: "Poznań",
 };

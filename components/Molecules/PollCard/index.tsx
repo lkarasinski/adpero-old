@@ -1,11 +1,11 @@
-import React from 'react';
-import Label from 'components/Atoms/Label';
-import Text from 'components/Atoms/Text';
-import styled from 'styled-components';
+import React from "react";
+import Label from "components/Atoms/Label";
+import Text from "components/Atoms/Text";
+import styled from "styled-components";
 
 export interface IPollCard {
     detail: string;
-    journeyName: string;
+    label: string;
 }
 
 const Wrapper = styled.div`
@@ -16,11 +16,11 @@ const Wrapper = styled.div`
     box-shadow: 0 0 4px rgba(0, 0, 0, 25%);
 `;
 
-const PollCard: React.FC<IPollCard> = ({ detail, journeyName }) => {
+const PollCard: React.FC<IPollCard> = ({ detail, label }) => {
     return (
         <Wrapper>
             <Label isAccent>{detail}</Label>
-            <Text>{journeyName}</Text>
+            <Text>{label}</Text>
         </Wrapper>
     );
 };

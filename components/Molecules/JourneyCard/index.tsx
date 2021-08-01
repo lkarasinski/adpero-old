@@ -1,15 +1,20 @@
-import React from 'react';
-import styled from 'styled-components';
-import Label from 'components/Atoms/Label';
-import Text from 'components/Atoms/Text';
+import React from "react";
+import styled from "styled-components";
+import Label from "components/Atoms/Label";
+import Text from "components/Atoms/Text";
 
 interface StyledProps {
-    isBig: boolean;
+    isBig?: boolean;
+}
+
+export interface IJourneyCard {
+    label: string;
+    details: string[];
 }
 
 interface Props extends StyledProps {
     label: string;
-    elements: string[];
+    details: string[];
 }
 
 const Wrapper = styled.div<StyledProps>`
@@ -20,13 +25,12 @@ const Wrapper = styled.div<StyledProps>`
     box-shadow: 0 0 4px rgba(0, 0, 0, 25%);
 `;
 
-const JourneyCard: React.FC<Props> = ({ label, elements, ...props }) => {
+const JourneyCard: React.FC<Props> = ({ label, details, ...props }) => {
     return (
         <Wrapper {...props}>
             <Label isAccent>{label}</Label>
             <div>
-                {elements &&
-                    elements.map((e, i) => <Text key={e + i}>{e}</Text>)}
+                {details && details.map((e, i) => <Text key={e + i}>{e}</Text>)}
             </div>
         </Wrapper>
     );

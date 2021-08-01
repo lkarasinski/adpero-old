@@ -1,16 +1,17 @@
-import { DefaultTheme } from 'styled-components';
+import { DefaultTheme } from "styled-components";
 
 const myTheme: DefaultTheme = {
-    borderRadius: '5px',
+    borderRadius: "5px",
 
     colors: {
-        primary: '#3D5EFF',
+        primary: "#3D5EFF",
         gray: {
-            dark: '#323232',
-            light: '#676767',
+            dark: "#323232",
+            light: "#676767",
         },
-        main: 'cyan',
-        secondary: 'magenta',
+        red: "#EC6464",
+        main: "cyan",
+        secondary: "magenta",
     },
 };
 

@@ -1,6 +1,6 @@
-import 'styled-components';
+import "styled-components";
 
-declare module 'styled-components' {
+declare module "styled-components" {
     export interface DefaultTheme {
         borderRadius: string;
 
@@ -11,6 +11,7 @@ declare module 'styled-components' {
                 light: string;
             };
             main: string;
+            red: string;
             secondary: string;
         };
     }
