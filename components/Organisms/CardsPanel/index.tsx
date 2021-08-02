@@ -19,7 +19,6 @@ interface Props {
 }
 
 const CardsPanel: React.FC<Props> = ({ elements, label }) => {
-    // test crashes without this, no idea why
     if (!elements) return <div></div>;
     if ("details" in elements[0]) {
         const array = elements as IJourneyCard[];
