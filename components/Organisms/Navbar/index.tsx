@@ -6,10 +6,13 @@ import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.header`
+    position: fixed;
     display: flex;
     align-items: center;
+    width: 100vw;
     gap: 2rem;
     padding: 1rem 2rem;
+    background-color: #ffffff;
 `;
 
 interface Props {
