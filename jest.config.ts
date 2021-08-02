@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export default {
     clearMocks: true,
     collectCoverage: true,
@@ -12,7 +14,7 @@ export default {
         "/^.+.(js|jsx|ts|tsx)$/": "/node_modules/babel-jest",
     },
     setupFilesAfterEnv: ["<rootDir>jest.setup.ts"],
-    testEnvironment: "node",
+    testEnvironment: "jsdom",
     transformIgnorePatterns: ["<rootDir>/node_modules/"],
     testPathIgnorePatterns: ["/node_modules/", "./next/", "./.storybook/"],
 };

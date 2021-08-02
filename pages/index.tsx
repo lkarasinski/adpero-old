@@ -4,9 +4,8 @@ import {
     withAuthUser,
     withAuthUserTokenSSR,
 } from "next-firebase-auth";
-import theme from "utils/theme";
-import { ThemeProvider } from "styled-components";
 import Dashboard from "components/Templates/Dashboard";
+import Layout from "components/Templates/Layout";
 
 const polls = [
     { label: "Apartement", detail: "Poznań" },
@@ -54,16 +53,17 @@ const journeys = [
 
 const Home: React.FC = () => {
     const AuthUser = useAuthUser();
+    console.log(AuthUser.photoURL);
 
     return (
-        <ThemeProvider theme={theme}>
+        <Layout photoURL={AuthUser.photoURL}>
             <Dashboard
                 userID={AuthUser.id}
                 polls={polls}
                 journeys={journeys}
                 recentlyChangedJourneys={recentlyChanged}
             />
-        </ThemeProvider>
+        </Layout>
     );
 };
 
