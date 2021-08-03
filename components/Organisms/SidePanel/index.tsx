@@ -32,10 +32,10 @@ const SidePanel: React.FC = () => {
                 <StyledLink icon={faColumns} href="/">
                     Dashboard
                 </StyledLink>
-                <StyledLink icon={faPoll} href="/journeys">
+                <StyledLink icon={faMapMarkedAlt} href="/journeys">
                     Journeys
                 </StyledLink>
-                <StyledLink icon={faMapMarkedAlt} href="/polls">
+                <StyledLink icon={faPoll} href="/polls">
                     Polls
                 </StyledLink>
             </StyledNav>

@@ -4,10 +4,6 @@ import theme from "../../../utils/theme";
 import Navbar from "../../Organisms/Navbar";
 import SidePanel from "../../Organisms/SidePanel";
 
-interface Props {
-    photoURL: string | null;
-}
-
 interface IContent {
     leftMargin: boolean;
 }
@@ -25,11 +21,11 @@ const Content = styled.div<IContent>`
     box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
 `;
 
-const Layout: React.FC<Props> = ({ children }) => {
-    const [width, setWidth] = useState<number>(0);
+const Layout: React.FC = ({ children }) => {
+    const [showSidebar, setShowSidebar] = useState(false);
     const [showContent, setShowContent] = useState(false);
     const handleWidthChange = () => {
-        setWidth(window.innerWidth);
+        setShowSidebar(window.innerWidth > 820);
     };
 
     useEffect(() => {
@@ -41,10 +37,9 @@ const Layout: React.FC<Props> = ({ children }) => {
 
     return (
         <ThemeProvider theme={theme}>
+            {showSidebar && <SidePanel />}
             <Main>
-                {width > 820 && <SidePanel />}
-
-                <Content leftMargin={width > 820}>
+                <Content leftMargin={showSidebar}>
                     {showContent && children}
                 </Content>
             </Main>

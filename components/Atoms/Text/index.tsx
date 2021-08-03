@@ -3,11 +3,12 @@ import styled from "styled-components";
 
 interface Props {
     isDark?: boolean;
+    isSmall?: boolean;
 }
 
 const Wrapper = styled.p<Props>`
-    margin: 0.25rem 0 0;
-    font-size: 1rem;
+    margin: 0;
+    font-size: ${({ isSmall }) => (isSmall ? "0.75rem" : "1rem")};
     font-weight: 800;
     color: ${({ isDark, theme }) =>
         isDark ? theme.colors.gray.dark : theme.colors.gray.light};

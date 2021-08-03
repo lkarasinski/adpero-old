@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 const PollCard: React.FC<IPollCard> = ({ detail, label }) => {
     return (
         <Wrapper>
-            <Label isAccent>{detail}</Label>
+            <Label>{detail}</Label>
             <Text>{label}</Text>
         </Wrapper>
     );

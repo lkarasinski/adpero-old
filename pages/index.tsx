@@ -55,7 +55,7 @@ const Home: React.FC = () => {
     const AuthUser = useAuthUser();
 
     return (
-        <Layout photoURL={AuthUser.photoURL}>
+        <Layout>
             <Dashboard
                 userID={AuthUser.id}
                 polls={polls}

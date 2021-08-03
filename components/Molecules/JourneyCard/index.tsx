@@ -29,7 +29,7 @@ const Wrapper = styled.div<StyledProps>`
 const JourneyCard: React.FC<Props> = ({ label, details, ...props }) => {
     return (
         <Wrapper {...props}>
-            <Label isAccent>{label}</Label>
+            <Label>{label}</Label>
             <div>
                 {details && details.map((e, i) => <Text key={e + i}>{e}</Text>)}
             </div>

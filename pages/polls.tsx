@@ -9,7 +9,7 @@ import Layout from "components/Templates/Layout";
 const Polls: React.FC = () => {
     const AuthUser = useAuthUser();
 
-    return <Layout photoURL={AuthUser.photoURL}></Layout>;
+    return <Layout></Layout>;
 };
 
 export const getServerSideProps = withAuthUserTokenSSR()();
