@@ -4,6 +4,7 @@ import Text from "components/Atoms/Text";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
+    flex-grow: 1;
     max-width: 19rem;
     padding: 2rem;
     border-radius: ${({ theme }) => theme.borderRadius};
