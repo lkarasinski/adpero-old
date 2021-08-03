@@ -53,7 +53,6 @@ const journeys = [
 
 const Home: React.FC = () => {
     const AuthUser = useAuthUser();
-    console.log(AuthUser.photoURL);
 
     return (
         <Layout photoURL={AuthUser.photoURL}>

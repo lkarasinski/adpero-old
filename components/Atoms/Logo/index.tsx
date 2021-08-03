@@ -10,7 +10,7 @@ const Wrapper = styled.a`
 
 const Logo: React.FC = () => {
     return (
-        <Link prefetch href="/" passHref>
+        <Link href="/" passHref>
             <Wrapper>Adpero</Wrapper>
         </Link>
     );

@@ -13,9 +13,10 @@ interface ButtonProps {
 }
 
 const Wrapper = styled.button<ButtonProps>`
-    padding: 0.75em 1.625em;
+    height: 3rem;
+    padding: 1.15em 2em;
     margin: auto auto 0;
-    font-size: ${({ isBig }) => (isBig ? "1.5rem" : "1rem")};
+    font-size: ${({ isBig }) => (isBig ? "1.5rem" : "0.875rem")};
     font-weight: 900;
     color: #ffffff;
     cursor: pointer;

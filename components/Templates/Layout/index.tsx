@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import Navbar from "../../Organisms/Navbar";
@@ -8,25 +8,39 @@ interface Props {
     photoURL: string | null;
 }
 
+interface IContent {
+    leftMargin: boolean;
+}
+
 const Main = styled.div`
     display: flex;
     flex-direction: row;
 `;
-const Content = styled.div`
+const Content = styled.div<IContent>`
+    z-index: 10;
     width: 100%;
-    padding-top: 75px;
-    padding-left: 19rem;
-    border-top: 2px solid #dddddd;
-    border-left: 2px solid #dddddd;
+    padding-left: 2rem;
+    margin-left: ${({ leftMargin }) => (leftMargin ? "14.3125rem" : "0rem")};
+    box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
 `;
 
-const Layout: React.FC<Props> = ({ children, photoURL }) => {
+const Layout: React.FC<Props> = ({ children }) => {
+    const [width, setWidth] = useState<number>(0);
+    const handleWidthChange = () => {
+        setWidth(window.innerWidth);
+    };
+
+    useLayoutEffect(() => {
+        handleWidthChange();
+        window.addEventListener("resize", handleWidthChange);
+        return window.removeEventListener("resize", handleWidthChange);
+    }, []);
+
     return (
         <ThemeProvider theme={theme}>
-            <Navbar photoURL={photoURL} />
             <Main>
-                <SidePanel />
-                <Content>{children}</Content>
+                {width > 820 && <SidePanel />}
+                <Content leftMargin={width > 820}>{children}</Content>
             </Main>
         </ThemeProvider>
     );

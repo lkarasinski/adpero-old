@@ -21,8 +21,9 @@ const Wrapper = styled.div<StyledProps>`
     max-width: 14rem;
     min-height: 20rem;
     padding: 20px;
+    cursor: pointer;
     border-radius: 1rem;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 25%);
+    box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
 `;
 
 const JourneyCard: React.FC<Props> = ({ label, details, ...props }) => {

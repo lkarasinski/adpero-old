@@ -12,8 +12,9 @@ const Wrapper = styled.div`
     max-width: 14rem;
     min-height: 6rem;
     padding: 1.25rem;
+    cursor: pointer;
     border-radius: 1rem;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 25%);
+    box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
 `;
 
 const PollCard: React.FC<IPollCard> = ({ detail, label }) => {

@@ -10,8 +10,7 @@ const myTheme: DefaultTheme = {
             light: "#676767",
         },
         red: "#EC6464",
-        main: "cyan",
-        secondary: "magenta",
+        shadow: "rgba(0, 0, 0, 0.25)",
     },
 };
 

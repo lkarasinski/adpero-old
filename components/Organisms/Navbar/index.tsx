@@ -1,5 +1,5 @@
 import Logo from "components/Atoms/Logo";
-import StyledLink from "components/Atoms/StyledLink";
+import StyledLink from "components/Molecules/StyledLink";
 import SmallSearchBar from "components/Molecules/SmallSearchBar";
 import UserPanelDropdown from "components/Molecules/UserPanelDropdown";
 import React from "react";
@@ -12,7 +12,7 @@ const Wrapper = styled.header`
     width: 100vw;
     gap: 2rem;
     padding: 1rem 2rem;
-    background-color: #ffffff;
+    background-color: #f2f5f9;
 `;
 
 interface Props {
@@ -24,8 +24,8 @@ const Navbar: React.FC<Props> = ({ photoURL }) => {
         <Wrapper>
             <Logo />
             <SmallSearchBar />
-            <StyledLink href="/journeys">Journeys</StyledLink>
-            <StyledLink href="/polls">Polls</StyledLink>
+            {/* <StyledLink href="/journeys">Journeys</StyledLink>
+            <StyledLink href="/polls">Polls</StyledLink> */}
             {photoURL && <UserPanelDropdown photoURL={photoURL} />}
         </Wrapper>
     );
