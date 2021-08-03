@@ -22,7 +22,7 @@ const Wrapper = styled.div<StyledProps>`
     min-height: 20rem;
     padding: 20px;
     cursor: pointer;
-    border-radius: 1rem;
+    border-radius: ${({ theme }) => theme.borderRadius};
     box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
 `;
 

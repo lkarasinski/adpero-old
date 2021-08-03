@@ -22,7 +22,7 @@ const Wrapper = styled.button<ButtonProps>`
     cursor: pointer;
     background-color: ${({ primary }) => (primary ? "#3D5EFF" : "#313131")};
     border: none;
-    border-radius: 1em;
+    border-radius: ${({ theme }) => theme.borderRadius};
 `;
 
 const Button: React.FC<Props> = ({ children, ...props }) => {

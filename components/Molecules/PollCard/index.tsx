@@ -13,7 +13,7 @@ const Wrapper = styled.div`
     min-height: 6rem;
     padding: 1.25rem;
     cursor: pointer;
-    border-radius: 1rem;
+    border-radius: ${({ theme }) => theme.borderRadius};
     box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
 `;
 

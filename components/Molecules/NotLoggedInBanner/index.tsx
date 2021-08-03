@@ -10,7 +10,7 @@ const Wrapper = styled.div`
     padding: 1.75rem;
     margin: 10px 0;
     border: 5px solid ${({ theme }) => theme.colors.red};
-    border-radius: 1rem;
+    border-radius: ${({ theme }) => theme.borderRadius};
 `;
 
 interface Props {

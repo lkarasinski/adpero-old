@@ -5,7 +5,7 @@ module.exports = {
     addons: [
         "@storybook/addon-links",
         "@storybook/addon-essentials",
-        "storybook-addon-apollo-client",
+        "storybook-addon-next-router",
     ],
     webpackFinal: async (config) => {
         config.resolve.modules = [

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import Navbar from "../../Organisms/Navbar";
@@ -19,6 +19,7 @@ const Main = styled.div`
 const Content = styled.div<IContent>`
     z-index: 10;
     width: 100%;
+    min-height: 100vh;
     padding-left: 2rem;
     margin-left: ${({ leftMargin }) => (leftMargin ? "14.3125rem" : "0rem")};
     box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
@@ -26,13 +27,15 @@ const Content = styled.div<IContent>`
 
 const Layout: React.FC<Props> = ({ children }) => {
     const [width, setWidth] = useState<number>(0);
+    const [showContent, setShowContent] = useState(false);
     const handleWidthChange = () => {
         setWidth(window.innerWidth);
     };
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         handleWidthChange();
         window.addEventListener("resize", handleWidthChange);
+        setShowContent(true);
         return window.removeEventListener("resize", handleWidthChange);
     }, []);
 
@@ -40,7 +43,10 @@ const Layout: React.FC<Props> = ({ children }) => {
         <ThemeProvider theme={theme}>
             <Main>
                 {width > 820 && <SidePanel />}
-                <Content leftMargin={width > 820}>{children}</Content>
+
+                <Content leftMargin={width > 820}>
+                    {showContent && children}
+                </Content>
             </Main>
         </ThemeProvider>
     );

@@ -1,16 +1,15 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import StyledLink from "./index";
-import { withNextRouter } from "storybook-addon-next-router";
 import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
+import { faColumns } from "@fortawesome/free-solid-svg-icons";
 import "../../../styles/globals.css";
 
 export default {
     title: "Atoms/Styled Link",
     component: StyledLink,
     decorators: [
-        withNextRouter,
         (Story) => (
             <ThemeProvider theme={theme}>
                 <Story />
@@ -23,14 +22,27 @@ const Template: ComponentStory<typeof StyledLink> = (args) => (
     <StyledLink {...args} />
 );
 
-Template.parameters = {
+export const Active = Template.bind({});
+Active.args = {
+    children: "StyledLink",
+    icon: faColumns,
+    href: "/",
+};
+Active.parameters = {
     nextRouter: {
-        path: "/",
+        pathname: "/",
     },
 };
 
-export const Primary = Template.bind({});
-Primary.args = {
+export const InActive = Template.bind({});
+InActive.args = {
     children: "StyledLink",
-    href: "/",
+    href: "/journeys",
+    icon: faColumns,
+};
+
+InActive.parameters = {
+    nextRouter: {
+        pathname: "/",
+    },
 };
