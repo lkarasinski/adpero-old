@@ -1,12 +1,12 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import Label from './index';
-import { ThemeProvider } from 'styled-components';
-import theme from '../../../utils/theme';
-import '../../../styles/globals.css';
+import React from "react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
+import Label from "./index";
+import { ThemeProvider } from "styled-components";
+import theme from "../../../utils/theme";
+import "../../../styles/globals.css";
 
 export default {
-    title: 'Atoms/Label',
+    title: "Atoms/Label",
     component: Label,
     decorators: [
         (Story) => (
@@ -21,5 +21,11 @@ const Template: ComponentStory<typeof Label> = (args) => <Label {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-    children: 'Label',
+    children: "Label",
+    isAccent: false,
+};
+export const Accent = Template.bind({});
+Accent.args = {
+    children: "Label",
+    isAccent: true,
 };

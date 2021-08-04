@@ -4,11 +4,11 @@ import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import "../../../styles/globals.css";
 
-import Navbar from "./index";
+import NavbarComponent from "./index";
 
 export default {
     title: "Organisms/Navbar",
-    component: Navbar,
+    component: NavbarComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -16,8 +16,8 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof Navbar>;
+} as ComponentMeta<typeof NavbarComponent>;
 
-const Template: ComponentStory<typeof Navbar> = (args) => <Navbar {...args} />;
-
-export const Primary = Template.bind({});
+export const Navbar: ComponentStory<typeof NavbarComponent> = (args) => (
+    <NavbarComponent {...args} />
+);

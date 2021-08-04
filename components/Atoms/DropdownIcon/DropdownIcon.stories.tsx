@@ -4,11 +4,11 @@ import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import "../../../styles/globals.css";
 
-import DropdownIcon from "./index";
+import DropdownIconComponent from "./index";
 
 export default {
     title: "Atoms/Dropdown Icon",
-    component: DropdownIcon,
+    component: DropdownIconComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -16,10 +16,8 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof DropdownIcon>;
+} as ComponentMeta<typeof DropdownIconComponent>;
 
-const Template: ComponentStory<typeof DropdownIcon> = (args) => (
-    <DropdownIcon {...args} />
-);
-
-export const Primary = Template.bind({});
+export const DropdownIcon: ComponentStory<typeof DropdownIconComponent> = (
+    args
+) => <DropdownIconComponent {...args} />;

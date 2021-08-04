@@ -1,14 +1,14 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ThemeProvider } from 'styled-components';
-import theme from '../../../utils/theme';
-import '../../../styles/globals.css';
+import React from "react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ThemeProvider } from "styled-components";
+import theme from "../../../utils/theme";
+import "../../../styles/globals.css";
 
-import Button from './index';
+import ButtonComponent from "./index";
 
 export default {
-    title: 'Atoms/Button',
-    component: Button,
+    title: "Atoms/Button",
+    component: ButtonComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -16,13 +16,27 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof Button>;
+} as ComponentMeta<typeof ButtonComponent>;
 
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+export const Default: ComponentStory<typeof ButtonComponent> = (args) => (
+    <ButtonComponent {...args} />
+);
 
-export const Primary = Template.bind({});
-Primary.args = {
-    children: 'Button',
-    primary: true,
+Default.args = {
+    children: "Create new journey",
+    primary: false,
     isBig: false,
+};
+
+export const Big = Default.bind({});
+Big.args = {
+    children: "Create new journey",
+    primary: false,
+    isBig: true,
+};
+export const Primary = Default.bind({});
+Primary.args = {
+    children: "Create new journey",
+    primary: true,
+    isBig: true,
 };

@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import "../../../styles/globals.css";
 
-import Dashboard from "./index";
+import DashboardComponent from "./index";
 
 const polls = [
     { label: "Apartement", detail: "Poznań" },
@@ -58,7 +58,7 @@ const props = {
 
 export default {
     title: "Templates/Dashboard",
-    component: Dashboard,
+    component: DashboardComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -66,10 +66,8 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof Dashboard>;
+} as ComponentMeta<typeof DashboardComponent>;
 
-const Template: ComponentStory<typeof Dashboard> = (args) => (
-    <Dashboard {...props} {...args} />
+export const Dashboard: ComponentStory<typeof DashboardComponent> = (args) => (
+    <DashboardComponent {...props} {...args} />
 );
-
-export const Primary = Template.bind({});

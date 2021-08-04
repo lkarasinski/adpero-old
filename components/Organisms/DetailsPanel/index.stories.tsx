@@ -1,14 +1,13 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
+import DetailsPanelComponent from "./index";
 import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import "../../../styles/globals.css";
 
-import SummaryPanelComponent from "./index";
-
 export default {
-    title: "Molecules/Summary Panel",
-    component: SummaryPanelComponent,
+    title: "Organisms/Details Panel",
+    component: DetailsPanelComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -16,8 +15,8 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof SummaryPanelComponent>;
+} as ComponentMeta<typeof DetailsPanelComponent>;
 
-export const SummaryPanel: ComponentStory<typeof SummaryPanelComponent> = (
+export const DetailsPanel: ComponentStory<typeof DetailsPanelComponent> = (
     args
-) => <SummaryPanelComponent {...args} />;
+) => <DetailsPanelComponent {...args} />;

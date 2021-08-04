@@ -1,13 +1,13 @@
 import React from "react";
-import PollCard from "./index";
+import PollCardComponent from "./index";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
 import theme from "utils/theme";
 import "styles/globals.css";
 
 export default {
-    title: "Molecules/PollCard",
-    component: PollCard,
+    title: "Molecules/Poll Card",
+    component: PollCardComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -15,14 +15,24 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof PollCard>;
+} as ComponentMeta<typeof PollCardComponent>;
 
-const Template: ComponentStory<typeof PollCard> = (args) => (
-    <PollCard {...args} />
+const PollCard: ComponentStory<typeof PollCardComponent> = (args) => (
+    <PollCardComponent {...args} />
 );
 
-export const Primary = Template.bind({});
-Primary.args = {
+export const Dashboard = PollCard.bind({});
+Dashboard.args = {
     detail: "Apartament",
     label: "Poznań",
+};
+export const Details = PollCard.bind({});
+Details.args = {
+    label: "Poznań",
+};
+
+export const DetailsNotification = PollCard.bind({});
+DetailsNotification.args = {
+    label: "Poznań",
+    dot: true,
 };

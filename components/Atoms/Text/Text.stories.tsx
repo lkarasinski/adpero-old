@@ -19,7 +19,17 @@ export default {
 
 const Template: ComponentStory<typeof Text> = (args) => <Text {...args} />;
 
-export const Primary = Template.bind({});
-Primary.args = {
+export const Default = Template.bind({});
+Default.args = {
     children: "Text",
+};
+export const Dark = Template.bind({});
+Dark.args = {
+    children: "Text",
+    isDark: true,
+};
+export const Small = Template.bind({});
+Small.args = {
+    children: "Text",
+    isSmall: true,
 };

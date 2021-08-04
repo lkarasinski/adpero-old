@@ -13,6 +13,9 @@ interface ButtonProps {
 }
 
 const Wrapper = styled.button<ButtonProps>`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 3rem;
     padding: 1.15em 2em;
     margin: auto auto 0;

@@ -8,7 +8,7 @@ const Wrapper = styled.div``;
 
 const Grid = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, 14rem);
+    grid-template-columns: repeat(auto-fit, 18rem);
     gap: 2.5rem;
     margin: 1.25rem 0;
 `;

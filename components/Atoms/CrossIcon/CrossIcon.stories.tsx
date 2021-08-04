@@ -4,11 +4,11 @@ import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import "../../../styles/globals.css";
 
-import CrossIcon from "./index";
+import CrossIconComponent from "./index";
 
 export default {
     title: "Atoms/Cross Icon",
-    component: CrossIcon,
+    component: CrossIconComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -16,10 +16,8 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof CrossIcon>;
+} as ComponentMeta<typeof CrossIconComponent>;
 
-const Template: ComponentStory<typeof CrossIcon> = (args) => (
-    <CrossIcon {...args} />
+export const CrossIcon: ComponentStory<typeof CrossIconComponent> = (args) => (
+    <CrossIconComponent {...args} />
 );
-
-export const Primary = Template.bind({});

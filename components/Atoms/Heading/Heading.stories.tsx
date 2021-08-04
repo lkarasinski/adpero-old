@@ -1,13 +1,13 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import Heading from "./index";
+import HeadingComponent from "./index";
 import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import "../../../styles/globals.css";
 
 export default {
     title: "Atoms/Heading",
-    component: Heading,
+    component: HeadingComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -15,13 +15,12 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof Heading>;
+} as ComponentMeta<typeof HeadingComponent>;
 
-const Template: ComponentStory<typeof Heading> = (args) => (
-    <Heading {...args} />
+export const Heading: ComponentStory<typeof HeadingComponent> = (args) => (
+    <HeadingComponent {...args} />
 );
 
-export const Primary = Template.bind({});
-Primary.args = {
+Heading.args = {
     children: "Heading",
 };

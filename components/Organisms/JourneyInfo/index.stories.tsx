@@ -4,11 +4,11 @@ import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import "../../../styles/globals.css";
 
-import JourneyInfo from "./index";
+import JourneyInfoComponent from "./index";
 
 export default {
     title: "Organisms/Journey Info",
-    component: JourneyInfo,
+    component: JourneyInfoComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -16,10 +16,8 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof JourneyInfo>;
+} as ComponentMeta<typeof JourneyInfoComponent>;
 
-const Template: ComponentStory<typeof JourneyInfo> = (args) => (
-    <JourneyInfo {...args} />
-);
-
-export const Primary = Template.bind({});
+export const JourneyInfo: ComponentStory<typeof JourneyInfoComponent> = (
+    args
+) => <JourneyInfoComponent {...args} />;

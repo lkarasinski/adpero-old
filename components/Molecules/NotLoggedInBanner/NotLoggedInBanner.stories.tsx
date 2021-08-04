@@ -1,5 +1,5 @@
 import React from "react";
-import NotLoggedInBanner from "./index";
+import NotLoggedInBannerComponent from "./index";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
@@ -7,7 +7,7 @@ import "../../../styles/globals.css";
 
 export default {
     title: "Molecules/Not Logged In Banner",
-    component: NotLoggedInBanner,
+    component: NotLoggedInBannerComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -15,11 +15,8 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof NotLoggedInBanner>;
+} as ComponentMeta<typeof NotLoggedInBannerComponent>;
 
-const Template: ComponentStory<typeof NotLoggedInBanner> = (args) => (
-    <NotLoggedInBanner {...args} />
-);
-
-export const Primary = Template.bind({});
-Primary.args = {};
+export const NotLoggedInBanner: ComponentStory<
+    typeof NotLoggedInBannerComponent
+> = (args) => <NotLoggedInBannerComponent {...args} />;

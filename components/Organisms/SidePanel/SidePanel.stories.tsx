@@ -4,11 +4,11 @@ import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import "../../../styles/globals.css";
 
-import SidePanel from "./index";
+import SidePanelComponent from "./index";
 
 export default {
     title: "Organisms/Side Panel",
-    component: SidePanel,
+    component: SidePanelComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -16,10 +16,8 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof SidePanel>;
+} as ComponentMeta<typeof SidePanelComponent>;
 
-const Template: ComponentStory<typeof SidePanel> = (args) => (
-    <SidePanel {...args} />
+export const SidePanel: ComponentStory<typeof SidePanelComponent> = (args) => (
+    <SidePanelComponent {...args} />
 );
-
-export const Primary = Template.bind({});

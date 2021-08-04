@@ -4,11 +4,11 @@ import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import "../../../styles/globals.css";
 
-import SmallSearchBar from "./index";
+import SmallSearchBarComponent from "./index";
 
 export default {
     title: "Molecules/Small Search Bar",
-    component: SmallSearchBar,
+    component: SmallSearchBarComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -16,10 +16,8 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof SmallSearchBar>;
+} as ComponentMeta<typeof SmallSearchBarComponent>;
 
-const Template: ComponentStory<typeof SmallSearchBar> = (args) => (
-    <SmallSearchBar {...args} />
-);
-
-export const Primary = Template.bind({});
+export const SmallSearchBar: ComponentStory<typeof SmallSearchBarComponent> = (
+    args
+) => <SmallSearchBarComponent {...args} />;

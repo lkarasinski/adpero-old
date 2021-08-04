@@ -4,11 +4,11 @@ import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import "../../../styles/globals.css";
 
-import Layout from "./index";
+import LayoutComponent from "./index";
 
 export default {
     title: "Templates/Layout",
-    component: Layout,
+    component: LayoutComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -16,8 +16,8 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof Layout>;
+} as ComponentMeta<typeof LayoutComponent>;
 
-const Template: ComponentStory<typeof Layout> = (args) => <Layout {...args} />;
-
-export const Primary = Template.bind({});
+export const Layout: ComponentStory<typeof LayoutComponent> = (args) => (
+    <LayoutComponent {...args} />
+);

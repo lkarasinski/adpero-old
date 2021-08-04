@@ -4,11 +4,11 @@ import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import "../../../styles/globals.css";
 
-import UserPanelDropdown from "./index";
+import UserPanelDropdownComponent from "./index";
 
 export default {
     title: "Molecules/User Panel Dropdown",
-    component: UserPanelDropdown,
+    component: UserPanelDropdownComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -16,13 +16,13 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof UserPanelDropdown>;
+} as ComponentMeta<typeof UserPanelDropdownComponent>;
 
-const Template: ComponentStory<typeof UserPanelDropdown> = (args) => (
-    <UserPanelDropdown {...args} />
-);
+export const UserPanelDropdown: ComponentStory<
+    typeof UserPanelDropdownComponent
+> = (args) => <UserPanelDropdownComponent {...args} />;
 
-export const Primary = Template.bind({
+UserPanelDropdown.args = {
     photoURL:
         "https://lh3.googleusercontent.com/a-/AOh14GjDs9kIQUv1-stNL0gtEi-MFNXoYMhvK2x5SYuv=s96-c",
-});
+};

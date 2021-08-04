@@ -7,7 +7,7 @@ import { faColumns } from "@fortawesome/free-solid-svg-icons";
 import "../../../styles/globals.css";
 
 export default {
-    title: "Atoms/Styled Link",
+    title: "Molecules/Styled Link",
     component: StyledLink,
     decorators: [
         (Story) => (

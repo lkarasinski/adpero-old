@@ -4,11 +4,11 @@ import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import "../../../styles/globals.css";
 
-import MembersPanel from "./index";
+import MembersPanelComponent from "./index";
 
 export default {
-    title: "Organisms/Members Panel",
-    component: MembersPanel,
+    title: "Molecules/Members Panel",
+    component: MembersPanelComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -16,10 +16,8 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof MembersPanel>;
+} as ComponentMeta<typeof MembersPanelComponent>;
 
-const Template: ComponentStory<typeof MembersPanel> = (args) => (
-    <MembersPanel {...args} />
-);
-
-export const Primary = Template.bind({});
+export const MembersPanel: ComponentStory<typeof MembersPanelComponent> = (
+    args
+) => <MembersPanelComponent {...args} />;

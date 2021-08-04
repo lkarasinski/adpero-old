@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 interface Props {
-    isAccent?: true;
+    isAccent?: boolean;
 }
 
 const Wrapper = styled.h3<Props>`

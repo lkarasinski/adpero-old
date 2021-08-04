@@ -4,11 +4,11 @@ import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import "../../../styles/globals.css";
 
-import Logo from "./index";
+import LogoComponent from "./index";
 
 export default {
     title: "Atoms/Logo",
-    component: Logo,
+    component: LogoComponent,
     decorators: [
         (Story) => (
             <ThemeProvider theme={theme}>
@@ -16,8 +16,8 @@ export default {
             </ThemeProvider>
         ),
     ],
-} as ComponentMeta<typeof Logo>;
+} as ComponentMeta<typeof LogoComponent>;
 
-const Template: ComponentStory<typeof Logo> = (args) => <Logo {...args} />;
-
-export const Primary = Template.bind({});
+export const Logo: ComponentStory<typeof LogoComponent> = (args) => (
+    <LogoComponent {...args} />
+);
