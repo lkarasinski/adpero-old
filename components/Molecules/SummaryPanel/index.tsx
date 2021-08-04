@@ -23,26 +23,43 @@ const DetailContainer = styled.div`
     gap: 3px;
 `;
 
-const SummaryPanel: React.FC = () => {
+interface Props {
+    numberOfUsers: number;
+    startDate: string;
+    endDate: string;
+    totalCost: {
+        value: number;
+        currency: string;
+    };
+}
+
+const SummaryPanel: React.FC<Props> = ({
+    numberOfUsers,
+    totalCost,
+    startDate,
+    endDate,
+}) => {
     return (
         <Wrapper>
             <Label isAccent>Summary</Label>
             <Grid>
                 <DetailContainer>
                     <Text isSmall>Cost:</Text>
-                    <Text isDark>900 PLN</Text>
+                    <Text isDark>
+                        {totalCost.value} {totalCost.currency}
+                    </Text>
                 </DetailContainer>
                 <DetailContainer>
                     <Text isSmall>Departure date:</Text>
-                    <Text isDark>06.09.2021</Text>
+                    <Text isDark>{startDate}</Text>
                 </DetailContainer>
                 <DetailContainer>
                     <Text isSmall>Number of people:</Text>
-                    <Text isDark>1</Text>
+                    <Text isDark>{numberOfUsers}</Text>
                 </DetailContainer>
                 <DetailContainer>
                     <Text isSmall>Date of return:</Text>
-                    <Text isDark>12.09.2021</Text>
+                    <Text isDark>{endDate}</Text>
                 </DetailContainer>
             </Grid>
         </Wrapper>

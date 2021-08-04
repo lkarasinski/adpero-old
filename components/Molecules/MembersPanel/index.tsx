@@ -19,19 +19,20 @@ const Grid = styled.div`
     margin-top: 0.75rem;
 `;
 
-const SummaryPanel: React.FC = () => {
+interface Props {
+    users: string[];
+}
+const SummaryPanel: React.FC<Props> = ({ users }) => {
     return (
         <Wrapper>
             <Label isAccent>Members</Label>
             <Grid>
-                <Text isDark>Łukasz Karasiński</Text>
-                <Text isDark>Łukasz Karasiński</Text>
-                <Text isDark>Łukasz Karasiński</Text>
-                <Text isDark>Łukasz Karasiński</Text>
-                <Text isDark>Łukasz Karasiński</Text>
-                <Text isDark>Łukasz Karasiński</Text>
-                <Text isDark>Łukasz Karasiński</Text>
-                <Text isDark>Łukasz Karasiński</Text>
+                {users &&
+                    users.map((user, i) => (
+                        <Text isDark key={user + i}>
+                            {user}
+                        </Text>
+                    ))}
             </Grid>
         </Wrapper>
     );

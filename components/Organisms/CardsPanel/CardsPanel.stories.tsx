@@ -57,11 +57,11 @@ const journeysValues = [
 
 export const Journeys = Template.bind({});
 Journeys.args = {
-    elements: journeysValues,
+    cards: journeysValues,
     label: "Recently changed journeys",
 };
 export const Polls = Template.bind({});
 Polls.args = {
-    elements: pollsValues,
+    cards: pollsValues,
     label: "Polls you haven't voted in yet",
 };

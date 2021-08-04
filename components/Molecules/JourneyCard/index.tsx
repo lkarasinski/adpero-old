@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Label from "components/Atoms/Label";
 import Text from "components/Atoms/Text";
+import Link from "next/link";
 
 interface StyledProps {
     isBig?: boolean;
@@ -10,30 +11,35 @@ interface StyledProps {
 export interface IJourneyCard {
     label: string;
     details: string[];
+    id?: string;
 }
 
 interface Props extends StyledProps {
     label: string;
     details: string[];
+    id?: string;
 }
 
 const Wrapper = styled.div<StyledProps>`
-    max-width: 14rem;
+    max-width: 19rem;
     min-height: 20rem;
-    padding: 20px;
+    padding: 2rem;
     cursor: pointer;
     border-radius: ${({ theme }) => theme.borderRadius};
     box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
 `;
 
-const JourneyCard: React.FC<Props> = ({ label, details, ...props }) => {
+const JourneyCard: React.FC<Props> = ({ label, id, details, ...props }) => {
     return (
-        <Wrapper {...props}>
-            <Label>{label}</Label>
-            <div>
-                {details && details.map((e, i) => <Text key={e + i}>{e}</Text>)}
-            </div>
-        </Wrapper>
+        <Link href={`/journeys/${id}`} passHref>
+            <Wrapper {...props}>
+                <Label>{label}</Label>
+                <div>
+                    {details &&
+                        details.map((e, i) => <Text key={e + i}>{e}</Text>)}
+                </div>
+            </Wrapper>
+        </Link>
     );
 };
 

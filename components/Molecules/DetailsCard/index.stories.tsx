@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import theme from "../../../utils/theme";
 import "../../../styles/globals.css";
 import DetailsCardComponent from "./index";
+import { Expense } from "utils/interfaces";
 
 export default {
     title: "Organisms/Details Card",
@@ -20,11 +21,12 @@ export default {
 export const DetailsCard: ComponentStory<typeof DetailsCardComponent> = (
     args
 ) => <DetailsCardComponent {...args} />;
-const details = [
-    { label: "Cost", value: "200 PLN" },
-    { label: "Address", value: "Bieniowicza 13" },
-    { label: "Check-in hour", value: "12 AM" },
-    { label: "Link", value: "www.booking.com" },
-];
 
-DetailsCard.args = { details: details };
+const expense: Expense = {
+    title: "Mido",
+    details: [{ label: "Cost", value: "200 PLN", type: "price" }],
+};
+
+DetailsCard.args = {
+    expense: expense,
+};

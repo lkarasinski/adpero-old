@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Heading from "components/Atoms/Heading";
 import NotLoggedInBanner from "components/Molecules/NotLoggedInBanner";
 import CardsPanel from "components/Organisms/CardsPanel";
-import { AuthUserContext } from "next-firebase-auth";
 import { IPollCard } from "components/Molecules/PollCard";
 import { IJourneyCard } from "components/Molecules/JourneyCard";
 
@@ -10,15 +9,9 @@ interface Props {
     userID: string | null;
     polls: IPollCard[];
     journeys: IJourneyCard[];
-    recentlyChangedJourneys: IJourneyCard[];
 }
 
-const Dashboard: React.FC<Props> = ({
-    userID,
-    polls,
-    journeys,
-    recentlyChangedJourneys,
-}) => {
+const Dashboard: React.FC<Props> = ({ userID, polls, journeys }) => {
     const [isBannerOpen, setIsBannerOpen] = useState(!userID);
     return (
         <>
@@ -28,15 +21,8 @@ const Dashboard: React.FC<Props> = ({
                 />
             )}
             <Heading>Dashboard</Heading>
-            <CardsPanel
-                label="Polls you haven't voted in yet"
-                elements={polls}
-            />
-            <CardsPanel
-                label="Recently changed journeys"
-                elements={recentlyChangedJourneys}
-            />
-            <CardsPanel label="Your journeys" elements={journeys} />
+            <CardsPanel label="Polls you haven't voted in yet" cards={polls} />
+            <CardsPanel label="Your journeys" cards={journeys} />
         </>
     );
 };

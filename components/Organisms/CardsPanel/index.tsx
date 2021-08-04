@@ -8,50 +8,49 @@ const Wrapper = styled.div``;
 
 const Grid = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fit, 18rem);
-    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, 19rem);
+    gap: 2rem;
     margin: 1.25rem 0;
 `;
 
 interface Props {
-    elements: IPollCard[] | IJourneyCard[];
+    cards: IPollCard[] | IJourneyCard[];
     label: string;
 }
 
-const CardsPanel: React.FC<Props> = ({ elements, label }) => {
-    if (!elements) return <div></div>;
-    if ("details" in elements[0]) {
-        const array = elements as IJourneyCard[];
+const CardsPanel: React.FC<Props> = ({ cards, label }) => {
+    if (!cards || !cards.length) return null;
+    if ("details" in cards[0]) {
+        const array = cards as IJourneyCard[];
         return (
             <Wrapper>
                 <Label isAccent>{label}</Label>
                 <Grid>
-                    {array &&
-                        array.map((element, i) => (
-                            <JourneyCard
-                                key={element.label + i}
-                                label={element.label}
-                                details={element.details}
-                            />
-                        ))}
+                    {array.map((element, i) => (
+                        <JourneyCard
+                            id={element.id}
+                            key={element.label + i}
+                            label={element.label}
+                            details={element.details}
+                        />
+                    ))}
                 </Grid>
                 <hr />
             </Wrapper>
         );
     } else {
-        const array = elements as IPollCard[];
+        const array = cards as IPollCard[];
         return (
             <Wrapper>
                 <Label isAccent>{label}</Label>
                 <Grid>
-                    {array &&
-                        array.map((element, i) => (
-                            <PollCard
-                                key={element.detail + element.label + i}
-                                detail={element.detail}
-                                label={element.label}
-                            />
-                        ))}
+                    {array.map((element, i) => (
+                        <PollCard
+                            key={element.detail + element.label + i}
+                            detail={element.detail}
+                            label={element.label}
+                        />
+                    ))}
                 </Grid>
                 <hr />
             </Wrapper>
