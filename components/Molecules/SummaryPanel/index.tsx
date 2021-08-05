@@ -31,6 +31,7 @@ interface Props {
         value: number;
         currency: string;
     };
+    summaryRef: any;
 }
 
 const SummaryPanel: React.FC<Props> = ({
@@ -38,9 +39,10 @@ const SummaryPanel: React.FC<Props> = ({
     totalCost,
     startDate,
     endDate,
+    summaryRef,
 }) => {
     return (
-        <Wrapper>
+        <Wrapper ref={summaryRef}>
             <Label isAccent>Summary</Label>
             <Grid>
                 <DetailContainer>

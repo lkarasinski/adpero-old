@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MembersPanel from "components/Molecules/MembersPanel";
 import SummaryPanel from "components/Molecules/SummaryPanel";
 import styled from "styled-components";
@@ -30,10 +30,13 @@ const JourneyInfo: React.FC<Props> = ({
         startDate,
         endDate,
     };
+
+    const summaryRef = useRef<HTMLDivElement>(null!);
+
     return (
         <Wrapper>
-            <SummaryPanel {...summaryData} />
-            <MembersPanel users={users} />
+            <SummaryPanel summaryRef={summaryRef} {...summaryData} />
+            <MembersPanel summaryRef={summaryRef} users={users} />
         </Wrapper>
     );
 };
