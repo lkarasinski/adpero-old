@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
+import useWindowWidth from "utils/functions/useWindowWidth";
 import theme from "../../../utils/theme";
-import Navbar from "../../Organisms/Navbar";
 import SidePanel from "../../Organisms/SidePanel";
 
 interface IContent {
@@ -24,16 +24,12 @@ const Content = styled.div<IContent>`
 const Layout: React.FC = ({ children }) => {
     const [showSidebar, setShowSidebar] = useState(false);
     const [showContent, setShowContent] = useState(false);
-    const handleWidthChange = () => {
-        setShowSidebar(window.innerWidth > 820);
-    };
+
+    const width = useWindowWidth(setShowContent);
 
     useEffect(() => {
-        handleWidthChange();
-        window.addEventListener("resize", handleWidthChange);
-        setShowContent(true);
-        return window.removeEventListener("resize", handleWidthChange);
-    }, []);
+        setShowSidebar(width >= 920);
+    }, [width]);
 
     return (
         <ThemeProvider theme={theme}>

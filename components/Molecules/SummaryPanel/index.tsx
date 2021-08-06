@@ -3,12 +3,19 @@ import Label from "components/Atoms/Label";
 import Text from "components/Atoms/Text";
 import styled from "styled-components";
 
-const Wrapper = styled.div`
-    flex-grow: 1;
+interface WrapperProps {
+    isInSidePanel?: boolean;
+}
+
+const Wrapper = styled.div<WrapperProps>`
     max-width: 19rem;
     padding: 2rem;
-    border-radius: ${({ theme }) => theme.borderRadius};
-    box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
+    background-color: "#ffffff";
+    border-radius: ${({ theme, isInSidePanel }) =>
+        isInSidePanel ? 0 : theme.borderRadius};
+    box-shadow: 0 0 4px
+        ${({ theme, isInSidePanel }) =>
+            isInSidePanel ? "transparent" : theme.colors.shadow};
 `;
 
 const Grid = styled.div`
@@ -31,7 +38,7 @@ interface Props {
         value: number;
         currency: string;
     };
-    summaryRef: any;
+    isInSidePanel: boolean;
 }
 
 const SummaryPanel: React.FC<Props> = ({
@@ -39,10 +46,10 @@ const SummaryPanel: React.FC<Props> = ({
     totalCost,
     startDate,
     endDate,
-    summaryRef,
+    isInSidePanel,
 }) => {
     return (
-        <Wrapper ref={summaryRef}>
+        <Wrapper isInSidePanel={isInSidePanel}>
             <Label isAccent>Summary</Label>
             <Grid>
                 <DetailContainer>

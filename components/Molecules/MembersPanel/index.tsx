@@ -1,83 +1,30 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React from "react";
 import Label from "components/Atoms/Label";
 import Text from "components/Atoms/Text";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
     padding: 2rem;
-    border-radius: ${({ theme }) => theme.borderRadius};
-    box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
+    background-color: "#ffffff";
 `;
 
-interface FlexProps {
-    direction: "row" | "column";
-}
-
-const Flex = styled.div<FlexProps>`
-    display: flex;
-    flex-direction: ${({ direction }) => direction};
-    flex-wrap: wrap;
+const Flex = styled.div`
     height: 150px;
-    gap: ${({ direction }) => (direction === "row" ? "2rem" : "0")};
+    margin-top: 0.5rem;
 `;
 
 interface Props {
-    users: string[];
-    summaryRef: any;
+    members: string[];
 }
-const SummaryPanel: React.FC<Props> = ({ users }) => {
-    const numberOfFours = Math.ceil(users.length / 5);
-    const wrapperRef = useRef<HTMLDivElement>(null!);
-    const result = Array(numberOfFours);
-    const [rednerHorizontal, setRednerHorizontal] = useState(false);
-    const maxWidth = useRef(0);
-
-    // for (let i = 0; i < users.length; i++) {
-    //     result[Math.floor(i / 5)]
-    //         ? result[Math.floor(i / 5)].push(users[i])
-    //         : (result[Math.floor(i / 5)] = [users[i]]);
-    // }
-
-    // const membersDividedInFives = result.map((five, i) => (
-    //     <div key={i}>
-    //         {five.map((member: string, i: number) => (
-    //             <Text isDark key={i}>
-    //                 {member}
-    //             </Text>
-    //         ))}
-    //     </div>
-    // ));
-    // const membersInList = users.map((member, i) => {
-    //     return (
-    //         <Text isDark key={i}>
-    //             {member}
-    //         </Text>
-    //     );
-    // });
-
-    // useEffect(() => {
-    //     maxWidth.current =
-    //         wrapperRef.current.offsetLeft + wrapperRef.current.clientWidth;
-    //     window.addEventListener("resize", () => {
-    //         const windowWidth = window.innerWidth;
-    //         console.log(windowWidth);
-    //         console.log(maxWidth.current);
-    //         setRednerHorizontal(maxWidth.current < windowWidth);
-    //     });
-    //     const windowWidth = window.innerWidth;
-    //     setRednerHorizontal(maxWidth.current < windowWidth);
-    // }, []);
-
-    console.log(users);
-
+const SummaryPanel: React.FC<Props> = ({ members }) => {
     return (
-        <Wrapper ref={wrapperRef}>
+        <Wrapper>
             <Label isAccent>Members</Label>
-            <Flex direction={"column"}>
-                {users.map((user, i) => {
+            <Flex>
+                {members.map((member, i) => {
                     return (
                         <Text key={i} isDark>
-                            {user}
+                            {member}
                         </Text>
                     );
                 })}
