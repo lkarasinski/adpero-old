@@ -1,2 +1,2 @@
-## Mobile - React native
-## Web - NextJS
+- Mobile - React native
+- Web - NextJS
