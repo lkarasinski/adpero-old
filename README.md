@@ -1,4 +1,4 @@
 # Used technologies:
 
 -   Mobile - Expo
--   Web - Next.JS
+-   Web -  Next.JS
