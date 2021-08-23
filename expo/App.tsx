@@ -1,24 +1,42 @@
-import 'react-native-gesture-handler';
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import React from "react";
+import { Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import styled from "styled-components";
 
-import useCachedResources from './hooks/useCachedResources';
-import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
+const StyledView = styled(View)`
+    display: flex;
+    background: #ffffff;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+`;
 
-export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
+const Stack = createNativeStackNavigator();
 
-  if (!isLoadingComplete) {
-    return null;
-  } else {
+const Home: React.FC = () => (
+    <StyledView>
+        <Text>Home screen :)</Text>
+    </StyledView>
+);
+
+const Details: React.FC = () => (
+    <StyledView>
+        <Text>Details screen :)</Text>
+    </StyledView>
+);
+
+const App: React.FC = () => {
     return (
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
+        <NavigationContainer>
+            <Stack.Navigator
+                initialRouteName="Home"
+                screenOptions={{ headerShown: false }}
+            >
+                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Details" component={Details} />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
-  }
-}
+};
+export default App;
