@@ -14,26 +14,42 @@ const StyledView = styled(View)`
 
 const Stack = createNativeStackNavigator();
 
-const Home: React.FC = () => (
+const Dashboard: React.FC<Props> = ({ navigation }) => (
     <StyledView>
-        <Text>Home screen :)</Text>
+        <Text
+            onPress={() => {
+                navigation.push("Details");
+            }}
+        >
+            Dashboard screen :)
+        </Text>
     </StyledView>
 );
 
-const Details: React.FC = () => (
+const Details: React.FC<Props> = ({ navigation }) => (
     <StyledView>
-        <Text>Details screen :)</Text>
+        <Text
+            onPress={() => {
+                navigation.push("Dashboard");
+            }}
+        >
+            Details screen :)
+        </Text>
     </StyledView>
 );
+
+interface Props {
+    navigation: any;
+}
 
 const App: React.FC = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="Home"
-                screenOptions={{ headerShown: false }}
+                initialRouteName="Dashboard"
+                screenOptions={{ headerShown: true }}
             >
-                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Dashboard" component={Dashboard} />
                 <Stack.Screen name="Details" component={Details} />
             </Stack.Navigator>
         </NavigationContainer>
