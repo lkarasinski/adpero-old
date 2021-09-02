@@ -20,8 +20,5 @@
         "@typescript-eslint/no-unused-vars": "warn",
         "react-hooks/exhaustive-deps": "off"
     },
-    "env": {
-        "jest": true
-    },
     "globals": { "document": true }
 }
