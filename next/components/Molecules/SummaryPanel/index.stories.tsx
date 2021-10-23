@@ -21,3 +21,7 @@ export default {
 export const SummaryPanel: ComponentStory<typeof SummaryPanelComponent> = (
     args
 ) => <SummaryPanelComponent {...args} />;
+
+SummaryPanel.args = {
+    totalCost: { value: 90, currency: "USD" },
+};

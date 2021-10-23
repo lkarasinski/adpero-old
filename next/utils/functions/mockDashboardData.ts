@@ -2,7 +2,7 @@ export default function getDashboardData() {
     const data = {
         journeys: [
             {
-                label: "",
+                label: "Poznań",
                 details: [""],
                 id: "",
             },

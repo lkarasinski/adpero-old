@@ -8,12 +8,15 @@ import { JourneyData } from "utils/interfaces";
 import useWindowWidth from "utils/functions/useWindowWidth";
 import SummaryPanel from "components/Molecules/SummaryPanel";
 import MembersPanel from "components/Molecules/MembersPanel";
+import EditButton from "components/Atoms/EditButton";
+import { EditDetailsPanel } from "components/Organisms/EditDetailsPanel/EditDetailsPanel.stories";
 
 interface WrapperProps {
     isSidePanelOpen: boolean;
 }
 
 const Wrapper = styled.div<WrapperProps>`
+    position: relative;
     padding-right: 2rem;
     margin-right: ${({ isSidePanelOpen }) =>
         isSidePanelOpen ? "19rem" : "0rem"};
@@ -33,11 +36,11 @@ const Journey: React.FC<JourneyData> = ({
     polls,
 }) => {
     const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
+    const [isEditModeEnabled, setIsEditModeEnabled] = useState(false);
     const width = useWindowWidth();
 
     useEffect(() => {
         if (width <= 920) {
-            console.log("bieniu");
             setIsSidePanelOpen(false);
         }
     }, [width]);
@@ -51,23 +54,31 @@ const Journey: React.FC<JourneyData> = ({
         setIsSidePanelOpen,
     };
 
+    console.log(expenses);
+
     return (
         <Wrapper isSidePanelOpen={isSidePanelOpen}>
             <HeadingContainer>
                 <Heading>{journeyName}</Heading>
             </HeadingContainer>
-            {width < 920 && (
-                <SummaryPanel
-                    numberOfUsers={users.length}
-                    totalCost={totalCost}
-                    startDate={startDate}
-                    endDate={endDate}
-                    isInSidePanel={false}
-                />
-            )}
+            <SummaryPanel
+                numberOfUsers={users.length}
+                totalCost={totalCost}
+                startDate={startDate}
+                endDate={endDate}
+                isInSidePanel={false}
+            />
+            <EditButton
+                onClick={() => setIsEditModeEnabled(!isEditModeEnabled)}
+                isInEditMode={isEditModeEnabled}
+                isGrayedOut={false}
+            />
             {polls.length > 0 && <ActivePollsPanel polls={polls} />}
-            {expenses.length > 0 && <DetailsPanel expenses={expenses} />}
-            {width >= 920 && <JourneyInfo {...journeyInfoProps} />}
+            {expenses.length > 0 && isEditModeEnabled ? (
+                <EditDetailsPanel expenses={expenses} />
+            ) : (
+                <DetailsPanel expenses={expenses} />
+            )}
             {width < 920 && <MembersPanel members={users} />}
         </Wrapper>
     );

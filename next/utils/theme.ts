@@ -10,6 +10,7 @@ const myTheme: DefaultTheme = {
             light: "#676767",
         },
         red: "#EC6464",
+        green: "#4FE537",
         shadow: "rgba(0, 0, 0, 0.25)",
     },
 };
