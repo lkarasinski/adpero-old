@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Label from "components/Atoms/Label";
 import PollCard from "components/Molecules/PollCard";
 import styled from "styled-components";
-import firebase from "firebase";
-import { useCollection } from "react-firebase-hooks/firestore";
 import { PollDetails } from "utils/interfaces";
 
 const Grid = styled.div`

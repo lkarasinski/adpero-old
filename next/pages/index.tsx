@@ -6,7 +6,8 @@ import {
 } from "next-firebase-auth";
 import Dashboard from "components/Templates/Dashboard";
 import Layout from "components/Templates/Layout";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { Expense } from "utils/interfaces";
 import mockDashboardData from "utils/functions/mockDashboardData";

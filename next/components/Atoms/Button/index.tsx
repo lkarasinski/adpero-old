@@ -5,11 +5,13 @@ interface Props {
     primary?: boolean;
     onClick?: () => void;
     isBig?: boolean;
+    isContracted?: boolean;
 }
 
 interface ButtonProps {
     isBig?: boolean;
     primary?: boolean;
+    isContracted?: boolean;
 }
 
 const Wrapper = styled.button<ButtonProps>`
@@ -19,6 +21,7 @@ const Wrapper = styled.button<ButtonProps>`
     height: 3rem;
     padding: 1.15em 2em;
     margin: auto auto 0;
+    min-width: ${({ isContracted }) => (isContracted ? "2.75rem" : "10rem")};
     font-size: ${({ isBig }) => (isBig ? "1.5rem" : "0.875rem")};
     font-weight: 900;
     color: #ffffff;
