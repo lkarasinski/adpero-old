@@ -19,7 +19,6 @@ const StyledButton = styled(Button)<ButtonProps>`
 
 const LogInButton: React.FC = () => {
     const [auth] = useAuthState(firebase.auth());
-    console.log(auth);
     return (
         <StyledButton
             isLoggedIn={!!auth}

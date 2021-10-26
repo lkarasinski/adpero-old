@@ -20,6 +20,30 @@ const JourneyPage: React.FC = () => {
     const pollsQuery = pollsRef.where("id", "==", journeyID);
     const [pollsCollectionData, pollsLoading] = useCollection(pollsQuery);
 
+    const formJoruneyData = (joruney: any, polls: any) => ({
+        journeyName: joruney.name,
+        totalCost: { value: 90, currency: "JPG" },
+        startDate: "06.09.2021",
+        endDate: "12.09.2021",
+        users: joruney.users,
+        expenses: joruney.expenses,
+        polls: polls,
+    });
+
+    // Load data from local storage
+    useEffect(() => {
+        const data = localStorage.getItem("journeysData");
+        console.log(JSON.parse(data ?? ""));
+        console.log(journeyID);
+        if (data) {
+            const journeyDataFromLocalStorage = JSON.parse(data).find(
+                (journey: any) => journey.id === journeyID
+            );
+            setJourneyData(formJoruneyData(journeyDataFromLocalStorage, []));
+        }
+    }, []);
+
+    // Load data from database
     useEffect(() => {
         if (journeyDocumentData && pollsCollectionData) {
             const dbData = journeyDocumentData.data();
@@ -28,16 +52,7 @@ const JourneyPage: React.FC = () => {
                 notification: true,
             }));
             if (dbData) {
-                const temp = {
-                    journeyName: dbData.name,
-                    totalCost: { value: 90, currency: "JPG" },
-                    startDate: "06.09.2021",
-                    endDate: "12.09.2021",
-                    users: dbData.users,
-                    expenses: dbData.expenses,
-                    polls: polls,
-                };
-                setJourneyData(temp);
+                setJourneyData(formJoruneyData(dbData, polls));
             }
         }
     }, [
@@ -46,8 +61,6 @@ const JourneyPage: React.FC = () => {
         pollsCollectionData,
         pollsLoading,
     ]);
-
-    if (journeyLoading || pollsLoading) return <Layout />;
 
     return (
         <Layout>

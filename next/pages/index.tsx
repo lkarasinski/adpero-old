@@ -36,6 +36,16 @@ const Home: React.FC = () => {
                 journeys: journeyData,
             };
             setData(displayData);
+
+            const localStorageData = collectionData.docs.map((data) => ({
+                ...data.data(),
+                id: data.ref.id,
+            }));
+
+            localStorage.setItem(
+                "journeysData",
+                JSON.stringify(localStorageData)
+            );
         }
     }, [loading, collectionData]);
 

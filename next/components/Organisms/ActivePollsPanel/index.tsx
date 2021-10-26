@@ -20,7 +20,7 @@ interface Props {
 }
 
 const ActivePollsPanel: React.FC<Props> = ({ polls }) => {
-    if (!polls) return null;
+    if (!polls || polls.length === 0) return null;
     return (
         <Wrapper>
             <HeadingContainer>

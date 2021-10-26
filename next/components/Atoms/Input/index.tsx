@@ -17,7 +17,6 @@ const Input: React.FC<InputProps> = ({ value, setValue }) => {
             value={value}
             onChange={(event) => {
                 setValue(event.target.value);
-                console.log(event.target.value);
             }}
         ></StyledInput>
     );

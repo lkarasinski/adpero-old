@@ -20,6 +20,7 @@ interface Props {
 }
 
 const DetailsPanel: React.FC<Props> = ({ expenses }) => {
+    if (expenses.length === 0) return null;
     return (
         <Wrapper>
             <HeadingContainer>
