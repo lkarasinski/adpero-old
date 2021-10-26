@@ -13,12 +13,11 @@ const Main = styled.div`
     flex-direction: row;
 `;
 const Content = styled.div<IContent>`
-    z-index: 10;
+    z-index: 0;
     width: 100%;
     min-height: 100vh;
-    padding-left: 2rem;
-    margin-left: ${({ leftMargin }) => (leftMargin ? "14.3125rem" : "0rem")};
-    box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
+    padding-left: 17.825rem;
+    background-color: white;
 `;
 
 const Layout: React.FC = ({ children }) => {

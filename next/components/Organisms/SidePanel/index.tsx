@@ -11,6 +11,7 @@ import Logo from "components/Atoms/Logo";
 
 const Wrapper = styled.div`
     position: fixed;
+    z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,6 +19,7 @@ const Wrapper = styled.div`
     height: 100vh;
     padding: 2rem 1rem;
     background-color: #f2f5f9;
+    box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
 `;
 
 const StyledNav = styled.nav`
