@@ -5,12 +5,12 @@ import {
     withAuthUserTokenSSR,
 } from "next-firebase-auth";
 import Dashboard from "components/Templates/Dashboard";
-import Layout from "components/Templates/Layout";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { Expense } from "utils/interfaces";
 import mockDashboardData from "utils/functions/mockDashboardData";
+import Layout from "components/Templates/Layout";
 
 const journeysRef = firebase.firestore().collection("journeys");
 
@@ -22,6 +22,18 @@ const Home: React.FC = () => {
     const [collectionData, loading] = useCollection(dataQuery);
     const [data, setData] = useState(mockData);
 
+    // Load data from local storage
+    useEffect(() => {
+        const localStorageDashboardData = localStorage.getItem("dashboardData");
+        if (localStorageDashboardData) {
+            const dashboardData = JSON.parse(localStorageDashboardData);
+            if (dashboardData) {
+                setData(dashboardData);
+            }
+        }
+    }, []);
+
+    // Load data from database, set local storage to that data
     useEffect(() => {
         if (!loading && collectionData && email) {
             const journeyData = collectionData.docs.map((data) => ({
@@ -31,29 +43,33 @@ const Home: React.FC = () => {
                     .expenses.map((expense: Expense) => expense.title),
                 id: data.ref.id,
             }));
-            const displayData = {
+            const dashboardData = {
                 polls: data.polls,
                 journeys: journeyData,
             };
-            setData(displayData);
+            setData(dashboardData);
+            localStorage.setItem(
+                "dashboardData",
+                JSON.stringify(dashboardData)
+            );
 
-            const localStorageData = collectionData.docs.map((data) => ({
-                ...data.data(),
-                id: data.ref.id,
-            }));
+            const localStorageJourneysData = collectionData.docs.map(
+                (data) => ({
+                    ...data.data(),
+                    id: data.ref.id,
+                })
+            );
 
             localStorage.setItem(
                 "journeysData",
-                JSON.stringify(localStorageData)
+                JSON.stringify(localStorageJourneysData)
             );
         }
     }, [loading, collectionData]);
 
-    if (loading) return <Layout />;
-
     return (
         <Layout>
-            <Dashboard {...data} userID={"1243"} />
+            <Dashboard {...data} userID={AuthUser.id} />
         </Layout>
     );
 };
