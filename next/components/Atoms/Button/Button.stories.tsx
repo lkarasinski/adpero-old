@@ -24,19 +24,19 @@ export const Default: ComponentStory<typeof ButtonComponent> = (args) => (
 
 Default.args = {
     children: "Create new journey",
-    primary: false,
+    isPrimary: false,
     isBig: false,
 };
 
 export const Big = Default.bind({});
 Big.args = {
     children: "Create new journey",
-    primary: false,
+    isPrimary: false,
     isBig: true,
 };
 export const Primary = Default.bind({});
 Primary.args = {
     children: "Create new journey",
-    primary: true,
+    isPrimary: true,
     isBig: true,
 };
