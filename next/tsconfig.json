@@ -20,7 +20,8 @@
         "**/*.ts",
         "**/*.tsx",
         "tests/id.test.jsx",
-        "setupTests.ts"
+        "setupTests.ts",
+        "pages/_document.js"
     ],
     "exclude": ["node_modules", "**/*.test.tsx", "jest.setup.ts"]
 }
