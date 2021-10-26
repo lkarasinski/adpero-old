@@ -1,44 +1,56 @@
 import React, { useEffect, useState } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import useWindowWidth from "utils/functions/useWindowWidth";
 import theme from "../../../utils/theme";
 import SidePanel from "../../Organisms/SidePanel";
 
-interface IContent {
-    leftMargin: boolean;
+interface ContentProps {
+    isContracted: boolean;
 }
 
 const Main = styled.div`
     display: flex;
     flex-direction: row;
 `;
-const Content = styled.div<IContent>`
+
+const Content = styled.div<ContentProps>`
     z-index: 0;
     width: 100%;
     min-height: 100vh;
-    padding-left: 17.825rem;
+    margin-left: ${({ isContracted }) => (isContracted ? "5rem" : "14rem")};
+    padding-left: 2rem;
     background-color: white;
+    transition: margin-left 200ms ease-in-out;
 `;
 
+const GlobalStyles = createGlobalStyle`
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}`;
+
 const Layout: React.FC = ({ children }) => {
-    const [showSidebar, setShowSidebar] = useState(false);
+    const [isContracted, setIsContracted] = useState(false);
     const [showContent, setShowContent] = useState(false);
 
     const width = useWindowWidth(setShowContent);
 
     useEffect(() => {
-        setShowSidebar(width >= 920);
+        setIsContracted(width < 920);
     }, [width]);
 
     return (
-        <ThemeProvider theme={theme}>
-            {showSidebar && <SidePanel />}
-            <Main>
-                <Content leftMargin={showSidebar}>
-                    {showContent && children}
-                </Content>
-            </Main>
-        </ThemeProvider>
+        <>
+            <GlobalStyles />
+            <ThemeProvider theme={theme}>
+                <SidePanel isContracted={isContracted} />
+                <Main>
+                    <Content isContracted={isContracted}>
+                        {showContent && children}
+                    </Content>
+                </Main>
+            </ThemeProvider>
+        </>
     );
 };
 

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 interface Props {
-    primary?: boolean;
+    isPrimary?: boolean;
     onClick?: () => void;
     isBig?: boolean;
     isContracted?: boolean;
@@ -10,7 +10,7 @@ interface Props {
 
 interface ButtonProps {
     isBig?: boolean;
-    primary?: boolean;
+    isPrimary?: boolean;
     isContracted?: boolean;
 }
 
@@ -19,14 +19,14 @@ const Wrapper = styled.button<ButtonProps>`
     align-items: center;
     justify-content: center;
     height: 3rem;
-    padding: 1.15em 2em;
+    padding: ${({ isContracted }) => (isContracted ? "0" : "2em")};
     margin: auto auto 0;
-    min-width: ${({ isContracted }) => (isContracted ? "2.75rem" : "10rem")};
+    min-width: ${({ isContracted }) => (isContracted ? "3rem" : "10rem")};
     font-size: ${({ isBig }) => (isBig ? "1.5rem" : "0.875rem")};
-    font-weight: 900;
+    font-weight: 600;
     color: #ffffff;
     cursor: pointer;
-    background-color: ${({ primary }) => (primary ? "#3D5EFF" : "#313131")};
+    background-color: ${({ isPrimary }) => (isPrimary ? "#3D5EFF" : "#313131")};
     border: none;
     border-radius: ${({ theme }) => theme.borderRadius};
 `;
