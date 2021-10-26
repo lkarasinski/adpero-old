@@ -92,7 +92,7 @@ const EditDetailsCard: React.FC<EditDetailsCardProps> = ({
             </RadioContainer>
             {type == "Price" && (
                 // <Input value={currencyState ?? ""} setValue={setCurrency} />
-                <div>elo</div>
+                <div></div>
             )}
         </Wrapper>
     );

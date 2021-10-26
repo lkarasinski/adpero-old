@@ -1,14 +1,7 @@
 import React from "react";
-import {
-    useAuthUser,
-    withAuthUser,
-    withAuthUserTokenSSR,
-} from "next-firebase-auth";
-import Layout from "components/Templates/Layout";
+import { withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
 
 const Polls: React.FC = () => {
-    const AuthUser = useAuthUser();
-
     return <></>;
 };
 
