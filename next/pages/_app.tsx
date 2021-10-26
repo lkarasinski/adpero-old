@@ -25,11 +25,11 @@ if (!firebase.apps.length) {
     firebase.app();
 }
 
-function MyApp({ Component, pageProps }: AppProps) {
+const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     return (
         <Layout>
-            <Component {...pageProps} />;
+            <Component {...pageProps} />
         </Layout>
     );
-}
-export default MyApp;
+};
+export default App;
