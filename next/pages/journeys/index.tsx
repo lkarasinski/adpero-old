@@ -4,12 +4,11 @@ import {
     withAuthUser,
     withAuthUserTokenSSR,
 } from "next-firebase-auth";
-import Layout from "components/Templates/Layout";
 
 const Journeys: React.FC = () => {
     const AuthUser = useAuthUser();
 
-    return <Layout></Layout>;
+    return <></>;
 };
 
 export const getServerSideProps = withAuthUserTokenSSR()();

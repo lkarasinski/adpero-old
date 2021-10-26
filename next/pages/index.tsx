@@ -10,7 +10,6 @@ import "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { Expense } from "utils/interfaces";
 import mockDashboardData from "utils/functions/mockDashboardData";
-import Layout from "components/Templates/Layout";
 
 const journeysRef = firebase.firestore().collection("journeys");
 
@@ -67,11 +66,7 @@ const Home: React.FC = () => {
         }
     }, [loading, collectionData]);
 
-    return (
-        <Layout>
-            <Dashboard {...data} userID={AuthUser.id} />
-        </Layout>
-    );
+    return <Dashboard {...data} userID={AuthUser.id} />;
 };
 
 export const getServerSideProps = withAuthUserTokenSSR()();

@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import firebase from "firebase/app";
 import initAuth from "../utils/initAuth";
 import "regenerator-runtime/runtime.js";
+import Layout from "components/Templates/Layout";
 require("regenerator-runtime/runtime");
 
 const firebaseConfig = {
@@ -25,6 +26,10 @@ if (!firebase.apps.length) {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-    return <Component {...pageProps} />;
+    return (
+        <Layout>
+            <Component {...pageProps} />;
+        </Layout>
+    );
 }
 export default MyApp;

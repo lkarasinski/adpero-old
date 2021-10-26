@@ -13,7 +13,7 @@ interface Props {
 }
 
 const Dashboard: React.FC<Props> = ({ userID, polls, journeys }) => {
-    const [isBannerOpen, setIsBannerOpen] = useState(true);
+    const [isBannerOpen, setIsBannerOpen] = useState(!userID);
     return (
         <>
             {isBannerOpen && (

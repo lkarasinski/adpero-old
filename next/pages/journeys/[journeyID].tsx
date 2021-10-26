@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
-import Layout from "components/Templates/Layout";
 import Journey from "components/Templates/Journey";
 import getJourneyData from "utils/functions/getJourneyData";
 import firebase from "firebase/app";
@@ -62,11 +61,7 @@ const JourneyPage: React.FC = () => {
         pollsLoading,
     ]);
 
-    return (
-        <Layout>
-            <Journey {...journeyData} />
-        </Layout>
-    );
+    return <Journey {...journeyData} />;
 };
 
 export const getServerSideProps = withAuthUserTokenSSR()();
