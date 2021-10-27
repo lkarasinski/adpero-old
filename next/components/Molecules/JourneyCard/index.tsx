@@ -4,23 +4,19 @@ import Label from "components/Atoms/Label";
 import Text from "components/Atoms/Text";
 import Link from "next/link";
 
-interface StyledProps {
-    isBig?: boolean;
-}
-
 export interface IJourneyCard {
     label: string;
     details: string[];
     id?: string;
 }
 
-interface Props extends StyledProps {
+interface Props {
     label: string;
     details: string[];
     id?: string;
 }
 
-const Wrapper = styled.div<StyledProps>`
+const Wrapper = styled.div`
     max-width: 19rem;
     min-height: 20rem;
     padding: 2rem;

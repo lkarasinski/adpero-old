@@ -2,6 +2,7 @@ import { DefaultTheme } from "styled-components";
 
 const myTheme: DefaultTheme = {
     borderRadius: "10px",
+    font: "Nunito",
 
     colors: {
         primary: "#3D5EFF",

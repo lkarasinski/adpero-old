@@ -21,9 +21,9 @@ const Wrapper = styled.button<ButtonProps>`
     height: 3rem;
     padding: ${({ isContracted }) => (isContracted ? "0" : "2em")};
     margin: auto auto 0;
-    min-width: ${({ isContracted }) => (isContracted ? "3rem" : "10rem")};
+    font-family: ${({ theme }) => theme.font};
     font-size: ${({ isBig }) => (isBig ? "1.5rem" : "0.875rem")};
-    font-weight: 600;
+    font-weight: 800;
     color: #ffffff;
     cursor: pointer;
     background-color: ${({ isPrimary }) => (isPrimary ? "#3D5EFF" : "#313131")};

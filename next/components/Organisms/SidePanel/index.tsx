@@ -35,6 +35,7 @@ const NewJourneyButton = styled(Button)<Props>`
     height: 3rem;
     padding: 0;
     gap: 0.5rem;
+    transition: width 200ms ease-in-out;
 `;
 
 interface Props {
