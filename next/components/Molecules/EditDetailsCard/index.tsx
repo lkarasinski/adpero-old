@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Field } from "formik";
+
 import styled from "styled-components";
-import Input from "components/Atoms/Input";
+import { Detail } from "utils/interfaces";
 
 const Wrapper = styled.div`
     display: flex;
@@ -12,87 +14,73 @@ const Wrapper = styled.div`
     box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
 `;
 
-const RadioContainer = styled.div`
+interface EditDetailsCardProps {
+    name: string;
+    detail: Detail;
+}
+
+const StyledField = styled(Field)`
+    height: 45px;
+    font-size: 1rem;
+`;
+
+const Box = styled.div`
     display: flex;
 `;
 
-interface EditDetailsCardProps {
-    label: string;
-    value: string;
-    type: string;
-    currency?: string;
-}
-
-const randomNumber = Math.floor(Math.random() * 1000000);
-
-const EditDetailsCard: React.FC<EditDetailsCardProps> = ({
-    label,
-    value,
-    type,
-    currency,
-}) => {
-    const [labelState, setLabel] = useState(label);
-    const [valueState, setValue] = useState(value);
-    const [typeState, setType] = useState(type);
-    const [currencyState, setCurrency] = useState(currency);
-
-    useEffect(() => {
-        console.log({ label: label, value: value, type: type });
-    }, [label, value, type]);
-
+const EditDetailsCard: React.FC<EditDetailsCardProps> = ({ name, detail }) => {
     return (
         <Wrapper>
-            <Input value={labelState} setValue={setLabel} />
-            <Input value={valueState} setValue={setValue} />
-            <RadioContainer>
+            <StyledField
+                type={"input"}
+                name={`${name}.label`}
+                placeholder="Label"
+            />
+            <StyledField
+                type={"input"}
+                name={`${name}.value`}
+                placeholder="Value"
+            />
+            <Box>
                 <div>
-                    <input
-                        type="radio"
-                        id="link"
-                        name={`type-${randomNumber}`}
-                        value="link"
-                        checked={typeState == "Link"}
-                        onChange={() => setType("Link")}
-                    ></input>
-                    <label htmlFor="link">Link</label>
+                    <Field
+                        type={"radio"}
+                        name={`${name}.type`}
+                        value={"Price"}
+                    />
+                    Price
                 </div>
                 <div>
-                    <input
-                        type="radio"
-                        id="price"
-                        name={`type-${randomNumber}`}
-                        value="price"
-                        checked={typeState == "Price"}
-                        onChange={() => setType("Price")}
-                    ></input>
-                    <label htmlFor="price">Price</label>
+                    <Field
+                        type={"radio"}
+                        name={`${name}.type`}
+                        value={"Text"}
+                    />
+                    Text
                 </div>
                 <div>
-                    <input
-                        type="radio"
-                        id="text"
-                        name={`type-${randomNumber}`}
-                        value="text"
-                        checked={typeState == "Text"}
-                        onChange={() => setType("Text")}
-                    ></input>
-                    <label htmlFor="text">Text</label>
+                    <Field
+                        type={"radio"}
+                        name={`${name}.type`}
+                        value={"Date"}
+                    />
+                    Date
                 </div>
                 <div>
-                    <input
-                        type="radio"
-                        id="date"
-                        name={`type-${randomNumber}`}
-                        value="date"
-                        checked={typeState == "Date"}
-                        onChange={() => setType("Date")}
-                    ></input>
-                    <label htmlFor="date">Date</label>
+                    <Field
+                        type={"radio"}
+                        name={`${name}.type`}
+                        value={"Address"}
+                    />
+                    Address
                 </div>
-            </RadioContainer>
-            {type == "Price" && (
-                // <Input value={currencyState ?? ""} setValue={setCurrency} />
-                <div></div>
+            </Box>
+            {detail.type === "Price" && (
+                <StyledField
+                    type={"input"}
+                    name={`${name}.currency`}
+                    placeholder="Currency"
+                />
             )}
         </Wrapper>
     );

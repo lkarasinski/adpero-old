@@ -25,18 +25,17 @@ const Wrapper = styled.div`
     box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
 `;
 
-const JourneyCard: React.FC<Props> = ({ label, id, details, ...props }) => {
-    return (
-        <Link href={`/journeys/${id}`} passHref>
-            <Wrapper {...props}>
-                <Label>{label}</Label>
-                <div>
-                    {details &&
-                        details.map((e, i) => <Text key={e + i}>{e}</Text>)}
-                </div>
-            </Wrapper>
-        </Link>
-    );
-};
+const JourneyCard: React.FC<Props> = ({ label, id, details, ...props }) => (
+    <Link href={`/journeys/${id}`} passHref>
+        <Wrapper {...props}>
+            <Label>{label}</Label>
+            <div>
+                {details?.map((e, i) => (
+                    <Text key={e + i}>{e}</Text>
+                ))}
+            </div>
+        </Wrapper>
+    </Link>
+);
 
 export default JourneyCard;

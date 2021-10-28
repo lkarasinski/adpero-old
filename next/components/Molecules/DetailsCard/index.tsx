@@ -26,14 +26,15 @@ const DetailsCard: React.FC<Props> = ({ expense }) => {
         <Wrapper>
             <Label isAccent>{expense.title}</Label>
             <Flex>
-                {expense &&
-                    expense.details.map((detail: Detail) => (
-                        <DetailsContainer
-                            label={detail.label}
-                            value={detail.value}
-                            key={detail.label + detail.value}
-                        />
-                    ))}
+                {expense?.details.map((detail: Detail) => (
+                    <DetailsContainer
+                        label={detail.label}
+                        value={`${detail.value} ${
+                            detail.type === "Price" ? detail.currency : ""
+                        }`}
+                        key={detail.label + detail.value}
+                    />
+                ))}
             </Flex>
         </Wrapper>
     );

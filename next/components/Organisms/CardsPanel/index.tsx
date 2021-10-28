@@ -4,19 +4,10 @@ import PollCard, { IPollCard } from "components/Molecules/PollCard";
 import JourneyCard, { IJourneyCard } from "components/Molecules/JourneyCard";
 import styled from "styled-components";
 
-const Wrapper = styled.div``;
-
-const Grid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 19rem);
-    gap: 2rem;
-    margin: 1.25rem 0;
-`;
-
-interface Props {
+type Props = {
     cards: IPollCard[] | IJourneyCard[];
     label: string;
-}
+};
 
 const CardsPanel: React.FC<Props> = ({ cards, label }) => {
     if (!cards || !cards.length) return null;
@@ -35,7 +26,6 @@ const CardsPanel: React.FC<Props> = ({ cards, label }) => {
                         />
                     ))}
                 </Grid>
-                <hr />
             </Wrapper>
         );
     } else {
@@ -52,10 +42,18 @@ const CardsPanel: React.FC<Props> = ({ cards, label }) => {
                         />
                     ))}
                 </Grid>
-                <hr />
             </Wrapper>
         );
     }
 };
 
 export default CardsPanel;
+
+const Wrapper = styled.div``;
+
+const Grid = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 19rem);
+    gap: 2rem;
+    margin: 1.25rem 0;
+`;

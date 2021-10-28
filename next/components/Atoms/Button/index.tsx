@@ -1,20 +1,13 @@
-import React from "react";
 import styled from "styled-components";
 
-interface Props {
+type Props = {
     isPrimary?: boolean;
     onClick?: () => void;
     isBig?: boolean;
     isContracted?: boolean;
-}
+};
 
-interface ButtonProps {
-    isBig?: boolean;
-    isPrimary?: boolean;
-    isContracted?: boolean;
-}
-
-const Wrapper = styled.button<ButtonProps>`
+const StyledButton = styled.button<Props>`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,8 +24,4 @@ const Wrapper = styled.button<ButtonProps>`
     border-radius: ${({ theme }) => theme.borderRadius};
 `;
 
-const Button: React.FC<Props> = ({ children, ...props }) => {
-    return <Wrapper {...props}>{children}</Wrapper>;
-};
-
-export default Button;
+export default StyledButton;

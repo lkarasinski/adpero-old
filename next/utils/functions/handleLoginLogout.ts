@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 
-const handleLoginLogout = (auth: any) => {
+const handleLoginLogout = (auth: unknown): void => {
     if (auth) {
         firebase.auth().signOut();
     } else {

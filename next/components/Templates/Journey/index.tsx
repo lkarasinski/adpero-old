@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Heading from "components/Atoms/Heading";
-import EditButton from "components/Atoms/EditButton";
 import SummaryPanel from "components/Molecules/SummaryPanel";
 import ActivePollsPanel from "components/Organisms/ActivePollsPanel";
-import { EditDetailsPanel } from "components/Organisms/EditDetailsPanel/EditDetailsPanel.stories";
+import EditDetailsPanel from "components/Organisms/EditDetailsPanel";
 import DetailsPanel from "components/Organisms/DetailsPanel";
 import { JourneyData } from "utils/interfaces";
-import useWindowWidth from "utils/functions/useWindowWidth";
+
+type defaultContextValue = {
+    isEditModeEnabled: boolean;
+    setIsEditModeEnabled: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export const FormContext = React.createContext<defaultContextValue>(
+    {} as defaultContextValue
+);
 
 const Journey: React.FC<JourneyData> = ({
     journeyName,
@@ -19,36 +26,30 @@ const Journey: React.FC<JourneyData> = ({
     polls,
 }) => {
     const [isEditModeEnabled, setIsEditModeEnabled] = useState(false);
-    const width = useWindowWidth();
-
-    useEffect(() => {
-        width;
-    }, [width]);
 
     return (
-        <Wrapper>
-            <HeadingContainer>
-                <Heading>{journeyName}</Heading>
-            </HeadingContainer>
-            <SummaryPanel
-                numberOfUsers={users.length}
-                totalCost={totalCost}
-                startDate={startDate}
-                endDate={endDate}
-                isInSidePanel={false}
-            />
-            <EditButton
-                onClick={() => setIsEditModeEnabled(!isEditModeEnabled)}
-                isInEditMode={isEditModeEnabled}
-                isGrayedOut={false}
-            />
-            <ActivePollsPanel polls={polls} />
-            {isEditModeEnabled ? (
-                <EditDetailsPanel expenses={expenses} />
-            ) : (
-                <DetailsPanel expenses={expenses} />
-            )}
-        </Wrapper>
+        <FormContext.Provider
+            value={{ isEditModeEnabled, setIsEditModeEnabled }}
+        >
+            <Wrapper>
+                <HeadingContainer>
+                    <Heading>{journeyName}</Heading>
+                </HeadingContainer>
+                <SummaryPanel
+                    numberOfUsers={users.length}
+                    totalCost={totalCost}
+                    startDate={startDate}
+                    endDate={endDate}
+                    isInSidePanel={false}
+                />
+                <ActivePollsPanel polls={polls} />
+                {isEditModeEnabled ? (
+                    <EditDetailsPanel expenses={expenses} />
+                ) : (
+                    <DetailsPanel expenses={expenses} />
+                )}
+            </Wrapper>
+        </FormContext.Provider>
     );
 };
 

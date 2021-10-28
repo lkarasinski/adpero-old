@@ -32,8 +32,6 @@ const JourneyPage: React.FC = () => {
     // Load data from local storage
     useEffect(() => {
         const data = localStorage.getItem("journeysData");
-        console.log(JSON.parse(data ?? ""));
-        console.log(journeyID);
         if (data) {
             const journeyDataFromLocalStorage = JSON.parse(data).find(
                 (journey: any) => journey.id === journeyID

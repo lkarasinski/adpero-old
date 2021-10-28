@@ -1,6 +1,8 @@
 import Label from "components/Atoms/Label";
 import DetailsCard from "components/Molecules/DetailsCard";
-import React from "react";
+import EditButton from "components/Molecules/EditButton";
+import { FormContext } from "components/Templates/Journey";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Expense } from "utils/interfaces";
 
@@ -20,6 +22,7 @@ interface Props {
 }
 
 const DetailsPanel: React.FC<Props> = ({ expenses }) => {
+    const { isEditModeEnabled, setIsEditModeEnabled } = useContext(FormContext);
     if (expenses.length === 0) return null;
     return (
         <Wrapper>
@@ -27,11 +30,15 @@ const DetailsPanel: React.FC<Props> = ({ expenses }) => {
                 <Label isAccent>More Details</Label>
             </HeadingContainer>
             <Grid>
-                {expenses &&
-                    expenses.map((expense, i: number) => (
-                        <DetailsCard key={i} expense={expense} />
-                    ))}
+                {expenses?.map((expense, i: number) => (
+                    <DetailsCard key={i} expense={expense} />
+                ))}
             </Grid>
+            <EditButton
+                onClick={() => setIsEditModeEnabled(true)}
+                isInEditMode={isEditModeEnabled}
+                isGrayedOut={false}
+            />
         </Wrapper>
     );
 };

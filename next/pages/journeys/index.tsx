@@ -21,7 +21,16 @@ const Journeys: React.FC = () => {
     const [journeys, setJourneys] = useState<IJourneyCard[]>();
 
     useEffect(() => {
-        console.log(loading);
+        const localStorageDashboardData = localStorage.getItem("dashboardData");
+        if (localStorageDashboardData) {
+            const { journeys } = JSON.parse(localStorageDashboardData);
+            if (journeys) {
+                setJourneys(journeys);
+            }
+        }
+    }, []);
+
+    useEffect(() => {
         if (collectionData) {
             const journeyData = collectionData.docs.map((data) => ({
                 label: data.data().name,
