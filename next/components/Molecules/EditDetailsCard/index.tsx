@@ -1,32 +1,12 @@
 import React from "react";
-import { Field } from "formik";
-
 import styled from "styled-components";
+import { Field } from "formik";
 import { Detail } from "utils/interfaces";
-
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    max-width: 420px;
-    gap: 3rem;
-    padding: 2rem;
-    border-radius: ${({ theme }) => theme.borderRadius};
-    box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
-`;
-
+import RadioGroup from "components/Molecules/RadioGroup";
 interface EditDetailsCardProps {
     name: string;
     detail: Detail;
 }
-
-const StyledField = styled(Field)`
-    height: 45px;
-    font-size: 1rem;
-`;
-
-const Box = styled.div`
-    display: flex;
-`;
 
 const EditDetailsCard: React.FC<EditDetailsCardProps> = ({ name, detail }) => {
     return (
@@ -41,40 +21,7 @@ const EditDetailsCard: React.FC<EditDetailsCardProps> = ({ name, detail }) => {
                 name={`${name}.value`}
                 placeholder="Value"
             />
-            <Box>
-                <div>
-                    <Field
-                        type={"radio"}
-                        name={`${name}.type`}
-                        value={"Price"}
-                    />
-                    Price
-                </div>
-                <div>
-                    <Field
-                        type={"radio"}
-                        name={`${name}.type`}
-                        value={"Text"}
-                    />
-                    Text
-                </div>
-                <div>
-                    <Field
-                        type={"radio"}
-                        name={`${name}.type`}
-                        value={"Date"}
-                    />
-                    Date
-                </div>
-                <div>
-                    <Field
-                        type={"radio"}
-                        name={`${name}.type`}
-                        value={"Address"}
-                    />
-                    Address
-                </div>
-            </Box>
+            <RadioGroup currentType={detail.type} name={name} />
             {detail.type === "Price" && (
                 <StyledField
                     type={"input"}
@@ -85,5 +32,20 @@ const EditDetailsCard: React.FC<EditDetailsCardProps> = ({ name, detail }) => {
         </Wrapper>
     );
 };
+
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    max-width: 420px;
+    gap: 2rem;
+    padding: 2rem;
+    border-radius: ${({ theme }) => theme.borderRadius};
+    box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
+`;
+
+const StyledField = styled(Field)`
+    height: 45px;
+    font-size: 1rem;
+`;
 
 export default EditDetailsCard;

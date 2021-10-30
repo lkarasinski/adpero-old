@@ -13,6 +13,8 @@ const myTheme: DefaultTheme = {
         red: "#EC6464",
         green: "#64EC9A",
         shadow: "rgba(0, 0, 0, 0.25)",
+        selection: "#C2E2FF",
+        background: "#ffffff",
     },
 };
 

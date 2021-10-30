@@ -1,3 +1,4 @@
+import { emptyExpense } from "utils/constants";
 import { JourneyData } from "utils/interfaces";
 
 const mockData = {
@@ -6,19 +7,7 @@ const mockData = {
     startDate: "",
     endDate: "",
     users: [""],
-    expenses: [
-        {
-            title: "",
-            details: [
-                {
-                    label: "",
-                    value: "",
-                    type: "",
-                    currency: "",
-                },
-            ],
-        },
-    ],
+    expenses: [emptyExpense],
     polls: [],
 };
 

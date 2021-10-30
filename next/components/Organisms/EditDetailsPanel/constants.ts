@@ -32,15 +32,3 @@ export const validationSchema = yup.array().of(
         details: yup.array().of(yup.object().shape(detailsSchema)),
     })
 );
-
-export const emptyDetail = {
-    label: "",
-    value: "",
-    type: "",
-    currency: "",
-};
-
-export const emptyExpense = {
-    title: "",
-    details: [emptyDetail],
-};

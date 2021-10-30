@@ -1,5 +1,5 @@
 import { Expense } from "utils/interfaces";
-import { emptyDetail, emptyExpense } from "./constants";
+import { emptyDetail, emptyExpense } from "utils/constants";
 
 export const addNewExpense = (values: Expense[]): Expense[] => {
     const copy = [...values];

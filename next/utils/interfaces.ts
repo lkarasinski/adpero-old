@@ -1,6 +1,6 @@
 export interface Detail {
     label: string;
-    type: string;
+    type: "Price" | "Text" | "Date" | "Address" | "";
     value: string;
     currency?: string;
 }
