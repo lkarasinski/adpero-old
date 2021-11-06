@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
-import useWindowWidth from "utils/functions/useWindowWidth";
+import useWindowWidth from "utils/hooks/useWindowWidth";
 import theme from "../../../utils/theme";
 import SidePanel from "../../Organisms/SidePanel";
 
@@ -33,11 +33,13 @@ const Layout: React.FC = ({ children }) => {
     const [isContracted, setIsContracted] = useState(false);
     const [showContent, setShowContent] = useState(false);
 
-    const width = useWindowWidth(setShowContent);
+    const [width, loading] = useWindowWidth(setShowContent);
 
     useEffect(() => {
         setIsContracted(width < 920);
     }, [width]);
+
+    if (loading) return null;
 
     return (
         <>

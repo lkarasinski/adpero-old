@@ -3,14 +3,14 @@ import Heading from "components/Atoms/Heading";
 import NotLoggedInBanner from "components/Molecules/NotLoggedInBanner";
 import CardsPanel from "components/Organisms/CardsPanel";
 import { IPollCard } from "components/Molecules/PollCard";
-import { IJourneyCard } from "components/Molecules/JourneyCard";
 import LogInButton from "components/Molecules/LogInButton";
+import { IJourneyCard } from "utils/types";
 
-interface Props {
+type Props = {
     userID: string | null;
     polls: IPollCard[];
     journeys: IJourneyCard[];
-}
+};
 
 const Dashboard: React.FC<Props> = ({ userID, polls, journeys }) => {
     const [isBannerOpen, setIsBannerOpen] = useState(!userID);

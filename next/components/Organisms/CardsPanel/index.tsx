@@ -1,8 +1,9 @@
 import React from "react";
 import Label from "components/Atoms/Label";
 import PollCard, { IPollCard } from "components/Molecules/PollCard";
-import JourneyCard, { IJourneyCard } from "components/Molecules/JourneyCard";
+import JourneyCard from "components/Molecules/JourneyCard";
 import styled from "styled-components";
+import { IJourneyCard } from "utils/types";
 
 type Props = {
     cards: IPollCard[] | IJourneyCard[];

@@ -10,7 +10,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import { useRouter } from "next/router";
 import EditButton from "components/Molecules/EditButton";
-import { FormContext } from "components/Templates/Journey";
+import { FormContext } from "pages/journeys/[journeyID]";
 
 type Props = {
     expenses: Expense[];

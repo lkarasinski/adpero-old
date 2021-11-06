@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { faSave, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Icon from "components/Atoms/Icon";
 import Button from "components/Atoms/Button";
-import { FormContext } from "components/Templates/Journey";
+import { FormContext } from "pages/journeys/[journeyID]";
 
 type ButtonProps = {
     isGrayedOut?: boolean;
