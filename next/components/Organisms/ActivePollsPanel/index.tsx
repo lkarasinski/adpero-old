@@ -2,7 +2,7 @@ import React from "react";
 import Label from "components/Atoms/Label";
 import PollCard from "components/Molecules/PollCard";
 import styled from "styled-components";
-import { PollDetails } from "utils/interfaces";
+import { Poll } from "utils/interfaces";
 
 const Grid = styled.div`
     display: grid;
@@ -15,9 +15,7 @@ const HeadingContainer = styled.div`
     margin: 2rem;
 `;
 
-interface Props {
-    polls: PollDetails[];
-}
+type Props = { polls: Poll[] };
 
 const ActivePollsPanel: React.FC<Props> = ({ polls }) => {
     if (!polls || polls.length === 0) return null;
@@ -29,9 +27,10 @@ const ActivePollsPanel: React.FC<Props> = ({ polls }) => {
             <Grid>
                 {polls.map((poll, i) => (
                     <PollCard
-                        key={poll.label + i}
-                        label={poll.label}
-                        dot={poll.notification}
+                        key={poll.title + i}
+                        label={poll.title}
+                        // TODO: Add notification logic
+                        dot={false}
                     />
                 ))}
             </Grid>

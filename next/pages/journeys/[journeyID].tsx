@@ -1,25 +1,14 @@
 import React, { useState } from "react";
 import { withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
-import Journey from "components/Templates/Journey";
-import "firebase/firestore";
 import { useRouter } from "next/router";
 import useJourneyData from "utils/hooks/useJourneyData";
 import styled from "styled-components";
 import Heading from "components/Atoms/Heading";
 import SummaryPanel from "components/Molecules/SummaryPanel";
 import ActivePollsPanel from "components/Organisms/ActivePollsPanel";
-import EditDetailsPanel from "components/Organisms/EditDetailsPanel";
-import DetailsPanel from "components/Organisms/EditDetailsPanel";
-
-const formJoruneyData = (joruney: any) => ({
-    journeyName: joruney.name,
-    totalCost: { value: 90, currency: "JPG" },
-    startDate: "06.09.2021",
-    endDate: "12.09.2021",
-    users: joruney.users,
-    expenses: joruney.expenses,
-    polls: joruney.polls,
-});
+import JourneyDetails from "components/Templates/JourneyDetails";
+import EditJourney from "components/Templates/EditJourney";
+import { Timestamp } from "utils/interfaces";
 
 type defaultContextValue = {
     isEditModeEnabled: boolean;
@@ -30,22 +19,17 @@ export const FormContext = React.createContext<defaultContextValue>(
     {} as defaultContextValue
 );
 
+const formatDate = (date: Timestamp) => {
+    return date?.toDate().toLocaleDateString().replaceAll("/", ".");
+};
+
 const JourneyPage: React.FC = () => {
     const router = useRouter();
     const journeyID = router.query.journeyID as string;
-    const [journeyData] = useJourneyData(journeyID);
+    const [journeyData, state] = useJourneyData(journeyID);
     const [isEditModeEnabled, setIsEditModeEnabled] = useState(false);
-    const {
-        journeyName,
-        users,
-        totalCost,
-        startDate,
-        endDate,
-        polls,
-        expenses,
-    } = formJoruneyData(journeyData);
 
-    if (journeyData.length === 0) return null;
+    if (state === "loading") return null;
 
     return (
         <FormContext.Provider
@@ -53,20 +37,20 @@ const JourneyPage: React.FC = () => {
         >
             <Wrapper>
                 <HeadingContainer>
-                    <Heading>{journeyName}</Heading>
+                    <Heading>{journeyData.name}</Heading>
                 </HeadingContainer>
                 <SummaryPanel
-                    numberOfUsers={users.length}
-                    totalCost={totalCost}
-                    startDate={startDate}
-                    endDate={endDate}
+                    numberOfUsers={journeyData.users.length}
                     isInSidePanel={false}
+                    totalCost={{ value: 0, currency: "JPG" }}
+                    startDate={formatDate(journeyData.startDate)}
+                    endDate={formatDate(journeyData.startDate)}
                 />
-                <ActivePollsPanel polls={polls} />
+                <ActivePollsPanel polls={journeyData.polls} />
                 {isEditModeEnabled ? (
-                    <EditDetailsPanel expenses={expenses} />
+                    <EditJourney expenses={journeyData.expenses} />
                 ) : (
-                    <DetailsPanel expenses={expenses} />
+                    <JourneyDetails expenses={journeyData.expenses} />
                 )}
             </Wrapper>
         </FormContext.Provider>

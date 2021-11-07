@@ -18,7 +18,7 @@ type Props = {
 
 const collectionRef = firebase.firestore().collection("journeys");
 
-const DetailsPanel: React.FC<Props> = ({ expenses }) => {
+const EditJourney: React.FC<Props> = ({ expenses }) => {
     const router = useRouter();
     const { isEditModeEnabled, setIsEditModeEnabled } = useContext(FormContext);
     const journeyID = router.query.journeyID as string;
@@ -91,8 +91,6 @@ const DetailsPanel: React.FC<Props> = ({ expenses }) => {
     );
 };
 
-export default DetailsPanel;
-
 const Grid = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, 19rem);
@@ -106,3 +104,5 @@ const StyledField = styled(Field)`
 `;
 
 const Wrapper = styled.div``;
+
+export default EditJourney;

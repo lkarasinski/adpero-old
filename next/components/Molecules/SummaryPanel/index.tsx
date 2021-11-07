@@ -1,7 +1,7 @@
 import React from "react";
 import Label from "components/Atoms/Label";
-import Text from "components/Atoms/Text";
 import styled from "styled-components";
+import Text from "components/Atoms/Text";
 
 interface WrapperProps {
     isInSidePanel?: boolean;
@@ -18,6 +18,47 @@ const Wrapper = styled.div<WrapperProps>`
             isInSidePanel ? "transparent" : theme.colors.shadow};
 `;
 
+type Props = {
+    numberOfUsers: number;
+    startDate: string;
+    endDate: string;
+    totalCost: {
+        value: number;
+        currency: string;
+    };
+    isInSidePanel: boolean;
+};
+
+const SummaryPanel: React.FC<Props> = ({
+    numberOfUsers,
+    totalCost,
+    startDate,
+    endDate,
+    isInSidePanel,
+}) => {
+    const details = [
+        { label: "Cost:", value: `${totalCost.value} ${totalCost.currency}` },
+        { label: "Number of users:", value: `${numberOfUsers}` },
+        { label: "Departure date:", value: `${startDate}` },
+        { label: "Day of return:", value: `${endDate}` },
+    ];
+    return (
+        <Wrapper isInSidePanel={isInSidePanel}>
+            <Label isAccent>Summary</Label>
+            <Grid>
+                {details.map(({ label, value }) => {
+                    return (
+                        <DetailContainer key={label}>
+                            <Text isSmall>{label}</Text>
+                            <Text isDark>{value}</Text>
+                        </DetailContainer>
+                    );
+                })}
+            </Grid>
+        </Wrapper>
+    );
+};
+
 const Grid = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill, 110px);
@@ -29,50 +70,5 @@ const DetailContainer = styled.div`
     display: grid;
     gap: 3px;
 `;
-
-interface Props {
-    numberOfUsers: number;
-    startDate: string;
-    endDate: string;
-    totalCost: {
-        value: number;
-        currency: string;
-    };
-    isInSidePanel: boolean;
-}
-
-const SummaryPanel: React.FC<Props> = ({
-    numberOfUsers,
-    totalCost,
-    startDate,
-    endDate,
-    isInSidePanel,
-}) => {
-    return (
-        <Wrapper isInSidePanel={isInSidePanel}>
-            <Label isAccent>Summary</Label>
-            <Grid>
-                <DetailContainer>
-                    <Text isSmall>Cost:</Text>
-                    <Text isDark>
-                        {totalCost.value} {totalCost.currency}
-                    </Text>
-                </DetailContainer>
-                <DetailContainer>
-                    <Text isSmall>Departure date:</Text>
-                    <Text isDark>{startDate}</Text>
-                </DetailContainer>
-                <DetailContainer>
-                    <Text isSmall>Number of people:</Text>
-                    <Text isDark>{numberOfUsers}</Text>
-                </DetailContainer>
-                <DetailContainer>
-                    <Text isSmall>Date of return:</Text>
-                    <Text isDark>{endDate}</Text>
-                </DetailContainer>
-            </Grid>
-        </Wrapper>
-    );
-};
 
 export default SummaryPanel;
