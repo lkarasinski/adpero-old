@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import firebase from "firebase/app";
-import initAuth from "../utils/initAuth";
+import initAuth from "../services/auth/initAuth";
 import "regenerator-runtime/runtime.js";
 import Layout from "components/Templates/Layout";
 require("regenerator-runtime/runtime");

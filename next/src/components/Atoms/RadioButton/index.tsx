@@ -51,6 +51,8 @@ const Label = styled.label<Props>`
     }
 
     transition: background-color 100ms ease-in-out;
+    body {
+    }
 `;
 
 const Input = styled.input`

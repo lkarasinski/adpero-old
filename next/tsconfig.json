@@ -13,7 +13,7 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "jsx": "preserve",
-        "baseUrl": "."
+        "baseUrl": "./src/"
     },
     "include": [
         "next-env.d.ts",
@@ -21,7 +21,7 @@
         "**/*.tsx",
         "tests/id.test.jsx",
         "setupTests.ts",
-        "pages/_document.js"
+        "src/pages/_document.js"
     ],
     "exclude": ["node_modules", "**/*.test.tsx", "jest.setup.ts"]
 }
