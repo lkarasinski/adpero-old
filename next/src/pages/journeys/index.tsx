@@ -6,7 +6,7 @@ import {
 } from "next-firebase-auth";
 import "firebase/firestore";
 import CardsPanel from "components/Organisms/CardsPanel";
-import useDashboardData from "utils/hooks/useDashboardData";
+import useDashboardData from "hooks/useDashboardData";
 
 const Journeys: React.FC = () => {
     const AuthUser = useAuthUser();

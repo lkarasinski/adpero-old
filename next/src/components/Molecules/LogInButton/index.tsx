@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import firebase from "firebase/app";
 import { useAuthState } from "react-firebase-hooks/auth";
-import handleLoginLogout from "utils/functions/handleLoginLogout";
+import handleLoginLogout from "functions/handleLoginLogout";
 import Button from "components/Atoms/Button";
 import styled from "styled-components";
-import useWindowWidth from "utils/hooks/useWindowWidth";
+import useWindowWidth from "hooks/useWindowWidth";
 import { faSignOutAlt, faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import Icon from "components/Atoms/Icon";
 

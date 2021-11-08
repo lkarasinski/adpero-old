@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
 import { useRouter } from "next/router";
-import useJourneyData from "utils/hooks/useJourneyData";
+import useJourneyData from "hooks/useJourneyData";
 import styled from "styled-components";
 import Heading from "components/Atoms/Heading";
 import SummaryPanel from "components/Molecules/SummaryPanel";

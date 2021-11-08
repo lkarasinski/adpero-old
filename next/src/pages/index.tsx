@@ -5,7 +5,7 @@ import {
     withAuthUserTokenSSR,
 } from "next-firebase-auth";
 import Dashboard from "components/Templates/Dashboard";
-import useDashboardData from "utils/hooks/useDashboardData";
+import useDashboardData from "hooks/useDashboardData";
 
 const Home: React.FC = () => {
     const AuthUser = useAuthUser();

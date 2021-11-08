@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
-import useWindowWidth from "utils/hooks/useWindowWidth";
+import useWindowWidth from "hooks/useWindowWidth";
 import theme from "../../../utils/theme";
 import SidePanel from "../../Organisms/SidePanel";
 
