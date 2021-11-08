@@ -15,4 +15,5 @@ const handleLoginLogout = (auth: unknown): void => {
             });
     }
 };
+
 export default handleLoginLogout;

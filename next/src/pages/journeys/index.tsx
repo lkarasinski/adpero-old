@@ -5,17 +5,25 @@ import {
     withAuthUserTokenSSR,
 } from "next-firebase-auth";
 import "firebase/firestore";
-import CardsPanel from "components/Organisms/CardsPanel";
+import CardsPanel from "components-ui/Organisms/CardsPanel";
 import useDashboardData from "hooks/useDashboardData";
+import Head from "next/head";
 
 const Journeys: React.FC = () => {
     const AuthUser = useAuthUser();
     const email = AuthUser.email;
     const [journeys] = useDashboardData(email);
 
-    return journeys ? (
-        <CardsPanel label="Your journeys" cards={journeys} />
-    ) : null;
+    return (
+        <>
+            <Head>
+                <title>Adpero - Journeys</title>
+            </Head>
+            {journeys ? (
+                <CardsPanel label="Your journeys" cards={journeys} />
+            ) : null}
+        </>
+    );
 };
 
 export const getServerSideProps = withAuthUserTokenSSR()();

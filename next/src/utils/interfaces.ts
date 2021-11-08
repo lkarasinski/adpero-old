@@ -10,6 +10,7 @@ export interface Journey {
     users: string[];
     startDate: Timestamp;
     endDate: Timestamp;
+    id: string;
     // Upcoming properties
     lastEdited?: Timestamp;
 }

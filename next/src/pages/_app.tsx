@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import firebase from "firebase/app";
 import initAuth from "../services/auth/initAuth";
 import "regenerator-runtime/runtime.js";
-import Layout from "components/Templates/Layout";
+import Layout from "components/Layout";
 import { createGlobalStyle } from "styled-components";
 require("regenerator-runtime/runtime");
 
@@ -26,7 +26,6 @@ if (!firebase.apps.length) {
 }
 
 const GlobalStyle = createGlobalStyle`
-    @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700;800;900&display=swap");
 
     html,
     body {

@@ -1,4 +1,12 @@
-import Document, { DocumentContext, DocumentInitialProps } from "next/document";
+import React, { ReactElement } from "react";
+import Document, {
+    Html,
+    Head,
+    Main,
+    NextScript,
+    DocumentInitialProps,
+    DocumentContext,
+} from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -28,5 +36,35 @@ export default class MyDocument extends Document {
         } finally {
             sheet.seal();
         }
+    }
+
+    render(): ReactElement {
+        return (
+            <Html lang="en">
+                <Head>
+                    <meta lang="en"></meta>
+                    <meta
+                        name="description"
+                        content="Adpero - Journey manager"
+                    />
+                    <meta
+                        name="viewport"
+                        content="initial-scale=1.0, width=device-width"
+                    />
+                    <link
+                        rel="preconnect"
+                        href="https://fonts.googleapis.com"
+                    />
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap"
+                        rel="stylesheet"
+                    />
+                </Head>
+                <body>
+                    <Main />
+                    <NextScript />
+                </body>
+            </Html>
+        );
     }
 }
