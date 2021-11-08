@@ -5,7 +5,7 @@ interface Props {
     isAccent?: boolean;
 }
 
-const Wrapper = styled.h3<Props>`
+const Wrapper = styled.h2<Props>`
     padding: 0;
     margin: 0;
     font-size: 1.5rem;

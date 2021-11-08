@@ -24,7 +24,10 @@ const NotLoggedInBanner: React.FC<Props> = ({ closeFunction }) => {
                 You are not logged in. By logging in you get more functionality
                 (polls, cloud storage and sharing your journeys with others).
             </Text>
-            <CrossIcon closeFunction={closeFunction} />
+            <CrossIcon
+                aria-label="Close not logged in banner"
+                closeFunction={closeFunction}
+            />
         </Wrapper>
     );
 };

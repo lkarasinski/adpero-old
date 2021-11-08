@@ -69,7 +69,11 @@ const SidePanel: React.FC<Props> = ({ isContracted }) => {
                     Polls
                 </StyledLink>
             </StyledNav>
-            <NewJourneyButton isPrimary isContracted={isContracted}>
+            <NewJourneyButton
+                aria-label="New Journey"
+                isPrimary
+                isContracted={isContracted}
+            >
                 {!isContracted && "New journey"}
                 <Icon icon={faPlus} />
             </NewJourneyButton>

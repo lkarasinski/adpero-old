@@ -58,12 +58,15 @@ const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
 
     // Load data from local storage
     useEffect(() => {
+        console.log("Loading from local storage");
         const storageData = localStorage.getItem("journeysData");
         const parsedData = JSON.parse(storageData ?? "{}");
         if (parsedData[storageID]) {
+            console.log("Data in local storage");
             setData(parsedData[storageID]);
             send("LOAD_FROM_LOCAL_STORAGE");
         } else {
+            console.log("No data in local storage");
             send("NO_DATA");
         }
     }, []);

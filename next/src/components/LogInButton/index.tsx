@@ -33,6 +33,7 @@ const LogInButton: React.FC = () => {
     const text = auth ? "Log out" : "Log in";
     return display ? (
         <StyledButton
+            aria-label={text}
             isLoggedIn={!!auth}
             isContracted={width < 920}
             onClick={() => handleLoginLogout(auth)}
