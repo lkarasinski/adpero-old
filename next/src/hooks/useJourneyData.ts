@@ -61,6 +61,7 @@ const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
         console.log("Loading from local storage");
         const storageData = localStorage.getItem("journeysData");
         const parsedData = JSON.parse(storageData ?? "{}");
+        console.log(parsedData);
         if (parsedData[storageID]) {
             console.log("Data in local storage");
             setData(parsedData[storageID]);
