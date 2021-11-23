@@ -4,7 +4,6 @@ import {
     withAuthUser,
     withAuthUserTokenSSR,
 } from "next-firebase-auth";
-import "firebase/firestore";
 import CardsPanel from "components-ui/Organisms/CardsPanel";
 import useDashboardData from "hooks/useDashboardData";
 import Head from "next/head";

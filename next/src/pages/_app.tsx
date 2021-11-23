@@ -5,6 +5,11 @@ import initAuth from "../services/auth/initAuth";
 import "regenerator-runtime/runtime.js";
 import Layout from "components/Layout";
 import { createGlobalStyle } from "styled-components";
+import {
+    withAuthUserTokenSSR,
+    withAuthUser,
+    useAuthUser,
+} from "next-firebase-auth";
 require("regenerator-runtime/runtime");
 
 const firebaseConfig = {
@@ -49,13 +54,17 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+    const auth = useAuthUser();
     return (
         <>
             <GlobalStyle />
-            <Layout>
+            <Layout auth={auth}>
                 <Component {...pageProps} />
             </Layout>
         </>
     );
 };
-export default App;
+
+export const getServerSideProps = withAuthUserTokenSSR()();
+
+export default withAuthUser<AppProps>()(App);

@@ -29,7 +29,11 @@ const GlobalStyles = createGlobalStyle`
   -moz-osx-font-smoothing: grayscale;
 }`;
 
-const Layout: React.FC = ({ children }) => {
+type Props = {
+    auth: any;
+};
+
+const Layout: React.FC<Props> = ({ children, auth }) => {
     const [isContracted, setIsContracted] = useState(false);
     const [showContent, setShowContent] = useState(false);
 

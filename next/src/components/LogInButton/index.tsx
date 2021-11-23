@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import firebase from "firebase/app";
-import { useAuthState } from "react-firebase-hooks/auth";
 import handleLoginLogout from "functions/handleLoginLogout";
 import Button from "components-ui/Atoms/Button";
 import styled from "styled-components";
 import useWindowWidth from "hooks/useWindowWidth";
 import { faSignOutAlt, faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import Icon from "components-ui/Atoms/Icon";
+import { useAuthUser } from "next-firebase-auth";
 
 interface ButtonProps {
     isLoggedIn: boolean;
@@ -27,19 +26,20 @@ const StyledButton = styled(Button)<ButtonProps>`
 `;
 
 const LogInButton: React.FC = () => {
-    const [auth] = useAuthState(firebase.auth());
+    const AuthUser = useAuthUser();
+    const isLoggedIn = !!AuthUser.id;
     const [display, setDisplay] = useState(false);
     const [width] = useWindowWidth(setDisplay);
-    const text = auth ? "Log out" : "Log in";
+    const text = isLoggedIn ? "Log out" : "Log in";
     return display ? (
         <StyledButton
             aria-label={text}
-            isLoggedIn={!!auth}
+            isLoggedIn={isLoggedIn}
             isContracted={width < 920}
-            onClick={() => handleLoginLogout(auth)}
+            onClick={() => handleLoginLogout(isLoggedIn)}
         >
             {width >= 920 && text}
-            <Icon icon={auth ? faSignInAlt : faSignOutAlt} />
+            <Icon icon={isLoggedIn ? faSignInAlt : faSignOutAlt} />
         </StyledButton>
     ) : null;
 };

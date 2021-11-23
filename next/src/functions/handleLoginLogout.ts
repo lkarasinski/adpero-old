@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 
-const handleLoginLogout = (auth: unknown): void => {
-    if (auth) {
+const handleLoginLogout = (isLoggedIn: boolean): void => {
+    if (isLoggedIn) {
         firebase.auth().signOut();
     } else {
         const provider = new firebase.auth.GoogleAuthProvider();

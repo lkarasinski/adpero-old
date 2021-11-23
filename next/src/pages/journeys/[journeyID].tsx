@@ -12,7 +12,6 @@ import SummaryPanel from "components-ui/Molecules/SummaryPanel";
 import ActivePollsPanel from "components-ui/Organisms/ActivePollsPanel";
 import JourneyDetails from "components/JourneyDetails";
 import EditJourney from "components/EditJourney";
-import { Timestamp } from "utils/interfaces";
 import Head from "next/head";
 
 type defaultContextValue = {
@@ -24,8 +23,8 @@ export const FormContext = React.createContext<defaultContextValue>(
     {} as defaultContextValue
 );
 
-const formatDate = (date: Timestamp) =>
-    new Date(date.seconds * 1000).toLocaleDateString().replaceAll("/", ".");
+const formatDate = (date: Date) =>
+    new Date(date).toLocaleDateString().replaceAll("/", ".");
 
 const JourneyPage: React.FC = () => {
     const router = useRouter();

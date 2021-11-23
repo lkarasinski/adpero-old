@@ -58,16 +58,12 @@ const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
 
     // Load data from local storage
     useEffect(() => {
-        console.log("Loading from local storage");
         const storageData = localStorage.getItem("journeysData");
         const parsedData = JSON.parse(storageData ?? "{}");
-        console.log(parsedData);
         if (parsedData[storageID]) {
-            console.log("Data in local storage");
             setData(parsedData[storageID]);
             send("LOAD_FROM_LOCAL_STORAGE");
         } else {
-            console.log("No data in local storage");
             send("NO_DATA");
         }
     }, []);
@@ -87,6 +83,14 @@ const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
                 send("NO_DATA");
                 return;
             }
+
+            journeyData.createdAt = new Date(
+                journeyData.createdAt.seconds * 1000
+            );
+            journeyData.startDate = new Date(
+                journeyData.startDate.seconds * 1000
+            );
+            journeyData.endDate = new Date(journeyData.endDate.seconds * 1000);
 
             if (journeyData.users.includes(auth.email)) {
                 const journeysStorage =

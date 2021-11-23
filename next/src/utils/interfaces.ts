@@ -2,17 +2,17 @@ import firebase from "firebase";
 
 export interface Journey {
     author: string;
-    createdAt: Timestamp;
+    createdAt: Date;
     editors: string[];
     expenses: Expense[];
     name: string;
     polls: Poll[];
     users: string[];
-    startDate: Timestamp;
-    endDate: Timestamp;
+    startDate: Date;
+    endDate: Date;
     id: string;
     // Upcoming properties
-    lastEdited?: Timestamp;
+    lastEdited?: Date;
 }
 
 export interface Poll {

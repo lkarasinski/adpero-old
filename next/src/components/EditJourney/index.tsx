@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { Form, Formik, Field } from "formik";
+import { Form, Formik } from "formik";
 import Button from "components-ui/Atoms/Button";
 import EditDetailsCard from "components-ui/Molecules/EditDetailsCard";
 import { Expense } from "utils/interfaces";
@@ -11,6 +11,7 @@ import "firebase/firestore";
 import { useRouter } from "next/router";
 import EditButton from "components-ui/Molecules/EditButton";
 import { FormContext } from "pages/journeys/[journeyID]";
+import StyledField from "components-ui/Molecules/InputField";
 
 type Props = {
     expenses: Expense[];
@@ -55,8 +56,8 @@ const EditJourney: React.FC<Props> = ({ expenses }) => {
                             {values.map((expense: Expense, i: number) => (
                                 <Grid key={i}>
                                     <StyledField
-                                        type={"input"}
                                         name={`[${i}].title`}
+                                        type="input"
                                     />
 
                                     {expense.details.map(
@@ -96,11 +97,6 @@ const Grid = styled.div`
     grid-template-columns: repeat(auto-fit, 19rem);
     gap: 2rem;
     margin-bottom: 10rem;
-`;
-
-const StyledField = styled(Field)`
-    height: 45px;
-    font-size: 1rem;
 `;
 
 const Wrapper = styled.div``;

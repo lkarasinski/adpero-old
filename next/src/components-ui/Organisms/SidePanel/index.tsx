@@ -10,8 +10,9 @@ import {
 import Logo from "components-ui/Atoms/Logo";
 import Icon from "components-ui/Atoms/Icon";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
-const Wrapper = styled.div<Props>`
+const Wrapper = styled.div<StyleProps>`
     position: fixed;
     z-index: 10;
     display: flex;
@@ -30,7 +31,7 @@ const StyledNav = styled.nav`
     margin-top: 5.25rem;
 `;
 
-const NewJourneyButton = styled(Button)<Props>`
+const NewJourneyButton = styled(Button)<StyleProps>`
     width: ${({ isContracted }) => (isContracted ? "3rem" : "12rem")};
     height: 3rem;
     padding: 0;
@@ -41,6 +42,8 @@ const NewJourneyButton = styled(Button)<Props>`
 interface Props {
     isContracted: boolean;
 }
+
+type StyleProps = Omit<Props, "auth">;
 
 const SidePanel: React.FC<Props> = ({ isContracted }) => {
     return (
@@ -69,14 +72,16 @@ const SidePanel: React.FC<Props> = ({ isContracted }) => {
                     Polls
                 </StyledLink>
             </StyledNav>
-            <NewJourneyButton
-                aria-label="New Journey"
-                isPrimary
-                isContracted={isContracted}
-            >
-                {!isContracted && "New journey"}
-                <Icon icon={faPlus} />
-            </NewJourneyButton>
+            <Link href="new" passHref>
+                <NewJourneyButton
+                    aria-label="New Journey"
+                    isPrimary
+                    isContracted={isContracted}
+                >
+                    {!isContracted && "New journey"}
+                    <Icon icon={faPlus} />
+                </NewJourneyButton>
+            </Link>
         </Wrapper>
     );
 };
