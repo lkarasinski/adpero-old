@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     useAuthUser,
     withAuthUser,
@@ -13,6 +13,8 @@ import ActivePollsPanel from "components-ui/Organisms/ActivePollsPanel";
 import JourneyDetails from "components/JourneyDetails";
 import EditJourney from "components/EditJourney";
 import Head from "next/head";
+import { Expense } from "utils/interfaces";
+import formatDate from "functions/formatDate";
 
 type defaultContextValue = {
     isEditModeEnabled: boolean;
@@ -23,15 +25,29 @@ export const FormContext = React.createContext<defaultContextValue>(
     {} as defaultContextValue
 );
 
-const formatDate = (date: Date) =>
-    new Date(date).toLocaleDateString().replaceAll("/", ".");
-
 const JourneyPage: React.FC = () => {
     const router = useRouter();
     const AuthUser = useAuthUser();
     const journeyID = router.query.journeyID as string;
     const [journeyData, state] = useJourneyData(journeyID, AuthUser);
     const [isEditModeEnabled, setIsEditModeEnabled] = useState(false);
+    const [totalCost, setTotalCost] = useState(0);
+
+    useEffect(() => {
+        if (journeyData) {
+            let total = 0;
+            journeyData.expenses.forEach((expense) => {
+                expense.details.forEach(async (detail) => {
+                    if (detail.type == "Price") {
+                        if (detail.currency === journeyData.cost.currency) {
+                            total += Number(detail.value);
+                        }
+                    }
+                });
+            });
+            setTotalCost(total);
+        }
+    }, [journeyData]);
 
     if (state === "loading") return null;
     if (state === "noData") return <div>missing journey</div>;
@@ -53,7 +69,10 @@ const JourneyPage: React.FC = () => {
                     <SummaryPanel
                         numberOfUsers={journeyData.users.length}
                         isInSidePanel={false}
-                        totalCost={{ value: 0, currency: "JPG" }}
+                        totalCost={{
+                            value: totalCost,
+                            currency: journeyData.cost.currency,
+                        }}
                         startDate={formatDate(journeyData.startDate)}
                         endDate={formatDate(journeyData.endDate)}
                     />

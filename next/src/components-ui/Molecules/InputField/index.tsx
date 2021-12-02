@@ -1,9 +1,13 @@
 import { Field } from "formik";
 import styled from "styled-components";
 
-const StyledField = styled(Field)`
+// TODO: Change StyledField to InputField in code
+const InputField = styled(Field)`
     height: 45px;
     font-size: 1rem;
+    border: 1px solid ${({ theme }) => theme.colors.gray.light};
+    border-radius: 4px;
+    width: 100%;
 `;
 
-export default StyledField;
+export default InputField;

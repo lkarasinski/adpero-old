@@ -23,8 +23,8 @@ export const DetailsCard: ComponentStory<typeof DetailsCardComponent> = (
 ) => <DetailsCardComponent {...args} />;
 
 const expense: Expense = {
-    title: "Mido",
-    details: [{ label: "Cost", value: "200 PLN", type: "Price" }],
+    title: "title",
+    details: [{ label: "Cost", value: "200", type: "Price", currency: "PLN" }],
 };
 
 DetailsCard.args = {

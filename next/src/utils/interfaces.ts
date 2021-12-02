@@ -11,6 +11,7 @@ export interface Journey {
     startDate: Date;
     endDate: Date;
     id: string;
+    cost: Cost;
     // Upcoming properties
     lastEdited?: Date;
 }
@@ -28,8 +29,8 @@ export interface Expense {
 export interface Detail {
     label: string;
     type: "Price" | "Text" | "Date" | "Address" | "";
-    value: string;
-    currency?: string;
+    value: string | Date;
+    currency: string;
 }
 
 export interface Cost {

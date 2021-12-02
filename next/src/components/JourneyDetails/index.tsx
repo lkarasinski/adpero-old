@@ -12,17 +12,18 @@ type Props = {
 
 const JourneyDetails: React.FC<Props> = ({ expenses }) => {
     const { isEditModeEnabled, setIsEditModeEnabled } = useContext(FormContext);
-    if (expenses.length === 0) return null;
     return (
         <Wrapper>
             <HeadingContainer>
                 <Label isAccent>More Details</Label>
             </HeadingContainer>
-            <Grid>
-                {expenses?.map((expense, i: number) => (
-                    <DetailsCard key={i} expense={expense} />
-                ))}
-            </Grid>
+            {expenses.length === 0 ? null : (
+                <Grid>
+                    {expenses?.map((expense, i: number) => (
+                        <DetailsCard key={i} expense={expense} />
+                    ))}
+                </Grid>
+            )}
             <EditButton
                 onClick={() => setIsEditModeEnabled(true)}
                 isInEditMode={isEditModeEnabled}

@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { Field } from "formik";
 import { Detail } from "utils/interfaces";
 import RadioGroup from "components-ui/Molecules/RadioGroup";
+import InputField from "components-ui/Molecules/InputField";
+import Text from "components-ui/Atoms/Text";
+import DatePickerField from "components-ui/Atoms/Datepicker";
 interface EditDetailsCardProps {
     name: string;
     detail: Detail;
@@ -11,23 +13,39 @@ interface EditDetailsCardProps {
 const EditDetailsCard: React.FC<EditDetailsCardProps> = ({ name, detail }) => {
     return (
         <Wrapper>
-            <StyledField
-                type={"input"}
-                name={`${name}.label`}
-                placeholder="Label"
-            />
-            <StyledField
-                type={"input"}
-                name={`${name}.value`}
-                placeholder="Value"
-            />
-            <RadioGroup currentType={detail.type} name={name} />
-            {detail.type === "Price" && (
-                <StyledField
+            <div>
+                <Text isSmall>Type</Text>
+                <RadioGroup currentType={detail.type} name={name} />
+            </div>
+            <div>
+                <Text isSmall>Label</Text>
+                <InputField
                     type={"input"}
-                    name={`${name}.currency`}
-                    placeholder="Currency"
+                    name={`${name}.label`}
+                    placeholder="Label"
                 />
+            </div>
+            <div>
+                <Text isSmall>Value</Text>
+                {detail.type === "Date" ? (
+                    <DatePickerField name={`${name}.value`} />
+                ) : (
+                    <InputField
+                        type={"input"}
+                        name={`${name}.value`}
+                        placeholder="Value"
+                    />
+                )}
+            </div>
+            {detail.type === "Price" && (
+                <div>
+                    <Text isSmall>Currency</Text>
+                    <InputField
+                        type={"input"}
+                        name={`${name}.currency`}
+                        placeholder="Currency"
+                    />
+                </div>
             )}
         </Wrapper>
     );
@@ -37,15 +55,10 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     max-width: 420px;
-    gap: 2rem;
+    gap: 1.5rem;
     padding: 2rem;
     border-radius: ${({ theme }) => theme.borderRadius};
     box-shadow: 0 0 4px ${({ theme }) => theme.colors.shadow};
-`;
-
-const StyledField = styled(Field)`
-    height: 45px;
-    font-size: 1rem;
 `;
 
 export default EditDetailsCard;

@@ -1,6 +1,9 @@
 const theme = {
     borderRadius: "10px",
     font: "Nunito",
+    fontWeight: {
+        bold: 900,
+    },
 
     colors: {
         primary: "#3D5EFF",

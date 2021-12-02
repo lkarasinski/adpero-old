@@ -1,7 +1,7 @@
 import Button from "components-ui/Atoms/Button";
 import DatePickerField from "components-ui/Atoms/Datepicker";
+import Heading from "components-ui/Atoms/Heading";
 import InputField from "components-ui/Molecules/InputField";
-import firebase from "firebase";
 import { Form, Formik } from "formik";
 import useNewJourney from "hooks/useNewJourney";
 import {
@@ -10,7 +10,11 @@ import {
     useAuthUser,
 } from "next-firebase-auth";
 import React from "react";
-import { Journey } from "utils/interfaces";
+import styled from "styled-components";
+
+const StyledForm = styled(Form)`
+    max-width: 20rem;
+`;
 
 const NewJourney: React.FC = () => {
     const auth = useAuthUser();
@@ -18,39 +22,50 @@ const NewJourney: React.FC = () => {
 
     const initialValues: any = {
         author: auth.email ?? "",
-        createdAt: new firebase.firestore.Timestamp(0, 0),
+        createdAt: new Date(),
         editors: [],
         expenses: [],
         name: "",
         polls: [],
-        users: [],
+        users: [auth.email],
         startDate: new Date(),
-        endDate: new firebase.firestore.Timestamp(0, 0),
+        endDate: new Date(),
         id: "",
+        lastEdited: new Date(),
+        cost: { value: 0, currency: "EUR" },
     };
 
     return (
         <>
+            <Heading>New journey</Heading>
             <Formik
                 initialValues={initialValues}
                 onSubmit={(values) => createJoruney(values)}
             >
                 {() => (
-                    <Form>
+                    <StyledForm>
                         <div>
-                            Witam
                             <InputField type="input" name="name" />
-                            <Button type="submit" isPrimary={true}>
-                                Create
-                            </Button>
-                            <DatePickerField name="startDate" />
+                            <DatePickerContainer>
+                                <DatePickerField name="startDate" />
+                                <DatePickerField name="endDate" />
+                            </DatePickerContainer>
+                            <InputField type="input" name="cost.currency" />
                         </div>
-                    </Form>
+                        <Button type="submit" isPrimary={true}>
+                            Create
+                        </Button>
+                    </StyledForm>
                 )}
             </Formik>
         </>
     );
 };
+
+const DatePickerContainer = styled.div`
+    display: flex;
+    gap: 1rem;
+`;
 
 export const getServerSideProps = withAuthUserTokenSSR()();
 

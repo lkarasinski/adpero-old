@@ -1,18 +1,19 @@
 import React from "react";
-import Button from "components-ui/Atoms/Button";
 import styled from "styled-components";
 import StyledLink from "components-ui/Molecules/StyledLink";
 import {
     faColumns,
     faPoll,
+    faCogs,
+    faPlus,
     faMapMarkedAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import Logo from "components-ui/Atoms/Logo";
 import Icon from "components-ui/Atoms/Icon";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import SidePanelButton from "components-ui/Molecules/SidePanelButton";
 
-const Wrapper = styled.div<StyleProps>`
+const Wrapper = styled.div<Props>`
     position: fixed;
     z-index: 10;
     display: flex;
@@ -31,19 +32,16 @@ const StyledNav = styled.nav`
     margin-top: 5.25rem;
 `;
 
-const NewJourneyButton = styled(Button)<StyleProps>`
-    width: ${({ isContracted }) => (isContracted ? "3rem" : "12rem")};
-    height: 3rem;
-    padding: 0;
-    gap: 0.5rem;
-    transition: width 200ms ease-in-out;
+const BottomContainer = styled.div`
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 `;
 
-interface Props {
+type Props = {
     isContracted: boolean;
-}
-
-type StyleProps = Omit<Props, "auth">;
+};
 
 const SidePanel: React.FC<Props> = ({ isContracted }) => {
     return (
@@ -72,16 +70,27 @@ const SidePanel: React.FC<Props> = ({ isContracted }) => {
                     Polls
                 </StyledLink>
             </StyledNav>
-            <Link href="new" passHref>
-                <NewJourneyButton
-                    aria-label="New Journey"
-                    isPrimary
-                    isContracted={isContracted}
-                >
-                    {!isContracted && "New journey"}
-                    <Icon icon={faPlus} />
-                </NewJourneyButton>
-            </Link>
+            <BottomContainer>
+                <Link href="/settings" passHref>
+                    <SidePanelButton
+                        aria-label="Settings"
+                        isContracted={isContracted}
+                    >
+                        {!isContracted && "Settings"}
+                        <Icon icon={faCogs} />
+                    </SidePanelButton>
+                </Link>
+                <Link href="/new" passHref>
+                    <SidePanelButton
+                        aria-label="New Journey"
+                        isPrimary
+                        isContracted={isContracted}
+                    >
+                        {!isContracted && "New journey"}
+                        <Icon icon={faPlus} />
+                    </SidePanelButton>
+                </Link>
+            </BottomContainer>
         </Wrapper>
     );
 };

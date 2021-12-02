@@ -3,6 +3,8 @@ import Label from "components-ui/Atoms/Label";
 import styled from "styled-components";
 import DetailsContainer from "../DetailsContainer";
 import { Detail, Expense } from "utils/interfaces";
+import formatDate from "functions/formatDate";
+import getDateFromTimestamp from "functions/convertToDate";
 
 const Wrapper = styled.div`
     flex-grow: 1;
@@ -29,9 +31,11 @@ const DetailsCard: React.FC<Props> = ({ expense }) => {
                 {expense?.details.map((detail: Detail) => (
                     <DetailsContainer
                         label={detail.label}
-                        value={`${detail.value} ${
-                            detail.type === "Price" ? detail.currency : ""
-                        }`}
+                        value={`${
+                            detail.type === "Date"
+                                ? formatDate(getDateFromTimestamp(detail.value))
+                                : detail.value
+                        } ${detail.type === "Price" ? detail.currency : ""}`}
                         key={detail.label + detail.value}
                     />
                 ))}
