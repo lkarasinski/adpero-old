@@ -16,6 +16,7 @@ const useDashboardData = (email: string | null) => {
         const localStorageDashboardData = localStorage.getItem("dashboardData");
         if (localStorageDashboardData) {
             const data = JSON.parse(localStorageDashboardData);
+            console.log(data);
             if (data) {
                 setData(data);
             }
@@ -23,16 +24,21 @@ const useDashboardData = (email: string | null) => {
     }, []);
 
     useEffect(() => {
-        if (collectionData) {
-            const journeyData = collectionData.docs.map((data) => ({
-                label: data.data().name,
-                details: data
-                    .data()
-                    .expenses.map((expense: Expense) => expense.title),
-                id: data.ref.id,
-            }));
-            setData(journeyData);
-            localStorage.setItem("dashboardData", JSON.stringify(journeyData));
+        if (email) {
+            if (collectionData) {
+                const journeyData = collectionData.docs.map((data) => ({
+                    label: data.data().name,
+                    details: data
+                        .data()
+                        .expenses.map((expense: Expense) => expense.title),
+                    id: data.ref.id,
+                }));
+                setData(journeyData);
+                localStorage.setItem(
+                    "dashboardData",
+                    JSON.stringify(journeyData)
+                );
+            }
         }
     }, [loading]);
 

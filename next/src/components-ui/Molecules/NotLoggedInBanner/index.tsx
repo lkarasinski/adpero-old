@@ -7,8 +7,8 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.75rem;
-    margin: 10px 0;
+    padding: 1.25rem;
+    margin: 10px 32px 10px 0;
     border: 5px solid ${({ theme }) => theme.colors.red};
     border-radius: ${({ theme }) => theme.borderRadius};
 `;
@@ -22,7 +22,8 @@ const NotLoggedInBanner: React.FC<Props> = ({ closeFunction }) => {
         <Wrapper>
             <Text isDark>
                 You are not logged in. By logging in you get more functionality
-                (polls, cloud storage and sharing your journeys with others).
+                (polls, cloud storage and sharing your journeys with others). To
+                log in go to the settings page.
             </Text>
             <CrossIcon
                 aria-label="Close not logged in banner"

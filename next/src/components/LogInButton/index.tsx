@@ -13,9 +13,6 @@ interface ButtonProps {
 }
 
 const StyledButton = styled(Button)<ButtonProps>`
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
     gap: 0.5rem;
     height: 3rem;
     padding: 0;

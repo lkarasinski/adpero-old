@@ -1,6 +1,7 @@
 import React from "react";
 import Text from "components-ui/Atoms/Text";
 import styled from "styled-components";
+import Anchor from "components-ui/Atoms/Anchor";
 
 export interface IDetail {
     label: string;
@@ -9,11 +10,20 @@ export interface IDetail {
 
 const Wrapper = styled.div``;
 
+const withHttp = (url: string) =>
+    url.replace(/^(?:(.*:)?\/\/)?(.*)/i, (match, schemma, nonSchemmaUrl) =>
+        schemma ? match : `http://${nonSchemmaUrl}`
+    );
+
 const DetailsContainer: React.FC<IDetail> = ({ label, value }) => {
     return (
         <Wrapper>
             <Text isSmall>{label}:</Text>
-            <Text isDark>{value}</Text>
+            {label.toLowerCase() == "link" ? (
+                <Anchor href={withHttp(value)}>{value}</Anchor>
+            ) : (
+                <Text isDark>{value}</Text>
+            )}
         </Wrapper>
     );
 };

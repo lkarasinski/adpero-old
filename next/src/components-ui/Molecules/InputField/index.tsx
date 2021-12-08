@@ -5,6 +5,8 @@ import styled from "styled-components";
 const InputField = styled(Field)`
     height: 45px;
     font-size: 1rem;
+    font-family: Nunito;
+    font-weight: 700;
     border: 1px solid ${({ theme }) => theme.colors.gray.light};
     border-radius: 4px;
     width: 100%;
