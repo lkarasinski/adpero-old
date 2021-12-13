@@ -16,7 +16,6 @@ const useDashboardData = (email: string | null) => {
         const localStorageDashboardData = localStorage.getItem("dashboardData");
         if (localStorageDashboardData) {
             const data = JSON.parse(localStorageDashboardData);
-            console.log(data);
             if (data) {
                 setData(data);
             }

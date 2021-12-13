@@ -26,7 +26,7 @@ Default.args = {
 export const Dark = Template.bind({});
 Dark.args = {
     children: "Text",
-    isDark: true,
+    color: "dark",
 };
 export const Small = Template.bind({});
 Small.args = {

@@ -20,7 +20,7 @@ interface Props {
 const NotLoggedInBanner: React.FC<Props> = ({ closeFunction }) => {
     return (
         <Wrapper>
-            <Text isDark>
+            <Text color="dark">
                 You are not logged in. By logging in you get more functionality
                 (polls, cloud storage and sharing your journeys with others). To
                 log in go to the settings page.

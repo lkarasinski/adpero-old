@@ -22,7 +22,7 @@ const DetailsContainer: React.FC<IDetail> = ({ label, value }) => {
             {label.toLowerCase() == "link" ? (
                 <Anchor href={withHttp(value)}>{value}</Anchor>
             ) : (
-                <Text isDark>{value}</Text>
+                <Text color="dark">{value}</Text>
             )}
         </Wrapper>
     );

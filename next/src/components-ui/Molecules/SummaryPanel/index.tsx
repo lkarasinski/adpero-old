@@ -50,7 +50,7 @@ const SummaryPanel: React.FC<Props> = ({
                     return (
                         <DetailContainer key={label}>
                             <Text isSmall>{label}</Text>
-                            <Text isDark>{value}</Text>
+                            <Text color="dark">{value}</Text>
                         </DetailContainer>
                     );
                 })}
