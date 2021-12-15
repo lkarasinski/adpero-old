@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 interface Props {
-    closeFunction: () => void;
+    callback: () => void;
 }
 
 const Wrapper = styled.div`
@@ -14,11 +14,11 @@ const Wrapper = styled.div`
     stroke: ${({ theme }) => theme.colors.red};
 `;
 
-const CrossIcon: React.FC<Props> = ({ closeFunction }) => {
+const CrossIcon: React.FC<Props> = ({ callback }) => {
     return (
         <Wrapper
-            onClick={closeFunction}
-            onKeyPress={closeFunction}
+            onClick={callback}
+            onKeyPress={callback}
             role="button"
             tabIndex={0}
         >

@@ -1,18 +1,38 @@
 import React from "react";
 import styled from "styled-components";
-import { Detail } from "utils/interfaces";
+import { Detail, Expense } from "utils/interfaces";
 import RadioGroup from "components-ui/Molecules/RadioGroup";
 import InputField from "components-ui/Molecules/InputField";
 import Text from "components-ui/Atoms/Text";
 import DatePickerField from "components-ui/Atoms/Datepicker";
+import CrossIcon from "components-ui/Atoms/CrossIcon";
 interface EditDetailsCardProps {
-    name: string;
     detail: Detail;
+    values: Expense[];
+    x: [number, number];
+    setValues: any;
 }
 
-const EditDetailsCard: React.FC<EditDetailsCardProps> = ({ name, detail }) => {
+const EditDetailsCard: React.FC<EditDetailsCardProps> = ({
+    detail,
+    values,
+    x,
+    setValues,
+}) => {
+    const name = `[${x[0]}].details[${x[1]}]`;
+    const removeDetail = (detailId: number) => {
+        const newValues = values.filter(
+            (item: Expense) => item !== values[detailId]
+        );
+        console.log(newValues);
+        setValues(newValues);
+    };
+
     return (
         <Wrapper>
+            <CrossContainer>
+                <CrossIcon callback={() => removeDetail(x[0])}>x</CrossIcon>
+            </CrossContainer>
             <div>
                 <Text isSmall>Type</Text>
                 <RadioGroup currentType={detail.type} name={name} />
@@ -51,7 +71,14 @@ const EditDetailsCard: React.FC<EditDetailsCardProps> = ({ name, detail }) => {
     );
 };
 
+const CrossContainer = styled.div`
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+`;
+
 const Wrapper = styled.div`
+    position: relative;
     display: flex;
     flex-direction: column;
     max-width: 420px;

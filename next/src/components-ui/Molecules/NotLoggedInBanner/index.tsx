@@ -27,7 +27,7 @@ const NotLoggedInBanner: React.FC<Props> = ({ closeFunction }) => {
             </Text>
             <CrossIcon
                 aria-label="Close not logged in banner"
-                closeFunction={closeFunction}
+                callback={closeFunction}
             />
         </Wrapper>
     );

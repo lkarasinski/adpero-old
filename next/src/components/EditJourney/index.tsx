@@ -65,7 +65,9 @@ const EditJourney: React.FC<Props> = ({ expenses }) => {
                                             <EditDetailsCard
                                                 key={`${i}-${j}`}
                                                 detail={detail}
-                                                name={`[${i}].details[${j}]`}
+                                                values={values}
+                                                x={[i, j]}
+                                                setValues={setValues}
                                             />
                                         )
                                     )}
@@ -84,7 +86,6 @@ const EditJourney: React.FC<Props> = ({ expenses }) => {
                             ))}
                             <EditButton type="submit" isGrayedOut={false} />
                         </Form>
-                        <pre>{JSON.stringify(values, null, 2)}</pre>
                     </div>
                 )}
             </Formik>
