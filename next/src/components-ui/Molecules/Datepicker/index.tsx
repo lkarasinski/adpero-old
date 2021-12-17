@@ -3,7 +3,7 @@ import { useField, useFormikContext } from "formik";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import convertToDate from "functions/convertToDate";
-import InputField from "components-ui/Molecules/InputField";
+import { StyledField } from "components-ui/Molecules/InputField";
 
 const DatePicker: React.FC<any> = ({ ...props }) => {
     const { setFieldValue } = useFormikContext();
@@ -18,9 +18,7 @@ const DatePicker: React.FC<any> = ({ ...props }) => {
             onChange={(val) => {
                 setFieldValue(field.name, val);
             }}
-            timeFormat="p"
-            showTimeSelect
-            customInput={<InputField />}
+            customInput={<StyledField />}
         />
     );
 };

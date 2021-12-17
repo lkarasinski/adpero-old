@@ -4,68 +4,56 @@ import { Detail, Expense } from "utils/interfaces";
 import RadioGroup from "components-ui/Molecules/RadioGroup";
 import InputField from "components-ui/Molecules/InputField";
 import Text from "components-ui/Atoms/Text";
-import DatePickerField from "components-ui/Atoms/Datepicker";
 import CrossIcon from "components-ui/Atoms/CrossIcon";
+import { setValues } from "utils/types";
 interface EditDetailsCardProps {
-    detail: Detail;
     values: Expense[];
-    x: [number, number];
-    setValues: any;
+    IDs: [number, number];
+    setValues: setValues;
+    errors: any | undefined;
 }
 
 const EditDetailsCard: React.FC<EditDetailsCardProps> = ({
-    detail,
     values,
-    x,
+    IDs,
     setValues,
+    errors,
 }) => {
-    const name = `[${x[0]}].details[${x[1]}]`;
-    const removeDetail = (detailId: number) => {
-        const newValues = values.filter(
-            (item: Expense) => item !== values[detailId]
+    const [expenseID, detailID] = IDs;
+    const detail: Detail = values[expenseID].details[detailID];
+    const name = `[${expenseID}].details[${detailID}]`;
+    const removeDetail = () => {
+        const newDetails = values[expenseID].details.filter(
+            (item: Detail) => item !== values[expenseID].details[detailID]
         );
-        console.log(newValues);
+        const newValues = [...values];
+        newValues[expenseID].details = newDetails;
         setValues(newValues);
     };
 
     return (
         <Wrapper>
             <CrossContainer>
-                <CrossIcon callback={() => removeDetail(x[0])}>x</CrossIcon>
+                <CrossIcon callback={removeDetail}>x</CrossIcon>
             </CrossContainer>
-            <div>
-                <Text isSmall>Type</Text>
-                <RadioGroup currentType={detail.type} name={name} />
-            </div>
-            <div>
-                <Text isSmall>Label</Text>
-                <InputField
-                    type={"input"}
-                    name={`${name}.label`}
-                    placeholder="Label"
-                />
-            </div>
-            <div>
-                <Text isSmall>Value</Text>
-                {detail.type === "Date" ? (
-                    <DatePickerField name={`${name}.value`} />
-                ) : (
-                    <InputField
-                        type={"input"}
-                        name={`${name}.value`}
-                        placeholder="Value"
-                    />
-                )}
-            </div>
+            <RadioGroup currentType={detail.type} name={name} label={"Type"} />
+            <InputField
+                label={"Label"}
+                name={`${name}.label`}
+                error={errors ? errors.label : ""}
+            />
+            <InputField
+                label={"Value"}
+                name={`${name}.value`}
+                error={errors ? errors.value : ""}
+                isDate={detail.type === "Date"}
+            />
             {detail.type === "Price" && (
-                <div>
-                    <Text isSmall>Currency</Text>
-                    <InputField
-                        type={"input"}
-                        name={`${name}.currency`}
-                        placeholder="Currency"
-                    />
-                </div>
+                <InputField
+                    label={"Currency"}
+                    name={`${name}.currency`}
+                    error={errors ? errors.currency : ""}
+                />
             )}
         </Wrapper>
     );

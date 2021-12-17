@@ -11,7 +11,7 @@ import "firebase/firestore";
 import { useRouter } from "next/router";
 import EditButton from "components-ui/Molecules/EditButton";
 import { FormContext } from "pages/journeys/[journeyID]";
-import StyledField from "components-ui/Molecules/InputField";
+import { StyledField } from "components-ui/Molecules/InputField";
 
 type Props = {
     expenses: Expense[];
@@ -42,55 +42,67 @@ const EditJourney: React.FC<Props> = ({ expenses }) => {
                 onSubmit={(values: Expense[]) => updateDatabase(values)}
                 validationSchema={validationSchema}
             >
-                {({ values, setValues }) => (
-                    <div>
-                        <Button
-                            onClick={() => {
-                                setValues([...addNewExpense(values)]);
-                            }}
-                            type="button"
-                        >
-                            New category
-                        </Button>
-                        <Form>
-                            {values.map((expense: Expense, i: number) => (
-                                <Grid key={i}>
-                                    <StyledField
-                                        name={`[${i}].title`}
-                                        type="input"
-                                    />
+                {({ values, setValues, errors }) => {
+                    const typedErrors = errors as Errors;
+                    return (
+                        <div>
+                            <pre>{JSON.stringify(errors, null, 2)}</pre>
+                            <Button
+                                onClick={() => {
+                                    addNewExpense(values, setValues);
+                                }}
+                                type="button"
+                            >
+                                New category
+                            </Button>
+                            <Form>
+                                {values.map((expense: Expense, i: number) => (
+                                    <Grid key={i}>
+                                        <StyledField
+                                            name={`[${i}].title`}
+                                            type="input"
+                                        />
 
-                                    {expense.details.map(
-                                        (detail, j: number) => (
+                                        {expense.details.map((_, j: number) => (
                                             <EditDetailsCard
                                                 key={`${i}-${j}`}
-                                                detail={detail}
                                                 values={values}
-                                                x={[i, j]}
+                                                IDs={[i, j]}
                                                 setValues={setValues}
+                                                errors={
+                                                    typedErrors[i]?.details[j]
+                                                }
                                             />
-                                        )
-                                    )}
+                                        ))}
 
-                                    <Button
-                                        onClick={() =>
-                                            setValues([
-                                                ...addNewDetail(values, i),
-                                            ])
-                                        }
-                                        type="button"
-                                    >
-                                        New detail
-                                    </Button>
-                                </Grid>
-                            ))}
-                            <EditButton type="submit" isGrayedOut={false} />
-                        </Form>
-                    </div>
-                )}
+                                        <Button
+                                            onClick={() =>
+                                                addNewDetail(
+                                                    values,
+                                                    i,
+                                                    setValues
+                                                )
+                                            }
+                                            type="button"
+                                        >
+                                            New detail
+                                        </Button>
+                                    </Grid>
+                                ))}
+                                <EditButton type="submit" isGrayedOut={false} />
+                            </Form>
+                        </div>
+                    );
+                }}
             </Formik>
         </Wrapper>
     );
+};
+
+type Errors = {
+    [key: number]: {
+        details: { label?: "string"; value?: "string"; currency?: string }[];
+    };
 };
 
 const Grid = styled.div`

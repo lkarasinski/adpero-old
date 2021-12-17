@@ -1,8 +1,30 @@
 import { Field } from "formik";
+import Text from "components-ui/Atoms/Text";
 import styled from "styled-components";
+import DatePickerField from "components-ui/Molecules/Datepicker";
 
-// TODO: Change StyledField to InputField in code
-const InputField = styled(Field)`
+const InputField: React.FC<InputFieldProps> = ({
+    label,
+    error,
+    name,
+    isDate,
+}) => (
+    <div>
+        <Text isSmall>{label}</Text>
+        {isDate ? (
+            <DatePickerField name={name} />
+        ) : (
+            <StyledField type="input" name={name} />
+        )}
+        {error && (
+            <Text color="red" isSmall>
+                {error}
+            </Text>
+        )}
+    </div>
+);
+
+export const StyledField = styled(Field)`
     height: 45px;
     font-size: 1rem;
     font-family: Nunito;
@@ -11,5 +33,12 @@ const InputField = styled(Field)`
     border-radius: 4px;
     width: 100%;
 `;
+
+type InputFieldProps = {
+    label: string;
+    error: string | undefined;
+    name: string;
+    isDate?: boolean;
+};
 
 export default InputField;

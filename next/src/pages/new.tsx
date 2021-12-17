@@ -1,5 +1,5 @@
 import Button from "components-ui/Atoms/Button";
-import DatePickerField from "components-ui/Atoms/Datepicker";
+import DatePickerField from "components-ui/Molecules/Datepicker";
 import Heading from "components-ui/Atoms/Heading";
 import Text from "components-ui/Atoms/Text";
 import InputField from "components-ui/Molecules/InputField";
@@ -49,43 +49,35 @@ const NewJourney: React.FC = () => {
                     const typedErrors = errors as Errors;
                     return (
                         <StyledForm>
-                            <div>
-                                <Text isSmall>Journey name</Text>
-                                <InputField type="input" name="name" />
-                                {typedErrors.name && (
-                                    <Text color="red" isSmall>
-                                        {typedErrors.name}
-                                    </Text>
-                                )}
-                            </div>
+                            <InputField
+                                error={typedErrors.name}
+                                label={"JourneyName"}
+                                name={"name"}
+                            />
                             <DatePickerContainer>
                                 <div>
-                                    <Text isSmall>Day of departure</Text>
-                                    <DatePickerField name="startDate" />
-                                    {typedErrors.startDate && (
-                                        <Text color="red" isSmall>
-                                            {typedErrors.name}
-                                        </Text>
-                                    )}
+                                    <InputField
+                                        label={"Day of departure"}
+                                        name={"startDate"}
+                                        error={typedErrors.startDate}
+                                        isDate
+                                    />
                                 </div>
                                 <div>
-                                    <Text isSmall>Day of return</Text>
-                                    <DatePickerField name="endDate" />
-                                    {typedErrors.endDate && (
-                                        <Text color="red" isSmall>
-                                            {typedErrors.name}
-                                        </Text>
-                                    )}
+                                    <InputField
+                                        label={"Day of return"}
+                                        name={"endDate"}
+                                        error={typedErrors.endDate}
+                                        isDate
+                                    />
                                 </div>
                             </DatePickerContainer>
                             <div>
-                                <Text isSmall>Currency</Text>
-                                <InputField type="input" name="cost.currency" />
-                                {typedErrors.cost && (
-                                    <Text color="red" isSmall>
-                                        {typedErrors.cost.currency}
-                                    </Text>
-                                )}
+                                <InputField
+                                    error={typedErrors.cost?.currency ?? ""}
+                                    label={"Currency"}
+                                    name={"cost.currency"}
+                                />
                             </div>
                             <Button
                                 disabled={isCreating}
