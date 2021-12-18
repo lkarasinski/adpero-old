@@ -5,6 +5,7 @@ import "firebase/firestore";
 import { Journey } from "utils/interfaces";
 import { createMachine, StateValue } from "xstate";
 import { useMachine } from "@xstate/react";
+import getLocalStorageData from "functions/getLocalStorageData";
 
 const journeysRef = firebase.firestore().collection("journeys");
 const pollsRef = firebase.firestore().collection("polls");
@@ -19,12 +20,17 @@ const loadingMachine = createMachine({
                 LOAD_FROM_DATABASE: "database",
                 NO_DATA: "noData",
                 NO_ACCESS: "noAccess",
+                NOT_LOGGED_IN: "notLoggedIn",
             },
+        },
+        notLoggedIn: {
+            type: "final",
         },
         noData: {
             on: {
                 LOAD_FROM_DATABASE: "database",
                 NO_ACCESS: "noAccess",
+                NOT_LOGGED_IN: "notLoggedIn",
             },
         },
         noAccess: { type: "final" },
@@ -33,17 +39,13 @@ const loadingMachine = createMachine({
                 LOAD_FROM_DATABASE: "database",
                 NO_DATA: "noData",
                 NO_ACCESS: "noAccess",
+                NOT_LOGGED_IN: "notLoggedIn",
             },
         },
         database: { type: "final" },
     },
 });
 
-/**
- * Hook to get all journeys from firestore and set them to local storage
- * @param {string} userId
- * @return [IJournyCard[], 'loading' | 'localStorage' | 'database']
- */
 const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
     const journey = journeysRef.doc(id);
     const [journeyDocumentData, journeyLoading] = useDocument(journey);
@@ -58,10 +60,9 @@ const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
 
     // Load data from local storage
     useEffect(() => {
-        const storageData = localStorage.getItem("journeysData");
-        const parsedData = JSON.parse(storageData ?? "{}");
-        if (parsedData[storageID]) {
-            setData(parsedData[storageID]);
+        const data = getLocalStorageData();
+        if (data[storageID]) {
+            setData(data[storageID]);
             send("LOAD_FROM_LOCAL_STORAGE");
         } else {
             send("NO_DATA");
@@ -70,6 +71,12 @@ const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
 
     // Load data from database, update local storage
     useEffect(() => {
+        console.log(auth.email);
+        if (!auth.email) {
+            send("NOT_LOGGED_IN");
+            return;
+        }
+
         if (journeyDocumentData && pollsCollectionData) {
             const journey = journeyDocumentData.data();
             const polls = pollsCollectionData.docs.map((data) => data.data());
@@ -95,19 +102,16 @@ const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
             if (journeyData.users.includes(auth.email)) {
                 const journeysStorage =
                     localStorage.getItem("journeysData") ?? "{}";
+                console.log(journeyData);
 
                 const journeysDataFromLocalStorage =
                     JSON.parse(journeysStorage);
-                const journeyDataFromLocalStorage =
-                    journeysDataFromLocalStorage[storageID];
 
-                if (!journeyDataFromLocalStorage) {
-                    journeysDataFromLocalStorage[storageID] = journeyData;
-                    localStorage.setItem(
-                        "journeysData",
-                        `${JSON.stringify(journeysDataFromLocalStorage)}`
-                    );
-                }
+                journeysDataFromLocalStorage[storageID] = journeyData;
+                localStorage.setItem(
+                    "journeysData",
+                    `${JSON.stringify(journeysDataFromLocalStorage)}`
+                );
 
                 setData(journeyData);
                 send("LOAD_FROM_DATABASE");

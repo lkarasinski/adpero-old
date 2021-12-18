@@ -16,6 +16,22 @@ const useNewJourney = (): [(values: Journey) => Promise<void>] => {
                 await journeysRef.doc(journeyData.id).set(values);
                 router.push(`/journeys/${journeyData.id}`);
             }
+        } else {
+            values.author = "local";
+            values.users = ["local"];
+            const randomID =
+                Math.random().toString(36).substring(2, 15) +
+                Math.random().toString(36).substring(2, 15);
+            values.id = randomID;
+            const offlineData = JSON.parse(
+                localStorage.getItem("offlineJourneysData") ?? "{}"
+            );
+            offlineData[`journey-${randomID}`] = values;
+            localStorage.setItem(
+                "offlineJourneysData",
+                JSON.stringify(offlineData)
+            );
+            router.push(`/journeys/${randomID}`);
         }
     };
 

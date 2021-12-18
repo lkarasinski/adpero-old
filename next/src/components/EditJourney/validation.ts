@@ -32,3 +32,11 @@ export const validationSchema = yup.array().of(
         details: yup.array().of(yup.object().shape(detailsSchema)),
     })
 );
+
+export const journeyValidationSchema = yup.object().shape({
+    author: yup.string().required("Author is required"),
+    name: yup.string().required("Name is required"),
+    startDate: yup.string().required("Start date is required"),
+    endDate: yup.string().required("End date is required"),
+    expenses: validationSchema,
+});

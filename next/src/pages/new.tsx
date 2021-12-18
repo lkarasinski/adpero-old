@@ -1,8 +1,5 @@
 import Button from "components-ui/Atoms/Button";
-import DatePickerField from "components-ui/Molecules/Datepicker";
 import Heading from "components-ui/Atoms/Heading";
-import Text from "components-ui/Atoms/Text";
-import InputField from "components-ui/Molecules/InputField";
 import { Form, Formik } from "formik";
 import useNewJourney from "hooks/useNewJourney";
 import {
@@ -13,6 +10,7 @@ import {
 import React, { useState } from "react";
 import styled from "styled-components";
 import * as yup from "yup";
+import EditJourneyDataPanel from "components-ui/Organisms/EditJourneyDataPanel";
 
 const NewJourney: React.FC = () => {
     const auth = useAuthUser();
@@ -49,36 +47,7 @@ const NewJourney: React.FC = () => {
                     const typedErrors = errors as Errors;
                     return (
                         <StyledForm>
-                            <InputField
-                                error={typedErrors.name}
-                                label={"JourneyName"}
-                                name={"name"}
-                            />
-                            <DatePickerContainer>
-                                <div>
-                                    <InputField
-                                        label={"Day of departure"}
-                                        name={"startDate"}
-                                        error={typedErrors.startDate}
-                                        isDate
-                                    />
-                                </div>
-                                <div>
-                                    <InputField
-                                        label={"Day of return"}
-                                        name={"endDate"}
-                                        error={typedErrors.endDate}
-                                        isDate
-                                    />
-                                </div>
-                            </DatePickerContainer>
-                            <div>
-                                <InputField
-                                    error={typedErrors.cost?.currency ?? ""}
-                                    label={"Currency"}
-                                    name={"cost.currency"}
-                                />
-                            </div>
+                            <EditJourneyDataPanel errors={typedErrors} />
                             <Button
                                 disabled={isCreating}
                                 type="submit"
@@ -100,11 +69,6 @@ type Errors = {
     endDate: string;
     cost: { value: string; currency: string };
 };
-
-const DatePickerContainer = styled.div`
-    display: flex;
-    gap: 1rem;
-`;
 
 const StyledForm = styled(Form)`
     max-width: 20rem;

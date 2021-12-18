@@ -33,6 +33,8 @@ const JourneyPage: React.FC = () => {
     const [isEditModeEnabled, setIsEditModeEnabled] = useState(false);
     const [totalCost, setTotalCost] = useState(0);
 
+    console.log(AuthUser.email);
+
     useEffect(() => {
         if (journeyData) {
             let total = 0;
@@ -63,24 +65,29 @@ const JourneyPage: React.FC = () => {
                 value={{ isEditModeEnabled, setIsEditModeEnabled }}
             >
                 <Wrapper>
-                    <HeadingContainer>
-                        <Heading>{journeyData.name}</Heading>
-                    </HeadingContainer>
-                    <SummaryPanel
-                        numberOfUsers={journeyData.users.length}
-                        isInSidePanel={false}
-                        totalCost={{
-                            value: totalCost,
-                            currency: journeyData.cost.currency,
-                        }}
-                        startDate={formatDate(journeyData.startDate)}
-                        endDate={formatDate(journeyData.endDate)}
-                    />
-                    <ActivePollsPanel polls={journeyData.polls} />
                     {isEditModeEnabled ? (
-                        <EditJourney expenses={journeyData.expenses} />
+                        <EditJourney
+                            journeyData={journeyData}
+                            email={AuthUser.email ?? ""}
+                        />
                     ) : (
-                        <JourneyDetails expenses={journeyData.expenses} />
+                        <>
+                            <HeadingContainer>
+                                <Heading>{journeyData.name}</Heading>
+                            </HeadingContainer>
+                            <SummaryPanel
+                                numberOfUsers={journeyData.users.length}
+                                isInSidePanel={false}
+                                totalCost={{
+                                    value: totalCost,
+                                    currency: journeyData.cost.currency,
+                                }}
+                                startDate={formatDate(journeyData.startDate)}
+                                endDate={formatDate(journeyData.endDate)}
+                            />
+                            <ActivePollsPanel polls={journeyData.polls} />
+                            <JourneyDetails expenses={journeyData.expenses} />
+                        </>
                     )}
                 </Wrapper>
             </FormContext.Provider>

@@ -6,6 +6,10 @@ type Timestamp = {
 type Input = string | Timestamp | Date;
 
 const convertToDate = (input: Input): Date => {
+    if (input === undefined) {
+        console.error("Input is undefined");
+        return new Date();
+    }
     if (typeof input === "string") return new Date();
 
     return (input as Timestamp).seconds !== undefined

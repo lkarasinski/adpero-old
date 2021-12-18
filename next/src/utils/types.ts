@@ -1,4 +1,4 @@
-import { Expense } from "./interfaces";
+import { Expense, Journey } from "./interfaces";
 
 export type IJourneyCard = {
     label: string;
@@ -7,6 +7,6 @@ export type IJourneyCard = {
 };
 
 export type setValues = (
-    values: React.SetStateAction<Expense[]>,
+    values: React.SetStateAction<Journey>,
     shouldValidate?: boolean | undefined
 ) => void;

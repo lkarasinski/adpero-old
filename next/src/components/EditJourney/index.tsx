@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { Form, Formik } from "formik";
 import Button from "components-ui/Atoms/Button";
 import EditDetailsCard from "components-ui/Molecules/EditDetailsCard";
-import { Expense } from "utils/interfaces";
-import { validationSchema } from "./validation";
+import { Expense, Journey } from "utils/interfaces";
+import { journeyValidationSchema } from "./validation";
 import { addNewDetail, addNewExpense } from "./functions";
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -12,40 +12,47 @@ import { useRouter } from "next/router";
 import EditButton from "components-ui/Molecules/EditButton";
 import { FormContext } from "pages/journeys/[journeyID]";
 import { StyledField } from "components-ui/Molecules/InputField";
+import EditJourneyDataPanel from "components-ui/Organisms/EditJourneyDataPanel";
+import useDeleteJourney from "hooks/useDeleteJourney";
 
 type Props = {
-    expenses: Expense[];
+    journeyData: Journey;
+    email: string;
 };
 
 const collectionRef = firebase.firestore().collection("journeys");
 
-const EditJourney: React.FC<Props> = ({ expenses }) => {
+const EditJourney: React.FC<Props> = ({ journeyData, email }) => {
     const router = useRouter();
     const { isEditModeEnabled, setIsEditModeEnabled } = useContext(FormContext);
     const journeyID = router.query.journeyID as string;
+    const [deleteJourney] = useDeleteJourney(journeyID);
 
     const docRef = collectionRef.doc(journeyID);
 
-    const updateDatabase = async (values: Expense[]) => {
-        const document = await docRef.get();
-        const documentData = document.data();
-        const copy = documentData ?? {};
-        copy.expenses = values;
-        docRef.set(copy);
-        setIsEditModeEnabled(!isEditModeEnabled);
+    const updateDatabase = async (values: Journey) => {
+        if (email) {
+            docRef.set({ ...values });
+            setIsEditModeEnabled(!isEditModeEnabled);
+            // TODO: update journeyData local state
+        }
     };
 
     return (
         <Wrapper>
             <Formik
-                initialValues={expenses}
-                onSubmit={(values: Expense[]) => updateDatabase(values)}
-                validationSchema={validationSchema}
+                initialValues={journeyData}
+                onSubmit={(values: Journey) => updateDatabase(values)}
+                validationSchema={journeyValidationSchema}
             >
                 {({ values, setValues, errors }) => {
                     const typedErrors = errors as Errors;
                     return (
                         <div>
+                            <button type="button" onClick={deleteJourney}>
+                                Delete journey
+                            </button>
+                            <EditJourneyDataPanel errors={{}} />
                             <pre>{JSON.stringify(errors, null, 2)}</pre>
                             <Button
                                 onClick={() => {
@@ -56,39 +63,41 @@ const EditJourney: React.FC<Props> = ({ expenses }) => {
                                 New category
                             </Button>
                             <Form>
-                                {values.map((expense: Expense, i: number) => (
-                                    <Grid key={i}>
-                                        <StyledField
-                                            name={`[${i}].title`}
-                                            type="input"
-                                        />
-
-                                        {expense.details.map((_, j: number) => (
-                                            <EditDetailsCard
-                                                key={`${i}-${j}`}
-                                                values={values}
-                                                IDs={[i, j]}
-                                                setValues={setValues}
-                                                errors={
-                                                    typedErrors[i]?.details[j]
-                                                }
+                                {values.expenses.map(
+                                    (expense: Expense, i: number) => (
+                                        <Grid key={i}>
+                                            <StyledField
+                                                name={`expenses[${i}].title`}
+                                                type="input"
                                             />
-                                        ))}
 
-                                        <Button
-                                            onClick={() =>
-                                                addNewDetail(
-                                                    values,
-                                                    i,
-                                                    setValues
+                                            {expense.details.map(
+                                                (_, j: number) => (
+                                                    <EditDetailsCard
+                                                        key={`${i}-${j}`}
+                                                        values={values}
+                                                        IDs={[i, j]}
+                                                        setValues={setValues}
+                                                        errors={typedErrors}
+                                                    />
                                                 )
-                                            }
-                                            type="button"
-                                        >
-                                            New detail
-                                        </Button>
-                                    </Grid>
-                                ))}
+                                            )}
+
+                                            <Button
+                                                onClick={() =>
+                                                    addNewDetail(
+                                                        values,
+                                                        i,
+                                                        setValues
+                                                    )
+                                                }
+                                                type="button"
+                                            >
+                                                New detail
+                                            </Button>
+                                        </Grid>
+                                    )
+                                )}
                                 <EditButton type="submit" isGrayedOut={false} />
                             </Form>
                         </div>
@@ -100,9 +109,19 @@ const EditJourney: React.FC<Props> = ({ expenses }) => {
 };
 
 type Errors = {
-    [key: number]: {
-        details: { label?: "string"; value?: "string"; currency?: string }[];
-    };
+    author: string;
+    name: string;
+    startDate: string;
+    endDate: string;
+    expenses: {
+        title: string;
+        details: {
+            label: string;
+            type: string;
+            value: string;
+            currency: string;
+        }[];
+    }[];
 };
 
 const Grid = styled.div`

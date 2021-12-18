@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { Detail, Expense } from "utils/interfaces";
+import { Detail, Journey } from "utils/interfaces";
 import RadioGroup from "components-ui/Molecules/RadioGroup";
 import InputField from "components-ui/Molecules/InputField";
-import Text from "components-ui/Atoms/Text";
 import CrossIcon from "components-ui/Atoms/CrossIcon";
 import { setValues } from "utils/types";
+import { removeDetail } from "components/EditJourney/functions";
 interface EditDetailsCardProps {
-    values: Expense[];
+    values: Journey;
     IDs: [number, number];
     setValues: setValues;
     errors: any | undefined;
@@ -20,39 +20,61 @@ const EditDetailsCard: React.FC<EditDetailsCardProps> = ({
     errors,
 }) => {
     const [expenseID, detailID] = IDs;
-    const detail: Detail = values[expenseID].details[detailID];
+    const detail: Detail = values.expenses[expenseID].details[detailID];
     const name = `[${expenseID}].details[${detailID}]`;
-    const removeDetail = () => {
-        const newDetails = values[expenseID].details.filter(
-            (item: Detail) => item !== values[expenseID].details[detailID]
-        );
-        const newValues = [...values];
-        newValues[expenseID].details = newDetails;
-        setValues(newValues);
+
+    const currentErrors = {
+        label: "",
+        type: "",
+        value: "",
+        currency: "",
     };
+
+    if (errors.expenses) {
+        console.log(errors.expenses);
+        if (expenseID in errors.expenses) {
+            const newErrors = errors.expenses[expenseID].details ?? {};
+            if (detailID in newErrors) {
+                currentErrors.type = newErrors[detailID].type;
+                currentErrors.label = newErrors[detailID].label;
+                currentErrors.value = newErrors[detailID].value;
+                currentErrors.currency = newErrors[detailID].currency;
+            }
+        }
+    }
 
     return (
         <Wrapper>
             <CrossContainer>
-                <CrossIcon callback={removeDetail}>x</CrossIcon>
+                <CrossIcon
+                    callback={() =>
+                        removeDetail(values, expenseID, detailID, setValues)
+                    }
+                >
+                    x
+                </CrossIcon>
             </CrossContainer>
-            <RadioGroup currentType={detail.type} name={name} label={"Type"} />
+            <RadioGroup
+                currentType={detail.type}
+                name={`expenses.${name}`}
+                label={"Type"}
+            />
             <InputField
                 label={"Label"}
-                name={`${name}.label`}
-                error={errors ? errors.label : ""}
+                name={`expenses.${name}.label`}
+                error={currentErrors.label ?? ""}
             />
             <InputField
                 label={"Value"}
-                name={`${name}.value`}
-                error={errors ? errors.value : ""}
+                name={`expenses.${name}.value`}
+                error={currentErrors.value ?? ""}
                 isDate={detail.type === "Date"}
             />
             {detail.type === "Price" && (
                 <InputField
                     label={"Currency"}
-                    name={`${name}.currency`}
-                    error={errors ? errors.currency : ""}
+                    name={`expenses.${name}.currency`}
+                    error={currentErrors.currency ?? ""}
                 />
             )}
         </Wrapper>
