@@ -32,20 +32,22 @@ const useDashboardData = (email: string | null) => {
             for (const journey in offlineJourneysData) {
                 newData.push(offlineJourneysData[journey]);
             }
-            const x = newData.map((data: any) => ({
+            const updatedDashboardData = newData.map((data: any) => ({
                 label: data.name,
                 details: data.expenses.map((expense: Expense) => expense.title),
                 id: data.id,
             }));
-            setData(x);
-            localStorage.setItem("offlineDashboardData", JSON.stringify(x));
+            setData(updatedDashboardData);
+            localStorage.setItem(
+                "offlineDashboardData",
+                JSON.stringify(updatedDashboardData)
+            );
         }
     }, []);
 
     useEffect(() => {
         if (email) {
             if (collectionData) {
-                console.log(collectionData.docs[0].data());
                 const journeyData = collectionData.docs.map((data) => ({
                     label: data.data().name,
                     details: data
@@ -53,7 +55,10 @@ const useDashboardData = (email: string | null) => {
                         .expenses.map((expense: Expense) => expense.title),
                     id: data.ref.id,
                 }));
-                setData(journeyData);
+                const offlineDashboardData = JSON.parse(
+                    localStorage.getItem("offlineDashboardData") ?? "[]"
+                );
+                setData([...journeyData, ...offlineDashboardData]);
                 localStorage.setItem(
                     "dashboardData",
                     JSON.stringify(journeyData)

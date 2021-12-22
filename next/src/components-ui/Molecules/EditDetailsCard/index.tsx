@@ -31,7 +31,6 @@ const EditDetailsCard: React.FC<EditDetailsCardProps> = ({
     };
 
     if (errors.expenses) {
-        console.log(errors.expenses);
         if (expenseID in errors.expenses) {
             const newErrors = errors.expenses[expenseID].details ?? {};
             if (detailID in newErrors) {

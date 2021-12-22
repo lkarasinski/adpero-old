@@ -5,7 +5,7 @@ import Button from "components-ui/Atoms/Button";
 import EditDetailsCard from "components-ui/Molecules/EditDetailsCard";
 import { Expense, Journey } from "utils/interfaces";
 import { journeyValidationSchema } from "./validation";
-import { addNewDetail, addNewExpense } from "./functions";
+import { addNewDetail, addNewExpense, saveJourney } from "./functions";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { useRouter } from "next/router";
@@ -24,18 +24,20 @@ const collectionRef = firebase.firestore().collection("journeys");
 
 const EditJourney: React.FC<Props> = ({ journeyData, email }) => {
     const router = useRouter();
-    const { isEditModeEnabled, setIsEditModeEnabled } = useContext(FormContext);
+    const { setIsEditModeEnabled } = useContext(FormContext);
     const journeyID = router.query.journeyID as string;
     const [deleteJourney] = useDeleteJourney(journeyID);
 
     const docRef = collectionRef.doc(journeyID);
 
-    const updateDatabase = async (values: Journey) => {
-        if (email) {
-            docRef.set({ ...values });
-            setIsEditModeEnabled(!isEditModeEnabled);
-            // TODO: update journeyData local state
-        }
+    const updateDatabase = (values: Journey) => {
+        saveJourney({
+            ID: journeyID,
+            email,
+            updateDB: (values: any) => docRef.set({ ...values }),
+            values,
+            setIsEditModeEnabled: () => setIsEditModeEnabled((value) => !value),
+        });
     };
 
     return (

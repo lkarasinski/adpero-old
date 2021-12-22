@@ -1,6 +1,7 @@
 import { Journey } from "utils/interfaces";
 import { emptyDetail, emptyExpense } from "utils/constants";
 import { setValues } from "utils/types";
+import editLocalStorage from "functions/editLocalStorage";
 
 type NewExpense = (values: Journey, setValues: setValues) => void;
 export const addNewExpense: NewExpense = (values, setValues) => {
@@ -40,4 +41,40 @@ export const removeDetail: RemoveDetail = (
     );
     valuesCopy.expenses[expenseID].details = newDetails;
     setValues({ ...valuesCopy });
+};
+
+type saveJoruneyProps = {
+    ID: string;
+    email: string;
+    updateDB: any;
+    values: any;
+    setIsEditModeEnabled: any;
+};
+type saveJourney = (props: saveJoruneyProps) => void;
+
+export const saveJourney: saveJourney = ({
+    ID,
+    email,
+    updateDB,
+    values,
+    setIsEditModeEnabled,
+}) => {
+    if (ID.startsWith("offline")) {
+        console.log("offline journey");
+        editLocalStorage(`journey-${ID}`, values, "offlineJourneysData");
+        // const journeysStorage = JSON.parse(
+        //     localStorage.getItem("offlineJourneysData") ?? "{}"
+        // );
+        // journeysStorage[`journey-${ID}`] = { ...values };
+        // localStorage.setItem(
+        //     "offlineJourneysData",
+        //     `${JSON.stringify(journeysStorage)}`
+        // );
+        setIsEditModeEnabled();
+    }
+    if (email) {
+        console.log({ ...values });
+        updateDB({ ...values });
+        setIsEditModeEnabled();
+    }
 };

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import { Journey } from "utils/interfaces";
+import { Journey, Poll } from "utils/interfaces";
 import { createMachine, StateValue } from "xstate";
 import { useMachine } from "@xstate/react";
 import getLocalStorageData from "functions/getLocalStorageData";
@@ -47,8 +47,8 @@ const loadingMachine = createMachine({
 });
 
 const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
-    const journey = journeysRef.doc(id);
-    const [journeyDocumentData, journeyLoading] = useDocument(journey);
+    const journeyRef = journeysRef.doc(id);
+    const [journeyDocumentData, journeyLoading] = useDocument(journeyRef);
     const [data, setData] = useState<any>();
     const pollsQuery = pollsRef.where("id", "==", id);
     const [pollsCollectionData, pollsLoading] = useCollection(pollsQuery);
@@ -62,6 +62,7 @@ const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
     useEffect(() => {
         const data = getLocalStorageData();
         if (data[storageID]) {
+            console.log(storageID);
             setData(data[storageID]);
             send("LOAD_FROM_LOCAL_STORAGE");
         } else {
@@ -71,52 +72,56 @@ const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
 
     // Load data from database, update local storage
     useEffect(() => {
-        console.log(auth.email);
+        // If user is not logged in show only offline data
         if (!auth.email) {
+            console.log(storageID);
             send("NOT_LOGGED_IN");
             return;
         }
 
         if (journeyDocumentData && pollsCollectionData) {
             const journey = journeyDocumentData.data();
-            const polls = pollsCollectionData.docs.map((data) => data.data());
-            const journeyData: any = {
-                ...journey,
-                polls,
-                id: journeyDocumentData.id,
-            };
 
-            if (!journey) {
-                send("NO_DATA");
-                return;
-            }
-
-            journeyData.createdAt = new Date(
-                journeyData.createdAt.seconds * 1000
-            );
-            journeyData.startDate = new Date(
-                journeyData.startDate.seconds * 1000
-            );
-            journeyData.endDate = new Date(journeyData.endDate.seconds * 1000);
-
-            if (journeyData.users.includes(auth.email)) {
-                const journeysStorage =
-                    localStorage.getItem("journeysData") ?? "{}";
-                console.log(journeyData);
-
-                const journeysDataFromLocalStorage =
-                    JSON.parse(journeysStorage);
-
-                journeysDataFromLocalStorage[storageID] = journeyData;
-                localStorage.setItem(
-                    "journeysData",
-                    `${JSON.stringify(journeysDataFromLocalStorage)}`
+            // If journey exists in the database show it, else show offline data
+            if (journey) {
+                const polls = pollsCollectionData.docs.map((data) =>
+                    data.data()
                 );
+                const journeyData: any = {
+                    ...journey,
+                    polls,
+                    id: journeyDocumentData.id,
+                    createdAt: new Date(journey.createdAt.seconds * 1000),
+                    startDate: new Date(journey.startDate.seconds * 1000),
+                    endDate: new Date(journey.endDate.seconds * 1000),
+                };
 
-                setData(journeyData);
-                send("LOAD_FROM_DATABASE");
-            } else {
-                send("NO_ACCESS");
+                if (!journey && !data) {
+                    send("NO_DATA");
+                    return;
+                }
+
+                // Check for access permission
+                if (
+                    journeyData.users.includes(auth.email) ||
+                    journeyData.author === "local"
+                ) {
+                    // Update local storage and show data
+                    const journeysStorage = JSON.parse(
+                        localStorage.getItem("journeysData") ?? "{}"
+                    );
+
+                    journeysStorage[storageID] = journeyData;
+                    localStorage.setItem(
+                        "journeysData",
+                        `${JSON.stringify(journeysStorage)}`
+                    );
+
+                    setData(journeyData);
+                    send("LOAD_FROM_DATABASE");
+                } else {
+                    send("NO_ACCESS");
+                }
             }
         }
     }, [

@@ -13,7 +13,6 @@ import ActivePollsPanel from "components-ui/Organisms/ActivePollsPanel";
 import JourneyDetails from "components/JourneyDetails";
 import EditJourney from "components/EditJourney";
 import Head from "next/head";
-import { Expense } from "utils/interfaces";
 import formatDate from "functions/formatDate";
 
 type defaultContextValue = {
@@ -32,8 +31,6 @@ const JourneyPage: React.FC = () => {
     const [journeyData, state] = useJourneyData(journeyID, AuthUser);
     const [isEditModeEnabled, setIsEditModeEnabled] = useState(false);
     const [totalCost, setTotalCost] = useState(0);
-
-    console.log(AuthUser.email);
 
     useEffect(() => {
         if (journeyData) {
