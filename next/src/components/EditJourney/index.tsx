@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikBag } from "formik";
 import Button from "components-ui/Atoms/Button";
 import EditDetailsCard from "components-ui/Molecules/EditDetailsCard";
 import { Expense, Journey } from "utils/interfaces";
@@ -30,7 +30,7 @@ const EditJourney: React.FC<Props> = ({ journeyData, email }) => {
 
     const docRef = collectionRef.doc(journeyID);
 
-    const updateDatabase = (values: Journey) => {
+    const submitChanges = (values: Journey) => {
         saveJourney({
             ID: journeyID,
             email,
@@ -44,7 +44,7 @@ const EditJourney: React.FC<Props> = ({ journeyData, email }) => {
         <Wrapper>
             <Formik
                 initialValues={journeyData}
-                onSubmit={(values: Journey) => updateDatabase(values)}
+                onSubmit={(values: Journey) => submitChanges(values)}
                 validationSchema={journeyValidationSchema}
             >
                 {({ values, setValues, errors }) => {

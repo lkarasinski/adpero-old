@@ -7,62 +7,68 @@ import { Expense } from "utils/interfaces";
 
 const journeysRef = firebase.firestore().collection("journeys");
 
-const useDashboardData = (email: string | null) => {
+type UseDashboardData = (email: string | null) => [IJourneyCard[]];
+
+const useDashboardData: UseDashboardData = (email) => {
     const dataQuery = journeysRef.where("users", "array-contains", email);
     const [collectionData, loading] = useCollection(dataQuery);
-    const [data, setData] = useState<IJourneyCard[]>();
+    const [data, setData] = useState<IJourneyCard[]>([]);
+
+    const offlineJourneys = JSON.parse(
+        localStorage.getItem("offlineJourneysData") ?? "[]"
+    );
 
     useEffect(() => {
-        const databaseDashboardData = JSON.parse(
-            localStorage.getItem("dashboardData") ?? "[]"
+        const onlineJourneys = JSON.parse(
+            localStorage.getItem("journeysData") ?? "[]"
         );
-        const offlineDashboardData = JSON.parse(
-            localStorage.getItem("offlineDashboardData") ?? "[]"
-        );
-        const offlineJourneysData = JSON.parse(
-            localStorage.getItem("offlineJourneysData") ?? "[]"
-        );
-        const dashboardData = [
-            ...databaseDashboardData,
-            ...offlineDashboardData,
-        ];
-        setData(dashboardData);
-        if (!email) {
-            const newData = [];
-            for (const journey in offlineJourneysData) {
-                newData.push(offlineJourneysData[journey]);
-            }
-            const updatedDashboardData = newData.map((data: any) => ({
-                label: data.name,
-                details: data.expenses.map((expense: Expense) => expense.title),
-                id: data.id,
-            }));
-            setData(updatedDashboardData);
-            localStorage.setItem(
-                "offlineDashboardData",
-                JSON.stringify(updatedDashboardData)
-            );
+
+        const onlineDashboardData = [];
+        for (const journey in onlineJourneys) {
+            onlineDashboardData.push({
+                label: onlineJourneys[journey].name,
+                details: onlineJourneys[journey].expenses.map(
+                    (expense: Expense) => expense.title
+                ),
+                id: onlineJourneys[journey]?.id,
+            });
         }
+
+        const offlineDashboardData = [];
+        for (const journey in offlineJourneys) {
+            offlineDashboardData.push({
+                label: offlineJourneys[journey].name,
+                details: offlineJourneys[journey].expenses.map(
+                    (expense: Expense) => expense.title
+                ),
+                id: offlineJourneys[journey]?.id,
+            });
+        }
+
+        setData([...onlineDashboardData, ...offlineDashboardData]);
     }, []);
 
     useEffect(() => {
         if (email) {
             if (collectionData) {
-                const journeyData = collectionData.docs.map((data) => ({
+                const onlineDashboardData = collectionData.docs.map((data) => ({
                     label: data.data().name,
                     details: data
                         .data()
                         .expenses.map((expense: Expense) => expense.title),
                     id: data.ref.id,
                 }));
-                const offlineDashboardData = JSON.parse(
-                    localStorage.getItem("offlineDashboardData") ?? "[]"
-                );
-                setData([...journeyData, ...offlineDashboardData]);
-                localStorage.setItem(
-                    "dashboardData",
-                    JSON.stringify(journeyData)
-                );
+                const offlineDashboardData = [];
+                for (const journey in offlineJourneys) {
+                    offlineDashboardData.push({
+                        label: offlineJourneys[journey].name,
+                        details: offlineJourneys[journey].expenses.map(
+                            (expense: Expense) => expense.title
+                        ),
+                        id: offlineJourneys[journey]?.id,
+                    });
+                }
+                setData([...onlineDashboardData, ...offlineDashboardData]);
             }
         }
     }, [loading]);

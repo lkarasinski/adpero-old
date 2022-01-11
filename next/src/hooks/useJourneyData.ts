@@ -62,7 +62,6 @@ const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
     useEffect(() => {
         const data = getLocalStorageData();
         if (data[storageID]) {
-            console.log(storageID);
             setData(data[storageID]);
             send("LOAD_FROM_LOCAL_STORAGE");
         } else {
@@ -74,7 +73,6 @@ const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
     useEffect(() => {
         // If user is not logged in show only offline data
         if (!auth.email) {
-            console.log(storageID);
             send("NOT_LOGGED_IN");
             return;
         }

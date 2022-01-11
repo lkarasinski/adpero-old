@@ -8,12 +8,29 @@ type useDeleteJourney = (journeyID: string) => (() => Promise<void>)[];
 const useDeleteJourney: useDeleteJourney = (journeyID) => {
     const router = useRouter();
 
-    const deleteJourney = async () => {
-        await collectionRef.doc(journeyID).delete();
-        router.push("/");
-    };
+    if (journeyID.startsWith("offline")) {
+        const deleteOfflineJourney = async () => {
+            const localStorageData = JSON.parse(
+                localStorage.getItem("offlineJourneysData") ?? "{}"
+            );
+            const { [`journey-${journeyID}`]: _, ...newData } =
+                localStorageData;
+            localStorage.setItem(
+                "offlineJourneysData",
+                `${JSON.stringify(newData)}`
+            );
+            router.push("/");
+        };
 
-    return [deleteJourney];
+        return [deleteOfflineJourney];
+    } else {
+        const deleteOnlineJourney = async () => {
+            await collectionRef.doc(journeyID).delete();
+            router.push("/");
+        };
+
+        return [deleteOnlineJourney];
+    }
 };
 
 export default useDeleteJourney;

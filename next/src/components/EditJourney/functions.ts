@@ -60,21 +60,12 @@ export const saveJourney: saveJourney = ({
     setIsEditModeEnabled,
 }) => {
     if (ID.startsWith("offline")) {
-        console.log("offline journey");
         editLocalStorage(`journey-${ID}`, values, "offlineJourneysData");
-        // const journeysStorage = JSON.parse(
-        //     localStorage.getItem("offlineJourneysData") ?? "{}"
-        // );
-        // journeysStorage[`journey-${ID}`] = { ...values };
-        // localStorage.setItem(
-        //     "offlineJourneysData",
-        //     `${JSON.stringify(journeysStorage)}`
-        // );
         setIsEditModeEnabled();
     }
     if (email) {
-        console.log({ ...values });
         updateDB({ ...values });
         setIsEditModeEnabled();
     }
+    location.reload();
 };
