@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { Form, Formik, FormikBag } from "formik";
+import { Form, Formik } from "formik";
 import Button from "components-ui/Atoms/Button";
 import EditDetailsCard from "components-ui/Molecules/EditDetailsCard";
 import { Expense, Journey } from "utils/interfaces";
@@ -14,6 +14,7 @@ import { FormContext } from "pages/journeys/[journeyID]";
 import { StyledField } from "components-ui/Molecules/InputField";
 import EditJourneyDataPanel from "components-ui/Organisms/EditJourneyDataPanel";
 import useDeleteJourney from "hooks/useDeleteJourney";
+import InvitePanel from "components/InvitePanel";
 
 type Props = {
     journeyData: Journey;
@@ -54,6 +55,10 @@ const EditJourney: React.FC<Props> = ({ journeyData, email }) => {
                             <button type="button" onClick={deleteJourney}>
                                 Delete journey
                             </button>
+                            <InvitePanel
+                                userEmail={email}
+                                journeyID={journeyID}
+                            />
                             <EditJourneyDataPanel errors={{}} />
                             <pre>{JSON.stringify(errors, null, 2)}</pre>
                             <Button
