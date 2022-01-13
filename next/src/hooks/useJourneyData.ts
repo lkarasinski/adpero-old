@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import { Journey, Poll } from "utils/interfaces";
+import { Journey } from "utils/interfaces";
 import { createMachine, StateValue } from "xstate";
 import { useMachine } from "@xstate/react";
 import getLocalStorageData from "functions/getLocalStorageData";
