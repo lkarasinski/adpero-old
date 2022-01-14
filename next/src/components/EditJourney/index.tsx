@@ -19,11 +19,16 @@ import InvitePanel from "components/InvitePanel";
 type Props = {
     journeyData: Journey;
     email: string;
+    setJourneyData: React.Dispatch<any>;
 };
 
 const collectionRef = firebase.firestore().collection("journeys");
 
-const EditJourney: React.FC<Props> = ({ journeyData, email }) => {
+const EditJourney: React.FC<Props> = ({
+    journeyData,
+    email,
+    setJourneyData,
+}) => {
     const router = useRouter();
     const { setIsEditModeEnabled } = useContext(FormContext);
     const journeyID = router.query.journeyID as string;
@@ -38,6 +43,7 @@ const EditJourney: React.FC<Props> = ({ journeyData, email }) => {
             updateDB: (values: any) => docRef.set({ ...values }),
             values,
             setIsEditModeEnabled: () => setIsEditModeEnabled((value) => !value),
+            setJourneyData: setJourneyData,
         });
     };
 
@@ -55,10 +61,14 @@ const EditJourney: React.FC<Props> = ({ journeyData, email }) => {
                             <button type="button" onClick={deleteJourney}>
                                 Delete journey
                             </button>
-                            <InvitePanel
-                                userEmail={email}
-                                journeyID={journeyID}
-                            />
+                            {journeyID.startsWith("offline") ? (
+                                <></>
+                            ) : (
+                                <InvitePanel
+                                    userEmail={email}
+                                    journeyID={journeyID}
+                                />
+                            )}
                             <EditJourneyDataPanel errors={{}} />
                             <pre>{JSON.stringify(errors, null, 2)}</pre>
                             <Button

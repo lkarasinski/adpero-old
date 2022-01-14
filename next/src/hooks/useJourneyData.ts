@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -46,7 +46,10 @@ const loadingMachine = createMachine({
     },
 });
 
-const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
+const useJourneyData = (
+    id: string,
+    auth: any
+): [Journey, StateValue, React.Dispatch<any>] => {
     const journeyRef = journeysRef.doc(id);
     const [journeyDocumentData, journeyLoading] = useDocument(journeyRef);
     const [data, setData] = useState<any>();
@@ -129,7 +132,7 @@ const useJourneyData = (id: string, auth: any): [Journey, StateValue] => {
         pollsLoading,
     ]);
 
-    return [data, current.value];
+    return [data, current.value, setData];
 };
 
 export default useJourneyData;

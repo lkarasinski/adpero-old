@@ -28,7 +28,10 @@ const JourneyPage: React.FC = () => {
     const router = useRouter();
     const AuthUser = useAuthUser();
     const journeyID = router.query.journeyID as string;
-    const [journeyData, state] = useJourneyData(journeyID, AuthUser);
+    const [journeyData, state, setJourneyData] = useJourneyData(
+        journeyID,
+        AuthUser
+    );
     const [isEditModeEnabled, setIsEditModeEnabled] = useState(false);
     const [totalCost, setTotalCost] = useState(0);
 
@@ -66,6 +69,7 @@ const JourneyPage: React.FC = () => {
                         <EditJourney
                             journeyData={journeyData}
                             email={AuthUser.email ?? ""}
+                            setJourneyData={setJourneyData}
                         />
                     ) : (
                         <>

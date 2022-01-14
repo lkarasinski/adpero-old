@@ -2,6 +2,7 @@ import { Journey } from "utils/interfaces";
 import { emptyDetail, emptyExpense } from "utils/constants";
 import { setValues } from "utils/types";
 import editLocalStorage from "functions/editLocalStorage";
+import { Dispatch } from "react";
 
 type NewExpense = (values: Journey, setValues: setValues) => void;
 export const addNewExpense: NewExpense = (values, setValues) => {
@@ -49,6 +50,7 @@ type saveJoruneyProps = {
     updateDB: any;
     values: any;
     setIsEditModeEnabled: any;
+    setJourneyData: Dispatch<any>;
 };
 type saveJourney = (props: saveJoruneyProps) => void;
 
@@ -58,14 +60,15 @@ export const saveJourney: saveJourney = ({
     updateDB,
     values,
     setIsEditModeEnabled,
+    setJourneyData,
 }) => {
     if (ID.startsWith("offline")) {
         editLocalStorage(`journey-${ID}`, values, "offlineJourneysData");
+        setJourneyData(values);
         setIsEditModeEnabled();
     }
     if (email) {
         updateDB({ ...values });
         setIsEditModeEnabled();
     }
-    location.reload();
 };
