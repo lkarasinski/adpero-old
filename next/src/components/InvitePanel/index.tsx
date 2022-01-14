@@ -1,5 +1,5 @@
 import React from "react";
-import useInvitePanel from "hooks/useInvitePanel";
+import useCreateInvite from "hooks/useCreateInvite";
 import Text from "components-ui/Atoms/Text";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 };
 
 const InvitePanel: React.FC<Props> = ({ userEmail, journeyID }) => {
-    const [linkID, createInvite] = useInvitePanel(userEmail, journeyID);
+    const [linkID, createInvite] = useCreateInvite(userEmail, journeyID);
     const link = `${location.origin}/invite/${linkID}`;
 
     const copyToClipboard = () => navigator.clipboard.writeText(link);

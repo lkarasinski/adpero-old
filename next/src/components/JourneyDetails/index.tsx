@@ -19,8 +19,8 @@ const JourneyDetails: React.FC<Props> = ({ expenses }) => {
             </HeadingContainer>
             {expenses.length === 0 ? null : (
                 <Grid>
-                    {expenses?.map((expense, i: number) => (
-                        <DetailsCard key={i} expense={expense} />
+                    {expenses?.map((expense) => (
+                        <DetailsCard key={expense.id} expense={expense} />
                     ))}
                 </Grid>
             )}

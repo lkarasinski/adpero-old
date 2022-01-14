@@ -5,7 +5,7 @@ import {
     withAuthUserTokenSSR,
 } from "next-firebase-auth";
 import { useRouter } from "next/router";
-import useInvite from "hooks/useInvite";
+import useJoinWithInvite from "hooks/useJoinWithInvite";
 import Heading from "components-ui/Atoms/Heading";
 import StyledButton from "components-ui/Atoms/Button";
 import Text from "components-ui/Atoms/Text";
@@ -14,17 +14,17 @@ const InvitePage: React.FC = () => {
     const router = useRouter();
     const inviteID = router.query.inviteID as string;
     const user = useAuthUser();
-    const [able, join] = useInvite(inviteID, user.email);
+    const [isAbleToJoin, joinJourney] = useJoinWithInvite(inviteID, user.email);
 
     if (!user.email) {
         return <Heading>You must be logged in to accept invites</Heading>;
     }
 
-    if (able && join) {
+    if (isAbleToJoin && joinJourney) {
         return (
             <div>
                 <Heading>You are able to join this journey</Heading>
-                <StyledButton onClick={() => join()}>
+                <StyledButton onClick={() => joinJourney()}>
                     Click here to do so
                 </StyledButton>
             </div>

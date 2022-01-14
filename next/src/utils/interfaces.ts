@@ -20,17 +20,19 @@ export interface Poll {
     title: string;
     id: string;
     votes: Vote[];
-    details: Detail[];
+    content: Expense[];
 }
 export interface Expense {
     details: Detail[];
     title: string;
+    id: string;
 }
 export interface Detail {
     label: string;
     type: "Price" | "Text" | "Date" | "Address" | "";
     value: string | Date;
     currency: string;
+    id: string;
 }
 
 export interface Cost {
@@ -51,6 +53,7 @@ export interface JourneyData {
 }
 
 export interface Vote {
-    id: number;
+    user: string;
     value: number;
+    id: string; // Refers to the expense id
 }

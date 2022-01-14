@@ -36,7 +36,7 @@ const DetailsCard: React.FC<Props> = ({ expense }) => {
                                 ? formatDate(getDateFromTimestamp(detail.value))
                                 : detail.value
                         } ${detail.type === "Price" ? detail.currency : ""}`}
-                        key={detail.label + detail.value}
+                        key={detail.id}
                     />
                 ))}
             </Flex>

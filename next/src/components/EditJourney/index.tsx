@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { Form, Formik } from "formik";
 import Button from "components-ui/Atoms/Button";
+import Text from "components-ui/Atoms/Text";
 import EditDetailsCard from "components-ui/Molecules/EditDetailsCard";
 import { Expense, Journey } from "utils/interfaces";
 import { journeyValidationSchema } from "./validation";
@@ -15,6 +16,7 @@ import { StyledField } from "components-ui/Molecules/InputField";
 import EditJourneyDataPanel from "components-ui/Organisms/EditJourneyDataPanel";
 import useDeleteJourney from "hooks/useDeleteJourney";
 import InvitePanel from "components/InvitePanel";
+import useCreatePoll from "hooks/useCreatePoll";
 
 type Props = {
     journeyData: Journey;
@@ -33,6 +35,7 @@ const EditJourney: React.FC<Props> = ({
     const { setIsEditModeEnabled } = useContext(FormContext);
     const journeyID = router.query.journeyID as string;
     const [deleteJourney] = useDeleteJourney(journeyID);
+    const [createNewPoll] = useCreatePoll(journeyID, "Testing");
 
     const docRef = collectionRef.doc(journeyID);
 
@@ -61,15 +64,21 @@ const EditJourney: React.FC<Props> = ({
                             <button type="button" onClick={deleteJourney}>
                                 Delete journey
                             </button>
-                            {journeyID.startsWith("offline") ? (
-                                <></>
-                            ) : (
+                            {journeyID.startsWith("offline") ? null : (
                                 <InvitePanel
                                     userEmail={email}
                                     journeyID={journeyID}
                                 />
                             )}
                             <EditJourneyDataPanel errors={{}} />
+                            {createNewPoll ? (
+                                <div>
+                                    <Text>New Poll</Text>
+                                    <button onClick={() => createNewPoll()}>
+                                        Create
+                                    </button>
+                                </div>
+                            ) : null}
                             <pre>{JSON.stringify(errors, null, 2)}</pre>
                             <Button
                                 onClick={() => {
