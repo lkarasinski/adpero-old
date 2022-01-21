@@ -26,6 +26,7 @@ const StyledButton = styled(Button)<StyledButtonProps>`
                 ? theme.colors.gray.light
                 : theme.colors.green
             : theme.colors.primary};
+    box-shadow: 0 0 4px ${({ theme }) => `${theme.colors.primary}80`};
 `;
 
 const EditButton: React.FC<ButtonProps> = ({ ...props }) => {

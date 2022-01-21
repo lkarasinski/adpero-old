@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { Form, Formik } from "formik";
 import Button from "components-ui/Atoms/Button";
-import Text from "components-ui/Atoms/Text";
 import EditDetailsCard from "components-ui/Molecules/EditDetailsCard";
 import { Expense, Journey } from "utils/interfaces";
 import { journeyValidationSchema } from "./validation";
@@ -13,14 +12,17 @@ import { useRouter } from "next/router";
 import EditButton from "components-ui/Molecules/EditButton";
 import { FormContext } from "pages/journeys/[journeyID]";
 import { StyledField } from "components-ui/Molecules/InputField";
-import EditJourneyDataPanel from "components-ui/Organisms/EditJourneyDataPanel";
 import useDeleteJourney from "hooks/useDeleteJourney";
-import InvitePanel from "components/InvitePanel";
 import useCreatePoll from "hooks/useCreatePoll";
+import JourneyInfoPanel from "./JourneyInfoPanel";
+import DetailsCard from "components-ui/Molecules/DetailsCard";
+import Heading from "components-ui/Atoms/Heading";
+import EditCategoryCard from "components-ui/Organisms/EditCategoryCard";
 
 type Props = {
     journeyData: Journey;
     email: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setJourneyData: React.Dispatch<any>;
 };
 
@@ -37,12 +39,15 @@ const EditJourney: React.FC<Props> = ({
     const [deleteJourney] = useDeleteJourney(journeyID);
     const [createNewPoll] = useCreatePoll(journeyID, "Testing");
 
+    console.log(journeyData.users);
+
     const docRef = collectionRef.doc(journeyID);
 
     const submitChanges = (values: Journey) => {
         saveJourney({
             ID: journeyID,
             email,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             updateDB: (values: any) => docRef.set({ ...values }),
             values,
             setIsEditModeEnabled: () => setIsEditModeEnabled((value) => !value),
@@ -61,24 +66,13 @@ const EditJourney: React.FC<Props> = ({
                     const typedErrors = errors as Errors;
                     return (
                         <div>
-                            <button type="button" onClick={deleteJourney}>
-                                Delete journey
-                            </button>
-                            {journeyID.startsWith("offline") ? null : (
-                                <InvitePanel
-                                    userEmail={email}
-                                    journeyID={journeyID}
-                                />
-                            )}
-                            <EditJourneyDataPanel errors={{}} />
-                            {createNewPoll ? (
-                                <div>
-                                    <Text>New Poll</Text>
-                                    <button onClick={() => createNewPoll()}>
-                                        Create
-                                    </button>
-                                </div>
-                            ) : null}
+                            <JourneyInfoPanel
+                                deleteJourney={deleteJourney}
+                                createNewPoll={createNewPoll}
+                                email={email}
+                                journeyID={journeyID}
+                                participants={journeyData.users}
+                            />
                             <pre>{JSON.stringify(errors, null, 2)}</pre>
                             <Button
                                 onClick={() => {
@@ -86,41 +80,20 @@ const EditJourney: React.FC<Props> = ({
                                 }}
                                 type="button"
                             >
-                                New category
+                                Add new category
                             </Button>
                             <Form>
+                                <Heading>Categories</Heading>
                                 {values.expenses.map(
                                     (expense: Expense, i: number) => (
                                         <Grid key={i}>
-                                            <StyledField
-                                                name={`expenses[${i}].title`}
-                                                type="input"
+                                            <EditCategoryCard
+                                                expense={expense}
+                                                values={values}
+                                                setValues={setValues}
+                                                typedErrors={typedErrors}
+                                                i={i}
                                             />
-
-                                            {expense.details.map(
-                                                (_, j: number) => (
-                                                    <EditDetailsCard
-                                                        key={`${i}-${j}`}
-                                                        values={values}
-                                                        IDs={[i, j]}
-                                                        setValues={setValues}
-                                                        errors={typedErrors}
-                                                    />
-                                                )
-                                            )}
-
-                                            <Button
-                                                onClick={() =>
-                                                    addNewDetail(
-                                                        values,
-                                                        i,
-                                                        setValues
-                                                    )
-                                                }
-                                                type="button"
-                                            >
-                                                New detail
-                                            </Button>
                                         </Grid>
                                     )
                                 )}
@@ -134,7 +107,7 @@ const EditJourney: React.FC<Props> = ({
     );
 };
 
-type Errors = {
+export type Errors = {
     author: string;
     name: string;
     startDate: string;

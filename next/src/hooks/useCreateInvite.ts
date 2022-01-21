@@ -39,9 +39,10 @@ type FunctionType = () => void;
 type UseInvitePanel = (
     journeyID: string,
     userEmail: string
-) => [string, FunctionType];
+) => [string, FunctionType, boolean];
 const useInvitePanel: UseInvitePanel = (userEmail, journeyID) => {
     const [linkID, setLinkID] = useState("");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         (async () => {
@@ -52,10 +53,15 @@ const useInvitePanel: UseInvitePanel = (userEmail, journeyID) => {
                 console.log(doc);
                 setLinkID(doc.id);
             });
+            setLoading(false);
         })();
     }, []);
 
-    return [linkID, () => createInvite(userEmail, journeyID, setLinkID)];
+    return [
+        linkID,
+        () => createInvite(userEmail, journeyID, setLinkID),
+        loading,
+    ];
 };
 
 export default useInvitePanel;

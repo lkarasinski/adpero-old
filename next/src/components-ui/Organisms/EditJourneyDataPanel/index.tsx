@@ -1,3 +1,5 @@
+import Card from "components-ui/Atoms/Card";
+import Label from "components-ui/Atoms/Label";
 import InputField from "components-ui/Molecules/InputField";
 import React from "react";
 import styled from "styled-components";
@@ -6,7 +8,8 @@ type Props = { errors: any };
 
 const EditJourneyDataPanel: React.FC<Props> = ({ errors }) => {
     return (
-        <Wrapper>
+        <StyledCard>
+            <StyledLabel isAccent>Journey data</StyledLabel>
             <InputField
                 error={errors.name}
                 label={"JourneyName"}
@@ -37,17 +40,22 @@ const EditJourneyDataPanel: React.FC<Props> = ({ errors }) => {
                     name={"cost.currency"}
                 />
             </div>
-        </Wrapper>
+        </StyledCard>
     );
 };
+
+const StyledLabel = styled(Label)`
+    margin-bottom: 1rem;
+`;
 
 const DatePickerContainer = styled.div`
     display: flex;
     gap: 1rem;
 `;
 
-const Wrapper = styled.div`
+const StyledCard = styled(Card)`
     max-width: 20rem;
+    height: min-content;
 `;
 
 export default EditJourneyDataPanel;

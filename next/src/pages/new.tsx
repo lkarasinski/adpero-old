@@ -51,7 +51,7 @@ const NewJourney: React.FC = () => {
                             <Button
                                 disabled={isCreating}
                                 type="submit"
-                                isPrimary={true}
+                                color="primary"
                             >
                                 Create
                             </Button>

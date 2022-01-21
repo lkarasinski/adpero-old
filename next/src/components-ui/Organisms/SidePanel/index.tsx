@@ -83,7 +83,7 @@ const SidePanel: React.FC<Props> = ({ isContracted }) => {
                 <Link href="/new" passHref>
                     <SidePanelButton
                         aria-label="New Journey"
-                        isPrimary
+                        color="primary"
                         isContracted={isContracted}
                     >
                         {!isContracted && "New journey"}
