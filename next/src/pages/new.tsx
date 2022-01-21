@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import * as yup from "yup";
 import EditJourneyDataPanel from "components-ui/Organisms/EditJourneyDataPanel";
+import { motion } from "framer-motion";
 
 const NewJourney: React.FC = () => {
     const auth = useAuthUser();
@@ -33,7 +34,13 @@ const NewJourney: React.FC = () => {
     };
 
     return (
-        <>
+        <motion.div
+            variants={variants}
+            initial="hidden"
+            animate="enter"
+            exit="exit"
+            transition={{ type: "linear" }}
+        >
             <Heading>New journey</Heading>
             <Formik
                 initialValues={initialValues}
@@ -59,7 +66,7 @@ const NewJourney: React.FC = () => {
                     );
                 }}
             </Formik>
-        </>
+        </motion.div>
     );
 };
 
@@ -68,6 +75,12 @@ type Errors = {
     startDate: string;
     endDate: string;
     cost: { value: string; currency: string };
+};
+
+const variants = {
+    hidden: { opacity: 0 },
+    enter: { opacity: 1 },
+    exit: { opacity: 0 },
 };
 
 const StyledForm = styled(Form)`

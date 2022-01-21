@@ -14,6 +14,8 @@ import JourneyDetails from "components/JourneyDetails";
 import EditJourney from "components/EditJourney";
 import Head from "next/head";
 import formatDate from "functions/formatDate";
+import { motion } from "framer-motion";
+import useJourneys, { JourneysProvider } from "context/JourneysContext";
 
 type defaultContextValue = {
     isEditModeEnabled: boolean;
@@ -34,6 +36,14 @@ const JourneyPage: React.FC = () => {
     );
     const [isEditModeEnabled, setIsEditModeEnabled] = useState(false);
     const [totalCost, setTotalCost] = useState(0);
+
+    const journeys = useJourneys();
+    const journey = journeys.journeys?.[journeyID];
+
+    // console.log("journey");
+    // console.log(journeys);
+    // console.log("journeyData");
+    // console.log(journeyData);
 
     useEffect(() => {
         if (journeyData) {
@@ -57,43 +67,61 @@ const JourneyPage: React.FC = () => {
     if (!journeyData) return null;
 
     return (
-        <>
-            <Head>
-                <title>Adpero - {journeyData.name}</title>
-            </Head>
-            <FormContext.Provider
-                value={{ isEditModeEnabled, setIsEditModeEnabled }}
+        <JourneysProvider>
+            <motion.div
+                variants={variants}
+                initial="hidden"
+                animate="enter"
+                exit="exit"
+                transition={{ type: "linear" }}
             >
-                <Wrapper>
-                    {isEditModeEnabled ? (
-                        <EditJourney
-                            journeyData={journeyData}
-                            email={AuthUser.email ?? ""}
-                            setJourneyData={setJourneyData}
-                        />
-                    ) : (
-                        <>
-                            <HeadingContainer>
-                                <Heading>{journeyData.name}</Heading>
-                            </HeadingContainer>
-                            <SummaryPanel
-                                numberOfUsers={journeyData.users.length}
-                                isInSidePanel={false}
-                                totalCost={{
-                                    value: totalCost,
-                                    currency: journeyData.cost.currency,
-                                }}
-                                startDate={formatDate(journeyData.startDate)}
-                                endDate={formatDate(journeyData.endDate)}
+                <Head>
+                    <title>Adpero - {journeyData.name}</title>
+                </Head>
+                <FormContext.Provider
+                    value={{ isEditModeEnabled, setIsEditModeEnabled }}
+                >
+                    <Wrapper>
+                        {isEditModeEnabled ? (
+                            <EditJourney
+                                journeyData={journeyData}
+                                email={AuthUser.email ?? ""}
+                                setJourneyData={setJourneyData}
                             />
-                            <ActivePollsPanel polls={journeyData.polls} />
-                            <JourneyDetails expenses={journeyData.expenses} />
-                        </>
-                    )}
-                </Wrapper>
-            </FormContext.Provider>
-        </>
+                        ) : (
+                            <>
+                                <HeadingContainer>
+                                    <Heading>{journeyData.name}</Heading>
+                                </HeadingContainer>
+                                <SummaryPanel
+                                    numberOfUsers={journeyData.users.length}
+                                    isInSidePanel={false}
+                                    totalCost={{
+                                        value: totalCost,
+                                        currency: journeyData.cost.currency,
+                                    }}
+                                    startDate={formatDate(
+                                        journeyData.startDate
+                                    )}
+                                    endDate={formatDate(journeyData.endDate)}
+                                />
+                                <ActivePollsPanel polls={journeyData.polls} />
+                                <JourneyDetails
+                                    expenses={journeyData.expenses}
+                                />
+                            </>
+                        )}
+                    </Wrapper>
+                </FormContext.Provider>
+            </motion.div>
+        </JourneysProvider>
     );
+};
+
+const variants = {
+    hidden: { opacity: 0 },
+    enter: { opacity: 1 },
+    exit: { opacity: 0 },
 };
 
 const Wrapper = styled.div`

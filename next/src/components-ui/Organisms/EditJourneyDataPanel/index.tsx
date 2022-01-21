@@ -12,7 +12,7 @@ const EditJourneyDataPanel: React.FC<Props> = ({ errors }) => {
             <StyledLabel isAccent>Journey data</StyledLabel>
             <InputField
                 error={errors.name}
-                label={"JourneyName"}
+                label={"Journey Name"}
                 name={"name"}
             />
             <DatePickerContainer>

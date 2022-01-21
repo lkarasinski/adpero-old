@@ -17,7 +17,6 @@ const usePollPage: UsePollPage = (journeyID, pollID) => {
         if (journeyDocumentData) {
             const journeyData = journeyDocumentData.data();
             if (journeyData) {
-                console.log(journeyData);
                 const polls = journeyData.polls;
                 const pollData = polls.find((poll: Poll) => poll.id === pollID);
                 setData(pollData);

@@ -1,5 +1,5 @@
 import "firebase/firestore";
-import firebase from "firebase/app";
+import firebase from "services/firebase";
 import { useEffect, useState } from "react";
 
 const invitesRef = firebase.firestore().collection("invites");
@@ -13,10 +13,7 @@ type CreateInvite = (
 
 const createInvite: CreateInvite = async (userEmail, journeyID, setLink) => {
     const journeyData = await journeysRef.doc(journeyID).get();
-    console.log(journeyID);
-    console.log(journeyData);
     if (journeyData.exists) {
-        console.log(journeyData);
         const docData = journeyData.data();
         if (docData?.author === userEmail) {
             const inviteData = await invitesRef
@@ -25,7 +22,7 @@ const createInvite: CreateInvite = async (userEmail, journeyID, setLink) => {
             inviteData.forEach((doc: any) => doc.ref.delete());
 
             const docRef = await invitesRef.add({
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                createdAt: new Date(),
                 journeyID: journeyID,
             });
             if (setLink) {
@@ -50,7 +47,6 @@ const useInvitePanel: UseInvitePanel = (userEmail, journeyID) => {
                 .where("journeyID", "==", journeyID)
                 .get();
             invitesData.forEach((doc) => {
-                console.log(doc);
                 setLinkID(doc.id);
             });
             setLoading(false);

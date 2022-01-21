@@ -2,20 +2,17 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { Form, Formik } from "formik";
 import Button from "components-ui/Atoms/Button";
-import EditDetailsCard from "components-ui/Molecules/EditDetailsCard";
 import { Expense, Journey } from "utils/interfaces";
 import { journeyValidationSchema } from "./validation";
-import { addNewDetail, addNewExpense, saveJourney } from "./functions";
-import firebase from "firebase/app";
+import { addNewExpense, saveJourney } from "./functions";
+import firebase from "services/firebase";
 import "firebase/firestore";
 import { useRouter } from "next/router";
 import EditButton from "components-ui/Molecules/EditButton";
 import { FormContext } from "pages/journeys/[journeyID]";
-import { StyledField } from "components-ui/Molecules/InputField";
 import useDeleteJourney from "hooks/useDeleteJourney";
 import useCreatePoll from "hooks/useCreatePoll";
 import JourneyInfoPanel from "./JourneyInfoPanel";
-import DetailsCard from "components-ui/Molecules/DetailsCard";
 import Heading from "components-ui/Atoms/Heading";
 import EditCategoryCard from "components-ui/Organisms/EditCategoryCard";
 
@@ -38,8 +35,6 @@ const EditJourney: React.FC<Props> = ({
     const journeyID = router.query.journeyID as string;
     const [deleteJourney] = useDeleteJourney(journeyID);
     const [createNewPoll] = useCreatePoll(journeyID, "Testing");
-
-    console.log(journeyData.users);
 
     const docRef = collectionRef.doc(journeyID);
 
@@ -125,7 +120,7 @@ export type Errors = {
 
 const Grid = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fit, 19rem);
+    /* grid-template-columns: repeat(auto-fit, 19rem); */
     gap: 2rem;
     margin-bottom: 10rem;
 `;

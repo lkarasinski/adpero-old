@@ -14,7 +14,6 @@ const useCreatePoll: UseCreatePoll = (journeyID, pollTitle) => {
     const [createPollFunction, setCreatePollFunction] = useState<any>(null);
 
     useEffect(() => {
-        console.log();
         (async () => {
             const journeyDoc = journeysRef.doc(journeyID);
             const journeyData = await journeyDoc.get();

@@ -3,31 +3,11 @@ import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import useWindowWidth from "hooks/useWindowWidth";
 import theme from "../../utils/theme";
 import SidePanel from "../../components-ui/Organisms/SidePanel";
+import { motion } from "framer-motion";
 
 interface ContentProps {
     isContracted: boolean;
 }
-
-const Main = styled.div`
-    display: flex;
-    flex-direction: row;
-`;
-
-const Content = styled.div<ContentProps>`
-    z-index: 0;
-    width: 100%;
-    min-height: 100vh;
-    margin-left: ${({ isContracted }) => (isContracted ? "5rem" : "14rem")};
-    padding-left: 2rem;
-    background-color: white;
-    transition: margin-left 200ms ease-in-out;
-`;
-
-const GlobalStyles = createGlobalStyle`
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}`;
 
 type Props = {
     auth: any;
@@ -58,6 +38,33 @@ const Layout: React.FC<Props> = ({ children, auth }) => {
             </ThemeProvider>
         </>
     );
+};
+
+const Main = styled.main`
+    display: flex;
+    flex-direction: row;
+`;
+
+const Content = styled.div<ContentProps>`
+    z-index: 0;
+    width: 100%;
+    min-height: 100vh;
+    margin-left: ${({ isContracted }) => (isContracted ? "5rem" : "14rem")};
+    padding-left: 2rem;
+    background-color: white;
+    transition: margin-left 200ms ease-in-out;
+`;
+
+const GlobalStyles = createGlobalStyle`
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}`;
+
+const variants = {
+    hidden: { opacity: 0 },
+    enter: { opacity: 1 },
+    exit: { opacity: 0 },
 };
 
 export default Layout;

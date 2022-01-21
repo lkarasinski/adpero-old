@@ -1,7 +1,7 @@
 import React from "react";
 import type { AppProps } from "next/app";
-import firebase from "firebase/app";
-import initAuth from "../services/auth/initAuth";
+import firebase from "services/firebase";
+import initAuth from "services/auth/initAuth";
 import "regenerator-runtime/runtime.js";
 import Layout from "components/Layout";
 import { createGlobalStyle } from "styled-components";
@@ -10,25 +10,33 @@ import {
     withAuthUser,
     useAuthUser,
 } from "next-firebase-auth";
+import { AnimatePresence } from "framer-motion";
+import { firebaseConfig } from "utils/config";
+import { JourneysProvider } from "context/JourneysContext";
 require("regenerator-runtime/runtime");
-
-const firebaseConfig = {
-    apiKey: "AIzaSyA3Jczs7ht_gFUrZIB0jbn74jQZPoybNWc",
-    authDomain: "adpero-1a98f.firebaseapp.com",
-    projectId: "adpero-1a98f",
-    storageBucket: "adpero-1a98f.appspot.com",
-    messagingSenderId: "86347270073",
-    appId: "1:86347270073:web:23d5de879d2d0a5ec41868",
-    measurementId: "G-1G58M2XVBV",
-};
 
 initAuth();
 
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-} else {
-    firebase.app();
-}
+const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+    firebase;
+    const auth = useAuthUser();
+    return (
+        <>
+            <GlobalStyle />
+            <AnimatePresence
+                exitBeforeEnter
+                initial={false}
+                onExitComplete={() => window.scrollTo(0, 0)}
+            >
+                <JourneysProvider>
+                    <Layout auth={auth}>
+                        <Component {...pageProps} />
+                    </Layout>
+                </JourneysProvider>
+            </AnimatePresence>
+        </>
+    );
+};
 
 const GlobalStyle = createGlobalStyle`
 
@@ -52,18 +60,6 @@ const GlobalStyle = createGlobalStyle`
         -moz-osx-font-smoothing: grayscale;
     }
 `;
-
-const App: React.FC<AppProps> = ({ Component, pageProps }) => {
-    const auth = useAuthUser();
-    return (
-        <>
-            <GlobalStyle />
-            <Layout auth={auth}>
-                <Component {...pageProps} />
-            </Layout>
-        </>
-    );
-};
 
 export const getServerSideProps = withAuthUserTokenSSR()();
 
