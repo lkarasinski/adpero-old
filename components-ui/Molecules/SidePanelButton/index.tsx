@@ -7,6 +7,7 @@ type Props = {
 
 const SidePanelButton = styled(Button)<Props>`
     width: ${({ isContracted }) => (isContracted ? '3rem' : '12rem')};
+    min-width: auto;
     height: 3rem;
     padding: 0;
     gap: 0.5rem;

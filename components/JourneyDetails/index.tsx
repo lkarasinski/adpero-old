@@ -1,17 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Label from 'components-ui/Atoms/Label';
 import DetailsCard from 'components-ui/Molecules/DetailsCard';
 import EditButton from 'components-ui/Molecules/EditButton';
-import { FormContext } from 'pages/journeys/[journeyID]';
 import { Expense } from 'utils/interfaces';
+import { useRouter } from 'next/router';
 
 type Props = {
     expenses: Expense[];
 };
 
 const JourneyDetails: React.FC<Props> = ({ expenses }) => {
-    const { isEditModeEnabled, setIsEditModeEnabled } = useContext(FormContext);
+    const router = useRouter();
+
     return (
         <Wrapper>
             <HeadingContainer>
@@ -24,11 +25,7 @@ const JourneyDetails: React.FC<Props> = ({ expenses }) => {
                     ))}
                 </Grid>
             )}
-            <EditButton
-                onClick={() => setIsEditModeEnabled(true)}
-                isInEditMode={isEditModeEnabled}
-                isGrayedOut={false}
-            />
+            <EditButton path={router.asPath} />
         </Wrapper>
     );
 };

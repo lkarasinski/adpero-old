@@ -17,16 +17,20 @@ const InvitePanel: React.FC<Props> = ({ userEmail, journeyID }) => {
         console.error('useJourneys must be used within a JourneysProvider');
     }
 
-    const { journeys } = journeyContext;
+    const { journeys } = useJourneys();
     const journey = journeys.find((j) => j.id === journeyID)?.data;
     const [linkID, createInvite, loading] = useCreateInvite(journey, userEmail);
-    const link = `${location.origin}/invite/${linkID}`;
-    const copyToClipboard = () => navigator.clipboard.writeText(link);
+    const copyToClipboard = React.useCallback(
+        () =>
+            navigator.clipboard.writeText(
+                `${location.origin}/invite/${linkID}` ?? ''
+            ),
+        [linkID]
+    );
 
     if (journey == undefined) {
         return <div>Journey not found</div>;
     }
-    if (loading) return <div>Loading</div>;
 
     return (
         <StyledCard
@@ -37,13 +41,19 @@ const InvitePanel: React.FC<Props> = ({ userEmail, journeyID }) => {
             <StyledLabel isAccent>Invite Link</StyledLabel>
             <ButtonContainer>
                 <Button
-                    color={linkID ? 'primary' : 'gray'}
+                    color={loading ? 'gray' : linkID ? 'primary' : 'gray'}
                     disabled={!linkID}
+                    type="button"
                     onClick={copyToClipboard}
                 >
                     Copy invite Link
                 </Button>
-                <Button color={linkID ? 'red' : 'green'} onClick={createInvite}>
+                <Button
+                    color={loading ? 'gray' : linkID ? 'primary' : 'gray'}
+                    onClick={
+                        loading ? () => console.log('loading') : createInvite
+                    }
+                >
                     Create new Link
                 </Button>
             </ButtonContainer>
@@ -68,6 +78,7 @@ const ButtonContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-top: 2rem;
+    gap: 2rem;
 `;
 
 const StyledLabel = styled(Label)`
@@ -77,7 +88,7 @@ const StyledLabel = styled(Label)`
 const StyledCard = styled(Card)`
     /* display: grid; */
     grid-template-columns: 1fr 1fr;
-    /* max-width: min-content; */
+    max-width: max-content;
     gap: 2rem;
 `;
 

@@ -3,15 +3,13 @@ import {
     faMapMarkedAlt,
     faPoll,
 } from '@fortawesome/free-solid-svg-icons';
-import Label from 'components-ui/Atoms/Label';
-import Text from 'components-ui/Atoms/Text';
 import StyledLink from 'components-ui/Molecules/StyledLink';
 import DefaultSidePanel from 'components-ui/Organisms/DefaultSidePanel';
 import useJourneys from 'context/JourneysContext';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
+import EditLink from './EditLink';
 
 export type SidebarLink = {
     label: string;
@@ -31,7 +29,7 @@ const Sidebar: React.FC<Props> = ({ isContracted }) => {
 
     if (!router.pathname.startsWith('/journeys/[journeyID]/edit')) {
         return (
-            <DefaultSidePanel isContracted={false}>
+            <DefaultSidePanel isContracted={isContracted}>
                 <StyledLink
                     icon={faColumns}
                     href="/"
@@ -85,40 +83,49 @@ const Sidebar: React.FC<Props> = ({ isContracted }) => {
         const polls = sidebarData.filter((s) => s.type === 'poll');
 
         return (
-            <DefaultSidePanel isContracted={false}>
+            <DefaultSidePanel isContracted={isContracted}>
                 <Container>
-                    <EditLink
-                        href={`/journeys/${journeyID}/edit/info`}
-                        passHref
+                    <StyledLink
+                        href={`/journeys/${journeyID}/edit`}
+                        icon={faColumns}
+                        isContracted={isContracted}
                     >
-                        <Label>Journey Info</Label>
-                    </EditLink>
+                        <>Journey Info</>
+                    </StyledLink>
                 </Container>
                 <Container>
-                    <Label>Categories</Label>
-                    {categories.map((link) => (
-                        <EditLink
-                            key={link.href}
-                            href={`/journeys/${journeyID}/edit/${link.href}`}
-                            passHref
-                        >
-                            <StyledText> {link.label}</StyledText>
-                        </EditLink>
-                    ))}
+                    <StyledLink
+                        href={`/journeys/${journeyID}/edit/categories`}
+                        icon={faMapMarkedAlt}
+                        isContracted={isContracted}
+                    >
+                        <>Categories</>
+                    </StyledLink>
+                    {!isContracted &&
+                        categories.map((link) => (
+                            <EditLink
+                                key={link.href}
+                                href={`/journeys/${journeyID}/edit/${link.href}`}
+                                label={link.label}
+                            />
+                        ))}
                 </Container>
                 <Container>
-                    <Label>Polls</Label>
-                    {polls.map((link) => (
-                        <EditLink
-                            key={link.href}
-                            href={`/journeys/${journeyID}/edit/${link.href}`}
-                            passHref
-                        >
-                            <StyledText key={link.href}>
-                                {link.label}
-                            </StyledText>
-                        </EditLink>
-                    ))}
+                    <StyledLink
+                        href={`/journeys/${journeyID}/edit/polls`}
+                        icon={faPoll}
+                        isContracted={isContracted}
+                    >
+                        <>Polls</>
+                    </StyledLink>
+                    {!isContracted &&
+                        polls.map((link) => (
+                            <EditLink
+                                key={link.href}
+                                href={`/journeys/${journeyID}/edit/${link.href}`}
+                                label={link.label}
+                            />
+                        ))}
                 </Container>
             </DefaultSidePanel>
         );
@@ -127,31 +134,6 @@ const Sidebar: React.FC<Props> = ({ isContracted }) => {
 
 const Container = styled.div`
     margin-bottom: 2rem;
-`;
-
-const EditLink = styled(Link)`
-    cursor: pointer;
-
-    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
-
-    :hover {
-        background-color: ${({ theme }) => theme.colors.gray.light};
-        color: ${({ theme }) => theme.colors.background};
-    }
-`;
-
-const StyledText = styled(Text)`
-    padding: 0.25rem 0.5rem;
-    margin: 0.25rem 0 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    cursor: pointer;
-
-    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
-
-    :hover {
-        background-color: ${({ theme }) => theme.colors.gray.light};
-        color: ${({ theme }) => theme.colors.background};
-    }
 `;
 
 export default Sidebar;

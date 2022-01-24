@@ -40,9 +40,6 @@ const JourneyPage: NextPage = () => {
             </Head>
             <PageTransitionAnimation>
                 <Wrapper>
-                    <Link href={`/journeys/${journeyID}/edit`} passHref>
-                        <button type="button">Edit</button>
-                    </Link>
                     <Heading>{journeyData.name}</Heading>
                     <SummaryPanel
                         numberOfUsers={journeyData.users.length}

@@ -4,12 +4,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 type Props = {
-    participants: string[];
+    participants: string[] | undefined;
 };
 
 const ParticipantsPanel: React.FC<Props> = ({ participants }) => {
+    if (!participants) return null;
+
     return (
-        <Card>
+        <StyledCard>
             <StyledLabel isAccent>Participants</StyledLabel>
             {participants.map((participant: string) => (
                 <ParticipantContainer key={participant}>
@@ -20,9 +22,13 @@ const ParticipantsPanel: React.FC<Props> = ({ participants }) => {
                     </ButtonContainer>
                 </ParticipantContainer>
             ))}
-        </Card>
+        </StyledCard>
     );
 };
+
+const StyledCard = styled(Card)`
+    width: max-content;
+`;
 
 const StyledLabel = styled(Label)`
     margin-bottom: 1rem;

@@ -20,7 +20,10 @@ type CreateInvite = (
 
 const createInvite: CreateInvite = async (journey, userEmail, setLink) => {
     if (journey) {
-        if (journey.author === userEmail) {
+        if (
+            journey.author === userEmail ||
+            journey.editors.includes(userEmail)
+        ) {
             const journeyID = journey.id;
             const database = getFirestore(firebaseApp);
             const q = query(
@@ -28,19 +31,31 @@ const createInvite: CreateInvite = async (journey, userEmail, setLink) => {
                 where('journeyID', '==', journeyID)
             );
             const querySnapshot = await getDocs(q);
-            querySnapshot.forEach((doc) => {
-                deleteDoc(doc.ref);
+            console.log(q);
+            querySnapshot.forEach(async (doc) => {
+                try {
+                    console.log(doc);
+                    await deleteDoc(doc.ref);
+                } catch (err) {
+                    console.error('Error deleting invites', err);
+                }
             });
 
-            const ramdomString =
+            const randomString =
                 Math.random().toString(36).substring(2, 15) +
                 Math.random().toString(36).substring(2, 15);
-            await setDoc(doc(database, `invites`, ramdomString), {
-                journeyID,
-                createdAt: new Date(),
-            });
-            if (setLink) {
-                setLink(ramdomString);
+            try {
+                await setDoc(doc(database, `invites`, randomString), {
+                    journeyID,
+                    createdAt: new Date(),
+                });
+                console.log(randomString);
+                if (setLink) {
+                    setLink(randomString);
+                }
+            } catch (err) {
+                console.error('Error creating invite');
+                console.error(err);
             }
         }
     }

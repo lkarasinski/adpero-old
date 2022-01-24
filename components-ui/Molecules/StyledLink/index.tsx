@@ -21,13 +21,13 @@ const Wrapper = styled.div<IStyled>`
     align-items: center;
     gap: 0.4rem;
     width: ${({ isContracted }) => (isContracted ? '3rem' : '12rem')};
+    min-width: auto;
     height: 3rem;
     padding: 1rem;
     margin-top: 0.5rem;
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 900;
-    color: ${({ theme, isActive }) =>
-        isActive ? theme.colors.gray.dark : theme.colors.gray.light};
+    color: ${({ theme }) => theme.colors.gray.dark};
     cursor: ${({ isActive }) => (isActive ? 'auto' : 'pointer')};
     background-color: ${({ isActive }) => (isActive ? '#ffffff' : '#f2f5f9')};
     filter: ${({ isActive }) =>
@@ -50,8 +50,9 @@ const IconContainer = styled.div<IStyled>`
     display: grid;
     place-items: center;
     width: 2rem;
+    font-size: 1rem;
     color: ${({ theme, isActive }) =>
-        isActive ? theme.colors.primary : theme.colors.gray.light};
+        isActive ? theme.colors.primary : theme.colors.gray.dark};
 `;
 
 const StyledLink: React.FC<Props> = ({
@@ -61,7 +62,7 @@ const StyledLink: React.FC<Props> = ({
     isContracted,
 }) => {
     const router = useRouter();
-    const active = router ? (router.pathname == href ? true : false) : false;
+    const active = router ? (router.asPath == href ? true : false) : false;
 
     return (
         <Link href={href} passHref>

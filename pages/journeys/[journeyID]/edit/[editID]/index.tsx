@@ -7,11 +7,6 @@ import PageTransitionAnimation from 'components-ui/Atoms/PageTransitionAnimation
 import PollCard from 'components-ui/Molecules/PollCard';
 import EditJourneyExpeneses from 'components/EditJourneyExpeneses';
 
-const submitExpenseChanges = async (values: Expense) => {
-    await new Promise((res) => setTimeout(() => res(''), 1));
-    return;
-};
-
 const EditJourneyData: NextPage = () => {
     const { journeys, updateJourney } = useJourneys();
     const router = useRouter();
