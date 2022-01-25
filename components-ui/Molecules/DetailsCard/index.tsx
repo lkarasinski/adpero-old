@@ -19,11 +19,12 @@ const Flex = styled.div`
 
 interface Props {
     expense: Expense;
+    isLink?: boolean;
 }
 
-const DetailsCard: React.FC<Props> = ({ expense }) => {
+const DetailsCard: React.FC<Props> = ({ expense, ...props }) => {
     return (
-        <Wrapper>
+        <Wrapper {...props}>
             <Label isAccent>{expense.title}</Label>
             <Flex>
                 {expense?.details.map((detail: Detail) => (

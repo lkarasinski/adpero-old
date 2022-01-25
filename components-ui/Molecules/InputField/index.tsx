@@ -32,6 +32,7 @@ export const StyledField = styled(Field)`
     border: 1px solid ${({ theme }) => theme.colors.gray.light};
     border-radius: 4px;
     width: 100%;
+    max-width: 25rem;
     text-indent: 5px;
 `;
 

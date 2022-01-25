@@ -14,7 +14,6 @@ type Props = {
 };
 
 const EditJourneyDataPanel: React.FC<Props> = ({ buttonText }) => {
-    const [isSubmitting, setIsSubmitting] = React.useState(false);
     const { journeys, createJourney, updateJourney } = useJourneys();
     const { user } = useAuth();
     const router = useRouter();
@@ -47,18 +46,15 @@ const EditJourneyDataPanel: React.FC<Props> = ({ buttonText }) => {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={async (values) => {
-                setIsSubmitting(true);
                 if (journeyID) {
                     await updateJourney(journeyID, values);
                 } else {
                     const journeyID = await createJourney(values);
                     router.push(`/journeys/${journeyID}`);
                 }
-
-                setIsSubmitting(false);
             }}
         >
-            {({ errors }) => {
+            {({ errors, isSubmitting }) => {
                 return (
                     <EditJourneyDataForm
                         buttonText={buttonText}

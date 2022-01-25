@@ -23,22 +23,24 @@ import {
     useJoinJourney,
     JoinFunction,
     JoinJourneyErrors,
+    GetCurrentJourney,
 } from './types';
 import { useAuth } from 'context/AuthContext';
 import convertToDate from 'functions/convertToDate';
 import type { Unsubscribe } from 'firebase/auth';
+import { useRouter } from 'next/router';
 
 const database = getFirestore(firebaseApp);
 
 const useJourneysManager: UseJourneysManager = () => {
     const auth = useAuth();
+    const router = useRouter();
     if (auth === undefined) {
         throw new Error('useJourneys must be used within a AuthProvider');
     }
     const { user } = auth;
 
     const [journeys, setJourneys] = React.useState<JourneysDataType>([]);
-
     const getJourneys = async () => {
         const q = query(
             collection(database, 'journeys'),
@@ -87,6 +89,12 @@ const useJourneysManager: UseJourneysManager = () => {
 
     const deleteJourney: DeleteJourney = async (id: string) => {
         await deleteDoc(doc(database, 'journeys', id));
+    };
+
+    const getCurrentJourney: GetCurrentJourney = () => {
+        return journeys.find(
+            (journey) => journey.id === router.query.journeyID
+        );
     };
 
     const updateJourney: UpdateJourney = async (
@@ -156,6 +164,7 @@ const useJourneysManager: UseJourneysManager = () => {
         updateJourney,
         createJourney,
         useJoinJourney,
+        getCurrentJourney,
     };
 };
 

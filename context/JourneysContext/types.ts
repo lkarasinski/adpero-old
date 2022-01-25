@@ -12,7 +12,7 @@ export type JourneysDataType = JourneyDataType[];
 export type DeleteJourney = (id: string) => Promise<void>;
 export type UpdateJourney = (id: string, data: Journey) => Promise<void>;
 export type CreateJourney = (data: Journey) => Promise<string>;
-
+export type GetCurrentJourney = () => JourneyDataType | undefined;
 export type JoinFunction = (() => Promise<string>) | null;
 export type useJoinJourney = (id: string) => {
     error: JoinJourneyErrors;
@@ -32,6 +32,7 @@ export type ContextReturnType = {
     updateJourney: UpdateJourney;
     createJourney: CreateJourney;
     useJoinJourney: useJoinJourney;
+    getCurrentJourney: GetCurrentJourney;
 };
 
 export type UseJourneysManager = () => ContextReturnType;

@@ -21,7 +21,7 @@ const EditJourneyDataForm: React.FC<Props> = ({
     isSubmitting,
 }) => {
     return (
-        <StyledForm>
+        <Form>
             <StyledCard>
                 <StyledLabel isAccent>Journey data</StyledLabel>
                 <InputField
@@ -54,21 +54,23 @@ const EditJourneyDataForm: React.FC<Props> = ({
                         name={'cost.currency'}
                     />
                 </div>
-                <div>
-                    <Button type="submit" disabled={isSubmitting}>
+                <ButtonContainer>
+                    <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                        color={isSubmitting ? 'gray' : 'primary'}
+                    >
                         {buttonText}
                     </Button>
-                </div>
+                </ButtonContainer>
             </StyledCard>
-        </StyledForm>
+        </Form>
     );
 };
 
-const StyledForm = styled(Form)`
-    max-width: 20rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+const ButtonContainer = styled.div`
+    display: grid;
+    place-items: center;
 `;
 
 const StyledLabel = styled(Label)`
@@ -81,8 +83,10 @@ const DatePickerContainer = styled.div`
 `;
 
 const StyledCard = styled(Card)`
-    max-width: 20rem;
     height: min-content;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 `;
 
 export default EditJourneyDataForm;

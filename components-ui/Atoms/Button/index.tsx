@@ -37,6 +37,8 @@ const Button = styled.button<Props>`
     border: none;
     border-radius: ${({ theme }) => theme.borderRadius};
     min-width: 11rem;
+
+    transition: background-color 0.1s ease-in-out;
 `;
 
 export default Button;

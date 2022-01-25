@@ -7,7 +7,7 @@ import PageTransitionAnimation from 'components-ui/Atoms/PageTransitionAnimation
 import PollCard from 'components-ui/Molecules/PollCard';
 import EditJourneyExpeneses from 'components/EditJourneyExpeneses';
 
-const EditJourneyData: NextPage = () => {
+const EditJourney: NextPage = () => {
     const { journeys, updateJourney } = useJourneys();
     const router = useRouter();
     const journeyID = router.query.journeyID as string;
@@ -49,7 +49,7 @@ const EditJourneyData: NextPage = () => {
         }
     }, [journeys, editID]);
 
-    if (!expenseValues) return <div>loading</div>;
+    if (!expenseValues) return null;
 
     if ('votes' in expenseValues) {
         return (
@@ -72,4 +72,4 @@ const EditJourneyData: NextPage = () => {
     }
 };
 
-export default EditJourneyData;
+export default EditJourney;
