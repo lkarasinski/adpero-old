@@ -10,7 +10,6 @@ import PageTransitionAnimation from 'components-ui/Atoms/PageTransitionAnimation
 import Heading from 'components-ui/Atoms/Heading';
 import SummaryPanel from 'components-ui/Molecules/SummaryPanel';
 import ActivePollsPanel from 'components-ui/Organisms/ActivePollsPanel';
-import Link from 'next/link';
 
 type defaultContextValue = {
     isEditModeEnabled: boolean;
