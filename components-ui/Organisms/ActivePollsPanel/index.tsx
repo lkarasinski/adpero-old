@@ -1,8 +1,8 @@
-import React from 'react';
-import Label from 'components-ui/Atoms/Label';
-import PollCard from 'components-ui/Molecules/PollCard';
-import styled from 'styled-components';
-import { Poll } from 'utils/interfaces';
+import React from "react";
+import Label from "components-ui/Atoms/Label";
+import PollCard from "components-ui/Molecules/PollCard";
+import styled from "styled-components";
+import { Poll } from "utils/interfaces";
 
 const Grid = styled.div`
     display: grid;

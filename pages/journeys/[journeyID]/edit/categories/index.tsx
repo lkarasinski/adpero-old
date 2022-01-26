@@ -1,12 +1,13 @@
-import * as React from 'react';
-import type { NextPage } from 'next';
-import PageTransitionAnimation from 'components-ui/Atoms/PageTransitionAnimation';
-import Heading from 'components-ui/Atoms/Heading';
-import JourneyCategoriesGrid from 'components-ui/Templates/JourneyCategoriesGrid';
-import useJourneys from 'context/JourneysContext';
-import DetailsCard from 'components-ui/Molecules/DetailsCard';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import * as React from "react";
+import type { NextPage } from "next";
+import PageTransitionAnimation from "components-ui/Atoms/PageTransitionAnimation";
+import Heading from "components-ui/Atoms/Heading";
+import JourneyCategoriesGrid from "components-ui/Templates/JourneyCategoriesGrid";
+import useJourneys from "context/JourneysContext";
+import DetailsCard from "components-ui/Molecules/DetailsCard";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import Button from "components-ui/Atoms/Button";
 
 const Categories: NextPage = () => {
     const { getCurrentJourney } = useJourneys();
@@ -16,7 +17,10 @@ const Categories: NextPage = () => {
     if (!journey || !journey.data) return null;
     return (
         <PageTransitionAnimation>
-            <Heading>Categories</Heading>
+            <div>
+                <Heading>Categories</Heading>
+                <Button>New category</Button>
+            </div>
             <JourneyCategoriesGrid>
                 {journey.data.expenses?.map((category) => (
                     <Link

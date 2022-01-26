@@ -1,5 +1,5 @@
-import * as React from 'react';
-import firebaseApp from 'services/firebase';
+import * as React from "react";
+import firebaseApp from "services/firebase";
 import {
     getFirestore,
     query,
@@ -11,8 +11,8 @@ import {
     setDoc,
     deleteDoc,
     getDoc,
-} from 'firebase/firestore';
-import { Journey } from 'utils/interfaces';
+} from "firebase/firestore";
+import { Journey } from "utils/interfaces";
 import {
     UseJourneysManager,
     JourneyDataType,
@@ -24,11 +24,11 @@ import {
     JoinFunction,
     JoinJourneyErrors,
     GetCurrentJourney,
-} from './types';
-import { useAuth } from 'context/AuthContext';
-import convertToDate from 'functions/convertToDate';
-import type { Unsubscribe } from 'firebase/auth';
-import { useRouter } from 'next/router';
+} from "./types";
+import { useAuth } from "context/AuthContext";
+import convertToDate from "functions/convertToDate";
+import type { Unsubscribe } from "firebase/auth";
+import { useRouter } from "next/router";
 
 const database = getFirestore(firebaseApp);
 
@@ -36,15 +36,15 @@ const useJourneysManager: UseJourneysManager = () => {
     const auth = useAuth();
     const router = useRouter();
     if (auth === undefined) {
-        throw new Error('useJourneys must be used within a AuthProvider');
+        throw new Error("useJourneys must be used within a AuthProvider");
     }
     const { user } = auth;
 
     const [journeys, setJourneys] = React.useState<JourneysDataType>([]);
     const getJourneys = async () => {
         const q = query(
-            collection(database, 'journeys'),
-            where('users', 'array-contains', user?.email ?? '')
+            collection(database, "journeys"),
+            where("users", "array-contains", user?.email ?? "")
         );
 
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -75,7 +75,6 @@ const useJourneysManager: UseJourneysManager = () => {
         })();
 
         return () => unsubscribe?.();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, user?.email]);
 
     const createJourney: CreateJourney = async (data: Journey) => {
@@ -83,12 +82,12 @@ const useJourneysManager: UseJourneysManager = () => {
             Math.random().toString(36).substring(2, 15) +
             Math.random().toString(36).substring(2, 15);
         data.id = randomID;
-        await setDoc(doc(database, 'journeys', randomID), data);
+        await setDoc(doc(database, "journeys", randomID), data);
         return randomID;
     };
 
     const deleteJourney: DeleteJourney = async (id: string) => {
-        await deleteDoc(doc(database, 'journeys', id));
+        await deleteDoc(doc(database, "journeys", id));
     };
 
     const getCurrentJourney: GetCurrentJourney = () => {
@@ -101,7 +100,7 @@ const useJourneysManager: UseJourneysManager = () => {
         journeyID: string,
         data: Journey
     ) => {
-        const journeyRef = doc(database, 'journeys', journeyID);
+        const journeyRef = doc(database, "journeys", journeyID);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const newData = data as { [key: string]: any };
         await updateDoc(journeyRef, newData);
@@ -116,19 +115,19 @@ const useJourneysManager: UseJourneysManager = () => {
             (async () => {
                 setError(null);
                 if (user) {
-                    const inviteRef = doc(database, 'invites', inviteID);
+                    const inviteRef = doc(database, "invites", inviteID);
                     const inviteSnapshot = await getDoc(inviteRef);
                     if (inviteSnapshot.exists()) {
                         const inviteData = inviteSnapshot.data();
                         const journeyID = inviteData?.journeyID;
-                        const journeyRef = doc(database, 'journeys', journeyID);
+                        const journeyRef = doc(database, "journeys", journeyID);
                         const journeySnapshot = await getDoc(journeyRef);
                         if (journeySnapshot.exists()) {
                             const journeyData =
                                 journeySnapshot.data() as Journey;
                             const users = journeyData?.users ?? [];
-                            if (!users.includes(user.email ?? '')) {
-                                users.push(user.email ?? '');
+                            if (!users.includes(user.email ?? "")) {
+                                users.push(user.email ?? "");
                                 journeyData.users = users;
                                 const tempJoinFunction = async () => {
                                     await updateJourney(journeyID, journeyData);
@@ -137,20 +136,20 @@ const useJourneysManager: UseJourneysManager = () => {
                                 setJoinFunction(() => tempJoinFunction);
                                 return journeyID;
                             } else {
-                                console.warn('User is already in the journey');
-                                setError('UserAlreadyJoined');
+                                console.warn("User is already in the journey");
+                                setError("UserAlreadyJoined");
                             }
                         } else {
-                            console.warn('Journey does not exist');
-                            setError('JourneyDoesNotExist');
+                            console.warn("Journey does not exist");
+                            setError("JourneyDoesNotExist");
                         }
                     } else {
-                        console.warn('Invite does not exist');
-                        setError('InviteDoesNotExist');
+                        console.warn("Invite does not exist");
+                        setError("InviteDoesNotExist");
                     }
                 } else {
-                    console.warn('User is not logged in');
-                    setError('UserNotLoggedIn');
+                    console.warn("User is not logged in");
+                    setError("UserNotLoggedIn");
                 }
             })();
         }, [user?.email]);

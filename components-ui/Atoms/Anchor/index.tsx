@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Anchor = styled.a`
     font-size: 1rem;

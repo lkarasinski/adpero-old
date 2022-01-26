@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import useEventListener from './useEventListener';
+import React, { useState } from "react";
+import useEventListener from "./useEventListener";
 
 interface WindowSize {
     width: number;
@@ -13,7 +13,7 @@ function useWindowSize(): WindowSize {
     });
 
     const effect =
-        typeof document !== 'undefined'
+        typeof document !== "undefined"
             ? React.useLayoutEffect
             : React.useEffect;
 
@@ -24,12 +24,11 @@ function useWindowSize(): WindowSize {
         });
     };
 
-    useEventListener('resize', handleSize);
+    useEventListener("resize", handleSize);
 
     // Set size at the first client-side load
     effect(() => {
         handleSize();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return windowSize;

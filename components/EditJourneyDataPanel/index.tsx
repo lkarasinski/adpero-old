@@ -1,13 +1,13 @@
-import * as React from 'react';
-import * as yup from 'yup';
+import * as React from "react";
+import * as yup from "yup";
 import EditJourneyDataForm, {
     Errors,
-} from 'components-ui/Organisms/EditJourneyDataForm';
-import useJourneys from 'context/JourneysContext';
-import { Formik } from 'formik';
-import { useRouter } from 'next/router';
-import { useAuth } from 'context/AuthContext';
-import { Journey } from 'utils/interfaces';
+} from "components-ui/Organisms/EditJourneyDataForm";
+import useJourneys from "context/JourneysContext";
+import { Formik } from "formik";
+import { useRouter } from "next/router";
+import { useAuth } from "context/AuthContext";
+import { Journey } from "utils/interfaces";
 
 type Props = {
     buttonText: string;
@@ -20,18 +20,18 @@ const EditJourneyDataPanel: React.FC<Props> = ({ buttonText }) => {
     const journeyID = router.query.journeyID as string;
     const journey = journeys.find((journey) => journey.id === journeyID)?.data;
     const [initialValues, setInitialValues] = React.useState({
-        author: user?.email ?? 'local',
+        author: user?.email ?? "local",
         createdAt: new Date(),
         editors: [],
         expenses: [],
-        name: '',
+        name: "",
         polls: [],
-        users: [user?.email ?? 'local'],
+        users: [user?.email ?? "local"],
         startDate: new Date(),
         endDate: new Date(),
-        id: '',
+        id: "",
         lastEdited: new Date(),
-        cost: { value: 0, currency: 'EUR' },
+        cost: { value: 0, currency: "EUR" },
     } as Journey);
 
     React.useEffect(() => {
@@ -68,16 +68,16 @@ const EditJourneyDataPanel: React.FC<Props> = ({ buttonText }) => {
 };
 
 const validationSchema = yup.object({
-    name: yup.string().required('Name is required'),
-    startDate: yup.date().required('Departure date is required'),
-    endDate: yup.date().required('Return date is required'),
+    name: yup.string().required("Name is required"),
+    startDate: yup.date().required("Departure date is required"),
+    endDate: yup.date().required("Return date is required"),
     cost: yup.object({
         value: yup.number(),
         currency: yup
             .string()
             .test(
-                'len',
-                'Enter currency code. For example: USD, GBP',
+                "len",
+                "Enter currency code. For example: USD, GBP",
                 (val) => val?.length === 3
             ),
     }),

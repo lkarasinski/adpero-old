@@ -1,7 +1,7 @@
-import Card from 'components-ui/Atoms/Card';
-import Label from 'components-ui/Atoms/Label';
-import React from 'react';
-import styled from 'styled-components';
+import Card from "components-ui/Atoms/Card";
+import Label from "components-ui/Atoms/Label";
+import React from "react";
+import styled from "styled-components";
 
 type Props = {
     participants: string[] | undefined;
@@ -44,7 +44,7 @@ const ParticipantContainer = styled.div`
 `;
 
 type ButtonType = {
-    color?: 'red' | 'primary' | 'gray' | 'green';
+    color?: "red" | "primary" | "gray" | "green";
 };
 
 const ButtonContainer = styled.div`
@@ -62,13 +62,13 @@ const SmallButton = styled.button<ButtonType>`
     color: white;
     background-color: ${({ theme, color }) => {
         switch (color) {
-            case 'red':
+            case "red":
                 return theme.colors.red;
-            case 'primary':
+            case "primary":
                 return theme.colors.primary;
-            case 'gray':
+            case "gray":
                 return theme.colors.gray.dark;
-            case 'green':
+            case "green":
                 return theme.colors.green;
         }
     }};

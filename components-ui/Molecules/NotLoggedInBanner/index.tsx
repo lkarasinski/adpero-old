@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import Text from 'components-ui/Atoms/Text';
-import CrossIcon from 'components-ui/Atoms/CrossIcon';
+import React from "react";
+import styled from "styled-components";
+import Text from "components-ui/Atoms/Text";
+import CrossIcon from "components-ui/Atoms/CrossIcon";
 
 const Wrapper = styled.div`
     display: flex;

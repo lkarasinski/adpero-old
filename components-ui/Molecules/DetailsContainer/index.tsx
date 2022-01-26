@@ -1,7 +1,7 @@
-import React from 'react';
-import Text from 'components-ui/Atoms/Text';
-import styled from 'styled-components';
-import Anchor from 'components-ui/Atoms/Anchor';
+import React from "react";
+import Text from "components-ui/Atoms/Text";
+import styled from "styled-components";
+import Anchor from "components-ui/Atoms/Anchor";
 
 export interface IDetail {
     label: string;
@@ -19,7 +19,7 @@ const DetailsContainer: React.FC<IDetail> = ({ label, value }) => {
     return (
         <Wrapper>
             <Text isSmall>{label}:</Text>
-            {label.toLowerCase() == 'link' ? (
+            {label.toLowerCase() == "link" ? (
                 <Anchor href={withHttp(value)}>{value}</Anchor>
             ) : (
                 <Text color="dark">{value}</Text>

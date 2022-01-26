@@ -14,8 +14,8 @@ const Wrapper = styled.h2<Props>`
         isAccent ? theme.colors.primary : theme.colors.gray.dark};
 `;
 
-const Label: React.FC<Props> = ({ children, ...props }) => {
-    return <Wrapper {...props}>{children}</Wrapper>;
-};
+const Label: React.FC<Props> = ({ children, ...props }) => (
+    <Wrapper {...props}>{children}</Wrapper>
+);
 
 export default Label;

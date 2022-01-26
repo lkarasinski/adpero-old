@@ -2,19 +2,19 @@ import {
     faColumns,
     faMapMarkedAlt,
     faPoll,
-} from '@fortawesome/free-solid-svg-icons';
-import StyledLink from 'components-ui/Molecules/StyledLink';
-import DefaultSidePanel from 'components-ui/Organisms/DefaultSidePanel';
-import useJourneys from 'context/JourneysContext';
-import { useRouter } from 'next/router';
-import React from 'react';
-import styled from 'styled-components';
-import EditLink from './EditLink';
+} from "@fortawesome/free-solid-svg-icons";
+import StyledLink from "components-ui/Molecules/StyledLink";
+import DefaultSidePanel from "components-ui/Organisms/DefaultSidePanel";
+import useJourneys from "context/JourneysContext";
+import { useRouter } from "next/router";
+import React from "react";
+import styled from "styled-components";
+import EditLink from "./EditLink";
 
 export type SidebarLink = {
     label: string;
     href: string;
-    type: 'poll' | 'category';
+    type: "poll" | "category";
 };
 
 type Props = {
@@ -27,7 +27,7 @@ const Sidebar: React.FC<Props> = ({ isContracted }) => {
     const journeyID = router.query.journeyID as string;
     const { journeys } = useJourneys();
 
-    if (!router.pathname.startsWith('/journeys/[journeyID]/edit')) {
+    if (!router.pathname.startsWith("/journeys/[journeyID]/edit")) {
         return (
             <DefaultSidePanel isContracted={isContracted}>
                 <StyledLink
@@ -62,7 +62,7 @@ const Sidebar: React.FC<Props> = ({ isContracted }) => {
                     const data: SidebarLink = {
                         label: e.title,
                         href: e.id,
-                        type: 'category',
+                        type: "category",
                     };
 
                     sidebarData.push(data);
@@ -71,7 +71,7 @@ const Sidebar: React.FC<Props> = ({ isContracted }) => {
                     const data: SidebarLink = {
                         label: p.title,
                         href: p.id,
-                        type: 'poll',
+                        type: "poll",
                     };
 
                     sidebarData.push(data);
@@ -79,11 +79,13 @@ const Sidebar: React.FC<Props> = ({ isContracted }) => {
             }
         }
 
-        const categories = sidebarData.filter((s) => s.type === 'category');
-        const polls = sidebarData.filter((s) => s.type === 'poll');
+        const categories = sidebarData
+            .filter((s) => s.type === "category")
+            .slice(0, 4);
+        const polls = sidebarData.filter((s) => s.type === "poll").slice(0, 4);
 
         return (
-            <DefaultSidePanel isContracted={isContracted}>
+            <DefaultSidePanel isContracted={isContracted} editMode>
                 <Container>
                     <StyledLink
                         href={`/journeys/${journeyID}/edit`}

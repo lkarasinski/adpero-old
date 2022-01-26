@@ -1,9 +1,9 @@
-import { Field, FieldAttributes, useField } from 'formik';
-import React from 'react';
-import styled from 'styled-components';
+import { Field, FieldAttributes, useField } from "formik";
+import React from "react";
+import styled from "styled-components";
 
 type Props = {
-    border?: 'left' | 'right';
+    border?: "left" | "right";
     checked?: boolean;
 };
 
@@ -33,22 +33,22 @@ const Label = styled.label<Props>`
     font-family: Nunito;
     font-weight: 700;
     width: 60px;
-    height: 45px;
+    height: 56px;
     background-color: ${({ checked, theme }) =>
-        checked ? theme.colors.selection : 'white'};
-    cursor: ${({ checked }) => (checked ? 'auto' : 'pointer')};
-    border: 1px solid ${({ theme }) => theme.colors.gray.light};
-    border-left: ${({ border }) => (border === 'left' ? '1px ' : '0px')} solid
-        ${({ theme }) => theme.colors.gray.light};
+        checked ? theme.colors.selection : "white"};
+    cursor: ${({ checked }) => (checked ? "auto" : "pointer")};
+    border: 1px solid #c4c4c4;
+    border-left: ${({ border }) => (border === "left" ? "1px " : "0px")} solid
+        #c4c4c4;
     border-radius: ${({ border }) =>
-        border == 'left'
+        border == "left"
             ? `4px 0 0 4px`
-            : border === 'right'
+            : border === "right"
             ? `0 4px 4px 0`
-            : '0'};
+            : "0"};
     &:hover {
         background-color: ${({ checked, theme }) =>
-            !checked ? '#C2E2FF7F' : theme.colors.selection};
+            !checked ? "#C2E2FF7F" : theme.colors.selection};
     }
 
     transition: background-color 100ms ease-in-out;

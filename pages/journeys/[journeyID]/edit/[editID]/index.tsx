@@ -1,11 +1,11 @@
-import * as React from 'react';
-import type { NextPage } from 'next';
-import useJourneys from 'context/JourneysContext';
-import { useRouter } from 'next/router';
-import { Expense, Poll } from 'utils/interfaces';
-import PageTransitionAnimation from 'components-ui/Atoms/PageTransitionAnimation';
-import PollCard from 'components-ui/Molecules/PollCard';
-import EditJourneyExpeneses from 'components/EditJourneyExpeneses';
+import * as React from "react";
+import type { NextPage } from "next";
+import useJourneys from "context/JourneysContext";
+import { useRouter } from "next/router";
+import { Expense, Poll } from "utils/interfaces";
+import PageTransitionAnimation from "components-ui/Atoms/PageTransitionAnimation";
+import PollCard from "components-ui/Molecules/PollCard";
+import EditJourneyExpeneses from "components/EditJourneyExpeneses";
 
 const EditJourney: NextPage = () => {
     const { journeys, updateJourney } = useJourneys();
@@ -51,7 +51,7 @@ const EditJourney: NextPage = () => {
 
     if (!expenseValues) return null;
 
-    if ('votes' in expenseValues) {
+    if ("votes" in expenseValues) {
         return (
             <PageTransitionAnimation>
                 <PollCard

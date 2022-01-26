@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     User,
     getAuth,
@@ -6,8 +6,8 @@ import {
     GoogleAuthProvider,
     signOut,
     onAuthStateChanged,
-} from 'firebase/auth';
-import app from 'services/firebase';
+} from "firebase/auth";
+import app from "services/firebase";
 
 interface IAuth {
     user: User | null;
@@ -18,10 +18,10 @@ interface IAuth {
 const AuthContext = React.createContext<IAuth>({
     user: null,
     login: () => {
-        console.warn('Not loaded');
+        console.warn("Not loaded");
     },
     logout: () => {
-        console.warn('Not loadeed');
+        console.warn("Not loadeed");
     },
 });
 

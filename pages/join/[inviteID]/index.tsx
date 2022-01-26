@@ -1,10 +1,10 @@
-import * as React from 'react';
-import type { NextPage } from 'next';
-import useJourneys from 'context/JourneysContext';
-import { useRouter } from 'next/router';
-import Heading from 'components-ui/Atoms/Heading';
-import Text from 'components-ui/Atoms/Text';
-import Button from 'components-ui/Atoms/Button';
+import * as React from "react";
+import type { NextPage } from "next";
+import useJourneys from "context/JourneysContext";
+import { useRouter } from "next/router";
+import Heading from "components-ui/Atoms/Heading";
+import Text from "components-ui/Atoms/Text";
+import Button from "components-ui/Atoms/Button";
 
 const InvitePage: NextPage = () => {
     const { useJoinJourney } = useJourneys();
@@ -13,18 +13,18 @@ const InvitePage: NextPage = () => {
     const { error, joinFunction } = useJoinJourney(inviteID);
 
     switch (error) {
-        case 'InviteDoesNotExist': {
+        case "InviteDoesNotExist": {
             return <Text color="red">Invite does not exist</Text>;
         }
-        case 'UserAlreadyJoined': {
+        case "UserAlreadyJoined": {
             return (
                 <Text color="red">You have already joined this journey</Text>
             );
         }
-        case 'JourneyDoesNotExist': {
+        case "JourneyDoesNotExist": {
             return <Text color="red">Journey does not exist</Text>;
         }
-        case 'UserNotLoggedIn': {
+        case "UserNotLoggedIn": {
             return (
                 <Text color="red">You must be logged in to accept invites</Text>
             );

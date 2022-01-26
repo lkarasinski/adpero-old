@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
-import theme from '../../utils/theme';
-import useWindowSize from 'hooks/useWindowWidth';
-import Sidebar from 'components/Sidebar';
+import React, { useEffect, useState } from "react";
+import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
+import theme from "../../utils/theme";
+import useWindowSize from "hooks/useWindowWidth";
+import Sidebar from "components/Sidebar";
 
 interface ContentProps {
     isContracted: boolean;
@@ -18,7 +18,6 @@ const Layout: React.FC<Props> = ({ children, isEditModeEnabled }) => {
 
     useEffect(() => {
         setIsContracted(width < 920);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [width < 920]);
 
     return (
@@ -41,7 +40,7 @@ const Content = styled.div<ContentProps>`
     z-index: 0;
     width: 100%;
     min-height: 100vh;
-    margin-left: ${({ isContracted }) => (isContracted ? '5rem' : '14rem')};
+    margin-left: ${({ isContracted }) => (isContracted ? "5rem" : "14rem")};
     padding-left: 2rem;
     background-color: white;
     transition: margin-left 200ms ease-in-out;

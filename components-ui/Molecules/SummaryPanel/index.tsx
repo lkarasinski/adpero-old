@@ -1,8 +1,8 @@
-import React from 'react';
-import Label from 'components-ui/Atoms/Label';
-import styled from 'styled-components';
-import Text from 'components-ui/Atoms/Text';
-import Card from 'components-ui/Atoms/Card';
+import React from "react";
+import Label from "components-ui/Atoms/Label";
+import styled from "styled-components";
+import Text from "components-ui/Atoms/Text";
+import Card from "components-ui/Atoms/Card";
 
 type Props = {
     numberOfUsers: number;
@@ -21,10 +21,10 @@ const SummaryPanel: React.FC<Props> = ({
     endDate,
 }) => {
     const details = [
-        { label: 'Cost:', value: `${totalCost.value} ${totalCost.currency}` },
-        { label: 'Number of users:', value: `${numberOfUsers}` },
-        { label: 'Departure date:', value: `${startDate}` },
-        { label: 'Day of return:', value: `${endDate}` },
+        { label: "Cost:", value: `${totalCost.value} ${totalCost.currency}` },
+        { label: "Number of users:", value: `${numberOfUsers}` },
+        { label: "Departure date:", value: `${startDate}` },
+        { label: "Day of return:", value: `${endDate}` },
     ];
     return (
         <Wrapper>
@@ -45,7 +45,7 @@ const SummaryPanel: React.FC<Props> = ({
 
 const Wrapper = styled(Card)`
     max-width: 19rem;
-    background-color: '#ffffff';
+    background-color: "#ffffff";
 `;
 
 const Grid = styled.div`

@@ -1,17 +1,17 @@
-import * as React from 'react';
-import { NextPage } from 'next';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import styled from 'styled-components';
-import formatDate from 'functions/formatDate';
-import useJourneys from 'context/JourneysContext';
-import PageTransitionAnimation from 'components-ui/Atoms/PageTransitionAnimation';
-import Heading from 'components-ui/Atoms/Heading';
-import SummaryPanel from 'components-ui/Molecules/SummaryPanel';
-import ActivePollsPanel from 'components-ui/Organisms/ActivePollsPanel';
-import JourneyCategoriesGrid from 'components-ui/Templates/JourneyCategoriesGrid';
-import EditButton from 'components-ui/Molecules/EditButton';
-import DetailsCard from 'components-ui/Molecules/DetailsCard';
+import * as React from "react";
+import { NextPage } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import styled from "styled-components";
+import formatDate from "functions/formatDate";
+import useJourneys from "context/JourneysContext";
+import PageTransitionAnimation from "components-ui/Atoms/PageTransitionAnimation";
+import Heading from "components-ui/Atoms/Heading";
+import SummaryPanel from "components-ui/Molecules/SummaryPanel";
+import ActivePollsPanel from "components-ui/Organisms/ActivePollsPanel";
+import JourneyCategoriesGrid from "components-ui/Templates/JourneyCategoriesGrid";
+import EditButton from "components-ui/Molecules/EditButton";
+import DetailsCard from "components-ui/Molecules/DetailsCard";
 
 type defaultContextValue = {
     isEditModeEnabled: boolean;

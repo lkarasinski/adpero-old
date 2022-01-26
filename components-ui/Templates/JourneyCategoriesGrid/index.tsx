@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import Label from 'components-ui/Atoms/Label';
+import React from "react";
+import styled from "styled-components";
+import Label from "components-ui/Atoms/Label";
 
 type Props = {
     label?: string;

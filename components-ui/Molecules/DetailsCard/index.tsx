@@ -1,11 +1,11 @@
-import React from 'react';
-import Label from 'components-ui/Atoms/Label';
-import styled from 'styled-components';
-import DetailsContainer from '../DetailsContainer';
-import { Detail, Expense } from 'utils/interfaces';
-import formatDate from 'functions/formatDate';
-import getDateFromTimestamp from 'functions/convertToDate';
-import Card from 'components-ui/Atoms/Card';
+import React from "react";
+import Label from "components-ui/Atoms/Label";
+import styled from "styled-components";
+import DetailsContainer from "../DetailsContainer";
+import { Detail, Expense } from "utils/interfaces";
+import formatDate from "functions/formatDate";
+import getDateFromTimestamp from "functions/convertToDate";
+import Card from "components-ui/Atoms/Card";
 
 const Wrapper = styled(Card)`
     flex-grow: 1;
@@ -31,10 +31,10 @@ const DetailsCard: React.FC<Props> = ({ expense, ...props }) => {
                     <DetailsContainer
                         label={detail.label}
                         value={`${
-                            detail.type === 'Date'
+                            detail.type === "Date"
                                 ? formatDate(getDateFromTimestamp(detail.value))
                                 : detail.value
-                        } ${detail.type === 'Price' ? detail.currency : ''}`}
+                        } ${detail.type === "Price" ? detail.currency : ""}`}
                         key={detail.id}
                     />
                 ))}

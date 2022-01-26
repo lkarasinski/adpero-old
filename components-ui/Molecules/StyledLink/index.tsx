@@ -1,9 +1,9 @@
-import React from 'react';
-import Icon from 'components-ui/Atoms/Icon';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import styled from 'styled-components';
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import React from "react";
+import Icon from "components-ui/Atoms/Icon";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import styled from "styled-components";
+import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
     href: string;
@@ -20,7 +20,7 @@ const Wrapper = styled.div<IStyled>`
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    width: ${({ isContracted }) => (isContracted ? '3rem' : '12rem')};
+    width: ${({ isContracted }) => (isContracted ? "3rem" : "12rem")};
     min-width: auto;
     height: 3rem;
     padding: 1rem;
@@ -28,10 +28,10 @@ const Wrapper = styled.div<IStyled>`
     font-size: 1rem;
     font-weight: 900;
     color: ${({ theme }) => theme.colors.gray.dark};
-    cursor: ${({ isActive }) => (isActive ? 'auto' : 'pointer')};
-    background-color: ${({ isActive }) => (isActive ? '#ffffff' : '#f2f5f9')};
+    cursor: ${({ isActive }) => (isActive ? "auto" : "pointer")};
+    background-color: ${({ isActive }) => (isActive ? "#ffffff" : "#f2f5f9")};
     filter: ${({ isActive }) =>
-        isActive ? 'drop-shadow(0 0 2px rgba(0, 0, 0, 0.25))' : ''};
+        isActive ? "drop-shadow(0 0 2px rgba(0, 0, 0, 0.25))" : ""};
     border-radius: ${({ theme }) => theme.borderRadius};
     user-select: none;
 
@@ -41,7 +41,7 @@ const Wrapper = styled.div<IStyled>`
 
     :hover {
         background-color: ${({ isActive }) =>
-            isActive ? '#ffffff' : '#ffffffd1'};
+            isActive ? "#ffffff" : "#ffffffd1"};
         filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.125));
     }
 `;

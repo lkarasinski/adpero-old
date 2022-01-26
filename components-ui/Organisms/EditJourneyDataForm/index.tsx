@@ -1,10 +1,11 @@
-import Button from 'components-ui/Atoms/Button';
-import Card from 'components-ui/Atoms/Card';
-import Label from 'components-ui/Atoms/Label';
-import InputField from 'components-ui/Molecules/InputField';
-import { Form } from 'formik';
-import React from 'react';
-import styled from 'styled-components';
+import Button from "components-ui/Atoms/Button";
+import Card from "components-ui/Atoms/Card";
+import Label from "components-ui/Atoms/Label";
+import TextField from "components-ui/Molecules/TextField";
+import { Field, Form } from "formik";
+import React from "react";
+import styled from "styled-components";
+import { DatePicker } from "formik-mui-lab";
 
 export type Errors = {
     name: string;
@@ -24,41 +25,38 @@ const EditJourneyDataForm: React.FC<Props> = ({
         <Form>
             <StyledCard>
                 <StyledLabel isAccent>Journey data</StyledLabel>
-                <InputField
+                <TextField
                     error={errors.name}
-                    label={'Journey Name'}
-                    name={'name'}
+                    label={"Journey Name"}
+                    name={"name"}
                 />
                 <DatePickerContainer>
                     <div>
-                        <InputField
-                            label={'Day of departure'}
-                            name={'startDate'}
+                        <Field
+                            component={DatePicker}
+                            name={"startDate"}
+                            label={"Day of departure"}
                             error={errors.startDate}
-                            isDate
                         />
                     </div>
                     <div>
-                        <InputField
-                            label={'Day of return'}
-                            name={'endDate'}
-                            error={errors.endDate}
-                            isDate
+                        <Field
+                            component={DatePicker}
+                            name={"endDate"}
+                            label={"Day of return"}
                         />
                     </div>
                 </DatePickerContainer>
-                <div>
-                    <InputField
-                        error={errors.cost?.currency ?? ''}
-                        label={'Currency'}
-                        name={'cost.currency'}
-                    />
-                </div>
+                <TextField
+                    name={"cost.currency"}
+                    error={errors.cost?.currency}
+                    label={"Currency"}
+                />
                 <ButtonContainer>
                     <Button
                         type="submit"
                         disabled={isSubmitting}
-                        color={isSubmitting ? 'gray' : 'primary'}
+                        color={isSubmitting ? "gray" : "primary"}
                     >
                         {buttonText}
                     </Button>

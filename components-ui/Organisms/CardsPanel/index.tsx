@@ -1,9 +1,9 @@
-import React from 'react';
-import Label from 'components-ui/Atoms/Label';
-import PollCard, { IPollCard } from 'components-ui/Molecules/PollCard';
-import JourneyCard from 'components-ui/Molecules/JourneyCard';
-import styled from 'styled-components';
-import { IJourneyCard } from 'utils/types';
+import React from "react";
+import Label from "components-ui/Atoms/Label";
+import PollCard, { IPollCard } from "components-ui/Molecules/PollCard";
+import JourneyCard from "components-ui/Molecules/JourneyCard";
+import styled from "styled-components";
+import { IJourneyCard } from "utils/types";
 
 type Props = {
     cards: IPollCard[] | IJourneyCard[];
@@ -12,7 +12,7 @@ type Props = {
 
 const CardsPanel: React.FC<Props> = ({ cards, label }) => {
     if (!cards || !cards.length) return null;
-    if ('expenses' in cards[0]) {
+    if ("expenses" in cards[0]) {
         const array = cards as IJourneyCard[];
         return (
             <Wrapper>

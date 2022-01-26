@@ -1,8 +1,8 @@
-import React from 'react';
-import Link from 'next/link';
-import Text from 'components-ui/Atoms/Text';
-import styled from 'styled-components';
-import { useRouter } from 'next/router';
+import React from "react";
+import Link from "next/link";
+import Text from "components-ui/Atoms/Text";
+import styled from "styled-components";
+import { useRouter } from "next/router";
 
 type Props = {
     href: string;
@@ -31,7 +31,7 @@ const StyledText = styled(Text)<{ active: boolean }>`
     border-radius: ${({ theme }) => theme.borderRadius};
     font-size: 0.9rem;
     background-color: ${({ theme, active }) =>
-        active ? theme.colors.background : 'transparent'};
+        active ? theme.colors.background : "transparent"};
     color: ${({ theme, active }) =>
         active ? theme.colors.gray.dark : theme.colors.gray.light};
     cursor: pointer;

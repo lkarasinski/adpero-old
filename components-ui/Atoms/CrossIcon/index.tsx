@@ -14,29 +14,27 @@ const Wrapper = styled.div`
     stroke: ${({ theme }) => theme.colors.red};
 `;
 
-const CrossIcon: React.FC<Props> = ({ callback }) => {
-    return (
-        <Wrapper
-            onClick={callback}
-            onKeyPress={callback}
-            role="button"
-            tabIndex={0}
+const CrossIcon: React.FC<Props> = ({ callback }) => (
+    <Wrapper
+        onClick={callback}
+        onKeyPress={callback}
+        role="button"
+        tabIndex={0}
+    >
+        <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 21"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
         >
-            <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 21"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="M2 2L18 19M18 2L2 19"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                />
-            </svg>
-        </Wrapper>
-    );
-};
+            <path
+                d="M2 2L18 19M18 2L2 19"
+                strokeWidth="3"
+                strokeLinecap="round"
+            />
+        </svg>
+    </Wrapper>
+);
 
 export default CrossIcon;

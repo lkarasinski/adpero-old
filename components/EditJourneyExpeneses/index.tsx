@@ -1,12 +1,12 @@
-import * as React from 'react';
-import InputField from 'components-ui/Molecules/InputField';
-import { Form, Formik } from 'formik';
-import { Detail, Expense } from 'utils/interfaces';
-import Card from 'components-ui/Atoms/Card';
-import RadioGroup from 'components-ui/Molecules/RadioGroup';
-import styled from 'styled-components';
-import Button from 'components-ui/Atoms/Button';
-import Heading from 'components-ui/Atoms/Heading';
+import * as React from "react";
+import TextField from "components-ui/Molecules/TextField";
+import { Form, Formik } from "formik";
+import { Detail, Expense } from "utils/interfaces";
+import Card from "components-ui/Atoms/Card";
+import RadioGroup from "components-ui/Molecules/RadioGroup";
+import styled from "styled-components";
+import Button from "components-ui/Atoms/Button";
+import Heading from "components-ui/Atoms/Heading";
 
 type Props = {
     expenseValues: Expense;
@@ -27,7 +27,7 @@ const EditJourneyExpeneses: React.FC<Props> = ({
                 return (
                     <StyledForm>
                         <Heading>{values.title}</Heading>
-                        <StyledInput label="Title" error={''} name="title" />
+                        <StyledInput label="Title" error={""} name="title" />
                         <CardGrid>
                             {expenseValues.details.map(
                                 (detail: Detail, index: number) => {
@@ -40,20 +40,20 @@ const EditJourneyExpeneses: React.FC<Props> = ({
                                                 name={`details[${index}]`}
                                                 label="Type"
                                             />
-                                            <InputField
+                                            <TextField
                                                 label="Label"
-                                                error={''}
+                                                error={""}
                                                 name={`details[${index}].label`}
                                             />
-                                            <InputField
+                                            <TextField
                                                 label="Value"
-                                                error={''}
+                                                error={""}
                                                 name={`details[${index}].value`}
                                             />
-                                            {currentType === 'Price' && (
-                                                <InputField
+                                            {currentType === "Price" && (
+                                                <TextField
                                                     label="Currency"
-                                                    error={''}
+                                                    error={""}
                                                     name={`details[${index}].currency`}
                                                 />
                                             )}
@@ -63,7 +63,7 @@ const EditJourneyExpeneses: React.FC<Props> = ({
                             )}
                         </CardGrid>
                         <Button
-                            color={isSubmitting ? 'gray' : 'primary'}
+                            color={isSubmitting ? "gray" : "primary"}
                             type="submit"
                             disabled={isSubmitting}
                         >
@@ -80,7 +80,7 @@ const StyledForm = styled(Form)`
     margin-top: 2rem;
 `;
 
-const StyledInput = styled(InputField)`
+const StyledInput = styled(TextField)`
     width: 25rem;
 `;
 

@@ -1,10 +1,10 @@
-import React from 'react';
-import useCreateInvite from 'hooks/useCreateInvite';
-import Card from 'components-ui/Atoms/Card';
-import Label from 'components-ui/Atoms/Label';
-import Button from 'components-ui/Atoms/Button';
-import styled from 'styled-components';
-import useJourneys from 'context/JourneysContext';
+import React from "react";
+import useCreateInvite from "hooks/useCreateInvite";
+import Card from "components-ui/Atoms/Card";
+import Label from "components-ui/Atoms/Label";
+import Button from "components-ui/Atoms/Button";
+import styled from "styled-components";
+import useJourneys from "context/JourneysContext";
 
 type Props = {
     userEmail: string;
@@ -14,7 +14,7 @@ type Props = {
 const InvitePanel: React.FC<Props> = ({ userEmail, journeyID }) => {
     const journeyContext = useJourneys();
     if (!journeyContext) {
-        console.error('useJourneys must be used within a JourneysProvider');
+        console.error("useJourneys must be used within a JourneysProvider");
     }
 
     const { journeys } = useJourneys();
@@ -23,7 +23,7 @@ const InvitePanel: React.FC<Props> = ({ userEmail, journeyID }) => {
     const copyToClipboard = React.useCallback(
         () =>
             navigator.clipboard.writeText(
-                `${location.origin}/invite/${linkID}` ?? ''
+                `${location.origin}/invite/${linkID}` ?? ""
             ),
         [linkID]
     );
@@ -33,15 +33,11 @@ const InvitePanel: React.FC<Props> = ({ userEmail, journeyID }) => {
     }
 
     return (
-        <StyledCard
-        // initial={"loading"}
-        // animate={loading ? "loading" : "loaded"}
-        // variants={invitePanelVariants}
-        >
-            <StyledLabel isAccent>Invite Link</StyledLabel>
+        <Card>
+            <Label isAccent>Invite Link</Label>
             <ButtonContainer>
                 <Button
-                    color={loading ? 'gray' : linkID ? 'primary' : 'gray'}
+                    color={loading ? "gray" : linkID ? "primary" : "gray"}
                     disabled={!linkID}
                     type="button"
                     onClick={copyToClipboard}
@@ -49,46 +45,23 @@ const InvitePanel: React.FC<Props> = ({ userEmail, journeyID }) => {
                     Copy invite Link
                 </Button>
                 <Button
-                    color={loading ? 'gray' : linkID ? 'primary' : 'gray'}
+                    color={loading ? "gray" : linkID ? "red" : "gray"}
                     onClick={
-                        loading ? () => console.log('loading') : createInvite
+                        loading ? () => console.log("loading") : createInvite
                     }
                 >
                     Create new Link
                 </Button>
             </ButtonContainer>
-        </StyledCard>
+        </Card>
     );
 };
-
-// const invitePanelVariants = {
-//     loading: {
-//         opacity: 0,
-//     },
-//     loaded: {
-//         opacity: 1,
-//         transition: {
-//             duration: 0.2,
-//         },
-//     },
-// };
 
 const ButtonContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 2rem;
-    gap: 2rem;
-`;
-
-const StyledLabel = styled(Label)`
-    grid-column: 1 / -1;
-`;
-
-const StyledCard = styled(Card)`
-    /* display: grid; */
-    grid-template-columns: 1fr 1fr;
-    max-width: max-content;
     gap: 2rem;
 `;
 

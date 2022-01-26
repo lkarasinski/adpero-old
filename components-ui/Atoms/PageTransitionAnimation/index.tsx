@@ -1,20 +1,18 @@
-import { motion } from 'framer-motion';
-import React from 'react';
+import { motion } from "framer-motion";
+import React from "react";
 
-const PageTransitionAnimation: React.FC = ({ children }, props) => {
-    return (
-        <motion.main
-            {...props}
-            variants={variants}
-            initial="hidden"
-            animate="enter"
-            exit="exit"
-            transition={{ type: 'linear' }}
-        >
-            {children}
-        </motion.main>
-    );
-};
+const PageTransitionAnimation: React.FC = ({ children }, props) => (
+    <motion.main
+        {...props}
+        variants={variants}
+        initial="hidden"
+        animate="enter"
+        exit="exit"
+        transition={{ type: "linear" }}
+    >
+        {children}
+    </motion.main>
+);
 
 const variants = {
     hidden: { opacity: 0 },

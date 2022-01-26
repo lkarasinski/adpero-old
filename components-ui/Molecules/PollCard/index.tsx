@@ -1,8 +1,8 @@
-import React from 'react';
-import Label from 'components-ui/Atoms/Label';
-import Text from 'components-ui/Atoms/Text';
-import styled from 'styled-components';
-import Card from 'components-ui/Atoms/Card';
+import React from "react";
+import Label from "components-ui/Atoms/Label";
+import Text from "components-ui/Atoms/Text";
+import styled from "styled-components";
+import Card from "components-ui/Atoms/Card";
 
 export interface IPollCard {
     detail?: string;

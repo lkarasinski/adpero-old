@@ -1,14 +1,14 @@
-import * as React from 'react';
-import type { NextPage } from 'next';
-import PageTransitionAnimation from 'components-ui/Atoms/PageTransitionAnimation';
-import Heading from 'components-ui/Atoms/Heading';
-import ParticipantsPanel from 'components/ParticipantsPanel';
-import useJourneys from 'context/JourneysContext';
-import { useRouter } from 'next/router';
-import InvitePanel from 'components/InvitePanel';
-import { useAuth } from 'context/AuthContext';
-import EditJourneyDataPanel from 'components/EditJourneyDataPanel';
-import styled from 'styled-components';
+import * as React from "react";
+import type { NextPage } from "next";
+import PageTransitionAnimation from "components-ui/Atoms/PageTransitionAnimation";
+import Heading from "components-ui/Atoms/Heading";
+import ParticipantsPanel from "components-ui/Organisms/ParticipantsPanel";
+import useJourneys from "context/JourneysContext";
+import { useRouter } from "next/router";
+import InvitePanel from "components/InvitePanel";
+import { useAuth } from "context/AuthContext";
+import EditJourneyDataPanel from "components/EditJourneyDataPanel";
+import styled from "styled-components";
 
 const Edit: NextPage = () => {
     const { journeys } = useJourneys();
@@ -30,7 +30,7 @@ const Edit: NextPage = () => {
                     <ParticipantsPanel participants={users} />
                 </ParticipantsContainer>
                 <InvitePanel
-                    userEmail={user?.email ?? ''}
+                    userEmail={user?.email ?? ""}
                     journeyID={journeyID}
                 />
             </PageContent>

@@ -12,12 +12,10 @@ const Wrapper = styled.a`
     color: ${({ theme }) => theme.colors.primary};
 `;
 
-const Logo: React.FC<Props> = ({ isContracted }) => {
-    return (
-        <Link href="/" passHref>
-            <Wrapper>{isContracted ? "A" : "Adpero"}</Wrapper>
-        </Link>
-    );
-};
+const Logo: React.FC<Props> = ({ isContracted }) => (
+    <Link href="/" passHref>
+        <Wrapper>{isContracted ? "A" : "Adpero"}</Wrapper>
+    </Link>
+);
 
 export default Logo;
