@@ -8,8 +8,8 @@ import useJourneys from "context/JourneysContext";
 import PageTransitionAnimation from "components-ui/Atoms/PageTransitionAnimation";
 import Heading from "components-ui/Atoms/Heading";
 import SummaryPanel from "components-ui/Molecules/SummaryPanel";
-import ActivePollsPanel from "components-ui/Organisms/ActivePollsPanel";
-import JourneyCategoriesGrid from "components-ui/Templates/JourneyCategoriesGrid";
+import PollsPanel from "components-ui/Organisms/PollsPanel";
+import CardGrid from "components-ui/Templates/CardGrid";
 import EditButton from "components-ui/Molecules/EditButton";
 import DetailsCard from "components-ui/Molecules/DetailsCard";
 
@@ -45,12 +45,12 @@ const JourneyPage: NextPage = () => {
                         startDate={formatDate(journey.data.startDate)}
                         endDate={formatDate(journey.data.endDate)}
                     />
-                    <ActivePollsPanel polls={journey.data.polls} />
-                    <JourneyCategoriesGrid label="More details">
+                    <PollsPanel polls={journey.data.polls} />
+                    <CardGrid label="More details">
                         {journey.data.expenses?.map((category) => (
                             <DetailsCard key={category.id} expense={category} />
                         ))}
-                    </JourneyCategoriesGrid>
+                    </CardGrid>
                     <EditButton path={router.asPath} />
                 </Wrapper>
             </PageTransitionAnimation>

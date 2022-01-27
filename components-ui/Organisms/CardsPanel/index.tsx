@@ -18,10 +18,10 @@ const CardsPanel: React.FC<Props> = ({ cards, label }) => {
             <Wrapper>
                 {label ? <Label isAccent>{label}</Label> : null}
                 <Grid>
-                    {array.map((element, i) => (
+                    {array.map((element) => (
                         <JourneyCard
                             id={element.id}
-                            key={element.label + i}
+                            key={element.id}
                             label={element.label}
                             expenses={element.expenses}
                         />
@@ -35,9 +35,9 @@ const CardsPanel: React.FC<Props> = ({ cards, label }) => {
             <Wrapper>
                 <Label isAccent>{label}</Label>
                 <Grid>
-                    {array.map((element, i) => (
+                    {array.map((element) => (
                         <PollCard
-                            key={element.detail + element.label + i}
+                            key={element.id}
                             detail={element.detail}
                             label={element.label}
                         />

@@ -21,7 +21,6 @@ type SetValuesType = (
 ) => void;
 
 const addNewDetail = (values: Expense, setValues: SetValuesType) => {
-    console.log(values);
     if (values.details) {
         setValues({
             ...values,
@@ -47,7 +46,6 @@ const EditJourneyExpeneses: React.FC<Props> = ({
     submitChanges,
     removeCategory,
 }) => {
-    console.log(expenseValues);
     return (
         <Formik
             enableReinitialize

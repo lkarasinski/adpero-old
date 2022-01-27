@@ -6,7 +6,7 @@ type Props = {
     label?: string;
 };
 
-const JourneyCategoriesGrid: React.FC<Props> = ({ label, children }) => {
+const CardGrid: React.FC<Props> = ({ label, children }) => {
     return (
         <Wrapper>
             {label ? (
@@ -31,4 +31,4 @@ const HeadingContainer = styled.div`
     margin: 2rem;
 `;
 
-export default JourneyCategoriesGrid;
+export default CardGrid;

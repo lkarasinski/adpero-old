@@ -17,7 +17,7 @@ const HeadingContainer = styled.div`
 
 type Props = { polls: Poll[] };
 
-const ActivePollsPanel: React.FC<Props> = ({ polls }) => {
+const PollsPanel: React.FC<Props> = ({ polls }) => {
     if (!polls || polls.length === 0) return null;
     return (
         <Wrapper>
@@ -25,9 +25,9 @@ const ActivePollsPanel: React.FC<Props> = ({ polls }) => {
                 <Label isAccent>Active Polls</Label>
             </HeadingContainer>
             <Grid>
-                {polls.map((poll, i) => (
+                {polls.map((poll) => (
                     <PollCard
-                        key={poll.title + i}
+                        key={poll.id}
                         label={poll.title}
                         // TODO: Add notification logic
                         dot={false}
@@ -38,4 +38,4 @@ const ActivePollsPanel: React.FC<Props> = ({ polls }) => {
     );
 };
 
-export default ActivePollsPanel;
+export default PollsPanel;
