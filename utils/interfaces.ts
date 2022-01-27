@@ -50,6 +50,5 @@ export interface JourneyData {
 
 export interface Vote {
     user: string;
-    value: number;
     id: string; // Refers to the expense id
 }

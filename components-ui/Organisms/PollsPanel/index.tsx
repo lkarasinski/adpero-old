@@ -26,12 +26,7 @@ const PollsPanel: React.FC<Props> = ({ polls }) => {
             </HeadingContainer>
             <Grid>
                 {polls.map((poll) => (
-                    <PollCard
-                        key={poll.id}
-                        label={poll.title}
-                        // TODO: Add notification logic
-                        dot={false}
-                    />
+                    <PollCard key={poll.id} poll={poll} />
                 ))}
             </Grid>
         </Wrapper>

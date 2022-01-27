@@ -8,7 +8,9 @@ import getDateFromTimestamp from "functions/convertToDate";
 import Card from "components-ui/Atoms/Card";
 
 const Wrapper = styled(Card)`
-    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     max-width: 19rem;
     height: 100%;
 `;
@@ -22,23 +24,30 @@ interface Props {
     expense: Expense;
 }
 
-const DetailsCard: React.FC<Props> = ({ expense, ...props }) => {
+const DetailsCard: React.FC<Props> = ({ expense, children, ...props }) => {
     return (
         <Wrapper {...props}>
-            <Label isAccent>{expense.title}</Label>
-            <Grid>
-                {expense?.details.map((detail: Detail) => (
-                    <DetailsContainer
-                        label={detail.label}
-                        value={`${
-                            detail.type === "Date"
-                                ? formatDate(getDateFromTimestamp(detail.value))
-                                : detail.value
-                        } ${detail.type === "Price" ? detail.currency : ""}`}
-                        key={detail.id}
-                    />
-                ))}
-            </Grid>
+            <div>
+                <Label isAccent>{expense.title}</Label>
+                <Grid>
+                    {expense?.details.map((detail: Detail) => (
+                        <DetailsContainer
+                            label={detail.label}
+                            value={`${
+                                detail.type === "Date"
+                                    ? formatDate(
+                                          getDateFromTimestamp(detail.value)
+                                      )
+                                    : detail.value
+                            } ${
+                                detail.type === "Price" ? detail.currency : ""
+                            }`}
+                            key={detail.id}
+                        />
+                    ))}
+                </Grid>
+            </div>
+            {children}
         </Wrapper>
     );
 };

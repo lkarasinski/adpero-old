@@ -3,48 +3,26 @@ import Label from "components-ui/Atoms/Label";
 import Text from "components-ui/Atoms/Text";
 import styled from "styled-components";
 import Card from "components-ui/Atoms/Card";
+import { Poll } from "utils/interfaces";
 
-export interface IPollCard {
-    detail?: string;
-    label: string;
-    dot?: boolean;
-    id?: string;
-}
+type Props = { poll: Poll; journeyName?: string };
 
-const Wrapper = styled(Card)`
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 6rem;
-    cursor: pointer;
-`;
-
-const Dot = styled.div`
-    position: absolute;
-    top: -3px;
-    right: -3px;
-    width: 16px;
-    height: 16px;
-    background-color: ${({ theme }) => theme.colors.primary};
-    border-radius: 50%;
-`;
-
-const PollCard: React.FC<IPollCard> = ({ detail, label, dot }) => {
-    if (detail) {
-        return (
-            <Wrapper>
-                <Label>{detail}</Label>
-                <Text>{label}</Text>
-            </Wrapper>
-        );
-    }
+const PollCard: React.FC<Props> = ({ poll, journeyName }) => {
     return (
-        <Wrapper>
-            <Label isAccent>{label}</Label>
-            {dot && <Dot />}
-        </Wrapper>
+        <Card>
+            {journeyName ? <Text color="dark">{journeyName}</Text> : null}
+            <Label isAccent>{poll.title}</Label>
+            <CategoriesContainer>
+                {poll.content.map((category) => (
+                    <Text key={category.id}>{category.title}</Text>
+                ))}
+            </CategoriesContainer>
+        </Card>
     );
 };
+
+const CategoriesContainer = styled.div`
+    margin-top: 1rem;
+`;
 
 export default PollCard;
