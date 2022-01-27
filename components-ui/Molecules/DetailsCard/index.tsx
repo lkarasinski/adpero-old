@@ -2,7 +2,7 @@ import React from "react";
 import Label from "components-ui/Atoms/Label";
 import styled from "styled-components";
 import DetailsContainer from "../DetailsContainer";
-import { Detail, Expense } from "utils/interfaces";
+import { Expense, Detail } from "utils/interfaces";
 import formatDate from "functions/formatDate";
 import getDateFromTimestamp from "functions/convertToDate";
 import Card from "components-ui/Atoms/Card";
@@ -10,8 +10,9 @@ import Card from "components-ui/Atoms/Card";
 const Wrapper = styled(Card)`
     flex-grow: 1;
     max-width: 19rem;
+    height: 100%;
 `;
-const Flex = styled.div`
+const Grid = styled.div`
     display: grid;
     gap: 1.25rem;
     margin-top: 0.5rem;
@@ -19,14 +20,13 @@ const Flex = styled.div`
 
 interface Props {
     expense: Expense;
-    isLink?: boolean;
 }
 
 const DetailsCard: React.FC<Props> = ({ expense, ...props }) => {
     return (
         <Wrapper {...props}>
             <Label isAccent>{expense.title}</Label>
-            <Flex>
+            <Grid>
                 {expense?.details.map((detail: Detail) => (
                     <DetailsContainer
                         label={detail.label}
@@ -38,7 +38,7 @@ const DetailsCard: React.FC<Props> = ({ expense, ...props }) => {
                         key={detail.id}
                     />
                 ))}
-            </Flex>
+            </Grid>
         </Wrapper>
     );
 };

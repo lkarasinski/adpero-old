@@ -8,6 +8,7 @@ export interface IPollCard {
     detail?: string;
     label: string;
     dot?: boolean;
+    id?: string;
 }
 
 const Wrapper = styled(Card)`
@@ -15,7 +16,6 @@ const Wrapper = styled(Card)`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-width: 19rem;
     min-height: 6rem;
     cursor: pointer;
 `;
