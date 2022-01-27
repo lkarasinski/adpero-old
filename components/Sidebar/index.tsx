@@ -107,7 +107,7 @@ const Sidebar: React.FC<Props> = ({ isContracted }) => {
                         categories.map((link) => (
                             <EditLink
                                 key={link.href}
-                                href={`/journeys/${journeyID}/edit/${link.href}`}
+                                href={`/journeys/${journeyID}/edit/categories/${link.href}`}
                                 label={link.label}
                             />
                         ))}
@@ -124,7 +124,7 @@ const Sidebar: React.FC<Props> = ({ isContracted }) => {
                         polls.map((link) => (
                             <EditLink
                                 key={link.href}
-                                href={`/journeys/${journeyID}/edit/${link.href}`}
+                                href={`/journeys/${journeyID}/edit/polls/${link.href}`}
                                 label={link.label}
                             />
                         ))}

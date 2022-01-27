@@ -66,7 +66,7 @@ const StyledLink: React.FC<Props> = ({
 
     return (
         <Link href={href} passHref>
-            <Wrapper isContracted={isContracted} isActive={active}>
+            <Wrapper isContracted={isContracted} isActive={active} as="a">
                 <IconContainer isContracted={isContracted} isActive={active}>
                     <Icon icon={icon} />
                 </IconContainer>

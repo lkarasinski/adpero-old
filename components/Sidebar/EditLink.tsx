@@ -16,7 +16,9 @@ const EditLink: React.FC<Props> = ({ href, label }) => {
 
     return (
         <Wrapper href={href} passHref>
-            <StyledText active={active}> {label}</StyledText>
+            <StyledText active={active} as="a">
+                {label}
+            </StyledText>
         </Wrapper>
     );
 };
@@ -26,10 +28,12 @@ const Wrapper = styled(Link)`
 `;
 
 const StyledText = styled(Text)<{ active: boolean }>`
+    display: block;
     padding: 0.35rem 0.5rem;
     margin: 0.25rem 0;
     border-radius: ${({ theme }) => theme.borderRadius};
     font-size: 0.9rem;
+    font-weight: 900;
     background-color: ${({ theme, active }) =>
         active ? theme.colors.background : "transparent"};
     color: ${({ theme, active }) =>
