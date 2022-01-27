@@ -3,7 +3,7 @@ import Label from "components-ui/Atoms/Label";
 import styled from "styled-components";
 import DetailsContainer from "../DetailsContainer";
 import { Expense, Detail } from "utils/interfaces";
-import formatDate from "functions/formatDate";
+import { format } from "date-fns";
 import getDateFromTimestamp from "functions/convertToDate";
 import Card from "components-ui/Atoms/Card";
 
@@ -35,8 +35,9 @@ const DetailsCard: React.FC<Props> = ({ expense, children, ...props }) => {
                             label={detail.label}
                             value={`${
                                 detail.type === "Date"
-                                    ? formatDate(
-                                          getDateFromTimestamp(detail.value)
+                                    ? format(
+                                          getDateFromTimestamp(detail.value),
+                                          "MM/dd/yyyy"
                                       )
                                     : detail.value
                             } ${

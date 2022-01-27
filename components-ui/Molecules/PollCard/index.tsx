@@ -12,11 +12,13 @@ const PollCard: React.FC<Props> = ({ poll, journeyName }) => {
         <Card>
             {journeyName ? <Text color="dark">{journeyName}</Text> : null}
             <Label isAccent>{poll.title}</Label>
-            <CategoriesContainer>
-                {poll.content.map((category) => (
-                    <Text key={category.id}>{category.title}</Text>
-                ))}
-            </CategoriesContainer>
+            {poll.content.length > 0 && (
+                <CategoriesContainer>
+                    {poll.content.map((category) => (
+                        <Text key={category.id}>{category.title}</Text>
+                    ))}
+                </CategoriesContainer>
+            )}
         </Card>
     );
 };

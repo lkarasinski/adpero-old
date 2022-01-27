@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Heading from "components-ui/Atoms/Heading";
 import Text from "components-ui/Atoms/Text";
 import Button from "components-ui/Atoms/Button";
+import PageTransitionAnimation from "components-ui/Atoms/PageTransitionAnimation";
 
 const InvitePage: NextPage = () => {
     const { useJoinJourney } = useJourneys();
@@ -40,10 +41,10 @@ const InvitePage: NextPage = () => {
             };
 
             return (
-                <div>
+                <PageTransitionAnimation>
                     <Heading>You are able to join this journey</Heading>
                     <Button onClick={handleClick}>Click here to do so</Button>
-                </div>
+                </PageTransitionAnimation>
             );
         }
     }

@@ -3,6 +3,7 @@ import Label from "components-ui/Atoms/Label";
 import PollCard from "components-ui/Molecules/PollCard";
 import styled from "styled-components";
 import { Poll } from "utils/interfaces";
+import Link from "next/link";
 
 const Grid = styled.div`
     display: grid;
@@ -26,11 +27,20 @@ const PollsPanel: React.FC<Props> = ({ polls }) => {
             </HeadingContainer>
             <Grid>
                 {polls.map((poll) => (
-                    <PollCard key={poll.id} poll={poll} />
+                    <Link href={`/polls/${poll.id}`} key={poll.id} passHref>
+                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                        <PollCardContainer>
+                            <PollCard poll={poll} />
+                        </PollCardContainer>
+                    </Link>
                 ))}
             </Grid>
         </Wrapper>
     );
 };
+
+const PollCardContainer = styled.a`
+    height: 100%;
+`;
 
 export default PollsPanel;

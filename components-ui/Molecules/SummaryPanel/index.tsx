@@ -3,11 +3,12 @@ import Label from "components-ui/Atoms/Label";
 import styled from "styled-components";
 import Text from "components-ui/Atoms/Text";
 import Card from "components-ui/Atoms/Card";
+import { format } from "date-fns";
 
 type Props = {
     numberOfUsers: number;
-    startDate: string;
-    endDate: string;
+    startDate: Date;
+    endDate: Date;
     totalCost: {
         value: number;
         currency: string;
@@ -23,8 +24,14 @@ const SummaryPanel: React.FC<Props> = ({
     const details = [
         { label: "Cost:", value: `${totalCost.value} ${totalCost.currency}` },
         { label: "Number of users:", value: `${numberOfUsers}` },
-        { label: "Departure date:", value: `${startDate}` },
-        { label: "Day of return:", value: `${endDate}` },
+        {
+            label: "Departure date:",
+            value: `${format(startDate, "MM/dd/yyyy")}`,
+        },
+        {
+            label: "Day of return:",
+            value: `${format(endDate, "MM/dd/yyyy")}`,
+        },
     ];
     return (
         <Wrapper>

@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { useAuth } from "context/AuthContext";
 import { Vote } from "utils/interfaces";
 import Label from "components-ui/Atoms/Label";
+import PageTransitionAnimation from "components-ui/Atoms/PageTransitionAnimation";
 
 const PollPage: NextPage = () => {
     const router = useRouter();
@@ -33,8 +34,6 @@ const PollPage: NextPage = () => {
         journey.author === user.email || journey.users.includes(user.email);
     const optionsExist = currentPoll.content.length > 0;
 
-    console.log(optionsExist);
-
     const voteForOption = async (optionID: string) => {
         if (user.email && journey) {
             const newVote: Vote = { user: user.email, id: optionID };
@@ -54,7 +53,7 @@ const PollPage: NextPage = () => {
     };
 
     return (
-        <div>
+        <PageTransitionAnimation>
             <Heading>{currentPoll.title}</Heading>
             {optionsExist ? (
                 <CardGrid>
@@ -96,7 +95,7 @@ const PollPage: NextPage = () => {
                     </Text>
                 </div>
             )}
-        </div>
+        </PageTransitionAnimation>
     );
 };
 

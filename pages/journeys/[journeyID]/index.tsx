@@ -42,8 +42,8 @@ const JourneyPage: NextPage = () => {
                             value: 0,
                             currency: journey.data.cost.currency,
                         }}
-                        startDate={formatDate(journey.data.startDate)}
-                        endDate={formatDate(journey.data.endDate)}
+                        startDate={journey.data.startDate}
+                        endDate={journey.data.endDate}
                     />
                     <PollsPanel polls={journey.data.polls} />
                     <CardGrid label="More details">

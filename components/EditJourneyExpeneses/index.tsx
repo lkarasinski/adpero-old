@@ -1,6 +1,6 @@
 import * as React from "react";
 import TextField from "components-ui/Molecules/TextField";
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import { Detail, Expense } from "utils/interfaces";
 import Card from "components-ui/Atoms/Card";
 import RadioGroup from "components-ui/Molecules/RadioGroup";
@@ -8,6 +8,7 @@ import styled from "styled-components";
 import Button from "components-ui/Atoms/Button";
 import Heading from "components-ui/Atoms/Heading";
 import { getEmptyDetail } from "utils/constants";
+import { DatePicker } from "formik-mui-lab";
 
 type Props = {
     expenseValues: Expense;
@@ -52,7 +53,7 @@ const EditJourneyExpeneses: React.FC<Props> = ({
             initialValues={expenseValues}
             onSubmit={submitChanges}
         >
-            {({ values, isSubmitting, setValues }) => {
+            {({ values, isSubmitting, setValues, errors }) => {
                 return (
                     <StyledForm>
                         <Heading>{values.title}</Heading>
@@ -95,11 +96,21 @@ const EditJourneyExpeneses: React.FC<Props> = ({
                                                 error={""}
                                                 name={`details[${index}].label`}
                                             />
-                                            <TextField
-                                                label="Value"
-                                                error={""}
-                                                name={`details[${index}].value`}
-                                            />
+                                            {values.details[index]?.type ===
+                                            "Date" ? (
+                                                <Field
+                                                    component={DatePicker}
+                                                    name={`details[${index}].value`}
+                                                    label={"Day of departure"}
+                                                    error={""}
+                                                />
+                                            ) : (
+                                                <TextField
+                                                    label="Value"
+                                                    error={""}
+                                                    name={`details[${index}].value`}
+                                                />
+                                            )}
                                             {currentType === "Price" && (
                                                 <TextField
                                                     label="Currency"
