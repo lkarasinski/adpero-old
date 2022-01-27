@@ -11,12 +11,13 @@ import EditJourneyDataPanel from "components/EditJourneyDataPanel";
 import styled from "styled-components";
 
 const Edit: NextPage = () => {
-    const { journeys } = useJourneys();
+    const { getCurrentJourney } = useJourneys();
     const { user } = useAuth();
     const router = useRouter();
 
     const journeyID = router.query.journeyID as string;
-    const journey = journeys.find((journey) => journey.id === journeyID)?.data;
+    const journey = getCurrentJourney()?.data;
+
     const users = journey?.users;
 
     return (

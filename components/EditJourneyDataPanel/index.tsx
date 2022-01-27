@@ -14,11 +14,11 @@ type Props = {
 };
 
 const EditJourneyDataPanel: React.FC<Props> = ({ buttonText }) => {
-    const { journeys, createJourney, updateJourney } = useJourneys();
+    const { createJourney, updateJourney, getCurrentJourney } = useJourneys();
     const { user } = useAuth();
     const router = useRouter();
     const journeyID = router.query.journeyID as string;
-    const journey = journeys.find((journey) => journey.id === journeyID)?.data;
+    const journey = getCurrentJourney()?.data;
     const [initialValues, setInitialValues] = React.useState({
         author: user?.email ?? "local",
         createdAt: new Date(),
