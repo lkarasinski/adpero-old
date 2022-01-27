@@ -27,7 +27,7 @@ export interface Expense {
 }
 export interface Detail {
     label: string;
-    type: 'Price' | 'Text' | 'Date' | 'Address' | '';
+    type: "Price" | "Text" | "Date" | "Address" | "";
     value: string | Date;
     currency: string;
     id: string;

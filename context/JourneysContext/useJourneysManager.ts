@@ -78,9 +78,7 @@ const useJourneysManager: UseJourneysManager = () => {
     }, [user, user?.email]);
 
     const createJourney: CreateJourney = async (data: Journey) => {
-        const randomID =
-            Math.random().toString(36).substring(2, 15) +
-            Math.random().toString(36).substring(2, 15);
+        const randomID = Math.random().toString(36).substring(2, 15);
         data.id = randomID;
         await setDoc(doc(database, "journeys", randomID), data);
         return randomID;
