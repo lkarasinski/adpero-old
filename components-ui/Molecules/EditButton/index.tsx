@@ -24,7 +24,7 @@ const StyledButton = styled(Button)`
 const EditButton: React.FC<ButtonProps> = ({ path, ...props }) => {
     return (
         <Link href={`${path}/edit`} passHref>
-            <StyledButton {...props}>
+            <StyledButton {...props} as={"a"}>
                 <>
                     <Icon icon={faEdit} />
                     Edit

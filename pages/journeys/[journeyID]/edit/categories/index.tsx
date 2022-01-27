@@ -49,7 +49,7 @@ const Categories: NextPage = () => {
     );
 };
 
-const DetailsCardContainer = styled.div`
+const DetailsCardContainer = styled.a`
     height: 100%;
     cursor: pointer;
 `;

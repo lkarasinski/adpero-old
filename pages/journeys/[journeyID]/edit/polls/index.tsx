@@ -35,7 +35,7 @@ const Polls: NextPage = () => {
                         key={poll.id}
                         passHref
                     >
-                        <StyledCard>
+                        <StyledCard as={"a"}>
                             <Label isAccent>{poll.title}</Label>
                         </StyledCard>
                     </Link>

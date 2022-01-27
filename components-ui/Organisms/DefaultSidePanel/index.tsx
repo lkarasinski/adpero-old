@@ -24,6 +24,7 @@ const DefaultSidePanel: React.FC<Props> = ({
                 <BottomContainer>
                     <Link href="/settings" passHref>
                         <SidePanelButton
+                            as={"a"}
                             aria-label="Settings"
                             isContracted={isContracted}
                         >
@@ -33,6 +34,7 @@ const DefaultSidePanel: React.FC<Props> = ({
                     </Link>
                     <Link href="/new" passHref>
                         <SidePanelButton
+                            as={"a"}
                             aria-label="New Journey"
                             color="primary"
                             isContracted={isContracted}
