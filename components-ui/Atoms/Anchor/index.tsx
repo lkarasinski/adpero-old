@@ -6,6 +6,7 @@ const Anchor = styled.a`
     color: ${({ theme }) => theme.colors.gray.dark};
     text-decoration: underline;
     text-decoration-thickness: 2px;
+    word-break: break-word;
 `;
 
 export default Anchor;

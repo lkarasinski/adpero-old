@@ -10,7 +10,7 @@ const Wrapper = styled.p<Props>`
     margin: 0;
     font-size: ${({ isSmall }) => (isSmall ? "0.75rem" : "1rem")};
     font-weight: 800;
-    word-break: break-word;
+    line-break: loose;
     color: ${({ color, theme }) => {
         switch (color) {
             case "dark":

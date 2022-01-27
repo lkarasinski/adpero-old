@@ -12,6 +12,7 @@ const Wrapper = styled.h2<Props>`
     font-weight: 900;
     color: ${({ isAccent, theme }) =>
         isAccent ? theme.colors.primary : theme.colors.gray.dark};
+    line-break: loose;
 `;
 
 const Label: React.FC<Props> = ({ children, ...props }) => (
