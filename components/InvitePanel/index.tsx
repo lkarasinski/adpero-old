@@ -23,7 +23,7 @@ const InvitePanel: React.FC<Props> = ({ userEmail, journeyID }) => {
     const copyToClipboard = React.useCallback(
         () =>
             navigator.clipboard.writeText(
-                `${location.origin}/invite/${linkID}` ?? ""
+                `${location.origin}/join/${linkID}` ?? ""
             ),
         [linkID]
     );

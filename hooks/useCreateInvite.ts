@@ -11,6 +11,7 @@ import {
     where,
 } from "firebase/firestore";
 import { Journey } from "utils/interfaces";
+import getRandomID from "functions/getRandomID";
 
 type CreateInvite = (
     journey: Journey | undefined,
@@ -39,9 +40,7 @@ const createInvite: CreateInvite = async (journey, userEmail, setLink) => {
                 }
             });
 
-            const randomString =
-                Math.random().toString(36).substring(2, 15) +
-                Math.random().toString(36).substring(2, 15);
+            const randomString = getRandomID();
             try {
                 await setDoc(doc(database, `invites`, randomString), {
                     journeyID,
