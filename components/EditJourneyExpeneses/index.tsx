@@ -7,34 +7,86 @@ import RadioGroup from "components-ui/Molecules/RadioGroup";
 import styled from "styled-components";
 import Button from "components-ui/Atoms/Button";
 import Heading from "components-ui/Atoms/Heading";
+import { getEmptyDetail } from "utils/constants";
 
 type Props = {
     expenseValues: Expense;
     submitChanges: (values: Expense) => Promise<void>;
+    removeCategory: () => Promise<void>;
+};
+
+type SetValuesType = (
+    values: React.SetStateAction<Expense>,
+    shouldValidate?: boolean | undefined
+) => void;
+
+const addNewDetail = (values: Expense, setValues: SetValuesType) => {
+    console.log(values);
+    if (values.details) {
+        setValues({
+            ...values,
+            details: [...values.details, getEmptyDetail()],
+        });
+    }
+};
+
+const removeDetail = (
+    values: Expense,
+    index: string,
+    setValues: SetValuesType
+) => {
+    const newValues = values.details.filter(
+        (detail: Detail) => detail.id !== index
+    );
+    setValues({ ...values, details: newValues });
+    return;
 };
 
 const EditJourneyExpeneses: React.FC<Props> = ({
     expenseValues,
     submitChanges,
+    removeCategory,
 }) => {
+    console.log(expenseValues);
     return (
         <Formik
             enableReinitialize
             initialValues={expenseValues}
             onSubmit={submitChanges}
         >
-            {({ values, isSubmitting }) => {
+            {({ values, isSubmitting, setValues }) => {
                 return (
                     <StyledForm>
                         <Heading>{values.title}</Heading>
+                        <Button type="button" onClick={removeCategory}>
+                            Remove category
+                        </Button>
                         <StyledInput label="Title" error={""} name="title" />
+                        <Button
+                            type="button"
+                            onClick={() => addNewDetail(values, setValues)}
+                        >
+                            Add new detail
+                        </Button>
                         <CardGrid>
-                            {expenseValues.details.map(
+                            {values.details.map(
                                 (detail: Detail, index: number) => {
                                     const currentType =
                                         values.details[index]?.type;
                                     return (
                                         <StyledCard key={detail.id}>
+                                            <Button
+                                                type="button"
+                                                onClick={() =>
+                                                    removeDetail(
+                                                        values,
+                                                        detail.id,
+                                                        setValues
+                                                    )
+                                                }
+                                            >
+                                                Remove detail
+                                            </Button>
                                             <RadioGroup
                                                 currentType={currentType}
                                                 name={`details[${index}]`}
