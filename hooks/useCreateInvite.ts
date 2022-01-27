@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import firebaseApp from 'services/firebase';
+import { useEffect, useState } from "react";
+import firebaseApp from "services/firebase";
 import {
     collection,
     deleteDoc,
@@ -9,8 +9,8 @@ import {
     query,
     setDoc,
     where,
-} from 'firebase/firestore';
-import { Journey } from 'utils/interfaces';
+} from "firebase/firestore";
+import { Journey } from "utils/interfaces";
 
 type CreateInvite = (
     journey: Journey | undefined,
@@ -27,17 +27,15 @@ const createInvite: CreateInvite = async (journey, userEmail, setLink) => {
             const journeyID = journey.id;
             const database = getFirestore(firebaseApp);
             const q = query(
-                collection(database, 'invites'),
-                where('journeyID', '==', journeyID)
+                collection(database, "invites"),
+                where("journeyID", "==", journeyID)
             );
             const querySnapshot = await getDocs(q);
-            console.log(q);
             querySnapshot.forEach(async (doc) => {
                 try {
-                    console.log(doc);
                     await deleteDoc(doc.ref);
                 } catch (err) {
-                    console.error('Error deleting invites', err);
+                    console.error("Error deleting invites", err);
                 }
             });
 
@@ -49,12 +47,11 @@ const createInvite: CreateInvite = async (journey, userEmail, setLink) => {
                     journeyID,
                     createdAt: new Date(),
                 });
-                console.log(randomString);
                 if (setLink) {
                     setLink(randomString);
                 }
             } catch (err) {
-                console.error('Error creating invite');
+                console.error("Error creating invite");
                 console.error(err);
             }
         }
@@ -67,17 +64,17 @@ type UseInvitePanel = (
     userEmail: string
 ) => [string, FunctionType, boolean];
 const useInvitePanel: UseInvitePanel = (journey, userEmail) => {
-    const [linkID, setLinkID] = useState('');
+    const [linkID, setLinkID] = useState("");
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (journey == undefined) {
-            console.error('Journey not found');
+            console.error("Journey not found");
         } else {
             const database = getFirestore(firebaseApp);
             const q = query(
-                collection(database, 'invites'),
-                where('journeyID', '==', journey.id)
+                collection(database, "invites"),
+                where("journeyID", "==", journey.id)
             );
             (async () => {
                 const querySnapshot = await getDocs(q);
