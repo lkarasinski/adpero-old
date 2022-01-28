@@ -16,6 +16,7 @@ const theme = {
         shadow: "rgba(0, 0, 0, 0.25)",
         selection: "#C2E2FF",
         background: "#ffffff",
+        yellow: "#D6A90B",
     },
 };
 

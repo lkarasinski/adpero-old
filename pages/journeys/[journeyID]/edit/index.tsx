@@ -2,9 +2,8 @@ import * as React from "react";
 import type { NextPage } from "next";
 import PageTransitionAnimation from "components-ui/Atoms/PageTransitionAnimation";
 import Heading from "components-ui/Atoms/Heading";
-import ParticipantsPanel from "components-ui/Organisms/ParticipantsPanel";
+import ParticipantsPanel from "components/ParticipantsPanel";
 import useJourneys from "context/JourneysContext";
-import { useRouter } from "next/router";
 import InvitePanel from "components/InvitePanel";
 import { useAuth } from "context/AuthContext";
 import EditJourneyDataPanel from "components/EditJourneyDataPanel";
@@ -13,12 +12,9 @@ import styled from "styled-components";
 const Edit: NextPage = () => {
     const { getCurrentJourney } = useJourneys();
     const { user } = useAuth();
-    const router = useRouter();
-
-    const journeyID = router.query.journeyID as string;
     const journey = getCurrentJourney()?.data;
 
-    const users = journey?.users;
+    const isUserTheAuthor = user?.email === journey?.author;
 
     return (
         <PageTransitionAnimation>
@@ -27,13 +23,12 @@ const Edit: NextPage = () => {
             </Heading>
             <PageContent>
                 <EditJourneyDataPanel buttonText="Save" />
-                <ParticipantsContainer>
-                    <ParticipantsPanel participants={users} />
-                </ParticipantsContainer>
-                <InvitePanel
-                    userEmail={user?.email ?? ""}
-                    journeyID={journeyID}
-                />
+                {isUserTheAuthor ? (
+                    <ParticipantsContainer>
+                        <ParticipantsPanel />
+                    </ParticipantsContainer>
+                ) : null}
+                <InvitePanel userEmail={user?.email ?? ""} />
             </PageContent>
         </PageTransitionAnimation>
     );
