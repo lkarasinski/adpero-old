@@ -43,7 +43,7 @@ const useJourneyCards = () => {
         }
     });
 
-    return [currentJourneys, upcomingJourneys, pastJourneys, futureJourneys];
+    return { currentJourneys, upcomingJourneys, pastJourneys, futureJourneys };
 };
 
 export default useJourneyCards;

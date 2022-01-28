@@ -11,7 +11,7 @@ import useNotVotedPolls from "hooks/useNotVotedPolls";
 
 const Home: NextPage = () => {
     const { user } = useAuth();
-    const [currentJourneys, upcomingJourneys, pastJourneys, futureJourneys] =
+    const { currentJourneys, upcomingJourneys, pastJourneys, futureJourneys } =
         useJourneyCards();
     const polls = useNotVotedPolls();
 
@@ -43,8 +43,8 @@ const Home: NextPage = () => {
                     label="Upcoming journeys"
                     cards={upcomingJourneys}
                 />
-                <CardsPanel label="Past journeys" cards={pastJourneys} />
                 <CardsPanel label="Future journeys" cards={futureJourneys} />
+                <CardsPanel label="Past journeys" cards={pastJourneys} />
             </PageTransitionAnimation>
         </>
     );

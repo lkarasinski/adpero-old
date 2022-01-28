@@ -8,18 +8,15 @@ import useJourneys from "context/JourneysContext";
 
 type Props = {
     userEmail: string;
-    journeyID: string;
 };
 
-const InvitePanel: React.FC<Props> = ({ userEmail, journeyID }) => {
-    const journeyContext = useJourneys();
-    if (!journeyContext) {
-        console.error("useJourneys must be used within a JourneysProvider");
-    }
-
-    const { journeys } = useJourneys();
-    const journey = journeys.find((j) => j.id === journeyID)?.data;
-    const [linkID, createInvite, loading] = useCreateInvite(journey, userEmail);
+const InvitePanel: React.FC<Props> = ({ userEmail }) => {
+    const { getCurrentJourney } = useJourneys();
+    const journey = getCurrentJourney();
+    const [linkID, createInvite, loading] = useCreateInvite(
+        journey?.data,
+        userEmail
+    );
     const copyToClipboard = React.useCallback(
         () =>
             navigator.clipboard.writeText(
@@ -29,7 +26,7 @@ const InvitePanel: React.FC<Props> = ({ userEmail, journeyID }) => {
     );
 
     if (journey == undefined) {
-        return <div>Journey not found</div>;
+        return null;
     }
 
     return (
@@ -45,10 +42,8 @@ const InvitePanel: React.FC<Props> = ({ userEmail, journeyID }) => {
                     Copy invite Link
                 </Button>
                 <Button
-                    color={loading ? "gray" : linkID ? "red" : "gray"}
-                    onClick={
-                        loading ? () => console.log("loading") : createInvite
-                    }
+                    color={loading ? "gray" : linkID ? "red" : "primary"}
+                    onClick={createInvite}
                 >
                     Create new Link
                 </Button>

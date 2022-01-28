@@ -3,7 +3,6 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import formatDate from "functions/formatDate";
 import useJourneys from "context/JourneysContext";
 import PageTransitionAnimation from "components-ui/Atoms/PageTransitionAnimation";
 import Heading from "components-ui/Atoms/Heading";

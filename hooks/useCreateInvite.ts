@@ -67,9 +67,7 @@ const useInvitePanel: UseInvitePanel = (journey, userEmail) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (journey == undefined) {
-            console.error("Journey not found");
-        } else {
+        if (journey !== undefined) {
             const database = getFirestore(firebaseApp);
             const q = query(
                 collection(database, "invites"),
@@ -83,7 +81,7 @@ const useInvitePanel: UseInvitePanel = (journey, userEmail) => {
                 setLoading(false);
             })();
         }
-    }, []);
+    }, [journey?.id]);
 
     return [linkID, () => createInvite(journey, userEmail, setLinkID), loading];
 };

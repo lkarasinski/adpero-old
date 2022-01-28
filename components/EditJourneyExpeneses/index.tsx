@@ -53,7 +53,7 @@ const EditJourneyExpeneses: React.FC<Props> = ({
             initialValues={expenseValues}
             onSubmit={submitChanges}
         >
-            {({ values, isSubmitting, setValues, errors }) => {
+            {({ values, isSubmitting, setValues }) => {
                 return (
                     <StyledForm>
                         <Heading>{values.title}</Heading>

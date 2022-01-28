@@ -22,12 +22,10 @@ const PollPage: NextPage = () => {
         journey.data.polls.some((poll) => poll.id === pollID)
     )?.data;
     const currentPoll = journey?.polls.find((poll) => poll.id === pollID);
-    const userVoteID = React.useMemo(() => {
-        const vote = currentPoll?.votes.find(
-            (vote) => vote.user === user?.email
-        );
-        return vote?.id ?? null;
-    }, [currentPoll, user?.email]);
+
+    const userVoteID =
+        currentPoll?.votes.find((vote) => vote.user === user?.email)?.id ??
+        null;
 
     if (!user?.email || !currentPoll || !journey) return null;
     const hasEditAccess =
