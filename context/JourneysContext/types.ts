@@ -1,5 +1,5 @@
-import { Journey } from 'utils/interfaces';
-import type { DocumentData, DocumentReference } from 'firebase/firestore';
+import { Journey } from "utils/interfaces";
+import type { DocumentData, DocumentReference } from "firebase/firestore";
 
 export type JourneyDataType = {
     id: string;
@@ -20,10 +20,11 @@ export type useJoinJourney = (id: string) => {
 };
 
 export type JoinJourneyErrors =
-    | 'UserAlreadyJoined'
-    | 'JourneyDoesNotExist'
-    | 'InviteDoesNotExist'
-    | 'UserNotLoggedIn'
+    | "You have already joined this journey"
+    | "Journey does not exist"
+    | "Invite does not exist"
+    | "You must be logged in to accept invites"
+    | ""
     | null;
 
 export type ContextReturnType = {

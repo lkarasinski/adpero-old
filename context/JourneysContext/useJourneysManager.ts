@@ -99,19 +99,17 @@ const useJourneysManager: UseJourneysManager = () => {
         data: Journey
     ) => {
         const journeyRef = doc(database, "journeys", journeyID);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const newData = data as { [key: string]: any };
+        const newData = JSON.parse(JSON.stringify(data));
         await updateDoc(journeyRef, newData);
     };
 
     const useJoinJourney: useJoinJourney = (inviteID) => {
-        const [error, setError] = React.useState<JoinJourneyErrors>(null);
+        const [error, setError] = React.useState<JoinJourneyErrors>("");
         const [joinFunction, setJoinFunction] =
             React.useState<JoinFunction>(null);
 
         React.useEffect(() => {
             (async () => {
-                setError(null);
                 if (user) {
                     const inviteRef = doc(database, "invites", inviteID);
                     const inviteSnapshot = await getDoc(inviteRef);
@@ -132,22 +130,28 @@ const useJourneysManager: UseJourneysManager = () => {
                                     return journeyID;
                                 };
                                 setJoinFunction(() => tempJoinFunction);
+                                setError(null);
+
                                 return journeyID;
                             } else {
-                                console.warn("User is already in the journey");
-                                setError("UserAlreadyJoined");
+                                console.warn(
+                                    "You have already joined this journey"
+                                );
+                                setError(
+                                    "You have already joined this journey"
+                                );
                             }
                         } else {
                             console.warn("Journey does not exist");
-                            setError("JourneyDoesNotExist");
+                            setError("Journey does not exist");
                         }
                     } else {
                         console.warn("Invite does not exist");
-                        setError("InviteDoesNotExist");
+                        setError("Invite does not exist");
                     }
                 } else {
-                    console.warn("User is not logged in");
-                    setError("UserNotLoggedIn");
+                    console.warn("You must be logged in to accept invites");
+                    setError("You must be logged in to accept invites");
                 }
             })();
         }, [user?.email]);
