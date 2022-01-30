@@ -12,8 +12,10 @@ import { useAuth } from "context/AuthContext";
 import { Vote } from "utils/interfaces";
 import Label from "components-ui/Atoms/Label";
 import PageTransitionAnimation from "components-ui/Atoms/PageTransitionAnimation";
+import useMobile from "hooks/useMobile";
 
 const PollPage: NextPage = () => {
+    const isMobile = useMobile();
     const router = useRouter();
     const pollID = router.query.pollID as string;
     const { user } = useAuth();
@@ -56,7 +58,11 @@ const PollPage: NextPage = () => {
             {optionsExist ? (
                 <CardGrid>
                     {currentPoll.content.map((category) => (
-                        <DetailsCard expense={category} key={category.id}>
+                        <DetailsCard
+                            expense={category}
+                            key={category.id}
+                            isMobile={isMobile}
+                        >
                             <VotePanelContainer>
                                 <Text>
                                     Votes:{" "}

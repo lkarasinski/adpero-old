@@ -3,20 +3,22 @@ import PageTransitionAnimation from "components-ui/Atoms/PageTransitionAnimation
 import PollCard from "components-ui/Molecules/PollCard";
 import CardGrid from "components-ui/Templates/CardGrid";
 import useJourneys from "context/JourneysContext";
+import useMobile from "hooks/useMobile";
 import type { NextPage } from "next";
 import Link from "next/link";
 
 const Polls: NextPage = () => {
+    const isMobile = useMobile();
     const { journeys } = useJourneys();
     const pollsExist = journeys.some((journey) => journey.data.polls.length);
 
     return (
         <PageTransitionAnimation>
             <Heading>Your Polls</Heading>
-            {pollsExist &&
-                journeys.map(({ data }) => (
-                    <CardGrid key={data.id}>
-                        {data.polls.map((poll) => (
+            <CardGrid>
+                {pollsExist &&
+                    journeys.map(({ data }) =>
+                        data.polls.map((poll) => (
                             <Link
                                 key={poll.id}
                                 href={`polls/${poll.id}`}
@@ -26,14 +28,15 @@ const Polls: NextPage = () => {
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <a>
                                     <PollCard
+                                        isMobile={isMobile}
                                         poll={poll}
                                         journeyName={data.name}
                                     />
                                 </a>
                             </Link>
-                        ))}
-                    </CardGrid>
-                ))}
+                        ))
+                    )}
+            </CardGrid>
         </PageTransitionAnimation>
     );
 };

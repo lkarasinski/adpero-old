@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Text from "components-ui/Atoms/Text";
 import Card from "components-ui/Atoms/Card";
 import { format } from "date-fns";
+import useMobile from "hooks/useMobile";
 
 type Props = {
     numberOfUsers: number;
@@ -21,43 +22,42 @@ const SummaryPanel: React.FC<Props> = ({
     startDate,
     endDate,
 }) => {
-    const details = [
-        { label: "Cost:", value: `${totalCost.value} ${totalCost.currency}` },
-        { label: "Number of users:", value: `${numberOfUsers}` },
-        {
-            label: "Departure date:",
-            value: `${format(startDate, "MM/dd/yyyy")}`,
-        },
-        {
-            label: "Day of return:",
-            value: `${format(endDate, "MM/dd/yyyy")}`,
-        },
-    ];
+    const isMobile = useMobile();
+
     return (
-        <Wrapper>
+        <Wrapper isMobile={isMobile}>
             <Label isAccent>Summary</Label>
             <Grid>
-                {details.map(({ label, value }) => {
-                    return (
-                        <DetailContainer key={label}>
-                            <Text isSmall>{label}</Text>
-                            <Text color="dark">{value}</Text>
-                        </DetailContainer>
-                    );
-                })}
+                <DetailContainer>
+                    <Text isSmall>Cost: </Text>
+                    <Text color="dark">{totalCost.value}</Text>
+                </DetailContainer>
+                <DetailContainer>
+                    <Text isSmall>Participants: </Text>
+                    <Text color="dark">{numberOfUsers}</Text>
+                </DetailContainer>
+                <DetailContainer>
+                    <Text isSmall>Departure date: </Text>
+                    <Text color="dark">{format(startDate, "MM/dd/yyyy")}</Text>
+                </DetailContainer>
+                <DetailContainer>
+                    <Text isSmall>Day of return: </Text>
+                    <Text color="dark">{format(endDate, "MM/dd/yyyy")}</Text>
+                </DetailContainer>
             </Grid>
         </Wrapper>
     );
 };
 
-const Wrapper = styled(Card)`
-    max-width: 19rem;
+const Wrapper = styled(Card)<{ isMobile: boolean }>`
+    margin-top: ${({ isMobile }) => (isMobile ? "2rem" : "0")};
+    max-width: ${({ isMobile }) => (isMobile ? "100%" : "19rem")};
     background-color: "#ffffff";
 `;
 
 const Grid = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, 110px);
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     margin-top: 0.5rem;
 `;
