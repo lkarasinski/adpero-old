@@ -1,49 +1,113 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import theme from "../../utils/theme";
-import useWindowSize from "hooks/useWindowWidth";
 import Sidebar from "components/Sidebar";
+import useEventListener from "hooks/useEventListener";
+import { useRouter } from "next/router";
+import Burger from "components-ui/Atoms/Burger";
+import useMobile from "hooks/useMobile";
+import Text from "components-ui/Atoms/Text";
+import Headroom from "react-headroom";
 
 interface ContentProps {
-    isContracted: boolean;
+    isMobile: boolean;
 }
 
 type Props = {
     isEditModeEnabled?: boolean;
 };
 
-const Layout: React.FC<Props> = ({ children, isEditModeEnabled }) => {
-    const [isContracted, setIsContracted] = useState(false);
-    const { width } = useWindowSize();
+// React.MutableRefObject<HTMLInputElement>;
+type RefType = React.MutableRefObject<HTMLDivElement>;
 
-    useEffect(() => {
-        setIsContracted(width < 920);
-    }, [width < 920]);
+const Layout: React.FC<Props> = ({ children, isEditModeEnabled }) => {
+    const isMobile = useMobile();
+    const MainRef = React.useRef() as RefType;
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const router = useRouter();
+
+    React.useEffect(() => {
+        if (isMobile) {
+            setIsMenuOpen(false);
+        }
+    }, [router.asPath]);
+
+    React.useEffect(() => {
+        setIsMenuOpen(!isMobile);
+    }, [isMobile]);
+
+    const toggleMenu = () => setIsMenuOpen((v) => !v);
+
+    useEventListener(
+        "click",
+        () => {
+            if (isMenuOpen && isMobile) {
+                setIsMenuOpen(false);
+            }
+        },
+        MainRef
+    );
 
     return (
         <>
             <GlobalStyles />
             <ThemeProvider theme={theme}>
-                <Sidebar
-                    isEditModeEnabled={!!isEditModeEnabled}
-                    isContracted={isContracted}
-                />
-                <StyledMain>
-                    <Content isContracted={isContracted}>{children}</Content>
+                <StyledMain ref={MainRef}>
+                    <Sidebar
+                        isEditModeEnabled={!!isEditModeEnabled}
+                        isMobile={isMobile}
+                        isMenuOpen={isMenuOpen}
+                        toggleMenu={toggleMenu}
+                    />
+                    <Content isMobile={isMobile}>
+                        {isMobile ? (
+                            <Headroom
+                                style={{
+                                    width: "100vw",
+                                }}
+                            >
+                                <BurgerContainer
+                                    onClick={toggleMenu}
+                                    tabIndex={-1}
+                                    role="button"
+                                    onKeyDown={toggleMenu}
+                                >
+                                    <Burger />
+                                    <Text color="background">Adpero</Text>
+                                </BurgerContainer>
+                            </Headroom>
+                        ) : null}
+                        <MobileMargin isMobile={isMobile}>
+                            {children}
+                        </MobileMargin>
+                    </Content>
                 </StyledMain>
             </ThemeProvider>
         </>
     );
 };
 
+const BurgerContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0rem;
+    padding: 0.25rem 0;
+    background: ${({ theme }) => theme.colors.primary};
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.25);
+`;
+
+const MobileMargin = styled.div<ContentProps>`
+    margin: ${({ isMobile }) => (isMobile ? "0rem 1rem" : "0")};
+`;
+
 const Content = styled.div<ContentProps>`
     z-index: 0;
-    width: 100%;
+    width: ${({ isMobile }) =>
+        isMobile ? `calc(100%) - 1rem` : `calc(100%) - 16rem`};
     min-height: 100vh;
-    margin-left: ${({ isContracted }) => (isContracted ? "5rem" : "14rem")};
-    padding-left: 2rem;
+    margin: ${({ isMobile }) => (isMobile ? "0" : "0 0 4rem 16rem")};
     background-color: white;
-    transition: margin-left 200ms ease-in-out;
+    transition: margin-left 100ms ease-in-out;
 `;
 
 const GlobalStyles = createGlobalStyle`
@@ -67,7 +131,7 @@ const GlobalStyles = createGlobalStyle`
 
 const StyledMain = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 `;
 
 export default Layout;

@@ -1,12 +1,8 @@
 import Button from "components-ui/Atoms/Button";
 import styled from "styled-components";
 
-type Props = {
-    isContracted: boolean;
-};
-
-const SidePanelButton = styled(Button)<Props>`
-    width: ${({ isContracted }) => (isContracted ? "3rem" : "12rem")};
+const SidePanelButton = styled(Button)`
+    width: 12rem;
     min-width: auto;
     height: 3rem;
     padding: 0;

@@ -19,36 +19,30 @@ export type SidebarLink = {
 
 type Props = {
     isEditModeEnabled: boolean;
-    isContracted: boolean;
+    isMobile: boolean;
+    isMenuOpen: boolean;
+    toggleMenu: () => void;
 };
 
-const Sidebar: React.FC<Props> = ({ isContracted }) => {
+const Sidebar: React.FC<Props> = ({ isMobile, isMenuOpen, toggleMenu }) => {
     const router = useRouter();
     const journeyID = router.query.journeyID as string;
     const { journeys } = useJourneys();
 
     if (!router.pathname.startsWith("/journeys/[journeyID]/edit")) {
         return (
-            <DefaultSidePanel isContracted={isContracted}>
-                <StyledLink
-                    icon={faColumns}
-                    href="/"
-                    isContracted={isContracted}
-                >
+            <DefaultSidePanel
+                isMobile={isMobile}
+                isMenuOpen={isMenuOpen}
+                toggleMenu={toggleMenu}
+            >
+                <StyledLink icon={faColumns} href="/">
                     Dashboard
                 </StyledLink>
-                <StyledLink
-                    icon={faMapMarkedAlt}
-                    href="/journeys"
-                    isContracted={isContracted}
-                >
+                <StyledLink icon={faMapMarkedAlt} href="/journeys">
                     Journeys
                 </StyledLink>
-                <StyledLink
-                    icon={faPoll}
-                    href="/polls"
-                    isContracted={isContracted}
-                >
+                <StyledLink icon={faPoll} href="/polls">
                     Polls
                 </StyledLink>
             </DefaultSidePanel>
@@ -85,49 +79,57 @@ const Sidebar: React.FC<Props> = ({ isContracted }) => {
         const polls = sidebarData.filter((s) => s.type === "poll").slice(0, 4);
 
         return (
-            <DefaultSidePanel isContracted={isContracted} editMode>
+            <DefaultSidePanel
+                isMobile={isMobile}
+                editMode
+                isMenuOpen={isMenuOpen}
+                toggleMenu={toggleMenu}
+            >
                 <Container>
                     <StyledLink
                         href={`/journeys/${journeyID}/edit`}
                         icon={faColumns}
-                        isContracted={isContracted}
                     >
                         <>Journey Info</>
                     </StyledLink>
+                    <EditLink
+                        href={`/journeys/${journeyID}/edit/participants/`}
+                        label="Participants"
+                    />
+                    <EditLink
+                        href={`/journeys/${journeyID}/edit/invite/`}
+                        label="Invite"
+                    />
                 </Container>
                 <Container>
                     <StyledLink
                         href={`/journeys/${journeyID}/edit/categories`}
                         icon={faMapMarkedAlt}
-                        isContracted={isContracted}
                     >
                         <>Categories</>
                     </StyledLink>
-                    {!isContracted &&
-                        categories.map((link) => (
-                            <EditLink
-                                key={link.href}
-                                href={`/journeys/${journeyID}/edit/categories/${link.href}`}
-                                label={link.label}
-                            />
-                        ))}
+                    {categories.map((link) => (
+                        <EditLink
+                            key={link.href}
+                            href={`/journeys/${journeyID}/edit/categories/${link.href}`}
+                            label={link.label}
+                        />
+                    ))}
                 </Container>
                 <Container>
                     <StyledLink
                         href={`/journeys/${journeyID}/edit/polls`}
                         icon={faPoll}
-                        isContracted={isContracted}
                     >
                         <>Polls</>
                     </StyledLink>
-                    {!isContracted &&
-                        polls.map((link) => (
-                            <EditLink
-                                key={link.href}
-                                href={`/journeys/${journeyID}/edit/polls/${link.href}`}
-                                label={link.label}
-                            />
-                        ))}
+                    {polls.map((link) => (
+                        <EditLink
+                            key={link.href}
+                            href={`/journeys/${journeyID}/edit/polls/${link.href}`}
+                            label={link.label}
+                        />
+                    ))}
                 </Container>
             </DefaultSidePanel>
         );

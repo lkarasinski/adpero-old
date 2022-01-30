@@ -8,19 +8,33 @@ import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 interface Props {
     href: string;
     icon: IconDefinition;
-    isContracted: boolean;
 }
 
 interface IStyled {
     isActive: boolean;
-    isContracted: boolean;
 }
+
+const StyledLink: React.FC<Props> = ({ children, href, icon }) => {
+    const router = useRouter();
+    const active = router ? (router.asPath == href ? true : false) : false;
+
+    return (
+        <Link href={href} passHref>
+            <Wrapper isActive={active} as="a">
+                <IconContainer isActive={active}>
+                    <Icon icon={icon} />
+                </IconContainer>
+                {children}
+            </Wrapper>
+        </Link>
+    );
+};
 
 const Wrapper = styled.div<IStyled>`
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    width: ${({ isContracted }) => (isContracted ? "3rem" : "12rem")};
+    width: 12rem;
     min-width: auto;
     height: 3rem;
     padding: 1rem;
@@ -54,26 +68,5 @@ const IconContainer = styled.div<IStyled>`
     color: ${({ theme, isActive }) =>
         isActive ? theme.colors.primary : theme.colors.gray.dark};
 `;
-
-const StyledLink: React.FC<Props> = ({
-    children,
-    href,
-    icon,
-    isContracted,
-}) => {
-    const router = useRouter();
-    const active = router ? (router.asPath == href ? true : false) : false;
-
-    return (
-        <Link href={href} passHref>
-            <Wrapper isContracted={isContracted} isActive={active} as="a">
-                <IconContainer isContracted={isContracted} isActive={active}>
-                    <Icon icon={icon} />
-                </IconContainer>
-                {!isContracted && children}
-            </Wrapper>
-        </Link>
-    );
-};
 
 export default StyledLink;

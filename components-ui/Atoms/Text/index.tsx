@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface Props {
     isSmall?: boolean;
-    color?: "light" | "dark" | "red";
+    color?: "light" | "dark" | "red" | "background";
 }
 
 const Wrapper = styled.p<Props>`
@@ -17,6 +17,8 @@ const Wrapper = styled.p<Props>`
                 return theme.colors.gray.dark;
             case "red":
                 return theme.colors.red;
+            case "background":
+                return theme.colors.background;
             default:
                 return theme.colors.gray.light;
         }
