@@ -11,30 +11,33 @@ import { format } from "date-fns";
 
 interface Props {
     journey: Journey;
+    isMobile: boolean;
 }
 
-const JourneyCard: React.FC<Props> = ({ journey, ...props }) => (
-    <Link href={`/journeys/${journey.id}`} passHref>
-        <Wrapper {...props} as={"a"}>
-            <Label>{journey.name}</Label>
+const JourneyCard: React.FC<Props> = ({ journey, isMobile, ...props }) => {
+    return (
+        <Link href={`/journeys/${journey.id}`} passHref>
+            <Wrapper {...props} as={"a"} isMobile={isMobile}>
+                <Label>{journey.name}</Label>
 
-            <Text color="dark">
-                <Icon icon={faCalendarDay} />{" "}
-                {format(journey.startDate, "MM/dd/yyyy")} -{" "}
-                {format(journey.endDate, "MM/dd/yyyy")}
-            </Text>
-            <ExpensesContainer>
-                {journey.expenses?.map((category) => (
-                    <Text key={category.id}>{category.title}</Text>
-                ))}
-            </ExpensesContainer>
-        </Wrapper>
-    </Link>
-);
+                <Text color="light">
+                    <Icon icon={faCalendarDay} />{" "}
+                    {format(journey.startDate, "MM/dd/yyyy")} -{" "}
+                    {format(journey.endDate, "MM/dd/yyyy")}
+                </Text>
+                <ExpensesContainer>
+                    {journey.expenses?.map((category) => (
+                        <Text key={category.id}>{category.title}</Text>
+                    ))}
+                </ExpensesContainer>
+            </Wrapper>
+        </Link>
+    );
+};
 
-const Wrapper = styled(Card)`
-    max-width: 19rem;
-    min-height: 20rem;
+const Wrapper = styled(Card)<{ isMobile?: boolean }>`
+    max-width: ${({ isMobile }) => (isMobile ? "100%" : "19rem")};
+    min-height: ${({ isMobile }) => (isMobile ? "100%" : "20rem")};
     cursor: pointer;
 `;
 

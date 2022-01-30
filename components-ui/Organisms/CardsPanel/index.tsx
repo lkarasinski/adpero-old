@@ -5,6 +5,8 @@ import JourneyCard from "components-ui/Molecules/JourneyCard";
 import styled from "styled-components";
 import { Journey, Poll } from "utils/interfaces";
 import Link from "next/link";
+import useMobile from "hooks/useMobile";
+import Grid from "components-ui/Atoms/Grid";
 
 type Props = {
     cards: Poll[] | Journey[];
@@ -12,15 +14,20 @@ type Props = {
 };
 
 const CardsPanel: React.FC<Props> = ({ cards, label }) => {
+    const isMobile = useMobile();
     if (!cards || !cards.length) return null;
     if ("expenses" in cards[0]) {
         const array = cards as Journey[];
         return (
             <Wrapper>
                 {label ? <Label isAccent>{label}</Label> : null}
-                <Grid>
+                <Grid isMobile={isMobile}>
                     {array.map((journey) => (
-                        <JourneyCard key={journey.id} journey={journey} />
+                        <JourneyCard
+                            key={journey.id}
+                            journey={journey}
+                            isMobile={isMobile}
+                        />
                     ))}
                 </Grid>
             </Wrapper>
@@ -31,14 +38,18 @@ const CardsPanel: React.FC<Props> = ({ cards, label }) => {
         return (
             <Wrapper>
                 <Label isAccent>{label}</Label>
-                <Grid>
+                <Grid isMobile={isMobile}>
                     {array.map((poll) => {
                         const id = poll.id;
                         return (
                             <Link passHref key={id} href={`polls/${id}`}>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <a>
-                                    <PollCard key={id} poll={poll} />
+                                    <PollCard
+                                        isMobile={isMobile}
+                                        key={id}
+                                        poll={poll}
+                                    />
                                 </a>
                             </Link>
                         );
@@ -51,11 +62,6 @@ const CardsPanel: React.FC<Props> = ({ cards, label }) => {
 
 export default CardsPanel;
 
-const Wrapper = styled.div``;
-
-const Grid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 19rem);
-    gap: 2rem;
-    margin: 1.25rem 0;
+const Wrapper = styled.div`
+    /* width: min-content; */
 `;

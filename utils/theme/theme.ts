@@ -18,6 +18,7 @@ const theme = {
         background: "#ffffff",
         yellow: "#D6A90B",
     },
+    shadow: "0px 2px 6px 0px",
 };
 
 export default theme;

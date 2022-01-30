@@ -10,9 +10,11 @@ import { useRouter } from "next/router";
 import Button from "components-ui/Atoms/Button";
 import styled from "styled-components";
 import { getEmptyCategory } from "utils/constants";
+import useMobile from "hooks/useMobile";
 
 const Categories: NextPage = () => {
     const { getCurrentJourney, updateJourney } = useJourneys();
+    const isMobile = useMobile();
     const router = useRouter();
     const journey = getCurrentJourney();
 
@@ -28,10 +30,16 @@ const Categories: NextPage = () => {
 
     return (
         <PageTransitionAnimation>
-            <div>
+            <TopContainer>
                 <Heading>Categories</Heading>
-                <Button onClick={createNewCategory}>New category</Button>
-            </div>
+                <Button
+                    onClick={createNewCategory}
+                    type="button"
+                    color="primary"
+                >
+                    New category
+                </Button>
+            </TopContainer>
             <CardGrid>
                 {journey.data.expenses?.map((category) => (
                     <Link
@@ -40,7 +48,11 @@ const Categories: NextPage = () => {
                         passHref
                     >
                         <DetailsCardContainer>
-                            <DetailsCard key={category.id} expense={category} />
+                            <DetailsCard
+                                key={category.id}
+                                expense={category}
+                                isMobile={isMobile}
+                            />
                         </DetailsCardContainer>
                     </Link>
                 ))}
@@ -48,6 +60,10 @@ const Categories: NextPage = () => {
         </PageTransitionAnimation>
     );
 };
+
+const TopContainer = styled.div`
+    margin-bottom: 2rem;
+`;
 
 const DetailsCardContainer = styled.a`
     height: 100%;

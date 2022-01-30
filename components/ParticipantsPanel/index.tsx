@@ -57,6 +57,7 @@ const ParticipantsPanel: React.FC = () => {
     return (
         <StyledCard>
             <StyledLabel isAccent>Participants</StyledLabel>
+
             {journey.data.users.map((participant: string) => (
                 <ParticipantContainer key={participant}>
                     {participant}
@@ -86,7 +87,7 @@ const ParticipantsPanel: React.FC = () => {
 };
 
 const StyledCard = styled(Card)`
-    width: max-content;
+    max-width: 35rem;
 `;
 
 const StyledLabel = styled(Label)`
@@ -95,11 +96,12 @@ const StyledLabel = styled(Label)`
 
 const ParticipantContainer = styled.div`
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
+    flex-direction: column;
+    gap: 0.25rem;
     font-weight: 700;
     color: ${({ theme }) => theme.colors.gray.dark};
+    margin-top: 1rem;
+    word-break: break-word;
 `;
 
 type ButtonType = {
@@ -108,7 +110,8 @@ type ButtonType = {
 };
 
 const ButtonContainer = styled.div`
-    margin-left: auto;
+    display: flex;
+    gap: 0.5rem;
 `;
 
 const SmallButton = styled.button<ButtonType>`
@@ -116,11 +119,10 @@ const SmallButton = styled.button<ButtonType>`
     border-radius: 0.25rem;
     font-size: 0.75rem;
     padding: 0.25rem 1rem;
-    margin: 0.5rem;
     min-width: 5.5rem;
     font-weight: 900;
     color: white;
-    cursor: ${({ disabled }) => (disabled ? "auto" : "pointer")};
+    cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
     background-color: ${({ theme, color }) => {
         switch (color) {
             case "red":

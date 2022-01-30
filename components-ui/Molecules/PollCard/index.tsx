@@ -5,13 +5,13 @@ import styled from "styled-components";
 import Card from "components-ui/Atoms/Card";
 import { Poll } from "utils/interfaces";
 
-type Props = { poll: Poll; journeyName?: string };
+type Props = { poll: Poll; journeyName?: string; isMobile: boolean };
 
-const PollCard: React.FC<Props> = ({ poll, journeyName }) => {
+const PollCard: React.FC<Props> = ({ poll, journeyName, isMobile }) => {
     return (
-        <Card>
+        <StyledCard isMobile={isMobile}>
             {journeyName ? <Text color="dark">{journeyName}</Text> : null}
-            <Label isAccent>{poll.title}</Label>
+            <Label>{poll.title}</Label>
             {poll.content.length > 0 && (
                 <CategoriesContainer>
                     {poll.content.map((category) => (
@@ -19,9 +19,14 @@ const PollCard: React.FC<Props> = ({ poll, journeyName }) => {
                     ))}
                 </CategoriesContainer>
             )}
-        </Card>
+        </StyledCard>
     );
 };
+
+const StyledCard = styled(Card)<{ isMobile?: boolean }>`
+    width: ${({ isMobile }) => (isMobile ? "100%" : "19rem")};
+    min-height: ${({ isMobile }) => (isMobile ? "100%" : "5rem")};
+`;
 
 const CategoriesContainer = styled.div`
     margin-top: 1rem;

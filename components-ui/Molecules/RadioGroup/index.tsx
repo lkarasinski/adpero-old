@@ -42,7 +42,8 @@ const RadioGroup: React.FC<Props> = ({ currentType, name, label }) => {
 };
 
 const Wrapper = styled.div`
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
 `;
 
 const StyledText = styled(Text)`

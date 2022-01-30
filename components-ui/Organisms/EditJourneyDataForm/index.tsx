@@ -22,7 +22,7 @@ const EditJourneyDataForm: React.FC<Props> = ({
     isSubmitting,
 }) => {
     return (
-        <Form>
+        <Form autoComplete="off">
             <StyledCard>
                 <StyledLabel isAccent>Journey data</StyledLabel>
                 <TextField
@@ -30,23 +30,19 @@ const EditJourneyDataForm: React.FC<Props> = ({
                     label={"Journey Name"}
                     name={"name"}
                 />
-                <DatePickerContainer>
-                    <div>
-                        <Field
-                            component={DatePicker}
-                            name={"startDate"}
-                            label={"Day of departure"}
-                            error={errors.startDate}
-                        />
-                    </div>
-                    <div>
-                        <Field
-                            component={DatePicker}
-                            name={"endDate"}
-                            label={"Day of return"}
-                        />
-                    </div>
-                </DatePickerContainer>
+                <Field
+                    component={DatePicker}
+                    name={"startDate"}
+                    label={"Day of departure"}
+                    error={errors.startDate}
+                />
+                <Field
+                    style={{ width: "100%" }}
+                    component={DatePicker}
+                    name={"endDate"}
+                    label={"Day of return"}
+                    error={errors.endDate}
+                />
                 <TextField
                     name={"cost.currency"}
                     error={errors.cost?.currency}
@@ -73,11 +69,6 @@ const ButtonContainer = styled.div`
 
 const StyledLabel = styled(Label)`
     margin-bottom: 1rem;
-`;
-
-const DatePickerContainer = styled.div`
-    display: flex;
-    gap: 1rem;
 `;
 
 const StyledCard = styled(Card)`

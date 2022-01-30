@@ -9,6 +9,9 @@ import Button from "components-ui/Atoms/Button";
 import Heading from "components-ui/Atoms/Heading";
 import { getEmptyDetail } from "utils/constants";
 import { DatePicker } from "formik-mui-lab";
+import RemoveDetailButton from "./RemoveDetailButton";
+import Grid from "components-ui/Atoms/Grid";
+import useMobile from "hooks/useMobile";
 
 type Props = {
     expenseValues: Expense;
@@ -47,6 +50,7 @@ const EditJourneyExpeneses: React.FC<Props> = ({
     submitChanges,
     removeCategory,
 }) => {
+    const isMobile = useMobile();
     return (
         <Formik
             enableReinitialize
@@ -55,37 +59,39 @@ const EditJourneyExpeneses: React.FC<Props> = ({
         >
             {({ values, isSubmitting, setValues }) => {
                 return (
-                    <StyledForm>
-                        <Heading>{values.title}</Heading>
-                        <Button type="button" onClick={removeCategory}>
-                            Remove category
-                        </Button>
+                    <StyledForm isMobile={isMobile} autoComplete="off">
+                        <TopContainer isMobile={isMobile}>
+                            <Heading>{values.title}</Heading>
+                            {isMobile ? null : (
+                                <Button
+                                    color="red"
+                                    type="button"
+                                    onClick={removeCategory}
+                                >
+                                    Remove category
+                                </Button>
+                            )}
+                        </TopContainer>
+                        {isMobile ? (
+                            <StyledButton
+                                color="red"
+                                type="button"
+                                onClick={removeCategory}
+                                style={{ marginBottom: "2rem" }}
+                            >
+                                Remove category
+                            </StyledButton>
+                        ) : null}
+
                         <StyledInput label="Title" error={""} name="title" />
-                        <Button
-                            type="button"
-                            onClick={() => addNewDetail(values, setValues)}
-                        >
-                            Add new detail
-                        </Button>
-                        <CardGrid>
+
+                        <CardGrid isMobile={isMobile}>
                             {values.details.map(
                                 (detail: Detail, index: number) => {
                                     const currentType =
                                         values.details[index]?.type;
                                     return (
                                         <StyledCard key={detail.id}>
-                                            <Button
-                                                type="button"
-                                                onClick={() =>
-                                                    removeDetail(
-                                                        values,
-                                                        detail.id,
-                                                        setValues
-                                                    )
-                                                }
-                                            >
-                                                Remove detail
-                                            </Button>
                                             <RadioGroup
                                                 currentType={currentType}
                                                 name={`details[${index}]`}
@@ -101,7 +107,7 @@ const EditJourneyExpeneses: React.FC<Props> = ({
                                                 <Field
                                                     component={DatePicker}
                                                     name={`details[${index}].value`}
-                                                    label={"Day of departure"}
+                                                    label={"Value"}
                                                     error={""}
                                                 />
                                             ) : (
@@ -118,14 +124,34 @@ const EditJourneyExpeneses: React.FC<Props> = ({
                                                     name={`details[${index}].currency`}
                                                 />
                                             )}
+                                            <RemoveDetailButton
+                                                removeDetail={() =>
+                                                    removeDetail(
+                                                        values,
+                                                        detail.id,
+                                                        setValues
+                                                    )
+                                                }
+                                            />
                                         </StyledCard>
                                     );
                                 }
                             )}
+                            <AddNewDetailContainer isMobile={isMobile}>
+                                <StyledButton
+                                    type="button"
+                                    color="primary"
+                                    onClick={() =>
+                                        addNewDetail(values, setValues)
+                                    }
+                                >
+                                    Add new detail
+                                </StyledButton>
+                            </AddNewDetailContainer>
                         </CardGrid>
                         <Button
-                            color={isSubmitting ? "gray" : "primary"}
                             type="submit"
+                            color={isSubmitting ? "gray" : "green"}
                             disabled={isSubmitting}
                         >
                             Submit changes
@@ -137,23 +163,40 @@ const EditJourneyExpeneses: React.FC<Props> = ({
     );
 };
 
-const StyledForm = styled(Form)`
-    margin-top: 2rem;
+const StyledButton = styled(Button)`
+    width: 100%;
+`;
+
+const AddNewDetailContainer = styled.div<{ isMobile: boolean }>`
+    ${({ isMobile }) =>
+        isMobile ? null : "display: grid; place-items: center;"}
+`;
+
+const TopContainer = styled.div<{ isMobile: boolean }>`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: ${({ isMobile }) => (isMobile ? "0" : "2rem")};
+`;
+
+const StyledForm = styled(Form)<{ isMobile: boolean }>`
+    ${({ isMobile }) =>
+        isMobile
+            ? `display: flex;
+        flex-direction: column; margin-bottom: 4rem;`
+            : null}
 `;
 
 const StyledInput = styled(TextField)`
-    width: 25rem;
+    max-width: 25rem;
 `;
 
-const CardGrid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 19rem);
-    gap: 2rem;
+const CardGrid = styled(Grid)`
     margin: 2rem 0;
 `;
 
 const StyledCard = styled(Card)`
-    width: max-content;
+    min-width: max-content;
     gap: 1rem;
     display: flex;
     flex-direction: column;

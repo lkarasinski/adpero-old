@@ -32,7 +32,6 @@ const Label = styled.label<Props>`
     font-size: 0.875rem;
     font-family: Nunito;
     font-weight: 700;
-    width: 60px;
     height: 56px;
     background-color: ${({ checked, theme }) =>
         checked ? theme.colors.selection : "white"};
