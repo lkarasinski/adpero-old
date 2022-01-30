@@ -11,6 +11,7 @@ import PollsPanel from "components-ui/Organisms/PollsPanel";
 import CardGrid from "components-ui/Templates/CardGrid";
 import EditButton from "components-ui/Molecules/EditButton";
 import DetailsCard from "components-ui/Molecules/DetailsCard";
+import useMobile from "hooks/useMobile";
 
 type defaultContextValue = {
     isEditModeEnabled: boolean;
@@ -22,6 +23,7 @@ export const FormContext = React.createContext<defaultContextValue>(
 );
 
 const JourneyPage: NextPage = () => {
+    const isMobile = useMobile();
     const router = useRouter();
     const { getCurrentJourney } = useJourneys();
     const journey = getCurrentJourney();
@@ -34,7 +36,11 @@ const JourneyPage: NextPage = () => {
             </Head>
             <PageTransitionAnimation>
                 <Wrapper>
-                    <Heading>{journey.data.name}</Heading>
+                    <TopContainer isMobile={isMobile}>
+                        <Heading>{journey.data.name}</Heading>
+                        {isMobile ? null : <EditButton path={router.asPath} />}
+                    </TopContainer>
+                    {isMobile ? <EditButton path={router.asPath} /> : null}
                     <SummaryPanel
                         numberOfUsers={journey.data.users.length}
                         totalCost={{
@@ -47,19 +53,28 @@ const JourneyPage: NextPage = () => {
                     <PollsPanel polls={journey.data.polls} />
                     <CardGrid label="More details">
                         {journey.data.expenses?.map((category) => (
-                            <DetailsCard key={category.id} expense={category} />
+                            <DetailsCard
+                                key={category.id}
+                                expense={category}
+                                isMobile={isMobile}
+                            />
                         ))}
                     </CardGrid>
-                    <EditButton path={router.asPath} />
                 </Wrapper>
             </PageTransitionAnimation>
         </>
     );
 };
 
+const TopContainer = styled.div<{ isMobile: boolean }>`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: ${({ isMobile }) => (isMobile ? "0" : "2rem")};
+`;
+
 const Wrapper = styled.div`
     position: relative;
-    padding-right: 2rem;
 `;
 
 export default JourneyPage;

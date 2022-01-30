@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { faCogs, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Logo from "components-ui/Atoms/Logo";
 import Icon from "components-ui/Atoms/Icon";
 import Link from "next/link";
 import SidePanelButton from "components-ui/Molecules/SidePanelButton";
-import Burger from "components-ui/Atoms/Burger";
 
 type Props = {
     editMode?: boolean;
@@ -19,7 +18,6 @@ const DefaultSidePanel: React.FC<Props> = ({
     editMode,
     isMobile,
     isMenuOpen,
-    toggleMenu,
 }) => {
     return (
         <>
@@ -29,22 +27,13 @@ const DefaultSidePanel: React.FC<Props> = ({
                 {editMode ? null : (
                     <BottomContainer isMobile={isMobile}>
                         <Link href="/settings" passHref>
-                            <SidePanelButton
-                                as={"a"}
-                                aria-label="Settings"
-                                isContracted={false}
-                            >
+                            <SidePanelButton as={"a"} aria-label="Settings">
                                 Settings
                                 <Icon icon={faCogs} />
                             </SidePanelButton>
                         </Link>
                         <Link href="/new" passHref>
-                            <SidePanelButton
-                                as={"a"}
-                                aria-label="New Journey"
-                                color="primary"
-                                isContracted={false}
-                            >
+                            <SidePanelButton as={"a"} aria-label="New Journey">
                                 New journey
                                 <Icon icon={faPlus} />
                             </SidePanelButton>

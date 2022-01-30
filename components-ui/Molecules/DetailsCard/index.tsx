@@ -7,26 +7,19 @@ import { format } from "date-fns";
 import getDateFromTimestamp from "functions/convertToDate";
 import Card from "components-ui/Atoms/Card";
 
-const Wrapper = styled(Card)`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    max-width: 19rem;
-    height: 100%;
-`;
-const Grid = styled.div`
-    display: grid;
-    gap: 1.25rem;
-    margin-top: 0.5rem;
-`;
-
 interface Props {
     expense: Expense;
+    isMobile: boolean;
 }
 
-const DetailsCard: React.FC<Props> = ({ expense, children, ...props }) => {
+const DetailsCard: React.FC<Props> = ({
+    expense,
+    isMobile,
+    children,
+    ...props
+}) => {
     return (
-        <Wrapper {...props}>
+        <Wrapper isMobile={isMobile} {...props}>
             <div>
                 <Label isAccent>{expense.title}</Label>
                 <Grid>
@@ -52,5 +45,18 @@ const DetailsCard: React.FC<Props> = ({ expense, children, ...props }) => {
         </Wrapper>
     );
 };
+
+const Wrapper = styled(Card)<{ isMobile?: boolean }>`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: ${({ isMobile }) => (isMobile ? "100%" : "19rem")};
+    height: 100%;
+`;
+const Grid = styled.div`
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+`;
 
 export default DetailsCard;
