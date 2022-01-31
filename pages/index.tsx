@@ -20,8 +20,6 @@ const Home: NextPage = () => {
         !user?.email && false
     );
 
-    console.log(polls);
-
     return (
         <>
             <Head>
