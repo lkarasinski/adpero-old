@@ -7,9 +7,10 @@ type Props = {
     currentType: "Price" | "Text" | "Date" | "Address" | "";
     name: string;
     label: string;
+    error: string;
 };
 
-const RadioGroup: React.FC<Props> = ({ currentType, name, label }) => {
+const RadioGroup: React.FC<Props> = ({ currentType, name, label, error }) => {
     return (
         <div>
             <StyledText>{label}</StyledText>
@@ -37,6 +38,7 @@ const RadioGroup: React.FC<Props> = ({ currentType, name, label }) => {
                     border="right"
                 />
             </Wrapper>
+            {error ? <Text color="red">{error}</Text> : null}
         </div>
     );
 };

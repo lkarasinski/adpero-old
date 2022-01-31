@@ -10,6 +10,7 @@ import { useAuth } from "context/AuthContext";
 import { Journey } from "utils/interfaces";
 import styled from "styled-components";
 import useMobile from "hooks/useMobile";
+import { currencies } from "utils/constants";
 
 type Props = {
     buttonText: string;
@@ -88,7 +89,10 @@ const validationSchema = yup.object({
                 "len",
                 "Enter currency code. For example: USD, GBP",
                 (val) => val?.length === 3
-            ),
+            )
+            .test("is-valid", "Invalid currency code", (val) => {
+                return currencies.includes(val ?? "");
+            }),
     }),
 });
 
