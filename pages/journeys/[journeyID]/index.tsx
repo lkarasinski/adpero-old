@@ -12,6 +12,7 @@ import CardGrid from "components-ui/Templates/CardGrid";
 import EditButton from "components-ui/Molecules/EditButton";
 import DetailsCard from "components-ui/Molecules/DetailsCard";
 import useMobile from "hooks/useMobile";
+import calculateTotalCost from "functions/calculateTotalCost";
 
 type defaultContextValue = {
     isEditModeEnabled: boolean;
@@ -27,8 +28,20 @@ const JourneyPage: NextPage = () => {
     const router = useRouter();
     const { getCurrentJourney } = useJourneys();
     const journey = getCurrentJourney();
+    const [totalCost, setTotalCost] = React.useState(0);
+
+    React.useEffect(() => {
+        (async () => {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            if (journey?.data) {
+                const cost = await calculateTotalCost(journey.data);
+                setTotalCost(cost);
+            }
+        })();
+    }, [journey]);
 
     if (!journey || !journey.data) return null;
+
     return (
         <>
             <Head>
@@ -51,7 +64,7 @@ const JourneyPage: NextPage = () => {
                     <SummaryPanel
                         numberOfUsers={journey.data.users.length}
                         totalCost={{
-                            value: 0,
+                            value: totalCost,
                             currency: journey.data.cost.currency,
                         }}
                         startDate={journey.data.startDate}

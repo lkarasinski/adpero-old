@@ -30,7 +30,9 @@ const SummaryPanel: React.FC<Props> = ({
             <Grid>
                 <DetailContainer>
                     <Text isSmall>Cost: </Text>
-                    <Text color="dark">{totalCost.value}</Text>
+                    <Text color="dark">
+                        {totalCost.value} {totalCost.currency}
+                    </Text>
                 </DetailContainer>
                 <DetailContainer>
                     <Text isSmall>Participants: </Text>
@@ -51,7 +53,7 @@ const SummaryPanel: React.FC<Props> = ({
 
 const Wrapper = styled(Card)<{ isMobile: boolean }>`
     margin-top: ${({ isMobile }) => (isMobile ? "2rem" : "0")};
-    max-width: ${({ isMobile }) => (isMobile ? "100%" : "19rem")};
+    max-width: ${({ isMobile }) => (isMobile ? "100%" : "21rem")};
     background-color: "#ffffff";
 `;
 
