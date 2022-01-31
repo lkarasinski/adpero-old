@@ -11,6 +11,7 @@ import {
     setDoc,
     deleteDoc,
     getDoc,
+    getDocs,
 } from "firebase/firestore";
 import { Journey } from "utils/interfaces";
 import {
@@ -109,6 +110,15 @@ const useJourneysManager: UseJourneysManager = () => {
     };
 
     const deleteJourney: DeleteJourney = async (id: string) => {
+        const invitesRef = collection(database, "invites");
+        const q = query(invitesRef, where("journeyID", "==", id));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach(async (doc) => {
+            console.log(doc);
+            console.log(doc.ref);
+            console.log(doc.ref.id);
+            await deleteDoc(doc.ref);
+        });
         await deleteDoc(doc(database, "journeys", id));
     };
 

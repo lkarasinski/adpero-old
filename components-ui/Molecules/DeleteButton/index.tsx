@@ -12,8 +12,8 @@ const DeleteButton: React.FC<Props> = ({ children, ...props }) => {
     const router = useRouter();
     const isMobile = useMobile();
 
-    const handleClick = () => {
-        props.callback();
+    const handleClick = async () => {
+        await props.callback();
         router.push("/");
     };
 
