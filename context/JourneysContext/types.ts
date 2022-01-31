@@ -3,7 +3,7 @@ import type { DocumentData, DocumentReference } from "firebase/firestore";
 
 export type JourneyDataType = {
     id: string;
-    ref: DocumentReference<DocumentData>;
+    ref: DocumentReference<DocumentData> | null;
     data: Journey;
 };
 

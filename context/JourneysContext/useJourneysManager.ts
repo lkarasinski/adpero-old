@@ -29,6 +29,7 @@ import { useAuth } from "context/AuthContext";
 import convertToDate from "functions/convertToDate";
 import type { Unsubscribe } from "firebase/auth";
 import { useRouter } from "next/router";
+import useLocalStorage from "hooks/useLocalStorage";
 
 const database = getFirestore(firebaseApp);
 
@@ -40,32 +41,38 @@ const useJourneysManager: UseJourneysManager = () => {
     }
     const { user } = auth;
 
+    const [localJourneys, setLocalJourneys] = useLocalStorage<JourneysDataType>(
+        "journeys",
+        []
+    );
     const [journeys, setJourneys] = React.useState<JourneysDataType>([]);
     const getJourneys = async () => {
-        const q = query(
-            collection(database, "journeys"),
-            where("users", "array-contains", user?.email ?? "")
-        );
+        if (user !== null && user !== undefined) {
+            const q = query(
+                collection(database, "journeys"),
+                where("users", "array-contains", user?.email ?? "")
+            );
 
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            const documentJourneys: JourneysDataType = [];
-            querySnapshot.forEach((doc) => {
-                const documentData = doc.data() as Journey;
-                const journey: JourneyDataType = {
-                    id: doc.id,
-                    ref: doc.ref,
-                    data: {
-                        ...documentData,
-                        createdAt: convertToDate(documentData.createdAt),
-                        startDate: convertToDate(documentData.startDate),
-                        endDate: convertToDate(documentData.endDate),
-                    },
-                };
-                documentJourneys.push(journey);
+            const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                const documentJourneys: JourneysDataType = [];
+                querySnapshot.forEach((doc) => {
+                    const documentData = doc.data() as Journey;
+                    const journey: JourneyDataType = {
+                        id: doc.id,
+                        ref: doc.ref,
+                        data: {
+                            ...documentData,
+                            createdAt: convertToDate(documentData.createdAt),
+                            startDate: convertToDate(documentData.startDate),
+                            endDate: convertToDate(documentData.endDate),
+                        },
+                    };
+                    documentJourneys.push(journey);
+                });
+                setJourneys(documentJourneys);
             });
-            setJourneys(documentJourneys);
-        });
-        return unsubscribe;
+            return unsubscribe;
+        }
     };
 
     React.useEffect(() => {
@@ -84,12 +91,41 @@ const useJourneysManager: UseJourneysManager = () => {
         return randomID;
     };
 
+    const createLocalJourney: CreateJourney = async (data: Journey) => {
+        const randomID = Math.random().toString(36).substring(2, 15);
+        data.id = randomID;
+        const journey = {
+            id: randomID,
+            ref: null,
+            data: {
+                ...data,
+                createdAt: new Date(data.createdAt),
+                startDate: new Date(data.startDate),
+                endDate: new Date(data.endDate),
+            },
+        };
+        setLocalJourneys((journeys) => [...journeys, journey]);
+        return randomID;
+    };
+
     const deleteJourney: DeleteJourney = async (id: string) => {
         await deleteDoc(doc(database, "journeys", id));
     };
 
+    const deleteLocalJourney: DeleteJourney = async (id: string) => {
+        setLocalJourneys((journeys) =>
+            journeys.filter((journey) => journey.id !== id)
+        );
+    };
+
     const getCurrentJourney: GetCurrentJourney = () => {
         return journeys.find(
+            (journey) => journey.id === router.query.journeyID
+        );
+    };
+
+    const getCurrentLocalJourney: GetCurrentJourney = () => {
+        return localJourneys.find(
             (journey) => journey.id === router.query.journeyID
         );
     };
@@ -101,6 +137,31 @@ const useJourneysManager: UseJourneysManager = () => {
         const journeyRef = doc(database, "journeys", journeyID);
         const newData = JSON.parse(JSON.stringify(data));
         await updateDoc(journeyRef, newData);
+    };
+
+    const updateLocalJourney: UpdateJourney = async (
+        journeyID: string,
+        data: Journey
+    ) => {
+        setLocalJourneys((journeys) => {
+            const newJourneys = journeys.map((journey) => {
+                if (journey.id === journeyID) {
+                    return {
+                        id: journeyID,
+                        ref: null,
+                        data: {
+                            ...journey.data,
+                            ...data,
+                            createdAt: new Date(data.createdAt),
+                            startDate: new Date(data.startDate),
+                            endDate: new Date(data.endDate),
+                        },
+                    };
+                }
+                return journey;
+            });
+            return newJourneys;
+        });
     };
 
     const useJoinJourney: useJoinJourney = (inviteID) => {
@@ -158,6 +219,22 @@ const useJourneysManager: UseJourneysManager = () => {
 
         return { error, joinFunction };
     };
+
+    if (user === null) {
+        return {
+            journeys: localJourneys,
+            createJourney: createLocalJourney,
+            deleteJourney: deleteLocalJourney,
+            getCurrentJourney: getCurrentLocalJourney,
+            updateJourney: updateLocalJourney,
+            useJoinJourney: () => {
+                return {
+                    error: "You must be logged in to accept invites",
+                    joinFunction: null,
+                };
+            },
+        };
+    }
 
     return {
         journeys,

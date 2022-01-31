@@ -2,7 +2,8 @@ import useJourneys from "context/JourneysContext";
 
 export const getDayDiff = (startDate: Date, endDate: Date) => {
     return Math.floor(
-        (startDate.getTime() - endDate.getTime()) / (24 * 3600 * 1000)
+        (new Date(startDate).getTime() - new Date(endDate).getTime()) /
+            (24 * 3600 * 1000)
     );
 };
 
@@ -20,24 +21,26 @@ const useJourneyCards = () => {
     });
 
     const currentJourneys = allJourneys.filter(({ startDate, endDate }) => {
-        return startDate <= new Date() && endDate >= new Date();
+        return (
+            new Date(startDate) <= new Date() && new Date(endDate) >= new Date()
+        );
     });
 
     const upcomingJourneys = allJourneys.filter(({ startDate }) => {
-        const dayDiff = getDayDiff(startDate, new Date());
+        const dayDiff = getDayDiff(new Date(startDate), new Date());
         if (dayDiff >= 0 && dayDiff <= 30) {
             return true;
         }
     });
 
     const pastJourneys = allJourneys.filter(({ endDate }) => {
-        if (endDate < new Date()) {
+        if (new Date(endDate) < new Date()) {
             return true;
         }
     });
 
     const futureJourneys = allJourneys.filter(({ startDate }) => {
-        const dayDiff = getDayDiff(startDate, new Date());
+        const dayDiff = getDayDiff(new Date(startDate), new Date());
         if (dayDiff > 30) {
             return true;
         }

@@ -23,6 +23,7 @@ const SummaryPanel: React.FC<Props> = ({
     endDate,
 }) => {
     const isMobile = useMobile();
+    endDate = new Date(endDate);
 
     return (
         <Wrapper isMobile={isMobile}>
@@ -40,7 +41,9 @@ const SummaryPanel: React.FC<Props> = ({
                 </DetailContainer>
                 <DetailContainer>
                     <Text isSmall>Departure date: </Text>
-                    <Text color="dark">{format(startDate, "MM/dd/yyyy")}</Text>
+                    <Text color="dark">
+                        {format(new Date(startDate), "MM/dd/yyyy")}
+                    </Text>
                 </DetailContainer>
                 <DetailContainer>
                     <Text isSmall>Day of return: </Text>

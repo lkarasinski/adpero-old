@@ -22,8 +22,8 @@ const JourneyCard: React.FC<Props> = ({ journey, isMobile, ...props }) => {
 
                 <Text color="light">
                     <Icon icon={faCalendarDay} />{" "}
-                    {format(journey.startDate, "MM/dd/yyyy")} -{" "}
-                    {format(journey.endDate, "MM/dd/yyyy")}
+                    {format(new Date(journey.startDate), "MM/dd/yyyy")} -{" "}
+                    {format(new Date(journey.endDate), "MM/dd/yyyy")}
                 </Text>
                 <ExpensesContainer>
                     {journey.expenses?.map((category) => (
