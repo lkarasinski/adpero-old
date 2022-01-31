@@ -38,9 +38,16 @@ const JourneyPage: NextPage = () => {
                 <Wrapper>
                     <TopContainer isMobile={isMobile}>
                         <Heading>{journey.data.name}</Heading>
-                        {isMobile ? null : <EditButton path={router.asPath} />}
+                        {isMobile ? null : (
+                            <EditButton
+                                isMobile={isMobile}
+                                path={router.asPath}
+                            />
+                        )}
                     </TopContainer>
-                    {isMobile ? <EditButton path={router.asPath} /> : null}
+                    {isMobile ? (
+                        <EditButton isMobile={isMobile} path={router.asPath} />
+                    ) : null}
                     <SummaryPanel
                         numberOfUsers={journey.data.users.length}
                         totalCost={{

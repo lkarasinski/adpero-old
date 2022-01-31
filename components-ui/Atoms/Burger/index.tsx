@@ -34,7 +34,7 @@ const Bar = styled.span<BarProps>`
     display: block;
     width: 1rem;
     height: 0.125rem;
-    background-color: ${({ theme }) => theme.colors.background};
+    background-color: ${({ theme }) => theme.colors.lightPrimary};
     margin: 0;
     padding: 0;
 
@@ -44,7 +44,7 @@ const Bar = styled.span<BarProps>`
         content: "";
         width: 1rem;
         height: 0.125rem;
-        background-color: ${({ theme }) => theme.colors.background};
+        background-color: ${({ theme }) => theme.colors.lightPrimary};
         margin: 0;
         padding: 0;
         transition: transform 0.3s ease-in-out;

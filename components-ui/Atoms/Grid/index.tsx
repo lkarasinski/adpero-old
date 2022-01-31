@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
-type MarginType = `${number}rem ${number}rem ${number}rem ${number}rem`;
+type SingleMargin = `${number}rem` | `0`;
+
+type MarginType =
+    | `${SingleMargin} ${SingleMargin} ${SingleMargin} ${SingleMargin}`
+    | `${SingleMargin} ${SingleMargin}`
+    | `${SingleMargin}`;
 
 type Props = {
     isMobile?: boolean;
@@ -10,9 +15,10 @@ type Props = {
 const Grid = styled.div<Props>`
     display: grid;
     grid-template-columns: repeat(
-        ${({ isMobile }) => (isMobile ? "auto-fit" : "auto-fill")},
-        minmax(19rem, 1fr)
+        auto-fit,
+        ${({ isMobile }) => (isMobile ? `minmax(19rem, 1fr)` : `19rem`)}
     );
+
     gap: 2rem;
     margin: ${({ margin }) => margin || "0"};
 `;

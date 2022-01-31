@@ -26,6 +26,7 @@ const PollCard: React.FC<Props> = ({ poll, journeyName, isMobile }) => {
 const StyledCard = styled(Card)<{ isMobile?: boolean }>`
     width: ${({ isMobile }) => (isMobile ? "100%" : "19rem")};
     min-height: ${({ isMobile }) => (isMobile ? "100%" : "5rem")};
+    padding: ${({ isMobile }) => (isMobile ? "1.5rem 2rem" : "2rem")};
 `;
 
 const CategoriesContainer = styled.div`

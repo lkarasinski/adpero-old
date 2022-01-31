@@ -7,6 +7,7 @@ import { Journey, Poll } from "utils/interfaces";
 import Link from "next/link";
 import useMobile from "hooks/useMobile";
 import Grid from "components-ui/Atoms/Grid";
+import Text from "components-ui/Atoms/Text";
 
 type Props = {
     cards: Poll[] | Journey[];
@@ -20,8 +21,12 @@ const CardsPanel: React.FC<Props> = ({ cards, label }) => {
         const array = cards as Journey[];
         return (
             <Wrapper>
-                {label ? <Label isAccent>{label}</Label> : null}
-                <Grid isMobile={isMobile}>
+                {label ? (
+                    <Text size={1.5} color="lightPrimary">
+                        {label}
+                    </Text>
+                ) : null}
+                <Grid isMobile={isMobile} margin={"1rem 0 2rem 0rem"}>
                     {array.map((journey) => (
                         <JourneyCard
                             key={journey.id}
@@ -37,8 +42,10 @@ const CardsPanel: React.FC<Props> = ({ cards, label }) => {
 
         return (
             <Wrapper>
-                <Label isAccent>{label}</Label>
-                <Grid isMobile={isMobile}>
+                <Text size={1.5} color="lightPrimary">
+                    {label}
+                </Text>
+                <Grid isMobile={isMobile} margin={"1rem 0 2rem 0rem"}>
                     {array.map((poll) => {
                         const id = poll.id;
                         return (

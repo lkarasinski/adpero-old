@@ -32,7 +32,8 @@ const PollsPanel: React.FC<Props> = ({ polls }) => {
 
 const Wrapper = styled.div``;
 const HeadingContainer = styled.div`
-    margin: 2rem 0;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 `;
 
 const PollCardContainer = styled.a`

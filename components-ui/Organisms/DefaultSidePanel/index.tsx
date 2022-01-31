@@ -22,7 +22,7 @@ const DefaultSidePanel: React.FC<Props> = ({
     return (
         <>
             <Wrapper isMenuOpen={isMenuOpen}>
-                <Logo isContracted={false} />
+                <Logo />
                 <StyledNav editMode={!!editMode}>{children}</StyledNav>
                 {editMode ? null : (
                     <BottomContainer isMobile={isMobile}>
@@ -33,7 +33,11 @@ const DefaultSidePanel: React.FC<Props> = ({
                             </SidePanelButton>
                         </Link>
                         <Link href="/new" passHref>
-                            <SidePanelButton as={"a"} aria-label="New Journey">
+                            <SidePanelButton
+                                as={"a"}
+                                aria-label="New Journey"
+                                color="primary"
+                            >
                                 New journey
                                 <Icon icon={faPlus} />
                             </SidePanelButton>

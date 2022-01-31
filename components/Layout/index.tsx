@@ -73,7 +73,7 @@ const Layout: React.FC<Props> = ({ children, isEditModeEnabled }) => {
                                     onKeyDown={toggleMenu}
                                 >
                                     <Burger />
-                                    <Text color="background">Adpero</Text>
+                                    <Text color="lightPrimary">Adpero</Text>
                                 </BurgerContainer>
                             </Headroom>
                         ) : null}
@@ -92,8 +92,9 @@ const BurgerContainer = styled.div`
     align-items: center;
     gap: 0rem;
     padding: 0.25rem 0;
-    background: ${({ theme }) => theme.colors.primary};
-    box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.25);
+    /* background: ${({ theme }) => theme.colors.primary}; */
+    background: white;
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.0625);
 `;
 
 const MobileMargin = styled.div<ContentProps>`

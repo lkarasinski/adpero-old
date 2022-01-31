@@ -3,12 +3,13 @@ import styled from "styled-components";
 
 interface Props {
     isSmall?: boolean;
-    color?: "light" | "dark" | "red" | "background";
+    size?: number;
+    color?: "light" | "dark" | "red" | "background" | "lightPrimary";
 }
 
 const Wrapper = styled.p<Props>`
     margin: 0;
-    font-size: ${({ isSmall }) => (isSmall ? "0.75rem" : "1rem")};
+    font-size: ${({ size }) => `${size}rem` ?? "1rem"};
     font-weight: 800;
     line-break: loose;
     color: ${({ color, theme }) => {
@@ -19,6 +20,8 @@ const Wrapper = styled.p<Props>`
                 return theme.colors.red;
             case "background":
                 return theme.colors.background;
+            case "lightPrimary":
+                return theme.colors.lightPrimary;
             default:
                 return theme.colors.gray.light;
         }

@@ -30,7 +30,6 @@ const ParticipantsPanel: React.FC = () => {
                 ...journey.data,
                 users: journey.data.users.filter((user) => {
                     if (user === journey.data.author) {
-                        console.log("cant kick the author");
                         return true;
                     }
                     return user !== participant;

@@ -4,9 +4,10 @@ import PageTransitionAnimation from "components-ui/Atoms/PageTransitionAnimation
 import Heading from "components-ui/Atoms/Heading";
 import useJourneys from "context/JourneysContext";
 import EditJourneyDataPanel from "components/EditJourneyDataPanel";
+import DeleteButton from "components-ui/Molecules/DeleteButton";
 
 const Edit: NextPage = () => {
-    const { getCurrentJourney } = useJourneys();
+    const { getCurrentJourney, deleteJourney } = useJourneys();
     const journey = getCurrentJourney()?.data;
 
     return (
@@ -15,6 +16,11 @@ const Edit: NextPage = () => {
                 Edit journey{journey?.name ? `: ${journey.name}` : null}
             </Heading>
             <EditJourneyDataPanel buttonText="Save" />
+            <DeleteButton
+                callback={async () => await deleteJourney(journey?.id ?? "")}
+            >
+                Delete journey
+            </DeleteButton>
         </PageTransitionAnimation>
     );
 };

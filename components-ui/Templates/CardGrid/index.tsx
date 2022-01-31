@@ -13,19 +13,21 @@ const CardGrid: React.FC<Props> = ({ label, children }) => {
     return (
         <Wrapper>
             {label ? (
-                <HeadingContainer>
+                <LabelContainer>
                     <Label isAccent>{label}</Label>
-                </HeadingContainer>
+                </LabelContainer>
             ) : null}
             <Grid isMobile={isMobile}>{children}</Grid>
         </Wrapper>
     );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+    margin: 2rem 0;
+`;
 
-const HeadingContainer = styled.div`
-    margin: 2rem;
+const LabelContainer = styled.div`
+    margin-bottom: 1rem;
 `;
 
 export default CardGrid;

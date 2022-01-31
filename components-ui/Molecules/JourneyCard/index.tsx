@@ -38,6 +38,7 @@ const JourneyCard: React.FC<Props> = ({ journey, isMobile, ...props }) => {
 const Wrapper = styled(Card)<{ isMobile?: boolean }>`
     max-width: ${({ isMobile }) => (isMobile ? "100%" : "19rem")};
     min-height: ${({ isMobile }) => (isMobile ? "100%" : "20rem")};
+    padding: ${({ isMobile }) => (isMobile ? "1rem 2rem" : "2rem")};
     cursor: pointer;
 `;
 
