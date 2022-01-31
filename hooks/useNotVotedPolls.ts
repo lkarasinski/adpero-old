@@ -6,10 +6,12 @@ const useNotVotedPolls = () => {
     const { user } = useAuth();
 
     const allPolls = journeys.map((j) => j.data.polls).flat();
-    const notVotedPolls = allPolls.filter(
-        (allPolls) =>
-            allPolls.votes.filter((votes) => votes.user === user?.email ?? "")
-                .length === 0
+    const allPollsWithOptions = allPolls.filter((p) => p.content.length !== 0);
+    const notVotedPolls = allPollsWithOptions.filter(
+        (poll) =>
+            poll.votes.filter((votes) => {
+                return votes.user === user?.email ?? "";
+            }).length === 0
     );
 
     return notVotedPolls;
