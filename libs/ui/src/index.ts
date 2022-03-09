@@ -10,3 +10,4 @@ export * from "./lib/Atoms/Burger/burger";
 export * from "./lib/Molecules/DetailsContainer/detailsContainer";
 export * from "./lib/Molecules/DetailsCard/detailsCard";
 export * from "./lib/Molecules/JourneyCard/journeyCard";
+export * from "./lib/Molecules/PollCard/pollCard";
