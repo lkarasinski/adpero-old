@@ -1,1 +1,1 @@
-export * from "./lib/withHttp";
+export * from "./lib/functions";
