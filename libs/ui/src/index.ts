@@ -8,3 +8,4 @@ export * from "./lib/Atoms/Anchor/anchor";
 export * from "./lib/Atoms/Burger/burger";
 
 export * from "./lib/Molecules/DetailsContainer/detailsContainer";
+export * from "./lib/Molecules/DetailsCard/detailsCard";
