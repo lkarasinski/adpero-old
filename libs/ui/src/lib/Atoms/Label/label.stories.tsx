@@ -1,10 +1,10 @@
 import { Story, Meta } from "@storybook/react";
 import { dashboardTheme } from "@adpero/themes";
-import { Heading as HeadingComponent, HeadingProps } from "./heading";
+import { Label as LabelComponent, LabelProps } from "./label";
 
 export default {
-    component: HeadingComponent,
-    title: "Heading",
+    component: LabelComponent,
+    title: "Atoms/Label",
     argTypes: {
         color: {
             control: "color",
@@ -27,15 +27,15 @@ export default {
     },
 } as Meta;
 
-interface StoryInterface extends HeadingProps {
+interface StoryInterface extends LabelProps {
     children: React.ReactNode;
 }
 
-export const Heading: Story<StoryInterface> = ({ color, children }) => (
-    <HeadingComponent color={color}>{children}</HeadingComponent>
+export const Label: Story<StoryInterface> = ({ color, children }) => (
+    <LabelComponent color={color}>{children}</LabelComponent>
 );
 
-Heading.args = {
+Label.args = {
     color: dashboardTheme.colors.primary.regular,
-    children: "Heading",
+    children: "Label",
 };

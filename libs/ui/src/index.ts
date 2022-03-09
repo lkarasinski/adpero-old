@@ -1,2 +1,3 @@
-export * from "./lib/Label/label";
-export * from "./lib/Text/text";
+export * from "./lib/Atoms/Label/label";
+export * from "./lib/Atoms/Text/text";
+export * from "./lib/Atoms/Heading/heading";

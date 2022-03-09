@@ -1,10 +1,10 @@
 import { Story, Meta } from "@storybook/react";
 import { dashboardTheme } from "@adpero/themes";
-import { Text, TextProps } from "./text";
+import { Text as TextComponent, TextProps } from "./text";
 
 export default {
-    component: Text,
-    title: "Text",
+    component: TextComponent,
+    title: "Atoms/Text",
     argTypes: {
         color: {
             control: "color",
@@ -31,11 +31,11 @@ interface StoryInterface extends TextProps {
     children: React.ReactNode;
 }
 
-export const Template: Story<StoryInterface> = ({ color, children }) => (
-    <Text color={color}>{children}</Text>
+export const Text: Story<StoryInterface> = ({ color, children }) => (
+    <TextComponent color={color}>{children}</TextComponent>
 );
 
-Template.args = {
+Text.args = {
     color: dashboardTheme.colors.primary.regular,
     children: "Text",
 };
