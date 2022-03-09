@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "functions": "libs/functions",
     "next": "apps/next",
     "next-e2e": "apps/next-e2e",
     "ui": "libs/ui"

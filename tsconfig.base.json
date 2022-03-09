@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@adpero/functions": ["libs/functions/src/index.ts"],
       "@adpero/ui": ["libs/ui/src/index.ts"]
     }
   },
