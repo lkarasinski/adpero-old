@@ -17,6 +17,7 @@
     "paths": {
       "@adpero/constants": ["libs/constants/src/index.ts"],
       "@adpero/functions": ["libs/functions/src/index.ts"],
+      "@adpero/interfaces": ["libs/interfaces/src/index.ts"],
       "@adpero/ui": ["libs/ui/src/index.ts"]
     }
   },
