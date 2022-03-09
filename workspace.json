@@ -1,12 +1,12 @@
 {
-  "version": 2,
-  "projects": {
-    "constants": "libs/constants",
-    "functions": "libs/functions",
-    "interfaces": "libs/interfaces",
-    "next": "apps/next",
-    "next-e2e": "apps/next-e2e",
-    "themes": "libs/themes",
-    "ui": "libs/ui"
-  }
+    "version": 2,
+    "projects": {
+        "constants": "libs/constants",
+        "functions": "libs/functions",
+        "interfaces": "libs/interfaces",
+        "next": "apps/next",
+        "next-e2e": "apps/next-e2e",
+        "themes": "libs/themes",
+        "ui": "libs/ui"
+    }
 }
