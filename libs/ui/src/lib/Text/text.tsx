@@ -1,35 +1,16 @@
-import React from "react";
 import styled from "styled-components";
 
-interface Props {
-    isSmall?: boolean;
-    size?: number;
-    color?: "light" | "dark" | "red" | "background" | "lightPrimary";
+export interface TextProps {
+    color?: string;
 }
 
-const Wrapper = styled.p<Props>`
+export const Text = styled.p<TextProps>`
     margin: 0;
-    font-size: ${({ size }) => `${size}rem` ?? "1rem"};
-    font-weight: 800;
+    color: ${({ color, theme }) => color ?? theme.colors.gray.dark};
+    font-family: ${({ theme }) => theme.font.family};
+    font-size: ${({ theme }) => theme.font.size.small};
+    font-weight: ${({ theme }) => theme.font.weight.extraBold};
     line-break: loose;
-    color: ${({ color, theme }) => {
-        switch (color) {
-            case "dark":
-                return theme.colors.gray.dark;
-            case "red":
-                return theme.colors.red;
-            case "background":
-                return theme.colors.background;
-            case "lightPrimary":
-                return theme.colors.lightPrimary;
-            default:
-                return theme.colors.gray.light;
-        }
-    }};
 `;
-
-const Text: React.FC<Props> = ({ children, ...props }) => (
-    <Wrapper {...props}>{children}</Wrapper>
-);
 
 export default Text;
