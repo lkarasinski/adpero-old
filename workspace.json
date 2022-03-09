@@ -6,6 +6,7 @@
     "interfaces": "libs/interfaces",
     "next": "apps/next",
     "next-e2e": "apps/next-e2e",
+    "themes": "libs/themes",
     "ui": "libs/ui"
   }
 }
