@@ -12,3 +12,4 @@ export * from "./lib/Molecules/DetailsCard/detailsCard";
 export * from "./lib/Molecules/JourneyCard/journeyCard";
 export * from "./lib/Molecules/PollCard/pollCard";
 export * from "./lib/Molecules/SummaryPanel/summaryPanel";
+export * from "./lib/Molecules/SidebarLink/sidebarLink";
