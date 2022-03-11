@@ -26,6 +26,8 @@ export const InputField: React.FC<InputFieldProps> = ({
                         ? dashboardTheme.colors.red.regular
                         : dashboardTheme.colors.gray.light
                 }
+                as="label"
+                htmlFor={name}
             >
                 {label}
             </StyledText>
