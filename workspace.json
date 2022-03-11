@@ -3,6 +3,7 @@
     "projects": {
         "constants": "libs/constants",
         "functions": "libs/functions",
+        "hooks": "libs/hooks",
         "interfaces": "libs/interfaces",
         "next": "apps/next",
         "next-e2e": "apps/next-e2e",
