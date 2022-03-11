@@ -16,6 +16,7 @@
         "baseUrl": ".",
         "paths": {
             "@adpero/constants": ["libs/constants/src/index.ts"],
+            "@adpero/firebase": ["libs/firebase/src/index.ts"],
             "@adpero/functions": ["libs/functions/src/index.ts"],
             "@adpero/hooks": ["libs/hooks/src/index.ts"],
             "@adpero/interfaces": ["libs/interfaces/src/index.ts"],
