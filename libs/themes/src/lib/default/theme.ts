@@ -48,7 +48,8 @@ export const theme = {
         },
         red: {
             regular: "#eC6464",
-            light: "#fff2f2",
+            light: "#fbd0d0",
+            extraLight: "#fff2f2",
         },
         green: {
             regular: "#09b54d",
