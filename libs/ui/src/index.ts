@@ -15,3 +15,4 @@ export * from "./lib/Molecules/SummaryPanel/summaryPanel";
 export * from "./lib/Molecules/SidebarLink/sidebarLink";
 export * from "./lib/Molecules/InputField/inputField";
 export * from "./lib/Molecules/RadioButton/radioButton";
+export * from "./lib/Molecules/RadioGroup/radioGroup";
