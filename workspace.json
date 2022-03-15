@@ -2,6 +2,7 @@
     "version": 2,
     "projects": {
         "constants": "libs/constants",
+        "contexts": "libs/contexts",
         "firebase": "libs/firebase",
         "functions": "libs/functions",
         "hooks": "libs/hooks",

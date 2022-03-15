@@ -1,0 +1,32 @@
+{
+    "root": "libs/contexts",
+    "sourceRoot": "libs/contexts/src",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/js:tsc",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/libs/contexts",
+                "main": "libs/contexts/src/index.ts",
+                "tsConfig": "libs/contexts/tsconfig.lib.json",
+                "assets": ["libs/contexts/*.md"]
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["libs/contexts/**/*.ts"]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["coverage/libs/contexts"],
+            "options": {
+                "jestConfig": "libs/contexts/jest.config.js",
+                "passWithNoTests": true
+            }
+        }
+    },
+    "tags": []
+}
