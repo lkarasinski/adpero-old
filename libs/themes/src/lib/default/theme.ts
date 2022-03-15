@@ -45,6 +45,7 @@ export const theme = {
         primary: {
             regular: "#3d5eff",
             light: "#738aff",
+            extraLight: "#e5f3ff",
         },
         red: {
             regular: "#eC6464",
