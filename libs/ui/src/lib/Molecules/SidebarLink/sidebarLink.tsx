@@ -8,16 +8,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export interface SidebarLinkProps {
     href: string;
     text: string;
-    isActive: boolean;
+    currentLink: string;
     icon?: IconDefinition;
 }
 
 export const SidebarLink = ({
     href,
     text,
-    isActive,
+    currentLink,
     icon,
 }: SidebarLinkProps) => {
+    const isActive = currentLink === href;
+
     if (icon) {
         return (
             <StyledBigLink isActive={isActive}>

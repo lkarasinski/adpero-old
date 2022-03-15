@@ -13,6 +13,11 @@ export default {
         icon: {
             table: { disable: true },
         },
+        currentLink: {
+            name: "State",
+            options: ["Not active", "Active"],
+            control: { type: "radio" },
+        },
     },
 } as Meta;
 
@@ -21,8 +26,8 @@ export const Small: Story<SidebarLinkProps> = (args) => (
 );
 
 Small.args = {
-    isActive: true,
-    href: "/",
+    currentLink: "href",
+    href: "href",
     text: "Home",
 };
 
@@ -31,7 +36,7 @@ export const Big: Story<SidebarLinkProps> = (args) => (
 );
 
 Big.args = {
-    isActive: true,
-    href: "/",
+    currentLink: "Not active",
+    href: "Active",
     text: "Home",
 };
