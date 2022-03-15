@@ -50,3 +50,8 @@ export interface Vote {
     user: string;
     id: string; // Refers to the expense id
 }
+
+export interface Timestamp {
+    seconds: number;
+    nanoseconds: number;
+}
