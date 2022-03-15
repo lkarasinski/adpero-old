@@ -16,3 +16,5 @@ export * from "./lib/Molecules/SidebarLink/sidebarLink";
 export * from "./lib/Molecules/InputField/inputField";
 export * from "./lib/Molecules/RadioButton/radioButton";
 export * from "./lib/Molecules/RadioGroup/radioGroup";
+
+export * from "./lib/Organisms/CardsPanel/cardsPanel";
