@@ -18,3 +18,4 @@ export * from "./lib/Molecules/RadioButton/radioButton";
 export * from "./lib/Molecules/RadioGroup/radioGroup";
 
 export * from "./lib/Organisms/CardsPanel/cardsPanel";
+export * from "./lib/Organisms/SidebarTemplate/sidebarTemplate";
