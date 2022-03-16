@@ -14,14 +14,12 @@ interface ContentProps {
 
 export type LayoutProps = {
     isEditModeEnabled?: boolean;
+    children?: React.ReactNode;
 };
 
 type RefType = React.MutableRefObject<HTMLDivElement>;
 
-export const Layout: React.FC<LayoutProps> = ({
-    children,
-    isEditModeEnabled,
-}) => {
+export const Layout = ({ children, isEditModeEnabled }: LayoutProps) => {
     const isMobile = useMobile();
     const MainRef = React.useRef() as RefType;
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);

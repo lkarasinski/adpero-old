@@ -15,18 +15,14 @@ export type SidebarLink = {
     type: "poll" | "category";
 };
 
-type Props = {
+type SidebarProps = {
     isEditModeEnabled: boolean;
     isMobile: boolean;
     isMenuOpen: boolean;
     toggleMenu: () => void;
 };
 
-export const Sidebar: React.FC<Props> = ({
-    isMobile,
-    isMenuOpen,
-    toggleMenu,
-}) => {
+export const Sidebar = ({ isMobile, isMenuOpen, toggleMenu }: SidebarProps) => {
     const router = useRouter();
     const journeyID = router.query.journeyID as string;
     const { journeys } = useJourneys();
