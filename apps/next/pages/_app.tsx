@@ -1,16 +1,26 @@
-import { AppProps } from "next/app";
+import { ThemeProvider } from "styled-components";
 import Head from "next/head";
+import { AppProps } from "next/app";
+import { AuthProvider, JourneysProvider } from "@adpero/contexts";
+import { dashboardTheme } from "@adpero/themes";
+import Layout from "../components/Layout";
 import "./styles.css";
 
 function CustomApp({ Component, pageProps }: AppProps) {
     return (
         <>
             <Head>
-                <title>Welcome to next!</title>
+                <title>Adpero - Dashboard</title>
             </Head>
-            <main className="app">
-                <Component {...pageProps} />
-            </main>
+            <ThemeProvider theme={dashboardTheme}>
+                <AuthProvider>
+                    <JourneysProvider>
+                        <Layout isEditModeEnabled={pageProps.isEditModeEnabled}>
+                            <Component {...pageProps} />
+                        </Layout>
+                    </JourneysProvider>
+                </AuthProvider>
+            </ThemeProvider>
         </>
     );
 }

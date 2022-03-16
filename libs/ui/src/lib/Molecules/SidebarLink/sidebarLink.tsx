@@ -22,12 +22,14 @@ export const SidebarLink = ({
 
     if (icon) {
         return (
-            <StyledBigLink isActive={isActive}>
-                <IconContainer isActive={isActive}>
-                    <FontAwesomeIcon icon={icon} />
-                </IconContainer>
-                {text}
-            </StyledBigLink>
+            <Link href={href} passHref>
+                <StyledBigLink isActive={isActive}>
+                    <IconContainer isActive={isActive}>
+                        <FontAwesomeIcon icon={icon} />
+                    </IconContainer>
+                    {text}
+                </StyledBigLink>
+            </Link>
         );
     }
 
