@@ -55,3 +55,11 @@ export interface Timestamp {
     seconds: number;
     nanoseconds: number;
 }
+
+export type JoinJourneyErrors =
+    | "You have already joined this journey"
+    | "Journey does not exist"
+    | "Invite does not exist"
+    | "You must be logged in to accept invites"
+    | ""
+    | null;
