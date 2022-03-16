@@ -29,9 +29,12 @@ export const EditJourneyDataPanel = ({
     const router = useRouter();
     const journeyID = router.query.journeyID as string;
     const journey = getCurrentJourney()?.data;
-    const [initialValues, setInitialValues] = React.useState(
-        getEmptyJourney(user?.email ?? "local")
-    );
+    const [initialValues, setInitialValues] = React.useState(() => {
+        const emptyJourney = getEmptyJourney(user?.email ?? "local");
+        emptyJourney.startDate = null;
+        emptyJourney.endDate = null;
+        return emptyJourney;
+    });
 
     React.useEffect(() => {
         if (journey?.id) {
