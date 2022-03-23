@@ -9,29 +9,34 @@ import { dashboardTheme } from "@adpero/themes";
 export interface DetailsCardProps {
     expense: Expense;
     isMobile: boolean;
+    children?: React.ReactNode;
 }
 
 export const DetailsCard: React.FC<DetailsCardProps> = ({
     expense,
     isMobile,
+    children,
     ...props
 }) => {
     return (
         <Wrapper isMobile={isMobile} {...props}>
-            <Label color={dashboardTheme.colors.primary.regular}>
-                {expense.title}
-            </Label>
-            <Grid>
-                {expense?.details.map((detail: Detail) => (
-                    <DetailsContainer
-                        label={detail.label}
-                        value={`${detail.value} ${
-                            detail.type === "Price" ? detail.currency : ""
-                        }`}
-                        key={detail.id}
-                    />
-                ))}
-            </Grid>
+            <div>
+                <Label color={dashboardTheme.colors.primary.regular}>
+                    {expense.title}
+                </Label>
+                <Grid>
+                    {expense?.details.map((detail: Detail) => (
+                        <DetailsContainer
+                            label={detail.label}
+                            value={`${detail.value} ${
+                                detail.type === "Price" ? detail.currency : ""
+                            }`}
+                            key={detail.id}
+                        />
+                    ))}
+                </Grid>
+            </div>
+            {children}
         </Wrapper>
     );
 };
