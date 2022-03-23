@@ -4,7 +4,6 @@ import { AppProps } from "next/app";
 import { AuthProvider, JourneysProvider } from "@adpero/contexts";
 import { dashboardTheme } from "@adpero/themes";
 import Layout from "../components/Layout";
-import "./styles.css";
 
 function CustomApp({ Component, pageProps }: AppProps) {
     return (
