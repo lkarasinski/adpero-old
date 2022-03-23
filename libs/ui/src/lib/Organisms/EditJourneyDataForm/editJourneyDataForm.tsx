@@ -36,7 +36,7 @@ export const EditJourneyDataForm: React.FC<EditJourneyDataFormProps> = ({
                         name={"name"}
                         label={"Journey Name"}
                         type={"text"}
-                        error={errors.name}
+                        error={errors.name ?? ""}
                     />
                 </div>
                 <div>
@@ -44,7 +44,7 @@ export const EditJourneyDataForm: React.FC<EditJourneyDataFormProps> = ({
                         name={"startDate"}
                         label={"Day of departure"}
                         type={"date"}
-                        error={errors.startDate}
+                        error={errors.startDate ?? ""}
                     />
                 </div>
                 <div>
@@ -52,7 +52,7 @@ export const EditJourneyDataForm: React.FC<EditJourneyDataFormProps> = ({
                         name={"endDate"}
                         label={"Day of return"}
                         type={"date"}
-                        error={errors.endDate}
+                        error={errors.endDate ?? ""}
                     />
                 </div>
                 <div>
@@ -60,7 +60,7 @@ export const EditJourneyDataForm: React.FC<EditJourneyDataFormProps> = ({
                         name={"cost.currency"}
                         label={"Currency"}
                         type={"text"}
-                        error={errors.cost?.currency}
+                        error={errors.cost?.currency ?? ""}
                     />
                 </div>
                 <ButtonContainer>
