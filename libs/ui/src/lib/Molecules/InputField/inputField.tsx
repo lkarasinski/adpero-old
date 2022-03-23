@@ -55,19 +55,18 @@ const StyledField = styled(Field)<{ error?: boolean }>`
     height: 45px;
     width: 100%;
     padding: 0 8px;
-
+    border: none;
     outline: none;
-    border: 1px solid
-        ${({ error, theme }) =>
-            error ? theme.colors.red.regular : theme.colors.gray.dark};
+    outline: 1px solid
+        ${({ error, theme }) => (error ? theme.colors.red.regular : "#c4c4c4")};
     border-radius: 4px;
 
     :focus {
-        border-width: 2px;
-        border-color: ${({ error, theme }) =>
+        outline-width: 2px;
+        outline-color: ${({ error, theme }) =>
             error ? theme.colors.red.regular : theme.colors.primary.regular};
     }
-    transition: border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    transition: outline-color 0.2s ease-in-out, color 0.2s ease-in-out;
 
     color: ${({ theme }) => theme.colors.gray.dark};
     font-family: ${({ theme }) => theme.font.family};
