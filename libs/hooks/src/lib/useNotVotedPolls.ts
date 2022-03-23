@@ -1,7 +1,7 @@
 import { useAuth } from "@adpero/contexts";
 import { useJourneys } from "@adpero/contexts";
 
-const useNotVotedPolls = () => {
+export const useNotVotedPolls = () => {
     const { journeys } = useJourneys();
     const { user } = useAuth();
 
@@ -16,5 +16,3 @@ const useNotVotedPolls = () => {
 
     return notVotedPolls;
 };
-
-export default useNotVotedPolls;
