@@ -6,6 +6,7 @@ import Link from "next/link";
 import Grid from "../../Atoms/Grid/grid";
 import Label from "../../Atoms/Label/label";
 import { dashboardTheme } from "@adpero/themes";
+import styled from "styled-components";
 
 export type CardsPanelProps = {
     cards: Poll[] | Journey[];
@@ -25,7 +26,13 @@ export const CardsPanel: React.FC<CardsPanelProps> = ({ cards, label }) => {
                 ) : null}
                 <Grid margin={"1rem 0 2rem 0rem"}>
                     {array.map((journey) => (
-                        <JourneyCard key={journey.id} journey={journey} />
+                        <Link
+                            passHref
+                            key={journey.id}
+                            href={`journeys/${journey.id}`}
+                        >
+                            <StyledJourneyCard journey={journey} />
+                        </Link>
                     ))}
                 </Grid>
             </div>
@@ -55,5 +62,9 @@ export const CardsPanel: React.FC<CardsPanelProps> = ({ cards, label }) => {
         );
     }
 };
+
+const StyledJourneyCard = styled(JourneyCard)`
+    cursor: pointer;
+`;
 
 export default CardsPanel;
