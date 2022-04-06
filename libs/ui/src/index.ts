@@ -21,3 +21,4 @@ export * from "./lib/Organisms/CardsPanel/cardsPanel";
 export * from "./lib/Organisms/SidebarTemplate/sidebarTemplate";
 export * from "./lib/Organisms/EditJourneyDataForm/editJourneyDataForm";
 export * from "./lib/Organisms/PollsPanel/pollsPanel";
+export * from "./lib/Organisms/CategoriesPanel/categoriesPanel";
