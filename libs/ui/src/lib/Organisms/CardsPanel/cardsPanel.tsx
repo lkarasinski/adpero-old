@@ -14,7 +14,7 @@ export type CardsPanelProps = {
 
 export const CardsPanel: React.FC<CardsPanelProps> = ({ cards, label }) => {
     if (!cards || !cards.length) return null;
-    if ("expenses" in cards[0]) {
+    if ("categories" in cards[0]) {
         const array = cards as Journey[];
         return (
             <div>
@@ -45,10 +45,7 @@ export const CardsPanel: React.FC<CardsPanelProps> = ({ cards, label }) => {
                             <Link passHref key={id} href={`polls/${id}`}>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <a>
-                                    <PollCard
-                                        key={id}
-                                        poll={poll}
-                                    />
+                                    <PollCard key={id} poll={poll} />
                                 </a>
                             </Link>
                         );

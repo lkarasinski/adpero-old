@@ -6,7 +6,7 @@ export const getEmptyJourney = (author: string) => {
         author: author,
         createdAt: new Date(),
         editors: [],
-        expenses: [],
+        categories: [],
         name: "",
         polls: [],
         users: [author],

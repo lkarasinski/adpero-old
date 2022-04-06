@@ -2,7 +2,7 @@ export interface Journey {
     author: string;
     createdAt: Date;
     editors: string[];
-    expenses: Expense[];
+    categories: Category[];
     name: string;
     polls: Poll[];
     users: string[];
@@ -16,9 +16,9 @@ export interface Poll {
     title: string;
     id: string;
     votes: Vote[];
-    content: Expense[];
+    content: Category[];
 }
-export interface Expense {
+export interface Category {
     details: Detail[];
     title: string;
     id: string;
@@ -42,7 +42,7 @@ export interface JourneyData {
     startDate: string;
     endDate: string;
     users: string[];
-    expenses: Expense[];
+    categories: Category[];
     polls: Poll[];
 }
 

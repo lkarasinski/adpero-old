@@ -13,6 +13,9 @@ export type PollCardProps = {
 };
 
 export const PollCard: React.FC<PollCardProps> = ({ poll, journeyName }) => {
+    if (!poll.content) {
+        return null;
+    }
     return (
         <StyledCard>
             {journeyName ? (

@@ -1,8 +1,8 @@
-import { Expense } from "@adpero/interfaces";
+import { Category } from "@adpero/interfaces";
 import { getEmptyDetail } from "./getEmptyDetail";
 import { getRandomID } from "./getRandomID";
 
-export const getEmptyCategory = (): Expense => {
+export const getEmptyCategory = (): Category => {
     return {
         title: "",
         details: [getEmptyDetail()],

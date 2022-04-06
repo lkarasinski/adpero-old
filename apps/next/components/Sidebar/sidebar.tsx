@@ -54,10 +54,10 @@ export const Sidebar = ({ isMenuOpen, toggleMenu }: SidebarProps) => {
         if (journeyID) {
             const journey = journeys.find((j) => j.id === journeyID);
             if (journey) {
-                journey.data.expenses.forEach((e) => {
+                journey.data.categories.forEach((category) => {
                     const data: SidebarLink = {
-                        label: e.title,
-                        href: e.id,
+                        label: category.title,
+                        href: category.id,
                         type: "category",
                     };
 

@@ -1,12 +1,12 @@
-import { Expense, Journey } from "@adpero/interfaces";
+import { Category, Journey } from "@adpero/interfaces";
 import axios from "axios";
 import { currencies } from "@adpero/constants";
 
 type ResultType = {
     [key: string]: number;
 };
-const getExpenseCost = (expense: Expense): ResultType => {
-    const details = expense.details;
+const getCategoryCost = (category: Category): ResultType => {
+    const details = category.details;
     const result: ResultType = {};
     for (const detail of details) {
         if (detail.type === "Price") {
@@ -34,16 +34,16 @@ export const calculateTotalCost = async (journey: Journey): Promise<number> => {
             console.error(error);
         }
 
-        for (const expense of journey.expenses) {
-            const expenseCost = getExpenseCost(expense);
-            for (const currency in expenseCost) {
+        for (const category of journey.categories) {
+            const categoryCost = getCategoryCost(category);
+            for (const currency in categoryCost) {
                 if (currency === baseCurrency) {
-                    totalCost = expenseCost[baseCurrency] + totalCost;
+                    totalCost = categoryCost[baseCurrency] + totalCost;
                 } else {
                     if (currencies.includes(currency)) {
                         totalCost =
                             Math.round(
-                                (expenseCost[currency] /
+                                (categoryCost[currency] /
                                     currencyRates[currency] +
                                     totalCost) *
                                     100
@@ -53,10 +53,10 @@ export const calculateTotalCost = async (journey: Journey): Promise<number> => {
             }
         }
     } else {
-        for (const expense of journey.expenses) {
-            const expenseCost = getExpenseCost(expense);
-            for (const currency in expenseCost) {
-                totalCost = expenseCost[currency] + totalCost;
+        for (const category of journey.categories) {
+            const categoryCost = getCategoryCost(category);
+            for (const currency in categoryCost) {
+                totalCost = categoryCost[currency] + totalCost;
             }
         }
     }

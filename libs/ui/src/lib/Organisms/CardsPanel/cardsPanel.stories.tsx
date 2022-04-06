@@ -19,9 +19,9 @@ const mockJourney: Journey = {
     author: "author",
     createdAt: new Date(),
     editors: ["author"],
-    expenses: [
+    categories: [
         {
-            title: "Expense Title",
+            title: "Category Title",
             id: "",
             details: [
                 {

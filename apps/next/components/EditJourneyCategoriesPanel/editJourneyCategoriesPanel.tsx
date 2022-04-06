@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { Form, Formik } from "formik";
 import { useMobile } from "@adpero/hooks";
-import { Detail, Expense } from "@adpero/interfaces";
+import { Detail, Category } from "@adpero/interfaces";
 import { getEmptyDetail } from "@adpero/functions";
 import { InputField, Button, Heading, Grid } from "@adpero/ui";
 import validationSchema from "./validation";
@@ -12,17 +12,17 @@ import { mobileScreenSize } from "@adpero/constants";
 import { RemoveCategoryButton } from "./removeCategoryButton";
 
 type Props = {
-    expenseValues: Expense;
-    submitChanges: (values: Expense) => Promise<void>;
+    expenseValues: Category;
+    submitChanges: (values: Category) => Promise<void>;
     removeCategory: () => Promise<void>;
 };
 
 type SetValuesType = (
-    values: React.SetStateAction<Expense>,
+    values: React.SetStateAction<Category>,
     shouldValidate?: boolean | undefined
 ) => void;
 
-const addNewDetail = (values: Expense, setValues: SetValuesType) => {
+const addNewDetail = (values: Category, setValues: SetValuesType) => {
     if (values.details) {
         setValues({
             ...values,
@@ -32,7 +32,7 @@ const addNewDetail = (values: Expense, setValues: SetValuesType) => {
 };
 
 const removeDetail = (
-    values: Expense,
+    values: Category,
     index: string,
     setValues: SetValuesType
 ) => {
@@ -43,7 +43,7 @@ const removeDetail = (
     return;
 };
 
-export const EditJourneyExpensesPanel: React.FC<Props> = ({
+export const EditJourneyCategoriesPanel: React.FC<Props> = ({
     expenseValues,
     submitChanges,
     removeCategory,

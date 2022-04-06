@@ -2,13 +2,13 @@ import React from "react";
 import Label from "../../Atoms/Label/label";
 import styled from "styled-components";
 import DetailsContainer from "../DetailsContainer/detailsContainer";
-import { Expense, Detail } from "@adpero/interfaces";
+import { Category, Detail } from "@adpero/interfaces";
 import { Card } from "../../Atoms/Card/card";
 import { dashboardTheme } from "@adpero/themes";
 import { mobileScreenSize } from "@adpero/constants";
 
 export interface DetailsCardProps {
-    expense: Expense;
+    expense: Category;
     children?: React.ReactNode;
 }
 

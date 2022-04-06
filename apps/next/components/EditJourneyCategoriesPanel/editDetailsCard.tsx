@@ -1,5 +1,5 @@
 import { mobileScreenSize } from "@adpero/constants";
-import { Detail, Expense } from "@adpero/interfaces";
+import { Detail, Category } from "@adpero/interfaces";
 import { Card, InputField, RadioGroup } from "@adpero/ui";
 import * as React from "react";
 import styled from "styled-components";
@@ -18,7 +18,7 @@ type Props = {
     currentType: "Price" | "Text" | "Date" | "Address" | "";
     currentErrors: DetailErrors;
     removeDetail: () => void;
-    values: Expense;
+    values: Category;
 };
 
 export const EditDetailsCard = ({

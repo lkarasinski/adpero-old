@@ -26,11 +26,11 @@ export const JourneyCard: React.FC<JourneyCardProps> = ({
                 {format(new Date(journey.startDate), "MM/dd/yyyy")} -{" "}
                 {format(new Date(journey.endDate), "MM/dd/yyyy")}
             </Text>
-            <ExpensesContainer>
-                {journey.expenses?.map((category) => (
+            <CategoriesContainer>
+                {journey.categories?.map((category) => (
                     <Text key={category.id}>{category.title}</Text>
                 ))}
-            </ExpensesContainer>
+            </CategoriesContainer>
         </Wrapper>
     );
 };
@@ -47,7 +47,7 @@ const Wrapper = styled(Card)`
     }
 `;
 
-const ExpensesContainer = styled.div`
+const CategoriesContainer = styled.div`
     margin-top: 1rem;
 `;
 
