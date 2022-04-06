@@ -8,19 +8,18 @@ import { Journey } from "@adpero/interfaces";
 import { faCalendarDay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
+import { mobileScreenSize } from "@adpero/constants";
 
 export interface JourneyCardProps {
     journey: Journey;
-    isMobile: boolean;
 }
 
 export const JourneyCard: React.FC<JourneyCardProps> = ({
     journey,
-    isMobile,
     ...props
 }) => {
     return (
-        <Wrapper {...props} isMobile={isMobile}>
+        <Wrapper {...props}>
             <Label>{journey.name}</Label>
             <Text>
                 <FontAwesomeIcon icon={faCalendarDay} />{" "}
@@ -36,10 +35,16 @@ export const JourneyCard: React.FC<JourneyCardProps> = ({
     );
 };
 
-const Wrapper = styled(Card)<{ isMobile?: boolean }>`
-    max-width: ${({ isMobile }) => (isMobile ? "100%" : "19rem")};
-    min-height: ${({ isMobile }) => (isMobile ? "100%" : "20rem")};
-    padding: ${({ isMobile }) => (isMobile ? "1rem 2rem" : "2rem")};
+const Wrapper = styled(Card)`
+    max-width: 19rem;
+    min-height: 20rem;
+    padding: 2rem;
+
+    @media (max-width: ${mobileScreenSize}px) {
+        max-width: 100%;
+        min-height: 100%;
+        padding: 1rem 2rem;
+    }
 `;
 
 const ExpensesContainer = styled.div`

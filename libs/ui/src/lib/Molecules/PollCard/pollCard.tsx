@@ -5,20 +5,16 @@ import Text from "../../Atoms/Text/text";
 import Card from "../../Atoms/Card/card";
 import { Poll } from "@adpero/interfaces";
 import { dashboardTheme } from "@adpero/themes";
+import { mobileScreenSize } from "@adpero/constants";
 
 export type PollCardProps = {
     poll: Poll;
     journeyName?: string;
-    isMobile: boolean;
 };
 
-export const PollCard: React.FC<PollCardProps> = ({
-    poll,
-    journeyName,
-    isMobile,
-}) => {
+export const PollCard: React.FC<PollCardProps> = ({ poll, journeyName }) => {
     return (
-        <StyledCard isMobile={isMobile}>
+        <StyledCard>
             {journeyName ? (
                 <Text color={dashboardTheme.colors.gray.light}>
                     {journeyName}
@@ -41,10 +37,16 @@ export const PollCard: React.FC<PollCardProps> = ({
     );
 };
 
-const StyledCard = styled(Card)<{ isMobile?: boolean }>`
-    width: ${({ isMobile }) => (isMobile ? "100%" : "19rem")};
-    min-height: ${({ isMobile }) => (isMobile ? "100%" : "5rem")};
-    padding: ${({ isMobile }) => (isMobile ? "1.5rem 2rem" : "2rem")};
+const StyledCard = styled(Card)`
+    width: 19rem;
+    min-height: 5rem;
+    padding: 2rem;
+
+    @media (max-width: ${mobileScreenSize}px) {
+        width: 100%;
+        min-height: 100%;
+        padding: 1.5rem 2rem;
+    }
 `;
 
 const CategoriesContainer = styled.div`

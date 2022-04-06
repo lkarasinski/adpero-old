@@ -15,7 +15,6 @@ export const DetailsCard: Story<DetailsCardProps> = (args) => (
 );
 
 DetailsCard.args = {
-    isMobile: false,
     expense: {
         title: "Title",
         id: "1",

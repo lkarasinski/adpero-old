@@ -7,9 +7,9 @@ import Label from "../../Atoms/Label/label";
 import PollCard from "../../Molecules/PollCard/pollCard";
 import Grid from "../../Atoms/Grid/grid";
 
-export type PollsPanelProps = { polls: Poll[]; isMobile: boolean };
+export type PollsPanelProps = { polls: Poll[] };
 
-export const PollsPanel: React.FC<PollsPanelProps> = ({ polls, isMobile }) => {
+export const PollsPanel: React.FC<PollsPanelProps> = ({ polls }) => {
     if (!polls || polls.length === 0) return null;
     return (
         <div>
@@ -18,11 +18,11 @@ export const PollsPanel: React.FC<PollsPanelProps> = ({ polls, isMobile }) => {
                     Active Polls
                 </Label>
             </HeadingContainer>
-            <Grid isMobile={isMobile}>
+            <Grid>
                 {polls.map((poll) => (
                     <Link href={`/polls/${poll.id}`} key={poll.id} passHref>
                         <PollCardContainer>
-                            <PollCard poll={poll} isMobile={isMobile} />
+                            <PollCard poll={poll} />
                         </PollCardContainer>
                     </Link>
                 ))}

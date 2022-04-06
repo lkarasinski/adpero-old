@@ -5,6 +5,7 @@ import Text from "../../Atoms/Text/text";
 import Card from "../../Atoms/Card/card";
 import { format } from "date-fns";
 import { dashboardTheme } from "@adpero/themes";
+import { mobileScreenSize } from "@adpero/constants";
 
 export type SummaryPanelProps = {
     numberOfUsers: number;
@@ -14,7 +15,6 @@ export type SummaryPanelProps = {
         value: number;
         currency: string;
     };
-    isMobile: boolean;
 };
 
 export const SummaryPanel: React.FC<SummaryPanelProps> = ({
@@ -22,10 +22,9 @@ export const SummaryPanel: React.FC<SummaryPanelProps> = ({
     totalCost,
     startDate,
     endDate,
-    isMobile,
 }) => {
     return (
-        <Wrapper isMobile={isMobile}>
+        <Wrapper>
             <Label color={dashboardTheme.colors.primary.regular}>Summary</Label>
             <Grid>
                 <DetailContainer>
@@ -57,10 +56,15 @@ export const SummaryPanel: React.FC<SummaryPanelProps> = ({
     );
 };
 
-const Wrapper = styled(Card)<{ isMobile: boolean }>`
-    margin-top: ${({ isMobile }) => (isMobile ? "2rem" : "0")};
-    max-width: ${({ isMobile }) => (isMobile ? "100%" : "21rem")};
+const Wrapper = styled(Card)`
+    margin-top: 0;
+    max-width: 21rem;
     background-color: ${({ theme }) => theme.colors.background};
+
+    @media (max-width: ${mobileScreenSize}px) {
+        margin-top: 2rem;
+        max-width: 100%;
+    }
 `;
 
 const Grid = styled.div`

@@ -28,7 +28,6 @@ interface StoryInterface extends GridProps {
 
 export const Grid: Story<StoryInterface> = ({ ...props }) => {
     const gridData = {
-        isMobile: false,
         children: new Array(props.numberOfCards).fill(
             <Card>Grid element</Card>
         ),
@@ -39,5 +38,4 @@ export const Grid: Story<StoryInterface> = ({ ...props }) => {
 
 Grid.args = {
     numberOfCards: 3,
-    isMobile: false,
 };

@@ -10,14 +10,9 @@ import { dashboardTheme } from "@adpero/themes";
 export type CardsPanelProps = {
     cards: Poll[] | Journey[];
     label?: string;
-    isMobile: boolean;
 };
 
-export const CardsPanel: React.FC<CardsPanelProps> = ({
-    cards,
-    label,
-    isMobile,
-}) => {
+export const CardsPanel: React.FC<CardsPanelProps> = ({ cards, label }) => {
     if (!cards || !cards.length) return null;
     if ("expenses" in cards[0]) {
         const array = cards as Journey[];
@@ -28,13 +23,9 @@ export const CardsPanel: React.FC<CardsPanelProps> = ({
                         {label}
                     </Label>
                 ) : null}
-                <Grid isMobile={isMobile} margin={"1rem 0 2rem 0rem"}>
+                <Grid margin={"1rem 0 2rem 0rem"}>
                     {array.map((journey) => (
-                        <JourneyCard
-                            key={journey.id}
-                            journey={journey}
-                            isMobile={isMobile}
-                        />
+                        <JourneyCard key={journey.id} journey={journey} />
                     ))}
                 </Grid>
             </div>
@@ -47,7 +38,7 @@ export const CardsPanel: React.FC<CardsPanelProps> = ({
                 <Label color={dashboardTheme.colors.primary.regular}>
                     {label}
                 </Label>
-                <Grid isMobile={isMobile} margin={"1rem 0 2rem 0rem"}>
+                <Grid margin={"1rem 0 2rem 0rem"}>
                     {array.map((poll) => {
                         const id = poll.id;
                         return (
@@ -55,7 +46,6 @@ export const CardsPanel: React.FC<CardsPanelProps> = ({
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <a>
                                     <PollCard
-                                        isMobile={isMobile}
                                         key={id}
                                         poll={poll}
                                     />

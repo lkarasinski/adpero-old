@@ -84,7 +84,7 @@ export const EditJourneyExpensesPanel: React.FC<Props> = ({
                                 />
                             </TitleInputContainer>
 
-                            <CardGrid isMobile={isMobile}>
+                            <CardGrid>
                                 {values.details.map(
                                     (detail: Detail, index: number) => {
                                         type DetailErrors = {
@@ -132,7 +132,7 @@ export const EditJourneyExpensesPanel: React.FC<Props> = ({
                                     </StyledButton>
                                 </AddNewDetailContainer>
                             </CardGrid>
-                            <Button
+                            <SubmitButton
                                 type="submit"
                                 color={
                                     isSubmitting
@@ -140,10 +140,9 @@ export const EditJourneyExpensesPanel: React.FC<Props> = ({
                                         : dashboardTheme.colors.green.regular
                                 }
                                 disabled={isSubmitting}
-                                style={{ width: isMobile ? "100%" : "313px" }}
                             >
                                 Submit changes
-                            </Button>
+                            </SubmitButton>
                         </StyledForm>
                     </>
                 );
@@ -151,6 +150,13 @@ export const EditJourneyExpensesPanel: React.FC<Props> = ({
         </Formik>
     );
 };
+
+const SubmitButton = styled(Button)`
+    width: 313px;
+    @media (max-width: ${mobileScreenSize}px) {
+        width: 100%;
+    }
+`;
 
 const StyledButton = styled(Button)`
     width: 100%;

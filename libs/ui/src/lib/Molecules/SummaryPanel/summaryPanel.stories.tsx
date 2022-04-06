@@ -15,7 +15,6 @@ export const SummaryPanel: Story<SummaryPanelProps> = (args) => (
 );
 
 SummaryPanel.args = {
-    isMobile: false,
     numberOfUsers: 0,
     totalCost: {
         value: 0,

@@ -12,7 +12,6 @@ export const PollCard: Story<PollCardProps> = (args) => (
 );
 
 PollCard.args = {
-    isMobile: false,
     journeyName: "",
     poll: {
         title: "Poll Title",

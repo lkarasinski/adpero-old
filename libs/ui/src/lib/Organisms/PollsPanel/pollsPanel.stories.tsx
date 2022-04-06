@@ -36,6 +36,5 @@ const mockPoll: Poll = {
 };
 
 PollsPanel.args = {
-    isMobile: false,
     polls: [mockPoll],
 };

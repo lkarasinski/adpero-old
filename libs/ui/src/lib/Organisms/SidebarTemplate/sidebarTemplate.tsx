@@ -6,10 +6,10 @@ import Heading from "../../Atoms/Heading/heading";
 import { faCogs, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { dashboardTheme } from "@adpero/themes";
+import { mobileScreenSize } from "@adpero/constants";
 
 export type SidebarTemplateProps = {
     editMode?: boolean;
-    isMobile: boolean;
     isMenuOpen: boolean;
     toggleMenu: () => void;
 };
@@ -17,7 +17,6 @@ export type SidebarTemplateProps = {
 export const SidebarTemplate: React.FC<SidebarTemplateProps> = ({
     children,
     editMode,
-    isMobile,
     isMenuOpen,
 }) => {
     return (
@@ -32,7 +31,7 @@ export const SidebarTemplate: React.FC<SidebarTemplateProps> = ({
             </Link>
             <StyledNav editMode={!!editMode}>{children}</StyledNav>
             {editMode ? null : (
-                <BottomContainer isMobile={isMobile}>
+                <BottomContainer>
                     <Link href="/settings" passHref>
                         <StyledButton
                             color={dashboardTheme.colors.gray.dark}
@@ -90,12 +89,15 @@ const StyledNav = styled.nav<{ editMode: boolean }>`
     margin-top: ${({ editMode }) => (editMode ? "2rem" : "5.25rem")};
 `;
 
-const BottomContainer = styled.div<{ isMobile: boolean }>`
+const BottomContainer = styled.div`
     margin-top: auto;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin-bottom: ${({ isMobile }) => (isMobile ? "3rem" : "0")};
+    margin-bottom: 0;
+    @media (max-width: ${mobileScreenSize}px) {
+        margin-bottom: 3rem;
+    }
 `;
 
 export default SidebarTemplate;

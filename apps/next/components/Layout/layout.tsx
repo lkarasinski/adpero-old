@@ -7,10 +7,7 @@ import { useRouter } from "next/router";
 import { useMobile } from "@adpero/hooks";
 import { Text, Burger } from "@adpero/ui";
 import { dashboardTheme } from "@adpero/themes";
-
-interface ContentProps {
-    isMobile: boolean;
-}
+import { mobileScreenSize } from "@adpero/constants";
 
 export type LayoutProps = {
     isEditModeEnabled?: boolean;
@@ -54,11 +51,10 @@ export const Layout = ({ children, isEditModeEnabled }: LayoutProps) => {
                 <StyledMain ref={MainRef}>
                     <Sidebar
                         isEditModeEnabled={!!isEditModeEnabled}
-                        isMobile={isMobile}
                         isMenuOpen={isMenuOpen}
                         toggleMenu={toggleMenu}
                     />
-                    <Content isMobile={isMobile}>
+                    <Content>
                         {isMobile ? (
                             <Headroom
                                 style={{
@@ -76,9 +72,7 @@ export const Layout = ({ children, isEditModeEnabled }: LayoutProps) => {
                                 </BurgerContainer>
                             </Headroom>
                         ) : null}
-                        <MobileMargin isMobile={isMobile}>
-                            {children}
-                        </MobileMargin>
+                        <MobileMargin>{children}</MobileMargin>
                     </Content>
                 </StyledMain>
             </ThemeProvider>
@@ -115,18 +109,25 @@ const BurgerContainer = styled.div`
     box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.0625);
 `;
 
-const MobileMargin = styled.div<ContentProps>`
-    margin: ${({ isMobile }) => (isMobile ? "0rem 1rem" : "0")};
+const MobileMargin = styled.div`
+    margin: 0;
+    @media (max-width: ${mobileScreenSize}px) {
+        margin: 0rem 1rem;
+    }
 `;
 
-const Content = styled.div<ContentProps>`
+const Content = styled.div`
     z-index: 0;
-    width: ${({ isMobile }) =>
-        isMobile ? `calc(100%) - 1rem` : `calc(100%) - 16rem`};
+    margin: 0 0 4rem 16rem;
+    width: calc(100%) - 16rem;
     min-height: 100vh;
-    margin: ${({ isMobile }) => (isMobile ? "0" : "0 0 4rem 16rem")};
     background-color: white;
     transition: margin-left 100ms ease-in-out;
+
+    @media (max-width: ${mobileScreenSize}px) {
+        width: calc(100%) - 1rem;
+        margin: 0;
+    }
 `;
 
 const StyledMain = styled.div`

@@ -15,7 +15,6 @@ export const JourneyCard: Story<JourneyCardProps> = (args) => (
 );
 
 JourneyCard.args = {
-    isMobile: false,
     journey: {
         author: "author",
         createdAt: new Date(),

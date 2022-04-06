@@ -22,7 +22,6 @@ export const SidebarTemplate: Story<SidebarTemplateProps> = (args) => (
 );
 
 SidebarTemplate.args = {
-    isMobile: false,
     isMenuOpen: true,
     editMode: false,
     toggleMenu: () => {

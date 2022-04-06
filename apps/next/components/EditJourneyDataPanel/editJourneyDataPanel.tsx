@@ -5,9 +5,9 @@ import { Formik } from "formik";
 import { EditJourneyDataForm } from "@adpero/ui";
 import { useJourneys } from "@adpero/contexts";
 import { useAuth } from "@adpero/contexts";
-import { useMobile } from "@adpero/hooks";
 import { validationSchema } from "./validation";
 import { getEmptyJourney } from "@adpero/functions";
+import { mobileScreenSize } from "@adpero/constants";
 
 type EditJourneyDataPanelProps = {
     buttonText: string;
@@ -24,7 +24,6 @@ export const EditJourneyDataPanel = ({
     buttonText,
 }: EditJourneyDataPanelProps) => {
     const { createJourney, updateJourney, getCurrentJourney } = useJourneys();
-    const isMobile = useMobile();
     const { user } = useAuth();
     const router = useRouter();
     const journeyID = router.query.journeyID as string;
@@ -44,7 +43,7 @@ export const EditJourneyDataPanel = ({
     }, [!!journey?.id === true]);
 
     return (
-        <Wrapper isMobile={isMobile}>
+        <Wrapper>
             <Formik
                 enableReinitialize
                 initialValues={initialValues}
@@ -72,8 +71,11 @@ export const EditJourneyDataPanel = ({
     );
 };
 
-const Wrapper = styled.div<{ isMobile: boolean }>`
-    max-width: ${({ isMobile }) => (isMobile ? "100%" : "30rem")};
+const Wrapper = styled.div`
+    max-width: 30rem;
+    @media (max-width: ${mobileScreenSize}) {
+        max-width: 100%;
+    }
 `;
 
 export default EditJourneyDataPanel;

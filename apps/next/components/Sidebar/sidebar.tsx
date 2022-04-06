@@ -17,23 +17,18 @@ export type SidebarLink = {
 
 type SidebarProps = {
     isEditModeEnabled: boolean;
-    isMobile: boolean;
     isMenuOpen: boolean;
     toggleMenu: () => void;
 };
 
-export const Sidebar = ({ isMobile, isMenuOpen, toggleMenu }: SidebarProps) => {
+export const Sidebar = ({ isMenuOpen, toggleMenu }: SidebarProps) => {
     const router = useRouter();
     const journeyID = router.query.journeyID as string;
     const { journeys } = useJourneys();
 
     if (!router.pathname.startsWith("/journeys/[journeyID]/edit")) {
         return (
-            <SidebarTemplate
-                isMobile={isMobile}
-                isMenuOpen={isMenuOpen}
-                toggleMenu={toggleMenu}
-            >
+            <SidebarTemplate isMenuOpen={isMenuOpen} toggleMenu={toggleMenu}>
                 <SidebarLink
                     text="Dashboard"
                     currentLink={router.asPath}
@@ -87,7 +82,6 @@ export const Sidebar = ({ isMobile, isMenuOpen, toggleMenu }: SidebarProps) => {
 
         return (
             <SidebarTemplate
-                isMobile={isMobile}
                 editMode
                 isMenuOpen={isMenuOpen}
                 toggleMenu={toggleMenu}

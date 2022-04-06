@@ -49,5 +49,4 @@ const mockJourney: Journey = {
 CardsPanel.args = {
     label: "Cards Panel",
     cards: [mockJourney],
-    isMobile: false,
 };

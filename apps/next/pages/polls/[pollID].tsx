@@ -2,14 +2,12 @@ import * as React from "react";
 import type { NextPage } from "next";
 import styled from "styled-components";
 import { Heading, DetailsCard, Label, Button, Grid, Text } from "@adpero/ui";
-import { useMobile } from "@adpero/hooks";
 import { useRouter } from "next/router";
 import { useAuth, useJourneys } from "@adpero/contexts";
 import { dashboardTheme } from "@adpero/themes";
 import { voteForOption } from "@adpero/functions";
 
 const PollPage: NextPage = () => {
-    const isMobile = useMobile();
     const router = useRouter();
     const pollID = router.query.pollID as string;
     const { user } = useAuth();
@@ -47,11 +45,7 @@ const PollPage: NextPage = () => {
             {optionsExist ? (
                 <Grid>
                     {currentPoll.content.map((category) => (
-                        <DetailsCard
-                            expense={category}
-                            key={category.id}
-                            isMobile={isMobile}
-                        >
+                        <DetailsCard expense={category} key={category.id}>
                             <VotePanelContainer>
                                 <Text color={dashboardTheme.colors.gray.light}>
                                     Votes:{" "}
