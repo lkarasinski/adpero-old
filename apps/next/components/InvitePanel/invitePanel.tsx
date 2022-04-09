@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useInvitePanel } from "@adpero/hooks";
 import { Card, Label, Button, Text } from "@adpero/ui";
 import { useJourneys } from "@adpero/contexts";
+import { dashboardTheme } from "@adpero/themes";
 
 type Props = {
     userEmail: string;
@@ -42,14 +43,22 @@ export const InvitePanel: React.FC<Props> = ({ userEmail }) => {
 
     return (
         <Card>
-            <Label>Invite Link</Label>
+            <Label color={dashboardTheme.colors.primary.regular}>
+                Invite Link
+            </Label>
             {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
             <div onClick={copyToClipboard} tabIndex={-1}>
                 <StyledText>{`${location.origin}/join/${linkID}`}</StyledText>
             </div>
             <ButtonContainer>
                 <Button
-                    color={loading ? "gray" : linkID ? "primary" : "gray"}
+                    color={
+                        loading
+                            ? dashboardTheme.colors.gray.dark
+                            : linkID
+                            ? dashboardTheme.colors.primary.regular
+                            : dashboardTheme.colors.gray.dark
+                    }
                     disabled={!linkID}
                     type="button"
                     onClick={copyToClipboard}
@@ -57,7 +66,13 @@ export const InvitePanel: React.FC<Props> = ({ userEmail }) => {
                     Copy invite Link
                 </Button>
                 <Button
-                    color={loading ? "gray" : linkID ? "red" : "primary"}
+                    color={
+                        loading
+                            ? dashboardTheme.colors.gray.dark
+                            : linkID
+                            ? dashboardTheme.colors.red.regular
+                            : dashboardTheme.colors.primary.regular
+                    }
                     onClick={createInvite}
                 >
                     Create new Link
