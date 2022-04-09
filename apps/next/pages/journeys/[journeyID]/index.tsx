@@ -7,15 +7,8 @@ import { useMobile } from "@adpero/hooks";
 import { useJourneys } from "@adpero/contexts";
 import { calculateTotalCost } from "@adpero/functions";
 import { mobileScreenSize } from "@adpero/constants";
-import {
-    Heading,
-    SummaryPanel,
-    PollsPanel,
-    Button,
-    CategoriesPanel,
-} from "@adpero/ui";
-import { dashboardTheme } from "@adpero/themes";
-import Link from "next/link";
+import { Heading, SummaryPanel, PollsPanel, CategoriesPanel } from "@adpero/ui";
+import EditButton from "../../../components/EditButton";
 
 type defaultContextValue = {
     isEditModeEnabled: boolean;
@@ -55,26 +48,10 @@ const JourneyPage: NextPage = () => {
                     <TopContainer>
                         <Heading>{journey.data.name}</Heading>
                         {isMobile ? null : (
-                            <Link href={router.asPath + "/edit"} passHref>
-                                <Button
-                                    color={
-                                        dashboardTheme.colors.primary.regular
-                                    }
-                                >
-                                    Edit
-                                </Button>
-                            </Link>
+                            <EditButton asPath={router.asPath} />
                         )}
                     </TopContainer>
-                    {isMobile ? (
-                        <Link href={router.asPath + "/edit"} passHref>
-                            <Button
-                                color={dashboardTheme.colors.primary.regular}
-                            >
-                                Edit
-                            </Button>
-                        </Link>
-                    ) : null}
+                    {isMobile ? <EditButton asPath={router.asPath} /> : null}
                     <SummaryPanel
                         numberOfUsers={journey.data.users.length}
                         totalCost={{
