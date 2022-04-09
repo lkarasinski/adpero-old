@@ -1,85 +1,62 @@
 import React from "react";
 import styled from "styled-components";
 import { Card, Label } from "@adpero/ui";
-import { useJourneys } from "@adpero/contexts";
-
-type GetButtonColor = (
-    participant: string
-) => "primary" | "yellow" | "green" | "gray";
-
-const getButtonColor: GetButtonColor = (participant) => {
-    switch (participant) {
-        case "Member":
-            return "primary";
-        case "Author":
-            return "yellow";
-        case "Editor":
-            return "green";
-    }
-    return "gray";
-};
+import { useAuth, useJourneys } from "@adpero/contexts";
+import { dashboardTheme } from "@adpero/themes";
+import {
+    getUserRole,
+    kickParticipant,
+    getMemberButtonColor,
+} from "@adpero/functions";
 
 export const ParticipantsPanel: React.FC = () => {
     const { getCurrentJourney, updateJourney } = useJourneys();
+    const { user } = useAuth();
     const journey = getCurrentJourney();
-
-    const kickParticipant = async (participant: string) => {
-        if (journey) {
-            await updateJourney(
-                {
-                    ...journey.data,
-                    users: journey.data.users.filter((user) => {
-                        if (user === journey.data.author) {
-                            return true;
-                        }
-                        return user !== participant;
-                    }),
-                },
-                journey.id
-            );
-        }
-    };
-
-    const getUserRole = (userEmail: string) => {
-        if (journey?.data?.author === userEmail) {
-            return "Author";
-        }
-        if (journey?.data?.editors.includes(userEmail)) {
-            return "Editor";
-        }
-        if (journey?.data?.users.includes(userEmail)) {
-            return "Member";
-        }
-        return "";
-    };
+    const isUserTheAuthor = user?.email === journey?.data.author;
 
     if (!journey) return null;
+
+    const kickParticipantHandler = async (participant: string) => {
+        await kickParticipant({
+            participant,
+            journey,
+            updateJourney,
+            isUserTheAuthor,
+        });
+    };
 
     return (
         <StyledCard>
             <StyledLabel>Participants</StyledLabel>
-
             {journey.data.users.map((participant: string) => (
                 <ParticipantContainer key={participant}>
                     {participant}
                     <ButtonContainer>
                         <SmallButton
-                            color={getButtonColor(getUserRole(participant))}
-                            disabled={getUserRole(participant) === "Author"}
-                        >
-                            {getUserRole(participant)}
-                        </SmallButton>
-                        <SmallButton
-                            color={
-                                getUserRole(participant) === "Author"
-                                    ? "gray"
-                                    : "red"
+                            color={getMemberButtonColor(
+                                getUserRole(journey, participant)
+                            )}
+                            disabled={
+                                getUserRole(journey, participant) === "Author"
                             }
-                            disabled={getUserRole(participant) === "Author"}
-                            onClick={() => kickParticipant(participant)}
                         >
-                            Kick
+                            {getUserRole(journey, participant)}
                         </SmallButton>
+                        {isUserTheAuthor ? (
+                            <SmallButton
+                                color={dashboardTheme.colors.red.regular}
+                                disabled={
+                                    getUserRole(journey, participant) ===
+                                    "Author"
+                                }
+                                onClick={() =>
+                                    kickParticipantHandler(participant)
+                                }
+                            >
+                                Kick
+                            </SmallButton>
+                        ) : null}
                     </ButtonContainer>
                 </ParticipantContainer>
             ))}
@@ -106,7 +83,7 @@ const ParticipantContainer = styled.div`
 `;
 
 type ButtonType = {
-    color?: "red" | "primary" | "gray" | "green" | "yellow";
+    color?: string;
     disabled?: boolean;
 };
 
@@ -124,18 +101,5 @@ const SmallButton = styled.button<ButtonType>`
     font-weight: 900;
     color: white;
     cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-    background-color: ${({ theme, color }) => {
-        switch (color) {
-            case "red":
-                return theme.colors.red;
-            case "primary":
-                return theme.colors.primary;
-            case "gray":
-                return theme.colors.gray.dark;
-            case "green":
-                return theme.colors.green;
-            case "yellow":
-                return theme.colors.yellow;
-        }
-    }};
+    background-color: ${({ color }) => color};
 `;
