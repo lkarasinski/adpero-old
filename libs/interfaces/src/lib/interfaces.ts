@@ -1,3 +1,5 @@
+import { DocumentData, DocumentReference } from "firebase/firestore";
+
 export interface Journey {
     author: string;
     createdAt: Date;
@@ -11,6 +13,12 @@ export interface Journey {
     id: string;
     cost: Cost;
 }
+
+export type JourneyDataType = {
+    id: string;
+    ref: DocumentReference<DocumentData> | null;
+    data: Journey;
+};
 
 export interface Poll {
     title: string;

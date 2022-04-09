@@ -1,16 +1,6 @@
-import { Journey } from "@adpero/interfaces";
+import { Journey, JourneyDataType } from "@adpero/interfaces";
 import { User } from "firebase/auth";
-import type {
-    DocumentData,
-    DocumentReference,
-    Firestore,
-} from "firebase/firestore";
-
-export type JourneyDataType = {
-    id: string;
-    ref: DocumentReference<DocumentData> | null;
-    data: Journey;
-};
+import type { Firestore } from "firebase/firestore";
 
 export type JourneysDataType = JourneyDataType[];
 
