@@ -1,5 +1,5 @@
 import { convertToDate } from "@adpero/functions";
-import { Journey } from "@adpero/interfaces";
+import { Journey, JourneyDataType } from "@adpero/interfaces";
 import { Unsubscribe, User } from "firebase/auth";
 import {
     query,
@@ -8,7 +8,7 @@ import {
     onSnapshot,
     Firestore,
 } from "firebase/firestore";
-import { JourneysDataType, JourneyDataType } from "../types";
+import { JourneysDataType } from "../types";
 
 type GetJourneys = (props: {
     user: User | null;

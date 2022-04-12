@@ -1,7 +1,7 @@
 import { useAuth } from "@adpero/contexts";
 import { useJourneys } from "@adpero/contexts";
 import { Poll, Vote } from "@adpero/interfaces";
-import { JourneyDataType } from "@adpero/contexts";
+import { JourneyDataType } from "@adpero/interfaces";
 
 export const useNotVotedPolls = () => {
     const { journeys } = useJourneys();
