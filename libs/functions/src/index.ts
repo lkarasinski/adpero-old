@@ -9,3 +9,4 @@ export * from "./lib/voteForOption";
 export * from "./lib/getUserRole";
 export * from "./lib/getMemberButtonColor";
 export * from "./lib/kickParticipant";
+export * from "./lib/getEmptyPoll";
