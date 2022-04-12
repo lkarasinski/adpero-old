@@ -1,0 +1,7 @@
+{
+    "explorer.experimental.fileNesting.enabled": true,
+    "explorer.experimental.fileNesting.patterns": {
+        "package.json": ".eslintcache, package-lock.json, .npmrc, yarn.lock, .yarnrc, pnpm-lock.yaml, .editorconfig, .eslintrc.json, .gitignore, .prettierignore, .prettierrc, babel.config.json, jest.config.js, jest.preset.js, nx.json, tsconfig.base.json, workspace.json",
+        "project.json": ".babelrc, .eslintrc.json, jest.config.js, tsconfig.json, index.d.ts, next-env.d.ts, next.config.js, cypress.json"
+    }
+}
