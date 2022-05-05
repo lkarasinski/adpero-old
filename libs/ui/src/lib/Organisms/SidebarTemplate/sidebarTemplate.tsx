@@ -39,7 +39,7 @@ export const SidebarTemplate: React.FC<SidebarTemplateProps> = ({
                             aria-label="Settings"
                         >
                             Settings
-                            <FontAwesomeIcon icon={faCogs} />
+                            <FontAwesomeIcon icon={faCogs} width="16px" />
                         </StyledButton>
                     </Link>
                     <Link href="/new" passHref>
@@ -49,7 +49,7 @@ export const SidebarTemplate: React.FC<SidebarTemplateProps> = ({
                             color={dashboardTheme.colors.primary.regular}
                         >
                             New journey
-                            <FontAwesomeIcon icon={faPlus} />
+                            <FontAwesomeIcon icon={faPlus} width="16px" />
                         </StyledButton>
                     </Link>
                 </BottomContainer>

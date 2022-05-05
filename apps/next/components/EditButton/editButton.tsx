@@ -10,7 +10,7 @@ export const EditButton = ({ asPath }: { asPath: string }) => {
     return (
         <Link href={asPath + "/edit"} passHref>
             <StyledButton color={dashboardTheme.colors.primary.regular}>
-                <FontAwesomeIcon icon={faEdit} />
+                <FontAwesomeIcon width="16px" icon={faEdit} />
                 Edit
             </StyledButton>
         </Link>

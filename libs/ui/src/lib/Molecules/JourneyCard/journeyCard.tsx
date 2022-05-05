@@ -22,7 +22,7 @@ export const JourneyCard: React.FC<JourneyCardProps> = ({
         <Wrapper {...props}>
             <Label>{journey.name}</Label>
             <Text>
-                <FontAwesomeIcon icon={faCalendarDay} />{" "}
+                <FontAwesomeIcon icon={faCalendarDay} width="16px" />{" "}
                 {format(new Date(journey.startDate), "MM/dd/yyyy")} -{" "}
                 {format(new Date(journey.endDate), "MM/dd/yyyy")}
             </Text>

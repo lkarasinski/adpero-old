@@ -30,7 +30,10 @@ export const LogInButton = () => {
             onClick={handleLogin}
         >
             {text}
-            <FontAwesomeIcon icon={isLoggedIn ? faSignInAlt : faSignOutAlt} />
+            <FontAwesomeIcon
+                icon={isLoggedIn ? faSignInAlt : faSignOutAlt}
+                width="16px"
+            />
         </StyledButton>
     );
 };

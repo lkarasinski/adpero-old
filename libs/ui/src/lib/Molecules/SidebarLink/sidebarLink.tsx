@@ -25,7 +25,7 @@ export const SidebarLink = ({
             <Link href={href} passHref>
                 <StyledBigLink isActive={isActive}>
                     <IconContainer isActive={isActive}>
-                        <FontAwesomeIcon icon={icon} />
+                        <FontAwesomeIcon icon={icon} width="16px" />
                     </IconContainer>
                     {text}
                 </StyledBigLink>
