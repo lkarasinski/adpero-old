@@ -8,6 +8,7 @@ import { useAuth } from "@adpero/contexts";
 import { validationSchema } from "./validation";
 import { getEmptyJourney } from "@adpero/functions";
 import { mobileScreenSize } from "@adpero/constants";
+import { format } from "date-fns";
 
 type EditJourneyDataPanelProps = {
     buttonText: string;
@@ -29,15 +30,20 @@ export const EditJourneyDataPanel = ({
     const journeyID = router.query.journeyID as string;
     const journey = getCurrentJourney()?.data;
     const [initialValues, setInitialValues] = React.useState(() => {
-        const emptyJourney = getEmptyJourney(user?.email ?? "local");
-        emptyJourney.startDate = null;
-        emptyJourney.endDate = null;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const emptyJourney = getEmptyJourney(user?.email ?? "local") as any;
+        emptyJourney.startDate = format(new Date(), "yyyy-MM-dd");
+        emptyJourney.endDate = format(new Date(), "yyyy-MM-dd");
         return emptyJourney;
     });
 
     React.useEffect(() => {
         if (journey?.id) {
-            setInitialValues(journey);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const journeyCopy = { ...journey } as any;
+            journeyCopy.startDate = format(journeyCopy.startDate, "yyyy-MM-dd");
+            journeyCopy.endDate = format(journeyCopy.endDate, "yyyy-MM-dd");
+            setInitialValues(journeyCopy);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [!!journey?.id === true]);
