@@ -53,7 +53,7 @@ const StyledBigLink = styled.a<{ isActive: boolean }>`
 
     font-family: ${({ theme }) => theme.font.family};
     font-size: ${({ theme }) => theme.font.size.small};
-    font-weight: ${({ theme }) => theme.font.weight.black};
+    font-weight: ${({ theme }) => theme.font.weight.extraBold};
     color: ${({ theme }) => theme.colors.gray.dark};
 
     cursor: ${({ isActive }) => (isActive ? "auto" : "pointer")};

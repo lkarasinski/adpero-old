@@ -9,7 +9,7 @@ export const Text = styled.p<TextProps>`
     color: ${({ color, theme }) => color ?? theme.colors.gray.dark};
     font-family: ${({ theme }) => theme.font.family};
     font-size: ${({ theme }) => theme.font.size.small};
-    font-weight: ${({ theme }) => theme.font.weight.extraBold};
+    font-weight: ${({ theme }) => theme.font.weight.bold};
     line-break: loose;
 `;
 

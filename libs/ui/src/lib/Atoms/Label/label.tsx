@@ -9,7 +9,7 @@ export const Label = styled.h2<LabelProps>`
     margin: 0;
     font-size: ${({ theme }) => theme.font.size.medium};
     font-family: ${({ theme }) => theme.font.family};
-    font-weight: ${({ theme }) => theme.font.weight.bold};
+    font-weight: ${({ theme }) => theme.font.weight.extraBold};
     color: ${({ color, theme }) => color ?? theme.colors.gray.dark};
     line-break: loose;
 `;

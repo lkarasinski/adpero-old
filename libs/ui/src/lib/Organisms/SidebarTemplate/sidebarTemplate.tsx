@@ -64,6 +64,7 @@ const StyledButton = styled(Button)`
 `;
 
 const StyledHeading = styled(Heading)`
+    font-weight: ${({ theme }) => theme.font.weight.extraBold};
     text-decoration: none;
     cursor: pointer;
 `;
