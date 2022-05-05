@@ -106,7 +106,7 @@ export const Sidebar = ({ isMenuOpen, toggleMenu }: SidebarProps) => {
                 </Container>
                 <Container>
                     <SidebarLink
-                        text="Polls"
+                        text="Categories"
                         currentLink={router.asPath}
                         icon={faMapMarkedAlt}
                         href={`/journeys/${journeyID}/edit/categories`}

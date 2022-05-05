@@ -30,7 +30,7 @@ const Categories: NextPage = () => {
     return (
         <>
             <TopContainer>
-                <Heading>Categories</Heading>
+                <Heading>Categories: {journey.data.name}</Heading>
                 <Button
                     onClick={createNewCategory}
                     type="button"
