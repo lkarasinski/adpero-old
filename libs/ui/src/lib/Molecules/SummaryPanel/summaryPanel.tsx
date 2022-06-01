@@ -49,7 +49,7 @@ export const SummaryPanel: React.FC<SummaryPanelProps> = ({
                     <Text color={dashboardTheme.colors.gray.light}>
                         Day of return:{" "}
                     </Text>
-                    <Text>{format(endDate, "dd/MM/yyyy")}</Text>
+                    <Text>{format(new Date(endDate), "dd/MM/yyyy")}</Text>
                 </DetailContainer>
             </Grid>
         </Wrapper>
