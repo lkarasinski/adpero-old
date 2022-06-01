@@ -9,6 +9,10 @@ Converts total cost of your journey to your currency
 [View more](https://lkarasinski.pl/adpero)
 
 
+## Screenshots
+
+![App Screenshot](https://s3.eu-west-3.amazonaws.com/www.data.lkarasinski.pl/portfolio/adpero.png)
+
 
 ## Tech Stack
 - React
