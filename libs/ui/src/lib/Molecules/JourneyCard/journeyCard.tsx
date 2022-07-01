@@ -4,11 +4,9 @@ import { Label } from "../../Atoms/Label/label";
 import { Text } from "../../Atoms/Text/text";
 import { Card } from "../../Atoms/Card/card";
 import { Journey } from "@adpero/interfaces";
-
-import { faCalendarDay } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { mobileScreenSize } from "@adpero/constants";
+import { CalendarIcon } from "@radix-ui/react-icons";
 
 export interface JourneyCardProps {
     journey: Journey;
@@ -22,7 +20,7 @@ export const JourneyCard: React.FC<JourneyCardProps> = ({
         <Wrapper {...props}>
             <Label>{journey.name}</Label>
             <Text>
-                <FontAwesomeIcon icon={faCalendarDay} width="16px" />{" "}
+                <CalendarIcon />{" "}
                 {format(new Date(journey.startDate), "MM/dd/yyyy")} -{" "}
                 {format(new Date(journey.endDate), "MM/dd/yyyy")}
             </Text>

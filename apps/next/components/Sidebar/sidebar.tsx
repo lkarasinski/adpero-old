@@ -1,13 +1,9 @@
-import {
-    faColumns,
-    faMapMarkedAlt,
-    faPoll,
-} from "@fortawesome/free-solid-svg-icons";
 import { SidebarLink, SidebarTemplate } from "@adpero/ui";
 import { useJourneys } from "@adpero/contexts";
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
+import { DashboardIcon, GlobeIcon, BarChartIcon } from "@radix-ui/react-icons";
 
 export type SidebarLink = {
     label: string;
@@ -32,19 +28,19 @@ export const Sidebar = ({ isMenuOpen, toggleMenu }: SidebarProps) => {
                 <SidebarLink
                     text="Dashboard"
                     currentLink={router.asPath}
-                    icon={faColumns}
+                    Icon={DashboardIcon}
                     href="/"
                 />
                 <SidebarLink
                     text="Journeys"
                     currentLink={router.asPath}
-                    icon={faMapMarkedAlt}
+                    Icon={GlobeIcon}
                     href="/journeys"
                 />
                 <SidebarLink
                     text="Polls"
                     currentLink={router.asPath}
-                    icon={faPoll}
+                    Icon={BarChartIcon}
                     href="/polls"
                 />
             </SidebarTemplate>
@@ -90,7 +86,7 @@ export const Sidebar = ({ isMenuOpen, toggleMenu }: SidebarProps) => {
                     <SidebarLink
                         text="Journey Info"
                         currentLink={router.asPath}
-                        icon={faColumns}
+                        Icon={DashboardIcon}
                         href={`/journeys/${journeyID}/edit`}
                     />
                     <SidebarLink
@@ -108,7 +104,7 @@ export const Sidebar = ({ isMenuOpen, toggleMenu }: SidebarProps) => {
                     <SidebarLink
                         text="Categories"
                         currentLink={router.asPath}
-                        icon={faMapMarkedAlt}
+                        Icon={GlobeIcon}
                         href={`/journeys/${journeyID}/edit/categories`}
                     />
                     {categories.map((link) => (
@@ -124,7 +120,7 @@ export const Sidebar = ({ isMenuOpen, toggleMenu }: SidebarProps) => {
                     <SidebarLink
                         text="Polls"
                         currentLink={router.asPath}
-                        icon={faPoll}
+                        Icon={BarChartIcon}
                         href={`/journeys/${journeyID}/edit/polls`}
                     />
                     {polls.map((link) => (

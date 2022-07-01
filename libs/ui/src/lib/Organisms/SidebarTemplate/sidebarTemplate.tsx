@@ -3,10 +3,9 @@ import styled from "styled-components";
 import Link from "next/link";
 import Button from "../../Atoms/Button/button";
 import Heading from "../../Atoms/Heading/heading";
-import { faCogs, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { dashboardTheme } from "@adpero/themes";
 import { mobileScreenSize } from "@adpero/constants";
+import { Pencil2Icon, GearIcon } from "@radix-ui/react-icons";
 
 export type SidebarTemplateProps = {
     editMode?: boolean;
@@ -39,7 +38,7 @@ export const SidebarTemplate: React.FC<SidebarTemplateProps> = ({
                             aria-label="Settings"
                         >
                             Settings
-                            <FontAwesomeIcon icon={faCogs} width="16px" />
+                            <GearIcon />
                         </StyledButton>
                     </Link>
                     <Link href="/new" passHref>
@@ -49,7 +48,7 @@ export const SidebarTemplate: React.FC<SidebarTemplateProps> = ({
                             color={dashboardTheme.colors.primary.regular}
                         >
                             New journey
-                            <FontAwesomeIcon icon={faPlus} width="16px" />
+                            <Pencil2Icon />
                         </StyledButton>
                     </Link>
                 </BottomContainer>

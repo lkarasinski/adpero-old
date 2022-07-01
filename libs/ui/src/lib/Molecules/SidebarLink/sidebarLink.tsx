@@ -1,31 +1,30 @@
 import * as React from "react";
 import styled from "styled-components";
-import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { Text } from "../../Atoms/Text/text";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DashboardIcon } from "@radix-ui/react-icons";
 
 export interface SidebarLinkProps {
     href: string;
     text: string;
     currentLink: string;
-    icon?: IconDefinition;
+    Icon?: typeof DashboardIcon;
 }
 
 export const SidebarLink = ({
     href,
     text,
     currentLink,
-    icon,
+    Icon,
 }: SidebarLinkProps) => {
     const isActive = currentLink === href;
 
-    if (icon) {
+    if (Icon) {
         return (
             <Link href={href} passHref>
                 <StyledBigLink isActive={isActive}>
                     <IconContainer isActive={isActive}>
-                        <FontAwesomeIcon icon={icon} width="16px" />
+                        <Icon />
                     </IconContainer>
                     {text}
                 </StyledBigLink>

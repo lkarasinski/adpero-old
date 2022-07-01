@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { faSignOutAlt, faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@adpero/ui";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "@adpero/contexts";
 import { dashboardTheme } from "@adpero/themes";
+import { EnterIcon, ExitIcon } from "@radix-ui/react-icons";
 
 export const LogInButton = () => {
     const { user, login, logout } = useAuth();
@@ -30,10 +29,7 @@ export const LogInButton = () => {
             onClick={handleLogin}
         >
             {text}
-            <FontAwesomeIcon
-                icon={isLoggedIn ? faSignInAlt : faSignOutAlt}
-                width="16px"
-            />
+            {isLoggedIn ? <EnterIcon /> : <ExitIcon />}
         </StyledButton>
     );
 };
