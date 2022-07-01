@@ -39,10 +39,7 @@ export const EditJourneyDataPanel = ({
 
     React.useEffect(() => {
         if (journey?.id) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const journeyCopy = { ...journey } as any;
-            journeyCopy.startDate = format(journeyCopy.startDate, "yyyy-MM-dd");
-            journeyCopy.endDate = format(journeyCopy.endDate, "yyyy-MM-dd");
+            const journeyCopy = { ...journey };
             setInitialValues(journeyCopy);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
