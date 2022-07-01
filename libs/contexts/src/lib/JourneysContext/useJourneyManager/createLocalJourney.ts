@@ -11,9 +11,9 @@ export const createLocalJourney: CreateJourney = async ({
         ref: null,
         data: {
             ...data,
-            createdAt: new Date(data.createdAt),
-            startDate: new Date(data.startDate),
-            endDate: new Date(data.endDate),
+            createdAt: data.createdAt,
+            startDate: data.startDate,
+            endDate: data.endDate,
         },
     };
     setLocalJourneys?.((journeys) => [...journeys, journey]);
